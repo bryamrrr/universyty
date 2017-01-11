@@ -55,3 +55,29 @@
     margin: .8em
   }
 }
+
+@media screen and (max-width: 840px) {
+  .request {
+    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), image-url("instructor/request-background.png");
+    background-size: cover;
+    height: auto;
+    padding: 5em 1em;
+    .absolute-container {
+      position: relative;
+      transform: translate(0, 0);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .public-instructor .main-home {
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), image-url("instructor/main-background-responsive.png") no-repeat left top;
+    background-size: cover;
+    margin-top: 88px;
+    height: calc(100vh - 88px);
+  }
+}
