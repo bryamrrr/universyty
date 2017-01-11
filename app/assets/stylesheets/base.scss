@@ -328,7 +328,7 @@ footer {
     font-size: .95em;
     position: absolute;
     top: .7em;
-    right: 1.5em;
+    right: 1em;
 
     .button {
       border: 2px solid $purple;
@@ -338,6 +338,8 @@ footer {
     .link {
       border-right: 1px solid $purple;
       color: $purple;
+      padding-right: .3em;
+      margin-right: .2em;
       &:hover { color: $yellow; }
     }
 

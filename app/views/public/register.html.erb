@@ -19,10 +19,6 @@
         --><%= f.password_field :password, placeholder: 'Contraseña' %>
       </div>
       <div class="form-input">
-        <figure><%= image_tag("inputs/dni.png") %></figure><!--
-        --><%= f.text_field :dni, placeholder: 'DNI Nº' %>
-      </div>
-      <div class="form-input">
         <figure><%= image_tag("inputs/district.png") %></figure><!--
         --><%= f.collection_select(:province, Province.all, :id, :name, :include_blank => true) %>
       </div>

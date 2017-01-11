@@ -23,7 +23,6 @@ module MailchimpWrapper
     merge_vars[:fullname] = user[:fullname]
     merge_vars[:province] = province[:name]
     merge_vars[:email] = user[:email]
-    merge_vars[:dni] = user[:dni]
     merge_vars[:sponsor] = user[:sponsor] unless user[:sponsor].blank?
     merge_vars
 
