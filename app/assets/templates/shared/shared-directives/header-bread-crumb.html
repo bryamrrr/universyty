@@ -1,0 +1,36 @@
+<div class="bread-crumb">
+  <div class="display-table">
+    <div class="display-table-cell align-left">
+      <ol>
+        <li class="bread-crumb-item"><a ui-sref="home"><i class="fa fa-home"></i></a></li>
+        <li ng-if="hasParent" class="bread-crumb-item"><span>{{ parentTitle }}</span></li>
+        <li class="bread-crumb-item"><span>{{ currentTitle }}</span></li>
+      </ol>
+    </div>
+    <div class="display-table-cell align-right">
+      <ul>
+        <li class="menu-header-item" ng-show="$state.includes('reports.history')">
+          <a class="btn button-ico" href="javascript:void(0)" ng-click="details('pending-jobs')">
+            <span class="helper"></span><i class="linearicon-papers display-inline"></i>
+            <i class="counter">{{$parent.jobs.length}}</i>
+          </a>
+        </li>
+        <li class="menu-header-item" ng-show="$state.includes('reports.history') || $state.includes('preferences.reports')">
+          <a class="btn button-ico" href="javascript:void(0)" ng-click="details('reports-metadata')">
+            <span class="helper"></span><i class="icon-info display-inline"></i>
+          </a>
+        </li>
+        <li class="menu-header-item" ng-show="$state.includes('cloud.vm-list')">
+          <a class="btn button-ico" href="javascript:void(0)" ng-click="details('events')">
+            <span class="helper"></span><i class="linearicon-calendar3 display-inline font-1em"></i>
+          </a>
+        </li>
+        <li class="menu-header-item" ng-show="$state.includes('cloud.vm-list')">
+          <a class="btn button-ico" href="javascript:void(0)" ng-click="details('machines')">
+            <span class="helper"></span><i class="icon-info display-inline"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,152 @@
+.form-input {
+  height: 45px;
+  margin-top: 30px;
+  position: relative;
+  &.checkbox { height: 25px; }
+}
+
+.input {
+  border: none;
+  border-bottom: 1px solid $gray-border;
+  color: $gray-dark;
+  display: block;
+  font-size: 15px;
+  font-weight: 300;
+  outline: 0;
+  padding: 10px 0;
+  width: 100%;
+}
+
+// .input:valid~label,
+.input:focus~label {
+  color: $gray-font-light;
+  border-bottom: 0;
+  -webkit-transform: translate3d(0,6px,0) scale(0.86);
+  transform: translate3d(0,6px,0) scale(0.86);
+}
+
+input.input.input-has-value ~ label {
+  border-bottom: 0;
+  -webkit-transform: translate3d(0, 6px, 0) scale(0.86);
+  transform: translate3d(0, 6px, 0) scale(0.86);
+}
+
+.label.basic {
+  color: $gray-dark;
+  display: block;
+  font-size: 0.9em;
+  font-weight: 300;
+  line-height: 1.2em;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: auto;
+  pointer-events: none;
+  -webkit-transform: translate3d(0,28px,0) scale(1);
+  transform: translate3d(0,28px,0) scale(1);
+  transition: -webkit-transform cubic-bezier(.25,.8,.25,1) .25s;
+  transition: transform cubic-bezier(.25,.8,.25,1) .25s;
+  -webkit-transform-origin: left top;
+  transform-origin: left top;
+}
+
+.label { cursor: text; }
+
+.bar {
+  display: block;
+  width: 100%;
+  position: relative;
+  top: 1px;
+  &:before {
+    background: $primary-color;
+    content: '';
+    bottom: 1px;
+    height: 2px;
+    position: absolute;
+    left: 0%;
+    transition: all 0.2s ease;
+    width: 0;
+  }
+}
+
+.input:focus~.bar:before,
+.input:focus~.bar:after { width: 100%; }
+
+.two-cols-form {
+  display: flex;
+}
+
+.two-cols-form > div {
+  flex-grow: 1;
+  &:first-child {
+    margin-right: 2em;
+  }
+}
+
+.show-password {
+  cursor: pointer;
+  position: absolute;
+  right: .5em;
+  top: .8em;
+  transition: color .3s ease;
+  &:hover {
+    color: $medium-gray;
+  }
+}
+
+.select-input {
+  width: 18%;
+  .input { display: none; }
+  .selectize-control { margin-top: 8px; }
+}
+
+/* CHECKBOX */
+.squaredCheck {
+  display: inline-block;
+  position: relative;
+  width: 20px;
+}
+
+.squaredCheck  label {
+  background: $primary-color;
+  border-radius: 2px;
+  cursor: pointer;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 20px;
+}
+
+.squaredCheck label:after {
+  content: '';
+  background: transparent;
+  border: 3px solid $white;
+  border-right: none;
+  border-top: none;
+  height: 7px;
+  left: 4px;
+  opacity: 0;
+  position: absolute;
+  top: 5px;
+  transform: rotate(-45deg);
+  width: 12px;
+}
+
+.squaredCheck label:hover::after { opacity: 0.2; }
+
+input[type=checkbox] { visibility: hidden; }
+
+input[type=checkbox]:checked + label:after { opacity: 1; }
+
+.add-element-priority {
+  display: flex;
+  margin-bottom: 2em;
+  .form-input {
+    padding-right: 2em;
+    &:last-child { padding-right: 0;}
+    &:nth-child(1) { width: 65%; }
+    &:nth-child(2) { width: 10%; }
+    &:nth-child(3) { width: 25%; }
+  }
+}

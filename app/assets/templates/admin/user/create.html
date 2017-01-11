@@ -1,0 +1,81 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <form name="form" ng-submit="create(form, user)" ng-validate="validationOptions" novalidate>
+      <div class="two-cols-form">
+        <div class="form-input">
+          <input class="input" type="text" id="nickname" name="nickname" ng-model="user.nickname" required />
+          <div class="bar"></div>
+          <label class="label basic" for="nickname">Usuario:</label>
+        </div>
+        <div class="form-input">
+          <input class="input" type="text" id="fullname" name="fullname" ng-model="user.fullname" required />
+          <div class="bar"></div>
+          <label class="label basic" for="fullname">Nombres y Apellidos:</label>
+        </div>
+      </div>
+      <div class="two-cols-form">
+        <div class="form-input">
+          <input class="input" type="email" id="email" name="email" ng-model="user.email" required />
+          <div class="bar"></div>
+          <label class="label basic" for="email">Email:</label>
+        </div>
+        <div class="form-input">
+          <input class="input" type="text" id="phone" name="phone" ng-model="user.phone" />
+          <div class="bar"></div>
+          <label class="label basic" for="phone">Celular:</label>
+        </div>
+      </div>
+      <div class="two-cols-form">
+        <div class="form-input">
+          <input class="input" type="text" id="type" name="type" disabled required />
+          <div class="bar"></div>
+          <label class="label basic" for="type">DNI</label>
+        </div>
+        <div class="form-input">
+          <input class="input" type="text" id="dni" name="dni" ng-model="user.dni" />
+          <div class="bar"></div>
+          <label class="label basic" for="dni">Número de documento:</label>
+        </div>
+      </div>
+      <div class="two-cols-form">
+        <div class="form-input">
+          <input class="input" type="text" id="address" name="address" ng-model="user.address" />
+          <div class="bar"></div>
+          <label class="label basic" for="address">Dirección:</label>
+        </div>
+        <div class="form-input select-input">
+          <selectize placeholder='Selecciona un valor' config='provinceConfig' options='provinces' ng-model="user.province_id" id="province"></selectize>
+          <input class="input" type="text" id="province" name="province" />
+          <div class="bar"></div>
+          <label class="label basic" for="province">Provincia:</label>
+        </div>
+      </div>
+      <div class="two-cols-form">
+        <div class="form-input select-input">
+          <selectize placeholder='Selecciona un valor' config='genderConfig' options='genders' ng-model="user.gender" id="gender"></selectize>
+          <input class="input" type="text" id="gender" name="gender" />
+          <div class="bar"></div>
+          <label class="label basic" for="gender">Sexo:</label>
+        </div>
+      </div>
+      <div class="two-cols-form">
+        <div class="form-input">
+          <input class="input" type="text" id="password" name="password" ng-model="user.password" required />
+          <div class="bar"></div>
+          <label class="label basic" for="password">Contraseña:</label>
+        </div>
+        <div class="form-input">
+          <button type="button" ng-click="generate()">Generar contraseña</button>
+        </div>
+      </div>
+      <div class="form-input">
+        <button type="submit" ng-disabled="form.$invalid || isLoading">
+          GUARDAR CAMBIOS
+          <div class="loader-wrapper" ng-show="isLoading">
+            <div class="loader-circles" id="loader">Loading...</div>
+          </div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

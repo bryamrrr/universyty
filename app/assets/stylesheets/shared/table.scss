@@ -1,0 +1,102 @@
+.table-content { overflow: auto; }
+
+.table {
+  border-collapse: collapse;
+  text-align: center;
+  width: 100%;
+}
+
+.table th {
+  font-size: .8em;
+  font-weight: 700;
+  padding: 15px;
+  text-transform: uppercase;
+}
+
+.table td { padding: 15px; }
+
+
+// TABLE WITH BACKGROUND-COLOR
+// ----------------------------------
+
+.td-bg thead {
+  background-color: $line-color;
+}
+
+.td-bg tbody tr:nth-child(2n) { background-color: lighten($gray-lighten, 1%); }
+
+
+// TABLE BORDER LINE
+// ----------------------------------
+
+.td-line th,
+.td-line tr {
+  border-bottom: 1px solid $gray-light;
+}
+
+.td-line tbody tr:hover { background-color: $gray-lighten; }
+
+.td-line tr:last-child { border: none; }
+
+.btns-inline .btn {
+  display: inline-block;
+  margin: 0 3px;
+}
+
+.btns-inline .btn:first-child { margin-left: 0; }
+
+.btns-inline .btn:last-child { margin-right: 0; }
+
+
+// DATE TABLE
+// ----------------------------------
+
+.search {
+  border: 1px solid $gray-border;
+  margin-bottom: 30px;
+  vertical-align: top;
+  i.icon-search {
+    border: 0;
+    color: $black;
+    display: table-cell;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1;
+    min-width: 42px;
+    padding: 10px 10px 0;
+    text-align: center;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 1%;
+  }
+}
+
+.input-group {
+  border-collapse: separate;
+  display: table;
+  position: relative;
+  width: 100%;
+}
+
+.search-field {
+  border: 0;
+  font: inherit;
+  display: table-cell;
+  float: left;
+  height: 39px;
+  padding: 0 0 0 15px;
+  position: relative;
+  width: 100%;
+}
+
+tr.new {
+  background-color: lighten($success, 36) !important;
+  &:hover,
+  &.active {
+    background-color: lighten($success, 31) !important;
+  }
+  span {
+    vertical-align: top;
+    &.label { margin-left: 1em; }
+  }
+}

@@ -1,0 +1,98 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <form name="form" ng-submit="createCourse(form, course)" ng-validate="validationOptions" novalidate>
+      <div class="form-input">
+        <input class="input" type="text" id="title" name="title" ng-model="course.title" required />
+        <div class="bar"></div>
+        <label class="label basic" for="title">Nombre del curso</label>
+      </div>
+      <div class="form-input select-input">
+        <selectize placeholder='Selecciona una categoría' config='categoryConfig' options='categories' ng-model="course.category_id" id="category"></selectize>
+        <input class="input" type="text" id="category" name="category" />
+        <div class="bar"></div>
+        <label class="label basic" for="category">Categoría:</label>
+      </div>
+      <div class="form-input">
+        <input class="input" type="text" id="description" name="description" ng-model="course.description" required />
+        <div class="bar"></div>
+        <label class="label basic" for="description">Descripción</label>
+      </div>
+      <div class="form-input">
+        <input class="input" type="text" id="goal" name="goal" ng-model="course.goal" required />
+        <div class="bar"></div>
+        <label class="label basic" for="goal">Objetivo</label>
+      </div>
+      <div class="form-input">
+        <input class="input" type="text" id="certificate" name="certificate" ng-model="course.certificate_info" required />
+        <div class="bar"></div>
+        <label class="label basic" for="certificate">Certificado</label>
+      </div>
+      <div class="two-cols-form">
+        <div class="form-input">
+          <input class="input" type="text" id="level" name="level" ng-model="course.level" required />
+          <div class="bar"></div>
+          <label class="label basic" for="level">Nivel</label>
+        </div>
+        <div class="form-input">
+          <input class="input" type="text" id="classes" name="classes" ng-model="course.classes" required />
+          <div class="bar"></div>
+          <label class="label basic" for="classes">Nº de Clases</label>
+        </div>
+      </div>
+      <div class="form-input checkbox">
+        <div class="squaredCheck">
+          <input type="checkbox" value="None" id="starred" name="starred" ng-model="course.starred" />
+          <label for="starred"></label>
+        </div>
+        <span>Curso destacado (Aparece en el home)</span>
+      </div>
+      <div class="form-input checkbox">
+        <div class="squaredCheck">
+          <input type="checkbox" value="None" id="free" name="free" ng-model="course.free" />
+          <label for="free"></label>
+        </div>
+        <span>Curso Gratuito</span>
+      </div>
+      <div class="two-cols-form">
+        <div class="form-input">
+          <input class="input" type="text" id="pricetag" name="pricetag" ng-model="course.pricetag" required />
+          <div class="bar"></div>
+          <label class="label basic" for="pricetag">Costo</label>
+        </div>
+        <div class="form-input">
+          <input class="input" type="text" id="discount" name="discount" ng-model="course.discount" />
+          <div class="bar"></div>
+          <label class="label basic" for="discount">Descuento</label>
+        </div>
+      </div>
+      <div class="form-input">
+        <input class="input" type="text" id="duration" name="duration" ng-model="course.duration" required />
+        <div class="bar"></div>
+        <label class="label basic" for="duration">Duración</label>
+      </div>
+      <div class="form-input">
+        <input class="input" type="text" id="background" name="background" ng-model="course.background_url" required />
+        <div class="bar"></div>
+        <label class="label basic" for="background">Imagen de Fondo</label>
+      </div>
+      <div class="form-input">
+        <input class="input" type="text" id="trailer" name="trailer" ng-model="course.video_url" required />
+        <div class="bar"></div>
+        <label class="label basic" for="trailer">Trailer</label>
+      </div>
+      <div class="form-input">
+        <input class="input" type="text" id="priority" name="priority" ng-model="course.priority" />
+        <div class="bar"></div>
+        <label class="label basic" for="priority">Prioridad</label>
+      </div>
+      <div class="form-input">
+        <button type="submit" ng-disabled="form.$invalid || isLoading">
+          CREAR CURSO
+          <div class="loader-wrapper" ng-show="isLoading">
+            <div class="loader-circles" id="loader">Loading...</div>
+          </div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

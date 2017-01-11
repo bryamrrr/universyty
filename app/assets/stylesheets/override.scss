@@ -1,0 +1,24 @@
+.selectize-control {
+  border-left: 2px solid $medium-gray;
+  display: inline-block;
+  height: 45px;
+  width: calc(100% - 53px);
+  vertical-align: top;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.selectize-control input {
+  height: 26px !important;
+}
+
+.selectize-input {
+  height: 45px !important;
+  .item {
+    line-height: 28px;
+  }
+}
+
+.selectize-input {
+  background-color: transparent !important;
+}

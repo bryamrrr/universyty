@@ -1,0 +1,58 @@
+// BREADCRUMB
+// ----------------------------------
+
+header-bread-crumb {
+  display: block;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 69px;
+}
+
+.bread-crumb {
+  background-color: $white;
+  border-bottom: 1px solid $gray-light;
+  height: 38px;
+  padding: 0 20px;
+
+  ul,
+  ol {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .btn { font-size: 1.5em; }
+
+  .bread-crumb-item {
+    display: inline-block;
+    font-size: .86em;
+    padding-left: 10px;
+
+    a { font-size: 1.25em; }
+
+    &::after {
+      color: $line-color;
+      content: "/";
+    }
+
+    &:last-child span {
+      color: $black;
+      font-weight: 700;
+    }
+
+    &:last-child::after { content: ""; }
+
+    a:hover { color: $primary-color; }
+
+    span, a { padding-right: 15px; }
+
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .toolbar,
+  header-bread-crumb {
+    left: 220px;
+    right: 0;
+  }
+}

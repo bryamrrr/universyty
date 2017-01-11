@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WitWebapp</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body class="<%= content_for :body_class %>">
+    <header>
+      <div class="logo">
+        <a href="/">
+          <%= image_tag("logo-white.png", class: "logo-white") %>
+          <%= image_tag("logo-purple.png", class: "logo-purple") %>
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li class="<%= is_active('courses', 'index') %>"><%= link_to "Cursos", "/cursos" %></li>
+          <li class="<%= is_active('public', 'instructor') %>"><%= link_to "¡Conviértete en Instructor!", "/instructores" %></li>
+          <li class="<%= is_active('public', 'money') %>"><%= link_to "¡Gana dinero!", "/embajadores" %></li>
+          <li class="<%= is_active('public', 'certificates') %> hide-in-mobile"><%= link_to "Verificar certificado", "/certificados" %></li>
+        </ul>
+      </nav>
+      <div class="login-box">
+        <%= link_to "Campus virtual", "/login", class: "link" %>
+        <%= link_to "¡Regístrate!", "/registro", class: "button button-alternative"%>
+      </div>
+    </header>
+
+    <%= yield %>
+
+    <footer>
+      <div class="normal-container flex-container">
+        <div class="footer-links">
+          <h5>Universyty</h5>
+          <ul>
+            <li><%= link_to "Cursos", "/cursos" %></li>
+            <li><%= link_to "¡Conviértete en Instructor!", "/instructores" %></li>
+            <li><%= link_to "¡Gana dinero!", "/embajadores" %></li>
+            <li><%= link_to "Verificar certificado", "/certificados" %></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h5>Legalidad</h5>
+          <ul>
+            <li><%= link_to "Preguntas frecuentes", "/faq" %></li>
+            <li><%= link_to "Acuerdo con los instructores", "/acuerdo-instructores" %></li>
+            <li><%= link_to "Términos y Condiciones", "/terminos-condiciones" %></li>
+            <li><%= link_to "Política y privacidad", "/politica-privacidad" %></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h5>Contáctanos</h5>
+          <ul>
+            <li>info@universyty.com</li>
+            <li><i></i> +51 987654321</li>
+            <li>+51 01 123456</li>
+          </ul>
+        </div>
+        <div class="footer-links center">
+          <h5>Síguenos</h5>
+          <div class="social-links">
+            <a href="#">
+            <span class="fa-stack fa-lg facebook">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+            </span>
+            </a>
+            <a href="#">
+            <span class="fa-stack fa-lg twitter">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+            </span>
+            </a>
+            <a href="#">
+            <span class="fa-stack fa-lg youtube">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-youtube fa-stack-1x fa-inverse"></i>
+            </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <div class="copyright">
+      Copyright © 2017 Universyty S.A.C.
+    </div>
+  </body>
+</html>

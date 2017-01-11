@@ -1,0 +1,187 @@
+/* MAIN SECTION */
+
+.main-title {
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  .title {
+    margin-bottom: 2.5em;
+  }
+}
+
+.main-home {
+  color: white;
+  h2 {
+    font-size: 4em;
+    margin-bottom: .2em;
+  }
+  #typed, .typed-cursor {
+    @extend h2;
+    font-weight: bold;
+  }
+
+  .overlay {
+    background-color: rgba($purple, 0.7);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+  }
+  .video-wrapper {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .video-playing {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+  .responsive-background { display: none; }
+}
+
+.courses, .why {
+  background:  -webkit-radial-gradient(circle, white, $light-gray);
+}
+
+
+/* MISSION */
+.mission {
+  background-image: image-url("mission.png");
+  background-size: cover;
+  padding: 6em 0;
+  text-align: center;
+  p {
+    color: white;
+    font-size: 1.8em;
+    margin: 0 auto;
+    max-width: 550px;
+  }
+}
+
+
+/* WHY */
+.why {
+  padding: 3em;
+  text-align: center;
+
+  h3 {
+    margin-bottom: 2em;
+  }
+}
+
+.reason {
+  margin-right: 8%;
+  margin-bottom: 2em;
+  flex-basis: 28%;
+  &:nth-child(3n) { margin-right: 0; }
+
+  img { height: 100px; }
+}
+
+
+/* MOTIVATION */
+.motivation {
+  background-color: $light-blue;
+  background-image: image-url("motivation.png");
+  background-size: 80% auto;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  padding: 5em 0 27em;
+  text-align: center;
+  p {
+    color: white;
+    font-size: 1.8em;
+    margin: 0 auto 1em;
+    max-width: 500px;
+  }
+  strong {
+    font-size: 1.2em;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .motivation { padding-bottom: 22em; }
+}
+
+
+@media screen and (max-width: 800px) {
+  .motivation { background-size: 100% auto; }
+
+  .main-home {
+    height: 100vh;
+    h2 { font-size: 2.5em; }
+    .video-wrapper { display: none; }
+    .responsive-background {
+      display: block;
+      width: 100%;
+      height: 100vh;
+      position: absolute;
+      bottom: 0;
+      z-index: 0;
+      object-fit: cover;
+    }
+  }
+
+  .courses .course, .reason {
+    flex-basis: 47%;
+    margin-right: 6%;
+    &:nth-child(3n) { margin-right: 6%; }
+    &:nth-child(2n) { margin-right: 0; }
+  }
+
+}
+
+@media screen and (max-width: 480px) {
+  .main-home {
+    h2 { font-size: 2em; }
+    .title { margin-top: 5em; }
+  }
+  .courses .course, .reason {
+    flex-basis: 100%;
+    margin-right: 0;
+    &:nth-child(3n) { margin-right: 0; }
+  }
+  .motivation { padding-bottom: 12em; }
+}
+
+@media screen and (max-width: 430px) {
+  .main-home .responsive-background { height: calc(100% - 88px); }
+}
+
+@media screen and (max-height: 375px) {
+  .main-home, .overlay {
+    height: 500px;
+  }
+
+  .main-home .responsive-background {
+    height: 500px;
+    position: static;
+  }
+
+  .main-title {
+    left: 0;
+    top: 0;
+    margin-top: 100px;
+    transform: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

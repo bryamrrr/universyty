@@ -1,0 +1,148 @@
+<div id="wrapper" class="aside-fixed header-fixed"
+      ng-controller="DashboardController"  >
+  <aside id="aside" class="navbar vertical-top"  >
+    <nav nav-scroll>
+      <div class="nav-header">
+        <a class="nav-coverphoto" ui-sref="user.datos"></a>
+        <div class="profile-element text-align-left">
+          <a ui-sref="user.datos" class="display-inline" >
+            <span class="sub-title">
+              {{ nickname }}
+            </span>
+          </a>
+        </div>
+      </div>
+      <ul class="nav" id="side-menu" nav-collapse>
+        <li data-ng-class="{open: $state.includes('courses')}">
+          <a href="">
+            <span class="inner">
+              <ng-md-icon class="fa fa-star icono"></ng-md-icon>
+              <span class="nav-label">Cursos</span>
+              <ng-md-icon class="fa fa-chevron-right arrow"></ng-md-icon>
+            </span>
+          </a>
+          <ul class="nav nav-second-level">
+            <li><a
+            ui-sref="courses.create"
+            ui-sref-active="active"
+            >Crear</a></li>
+            <li><a
+            ui-sref="courses.list"
+            ui-sref-active="active"
+            >Lista</a></li>
+            <li><a
+            ui-sref="courses.categories"
+            ui-sref-active="active"
+            >Categorías</a></li>
+          </ul>
+        </li>
+        <li
+        data-ng-class="{open: $state.includes('user')}">
+          <a href="">
+            <span class="inner">
+              <ng-md-icon class="fa fa-user icono"></ng-md-icon>
+              <span class="nav-label">Usuarios</span>
+              <ng-md-icon class="fa fa-chevron-right arrow"></ng-md-icon>
+            </span>
+          </a>
+          <ul class="nav nav-second-level ">
+            <li>
+              <a
+              ui-sref="user.list"
+              ui-sref-active="active">
+              Lista</a>
+            </li>
+            <li>
+              <a
+              ui-sref="user.create"
+              ui-sref-active="active">
+              Crear</a>
+            </li>
+            <li>
+              <a
+              ui-sref="user.data"
+              ui-sref-active="active">
+              Mis datos</a>
+            </li>
+          </ul>
+        </li>
+        <li
+        data-ng-class="{open: $state.includes('ambassador')}">
+          <a href="">
+            <span class="inner">
+              <ng-md-icon class="fa fa-suitcase icono"></ng-md-icon>
+              <span class="nav-label">Embajador</span>
+              <ng-md-icon class="fa fa-chevron-right arrow"></ng-md-icon>
+            </span>
+          </a>
+          <ul class="nav nav-second-level ">
+            <li>
+              <a
+              ui-sref="ambassador.plan"
+              ui-sref-active="active">
+              Plan Embajador</a>
+            </li>
+            <li>
+              <a
+              ui-sref="ambassador.list"
+              ui-sref-active="active">
+              Embajadores</a>
+            </li>
+            <li>
+              <a
+              ui-sref="ambassador.preferencial"
+              ui-sref-active="active">
+              Clientes Preferenciales</a>
+            </li>
+            <li>
+              <a
+              ui-sref="ambassador.financial"
+              ui-sref-active="active">
+              Estado Financiero</a>
+            </li>
+            <li>
+              <a
+              ui-sref="ambassador.billing"
+              ui-sref-active="active">
+              Facturación</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <header class="header" id="header-admin">
+    <div class="display-table">
+      <div class="display-table-cell height_100 text-align-left">
+        <div class="display-inline wrapper-logo">
+          <div class="display-inline">
+            <a ui-sref="user.datos" title="ImpactBTL" class="logo">
+              <img src="/logo-purple.png" width="150" alt="Wit U" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="aside-menu">
+        <a href="#" id="shopping-cart"><i class="fa fa-shopping-cart"></i></a>
+        <a href="#" id="team-list"><i class="fa fa-graduation-cap"></i></a>
+        <a href="#" id="settings"><i class="fa fa-cog"></i></a>
+        <div class="dropdown" ng-controller="LogoutController">
+          <div class="listview">
+            <div class="listview-header">
+              <a href="#" ng-click="logout()">Cerrar Sesión</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <header-bread-crumb>
+  </header-bread-crumb>
+  <main class="content-view animate-fade-left" id="contenido">
+    <div class="loading-content loading-content-js">
+      <img src="/loading-content.svg" alt="" />
+    </div>
+    <div ui-view="content" class="wrapper-content"></div>
+  </main>
+</div>

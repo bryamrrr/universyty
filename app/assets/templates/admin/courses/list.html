@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <h2>Lista de cursos</h2>
+    <table class="table td-bg">
+      <thead>
+        <tr>
+          <th class="thin-column">Nombre</th>
+          <th class="text-left">Categoría</th>
+          <th class="text-left">Estado</th>
+          <th colspan="4">Administrar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="course in courses">
+          <td class="text-left">{{ course.title }}</td>
+          <td class="text-left">{{ course.category.name }}</td>
+          <td class="text-left">
+            <span ng-if="course.published">Publicado</span>
+            <span ng-if="!course.published">No Publicado</span>
+          </td>
+          <td class="no-padding">
+            <a href="javascript:void(0)" ng-click="coursePublish(course.id, $event)" class="btn button-ico">
+              <span class="helper"></span><i class="fa fa-exchange display-inline font-1-3em"></i>
+            </a>
+          </td>
+          <td class="no-padding">
+            <a ui-sref="courses.edit({id: course.id})" class="btn button-ico">
+              <span class="helper"></span><i class="fa fa-edit display-inline font-1-3em"></i>
+            </a>
+          </td>
+          <td class="no-padding">
+            <a ui-sref="courses.modules({id: course.id})" class="btn button-ico">
+              <span class="helper"></span><i class="fa fa-list-ol display-inline font-1-3em"></i>
+            </a>
+          </td>
+          <td class=" no-padding">
+            <a href="javascript:void(0)" ng-click="courseDelete(course.id, $event)" class="btn button-ico">
+              <span class="helper"></span><i class="fa fa-times display-inline font-1em"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

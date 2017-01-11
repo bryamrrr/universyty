@@ -1,0 +1,91 @@
+<% content_for :body_class, 'courses-show' %>
+<section class="main-course">
+  <div class="main-info">
+    <h1><%= @course.title %></h1><!--
+    --><div class="sales">
+      <p>Puedes acceder a este curso con tarjeta (crédito o débito) y depósito (agente BCP)</p>
+      <button>¡Quiero este curso!</button>
+    </div>
+  </div>
+
+  <div class="video-info">
+    <div class="video-wrapper">
+      <%= video_tag "video.mp4", :controls => true, :class => 'video-playing autoplay' %>
+    </div><!--
+    --><div class="side-info">
+      <h4>Información</h4>
+      <ul>
+        <li>
+          <i class="fa fa-play-circle-o"></i>
+          <span><%= @course.classes %> clases</span>
+        </li>
+        <li>
+          <i class="fa fa-clock-o"></i>
+          <span><%= @course.duration %></span>
+        </li>
+        <li>
+          <i class="fa fa-circle"></i>
+          <span>Nivel: <%= @course.level %></span>
+        </li>
+        <li>
+          <i class="fa fa-download"></i>
+          <span>0 archivos adjuntos</span>
+        </li>
+        <li>
+          <span class="tiny-text">Publicado el <%= @course.created_at.to_time.strftime("%m/%d/%Y") %></span>
+        </li>
+      </ul>
+      <h4>Profesor</h4>
+      <%= image_tag("logo-white.png") %><h5>Nombre Completo</h5>
+      <p>Breve descripción de la trayectoria profesional del profesor, sobre todo tu desempeño actual</p>
+    </div>
+  </div>
+</section>
+
+<section class="info-course">
+  <div class="info-course-container">
+  <h3>Sobre el curso:</h3>
+
+  <div class="info-section">
+    <h5>Descripción del curso</h5>
+    <p><%= @course.description %></p>
+  </div>
+
+  <div class="info-section">
+    <h5>¿Qué vas a lograr con este curso?</h5>
+    <p><%= @course.goal %></p>
+  </div>
+
+  <div class="info-section">
+
+    <h5>Programa del curso</h5>
+
+    <% @course.parts.order(number: :asc).each do |part| %>
+    <h6>MÓDULO <%= part.number %>: <%= part.title %></h6>
+    <ul>
+      <% part.topics.order(number: :asc).each do |topic| %>
+      <li>
+        <i class="fa fa-lock"></i>
+        <span><%= part.title %></span>
+        <em>05min</em>
+      </li>
+      <% end %>
+    </ul>
+    <% end %>
+  </div>
+
+  <div class="info-section">
+    <h5>Certificado</h5>
+    <p><%= @course.certificate_info %></p>
+  </div>
+
+  <div class="info-section">
+    <h3>Sobre el profesor:</h3>
+    <%= image_tag("logo-white.png") %>
+    <div class="professor-info">
+      <h5>Nombres y Apellidos</h5>
+      <p>Breve descripción de la trayectoria profesional del profesor, sobre todo tu desempeño actual</p>
+    </div>
+  </div>
+  </div>
+</section>

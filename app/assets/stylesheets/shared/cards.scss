@@ -1,0 +1,37 @@
+.card {
+  background-color: white;
+}
+
+.card-padding {
+  padding: 2em 1em;
+}
+
+.header-background {
+  background-image: url('/card-background.jpg');
+  background-size: cover;
+  background-position: center center;
+  padding: 3em 2em;
+}
+
+.avatar {
+  background-color: $purple;
+  border: 2px solid white;
+  padding: 1em 1.5em .5em;
+  width: 100px;
+
+  img {
+    width: 100%;
+  }
+}
+
+.card-with-image {
+  h2 {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 1.8em;
+    font-weight: bold;
+  }
+  figure {
+    display: inline-block;
+  }
+}

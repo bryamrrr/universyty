@@ -1,0 +1,41 @@
+<div class="courses">
+  <h2>{{category.name}}</h2>
+
+  <div class="flex-container">
+
+    <article class="course" ng-repeat="course in courses">
+      <a href="#">
+        <div class="professor-hover">
+          <div class="professor-hover-content">
+            <figure>
+              <img src="professor.jpg" alt="" />
+            </figure>
+            <h5>Nombre del profesor</h5>
+            <p class="tagline">Profesor de la UPC</p>
+          </div>
+        </div>
+        <div class="course-image">
+          <img ng-src="course.background_url" alt="" />
+        </div>
+        <div class="course-title">
+          <h4>{{ course.title }}</h4>
+        </div>
+        <div class="course-details">
+          <div class="course-time">
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+            <span>{{ course.duration }}</span>
+          </div>
+          <div class="course-price">
+            <span ng-if="course.free">Gratis</span>
+            <span ng-if="!course.free">S/. {{ course.pricetag }}</span>
+          </div>
+          <div class="course-discount">
+            <span ng-if="(course.discount != 0) && course.discount">S/. {{ course.discount }}</span>
+          </div>
+        </div>
+      </a>
+    </article>
+
+  </div>
+
+</div>

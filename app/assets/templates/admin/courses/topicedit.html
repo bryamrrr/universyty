@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <form name="form" ng-submit="update(form, topic)" ng-validate="validationOptions" novalidate>
+      <div class="form-input">
+        <input class="input" type="text" id="title" name="title" ng-model="topic.title" required />
+        <div class="bar"></div>
+        <label class="label basic" for="title">Título:</label>
+      </div>
+      <div class="add-element-priority">
+        <div class="form-input">
+          <input class="input" type="text" id="video" name="video" ng-model="topic.video_url" required />
+          <div class="bar"></div>
+          <label class="label basic" for="video">Video:</label>
+        </div>
+        <div class="form-input">
+          <input class="input" type="text" id="number" name="number" ng-model="topic.number" required />
+          <div class="bar"></div>
+          <label class="label basic" for="number">Número:</label>
+        </div>
+        <div class="form-input">
+          <button type="submit" ng-disabled="form.$invalid || isLoading">
+            Actualizar Tema
+            <div class="loader-wrapper" ng-show="isLoading">
+              <div class="loader-circles" id="loader">Loading...</div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

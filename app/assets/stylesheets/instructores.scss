@@ -1,0 +1,57 @@
+.public-instructor {
+  .main-home {
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), image-url("instructor/main-background.png") no-repeat center top;
+    background-size: cover;
+    height: 100vh;
+  }
+
+  .steps  {
+    background: -webkit-radial-gradient(circle, white, #f8f8f8);
+    .tagline { max-width: 600px; }
+    .step {
+      flex-basis: 32%;
+      margin-right: 2%;
+      img {
+        height: 130px;
+        width: auto;
+      }
+      &:last-child { margin-right: 0; }
+    }
+  }
+}
+
+.instructor-advantages {
+  background-color: $turquose;
+  padding: 4em 1em;
+  text-align: center;
+}
+
+.request {
+  background-image: image-url("instructor/request-background.png");
+  background-size: cover;
+  color: $purple;
+  height: 100vh;
+  padding: 1em;
+  position: relative;
+  text-align: center;
+  .absolute-container {
+    top: 50%;
+    left: 50%;
+    transform: translate(-15%, -60%);
+  }
+  p {
+    font-size: 1.8em;
+    line-height: 1;
+    margin-bottom: 0;
+  }
+  strong {
+    font-size: 1.4em;
+  }
+  h2 {
+    margin-top: 0;
+  }
+  span {
+    display: block;
+    margin: .8em
+  }
+}

@@ -1,0 +1,33 @@
+.md-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.full-container {
+  padding-left: 2em !important;
+  padding-right: 2em !important;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.normal-container {
+  max-width: 990px;
+  margin: 0 auto;
+}
+
+.two-column-create {
+  display: flex;
+  margin-bottom: 2em;
+  .form-input {
+    flex-grow: 1;
+    margin-right: 2em;
+    &:last-child { margin-right: 0; }
+  }
+}
+
+.absolute-container { position: absolute; }

@@ -1,0 +1,20 @@
+<section class="main-login">
+  <div class="outer-container">
+  <div class="form-container">
+    <h3>CAMPUS VIRTUAL</h3>
+    <form id="login-form">
+      <div class="form-input">
+        <figure><%= image_tag("inputs/user.png") %></figure><!--
+        --><input id="nickname" name="nickname" type="text" placeholder="Usuario" />
+      </div>
+      <div class="form-input">
+        <figure><%= image_tag("inputs/password.png") %></figure><!--
+        --><input id="password" name="password" type="password" placeholder="Contraseña" />
+      </div>
+      <a href="#" class="forgot-password">¿Has olvidado tu usuario o contraseña?</a>
+      <button type="button" id="login-button" disabled="disabled">Ingresar</button>
+    </form>
+    <p class="new-user">¿No tienes una cuenta? <%= link_to "¡REGÍSTRATE!", "/registro" %></p>
+  </div>
+  </div>
+</section>

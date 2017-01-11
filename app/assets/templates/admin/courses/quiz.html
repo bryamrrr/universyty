@@ -1,0 +1,41 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <h2>Cuestionario del Módulo {{module.number}}: {{module.title}} - {{course.title}}</h2>
+
+    <div class="form-input">
+      <button type="button" ng-click="addQuestion()">Agregar pregunta</button>
+    </div>
+
+    <div ng-repeat="question in quiz.questions">
+      <div class="two-cols-form">
+        <div class="form-input">
+          <input class="input" type="text" id="content" name="content" ng-model="question.content" required />
+          <div class="bar"></div>
+          <label class="label basic" for="content">Pregunta {{$index + 1}}:</label>
+        </div>
+        <div class="form-input">
+          <input class="input" type="number" id="number" name="number" ng-model="question.number_answers" required />
+          <div class="bar"></div>
+          <label class="label basic" for="number">Cantidad de respuestas:</label>
+        </div>
+      </div>
+      <div class="form-input">
+        <button type="button" ng-click="addAlternative(question)">Agregar Alternativa</button>
+      </div>
+      <div class="two-cols-form" ng-repeat="alternative in question.alternatives">
+        <div class="form-input">
+          <input class="input" type="text" id="alternative-{{$index}}" name="alternative-{{$index}}" ng-model="question.alternatives[$index].content" required />
+          <div class="bar"></div>
+          <label class="label basic" for="alternative-{{$index}}">Alternativa {{$index + 1}}:</label>
+        </div>
+        <div class="form-input checkbox">
+          <div class="squaredCheck">
+            <input type="checkbox" value="None" id="correct" name="correct" ng-model="question.alternatives[$index].correct_answer" />
+            <label for="correct"></label>
+          </div>
+          <span>Alternativa correcta</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

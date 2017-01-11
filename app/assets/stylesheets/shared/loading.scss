@@ -1,0 +1,87 @@
+.loader-wrapper {
+  @extend .card;
+  box-shadow: none;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.loader-circles,
+.loader-points {
+  display: none;
+  transition: all .2s ease;
+}
+
+//loader-circles
+.loader-circles {
+  display: block;
+  font-size: 4px;
+  // margin: 45% auto;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-animation: load4 1.3s infinite linear;
+  animation: load4 1.3s infinite linear;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@-webkit-keyframes load4 {
+  0%,
+  100% {
+    box-shadow: 0em -3em 0em 0.2em $primary-color, 2em -2em 0 0em $primary-color, 3em 0em 0 -0.5em $primary-color, 2em 2em 0 -0.5em $primary-color, 0em 3em 0 -0.5em $primary-color, -2em 2em 0 -0.5em $primary-color, -3em 0em 0 -0.5em $primary-color, -2em -2em 0 0em $primary-color;
+  }
+  12.5% {
+    box-shadow: 0em -3em 0em 0em $primary-color, 2em -2em 0 0.2em $primary-color, 3em 0em 0 0em $primary-color, 2em 2em 0 -0.5em $primary-color, 0em 3em 0 -0.5em $primary-color, -2em 2em 0 -0.5em $primary-color, -3em 0em 0 -0.5em $primary-color, -2em -2em 0 -0.5em $primary-color;
+  }
+  25% {
+    box-shadow: 0em -3em 0em -0.5em $primary-color, 2em -2em 0 0em $primary-color, 3em 0em 0 0.2em $primary-color, 2em 2em 0 0em $primary-color, 0em 3em 0 -0.5em $primary-color, -2em 2em 0 -0.5em $primary-color, -3em 0em 0 -0.5em $primary-color, -2em -2em 0 -0.5em $primary-color;
+  }
+  37.5% {
+    box-shadow: 0em -3em 0em -0.5em $primary-color, 2em -2em 0 -0.5em $primary-color, 3em 0em 0 0em $primary-color, 2em 2em 0 0.2em $primary-color, 0em 3em 0 0em $primary-color, -2em 2em 0 -0.5em $primary-color, -3em 0em 0 -0.5em $primary-color, -2em -2em 0 -0.5em $primary-color;
+  }
+  50% {
+    box-shadow: 0em -3em 0em -0.5em $primary-color, 2em -2em 0 -0.5em $primary-color, 3em 0em 0 -0.5em $primary-color, 2em 2em 0 0em $primary-color, 0em 3em 0 0.2em $primary-color, -2em 2em 0 0em $primary-color, -3em 0em 0 -0.5em $primary-color, -2em -2em 0 -0.5em $primary-color;
+  }
+  62.5% {
+    box-shadow: 0em -3em 0em -0.5em $primary-color, 2em -2em 0 -0.5em $primary-color, 3em 0em 0 -0.5em $primary-color, 2em 2em 0 -0.5em $primary-color, 0em 3em 0 0em $primary-color, -2em 2em 0 0.2em $primary-color, -3em 0em 0 0em $primary-color, -2em -2em 0 -0.5em $primary-color;
+  }
+  75% {
+    box-shadow: 0em -3em 0em -0.5em $primary-color, 2em -2em 0 -0.5em $primary-color, 3em 0em 0 -0.5em $primary-color, 2em 2em 0 -0.5em $primary-color, 0em 3em 0 -0.5em $primary-color, -2em 2em 0 0em $primary-color, -3em 0em 0 0.2em $primary-color, -2em -2em 0 0em $primary-color;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0em 0em $primary-color, 2em -2em 0 -0.5em $primary-color, 3em 0em 0 -0.5em $primary-color, 2em 2em 0 -0.5em $primary-color, 0em 3em 0 -0.5em $primary-color, -2em 2em 0 0em $primary-color, -3em 0em 0 0em $primary-color, -2em -2em 0 0.2em $primary-color;
+  }
+}
+@keyframes load4 {
+  0%,
+  100% {
+    box-shadow: 0em -3em 0em 0.2em $primary-color, 2em -2em 0 0em $primary-color, 3em 0em 0 -0.5em $primary-color, 2em 2em 0 -0.5em $primary-color, 0em 3em 0 -0.5em $primary-color, -2em 2em 0 -0.5em $primary-color, -3em 0em 0 -0.5em $primary-color, -2em -2em 0 0em $primary-color;
+  }
+  12.5% {
+    box-shadow: 0em -3em 0em 0em $primary-color, 2em -2em 0 0.2em $primary-color, 3em 0em 0 0em $primary-color, 2em 2em 0 -0.5em $primary-color, 0em 3em 0 -0.5em $primary-color, -2em 2em 0 -0.5em $primary-color, -3em 0em 0 -0.5em $primary-color, -2em -2em 0 -0.5em $primary-color;
+  }
+  25% {
+    box-shadow: 0em -3em 0em -0.5em $primary-color, 2em -2em 0 0em $primary-color, 3em 0em 0 0.2em $primary-color, 2em 2em 0 0em $primary-color, 0em 3em 0 -0.5em $primary-color, -2em 2em 0 -0.5em $primary-color, -3em 0em 0 -0.5em $primary-color, -2em -2em 0 -0.5em $primary-color;
+  }
+  37.5% {
+    box-shadow: 0em -3em 0em -0.5em $primary-color, 2em -2em 0 -0.5em $primary-color, 3em 0em 0 0em $primary-color, 2em 2em 0 0.2em $primary-color, 0em 3em 0 0em $primary-color, -2em 2em 0 -0.5em $primary-color, -3em 0em 0 -0.5em $primary-color, -2em -2em 0 -0.5em $primary-color;
+  }
+  50% {
+    box-shadow: 0em -3em 0em -0.5em $primary-color, 2em -2em 0 -0.5em $primary-color, 3em 0em 0 -0.5em $primary-color, 2em 2em 0 0em $primary-color, 0em 3em 0 0.2em $primary-color, -2em 2em 0 0em $primary-color, -3em 0em 0 -0.5em $primary-color, -2em -2em 0 -0.5em $primary-color;
+  }
+  62.5% {
+    box-shadow: 0em -3em 0em -0.5em $primary-color, 2em -2em 0 -0.5em $primary-color, 3em 0em 0 -0.5em $primary-color, 2em 2em 0 -0.5em $primary-color, 0em 3em 0 0em $primary-color, -2em 2em 0 0.2em $primary-color, -3em 0em 0 0em $primary-color, -2em -2em 0 -0.5em $primary-color;
+  }
+  75% {
+    box-shadow: 0em -3em 0em -0.5em $primary-color, 2em -2em 0 -0.5em $primary-color, 3em 0em 0 -0.5em $primary-color, 2em 2em 0 -0.5em $primary-color, 0em 3em 0 -0.5em $primary-color, -2em 2em 0 0em $primary-color, -3em 0em 0 0.2em $primary-color, -2em -2em 0 0em $primary-color;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0em 0em $primary-color, 2em -2em 0 -0.5em $primary-color, 3em 0em 0 -0.5em $primary-color, 2em 2em 0 -0.5em $primary-color, 0em 3em 0 -0.5em $primary-color, -2em 2em 0 0em $primary-color, -3em 0em 0 0em $primary-color, -2em -2em 0 0.2em $primary-color;
+  }
+}

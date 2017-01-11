@@ -1,0 +1,87 @@
+.main-register {
+  background: linear-gradient(rgba(49, 39, 130, 0.3), rgba(49, 39, 130, 0.3)), image-url("graduates.jpg");
+  background-position: center center;
+  background-size: cover;
+  padding: 5em 3em 2em;
+
+  .form-container {
+    background: rgba(255, 255, 255, 0.5);
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: .7em 2.5em;
+    text-align: center;
+    width: 450px;
+
+    h2 {
+      color: $purple;
+      font-size: 1.7em;
+    }
+
+    input[type=submit] {
+      border-radius: 5px;
+      width: 100%;
+    }
+  }
+
+  .form-input {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    margin-bottom: .6em;
+    position: relative;
+    text-align: left;
+    width: 100%;
+    figure {
+      display: inline-block;
+      margin: 0;
+      text-align: center;
+      width: 51px;
+    }
+    img {
+      margin-top: 6px;
+      padding: .3em 0;
+      height: 25px;
+    }
+    input {
+      background-color: transparent;
+      box-sizing: border-box;
+      vertical-align: top;
+      padding: .2em 0 0 1em;
+      border: 0;
+      border-left: 2px solid $medium-gray;
+      height: 45px;
+      width: calc(100% - 53px);
+      &:focus { outline: 0; }
+    }
+    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+      color: $gray;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+      color: $gray;
+      opacity: 1;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color: $gray;
+      opacity: 1;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: $gray;
+    }
+  }
+
+  .conditions {
+    font-size: .8em;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .main-register {
+    padding: 7em 1em 2em;
+    .form-container { width: 100%; }
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .main-register {
+    padding: 8.5em 0 0;
+  }
+}

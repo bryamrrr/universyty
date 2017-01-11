@@ -1,0 +1,37 @@
+<section class="main-register">
+  <div class="form-container">
+    <h2>¡Tu vida cambiará<br /> a partir de este momento!</h2>
+    <%= form_for(:user, :html => { :id => "register-form" }) do |f| %>
+      <div class="form-input">
+        <figure><%= image_tag("inputs/name.png") %></figure><!--
+        --><%= f.text_field :fullname, placeholder: 'Nombres y Apellidos' %>
+      </div>
+      <div class="form-input">
+        <figure><%= image_tag("inputs/email.png") %></figure><!--
+        --><%= f.email_field :email, placeholder: 'Email' %>
+      </div>
+      <div class="form-input">
+        <figure><%= image_tag("inputs/user.png") %></figure><!--
+        --><%= f.text_field :nickname, placeholder: 'Nombre de Usuario' %>
+      </div>
+      <div class="form-input">
+        <figure><%= image_tag("inputs/password.png") %></figure><!--
+        --><%= f.password_field :password, placeholder: 'Contraseña' %>
+      </div>
+      <div class="form-input">
+        <figure><%= image_tag("inputs/dni.png") %></figure><!--
+        --><%= f.text_field :dni, placeholder: 'DNI Nº' %>
+      </div>
+      <div class="form-input">
+        <figure><%= image_tag("inputs/district.png") %></figure><!--
+        --><%= f.collection_select(:province, Province.all, :id, :name, :include_blank => true) %>
+      </div>
+      <div class="form-input">
+        <figure><%= image_tag("inputs/referral.png") %></figure><!--
+        --><%= f.text_field(:sponsor, placeholder: 'Invitado por') %>
+      </div>
+      <%= f.submit '¡REGISTRARME!' %>
+    <% end %>
+    <p class="conditions">Al darle clic estas de acuerdo con todos los <br /><a href="#">Términos y Condiciones</a></p>
+  </div>
+</section>

@@ -1,0 +1,301 @@
+<% content_for :body_class, 'courses-index' %>
+<section class="main-courses">
+
+  <div class="responsive-container">
+    <button class="scroll-marketing">
+      <%= image_tag("groups/marketing.png") %>
+      <span>Marketing & Negocios</span>
+    </button>
+    <button class="scroll-development">
+      <%= image_tag("groups/development.png") %>
+      <span>Diseño & Programación</span>
+    </button>
+    <button class="scroll-personal">
+      <%= image_tag("groups/personal.png") %>
+      <span>Idiomas & Des. Personal</span>
+    </button>
+  </div>
+
+  <div class="flex-container">
+    <article class="course-group">
+      <%= image_tag("groups/marketing.png") %>
+      <h2>Marketing & Negocios</h2>
+      <button class="scroll-marketing">Ver cursos</button>
+    </article>
+    <article class="course-group">
+      <%= image_tag("groups/development.png") %>
+      <h2>Diseño & Programación</h2>
+      <button class="scroll-development">Ver cursos</button>
+    </article>
+    <article class="course-group">
+      <%= image_tag("groups/personal.png") %>
+      <h2>Idiomas & <br />Des. Personal</h2>
+      <button class="scroll-personal">Ver cursos</button>
+    </article>
+  </div>
+</section>
+
+<section class="courses">
+  <div class="normal-container">
+    <h3>¡Los más destacados!</h3>
+
+    <div class="flex-container">
+
+      <% @courses_starred.each do |course| %>
+        <article class="course">
+          <%= link_to course_path(course) do %>
+          <div class="professor-hover">
+            <div class="professor-hover-content">
+              <figure>
+                <%= image_tag("professor.jpg") %>
+              </figure>
+              <h5>Nombre del profesor</h5>
+              <p class="tagline">Profesor de la UPC</p>
+            </div>
+          </div>
+          <div class="course-image">
+            <%= image_tag(course.background_url) %>
+          </div>
+          <div class="course-title">
+            <h4><%= course.title %></h4>
+          </div>
+          <div class="course-details">
+            <div class="course-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <span><%= course.duration %></span>
+            </div>
+            <div class="course-price">
+              <% if course.free %>
+                <span>Gratis</span>
+              <% else %>
+                <span>S/. <%= course.pricetag %></span>
+              <% end %>
+            </div>
+            <div class="course-discount">
+              <% if (course.discount != 0) && course.discount %>
+                <span>S/. <%= sprintf('%.2f', course.discount) %></span>
+              <% end %>
+            </div>
+          </div>
+          <% end %>
+        </article>
+      <% end %>
+
+    </div>
+
+    <button>¡Comienza hoy!</button>
+  </div>
+</section>
+
+<section class="courses" id="marketing-courses">
+  <div class="normal-container">
+    <h3>Marketing & Negocios</h3>
+
+    <div class="flex-container">
+
+      <% @courses_marketing.each do |course| %>
+        <article class="course">
+          <%= link_to course_path(course) do %>
+          <div class="professor-hover">
+            <div class="professor-hover-content">
+              <figure>
+                <%= image_tag("professor.jpg") %>
+              </figure>
+              <h5>Nombre del profesor</h5>
+              <p class="tagline">Profesor de la UPC</p>
+            </div>
+          </div>
+          <div class="course-image">
+            <%= image_tag(course.background_url) %>
+          </div>
+          <div class="course-title">
+            <h4><%= course.title %></h4>
+          </div>
+          <div class="course-details">
+            <div class="course-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <span><%= course.duration %></span>
+            </div>
+            <div class="course-price">
+              <% if course.free %>
+                <span>Gratis</span>
+              <% else %>
+                <span>S/. <%= course.pricetag %></span>
+              <% end %>
+            </div>
+            <div class="course-discount">
+              <% if (course.discount != 0) && course.discount %>
+                <span>S/. <%= sprintf('%.2f', course.discount) %></span>
+              <% end %>
+            </div>
+          </div>
+          <% end %>
+        </article>
+      <% end %>
+
+    </div>
+
+    <button>¡Comienza hoy!</button>
+  </div>
+</section>
+
+<section class="courses" id="development-courses">
+  <div class="normal-container">
+    <h3>Diseño & Programación</h3>
+
+    <div class="flex-container">
+
+      <% @courses_development.each do |course| %>
+        <article class="course">
+          <%= link_to course_path(course) do %>
+          <div class="professor-hover">
+            <div class="professor-hover-content">
+              <figure>
+                <%= image_tag("professor.jpg") %>
+              </figure>
+              <h5>Nombre del profesor</h5>
+              <p class="tagline">Profesor de la UPC</p>
+            </div>
+          </div>
+          <div class="course-image">
+            <%= image_tag(course.background_url) %>
+          </div>
+          <div class="course-title">
+            <h4><%= course.title %></h4>
+          </div>
+          <div class="course-details">
+            <div class="course-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <span><%= course.duration %></span>
+            </div>
+            <div class="course-price">
+              <% if course.free %>
+                <span>Gratis</span>
+              <% else %>
+                <span>S/. <%= course.pricetag %></span>
+              <% end %>
+            </div>
+            <div class="course-discount">
+              <% if (course.discount != 0) && course.discount %>
+                <span>S/. <%= sprintf('%.2f', course.discount) %></span>
+              <% end %>
+            </div>
+          </div>
+          <% end %>
+        </article>
+      <% end %>
+
+    </div>
+
+    <button>¡Comienza hoy!</button>
+  </div>
+</section>
+
+<section class="courses" id="personal-courses">
+  <div class="normal-container">
+    <h3>Idiomas & Des. Personal</h3>
+
+    <div class="flex-container">
+
+      <% @courses_personal.each do |course| %>
+        <article class="course">
+          <%= link_to course_path(course) do %>
+          <div class="professor-hover">
+            <div class="professor-hover-content">
+              <figure>
+                <%= image_tag("professor.jpg") %>
+              </figure>
+              <h5>Nombre del profesor</h5>
+              <p class="tagline">Profesor de la UPC</p>
+            </div>
+          </div>
+          <div class="course-image">
+            <%= image_tag(course.background_url) %>
+          </div>
+          <div class="course-title">
+            <h4><%= course.title %></h4>
+          </div>
+          <div class="course-details">
+            <div class="course-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <span><%= course.duration %></span>
+            </div>
+            <div class="course-price">
+              <% if course.free %>
+                <span>Gratis</span>
+              <% else %>
+                <span>S/. <%= course.pricetag %></span>
+              <% end %>
+            </div>
+            <div class="course-discount">
+              <% if (course.discount != 0) && course.discount %>
+                <span>S/. <%= sprintf('%.2f', course.discount) %></span>
+              <% end %>
+            </div>
+          </div>
+          <% end %>
+        </article>
+      <% end %>
+
+    </div>
+
+    <button>¡Comienza hoy!</button>
+  </div>
+</section>
+
+<section class="experts">
+  <h3>¡Ellos son los expertos!</h3>
+  <div class="normal-container">
+    <div id="owl-demo">
+      <article class="item">
+        <figure>
+          <%= image_tag("professor.jpg") %>
+        </figure>
+        <h5>Nombre del profesor</h5>
+        <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </article>
+      <article class="item">
+        <figure>
+          <%= image_tag("professor.jpg") %>
+        </figure>
+        <h5>Nombre del profesor</h5>
+        <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </article>
+      <article class="item">
+        <figure>
+          <%= image_tag("professor.jpg") %>
+        </figure>
+        <h5>Nombre del profesor</h5>
+        <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </article>
+      <article class="item">
+        <figure>
+          <%= image_tag("professor.jpg") %>
+        </figure>
+        <h5>Nombre del profesor</h5>
+        <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </article>
+      <article class="item">
+        <figure>
+          <%= image_tag("professor.jpg") %>
+        </figure>
+        <h5>Nombre del profesor</h5>
+        <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </article>
+      <article class="item">
+        <figure>
+          <%= image_tag("professor.jpg") %>
+        </figure>
+        <h5>Nombre del profesor</h5>
+        <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </article>
+    </div>
+
+    <a class="prev">
+      <%= image_tag("arrow-left.png") %>
+    </a>
+    <a class="next">
+      <%= image_tag("arrow-right.png") %>
+    </a>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <form name="form" ng-submit="editCategory(form, category)" ng-validate="validationOptions" novalidate>
+      <div class="form-input">
+        <input class="input" type="text" id="name" name="name" ng-model="category.name" required />
+        <div class="bar"></div>
+        <label class="label basic" for="name">Nombre</label>
+      </div>
+      <div class="form-input">
+        <input class="input" type="text" id="slug" name="slug" ng-model="category.slug" required />
+        <div class="bar"></div>
+        <label class="label basic" for="slug">Slug</label>
+      </div>
+      <div class="form-input">
+        <button type="submit" ng-disabled="form.$invalid || isLoading">
+          EDITAR CATEGORÍA
+          <div class="loader-wrapper" ng-show="isLoading">
+            <div class="loader-circles" id="loader">Loading...</div>
+          </div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

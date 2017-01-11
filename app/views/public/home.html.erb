@@ -1,0 +1,125 @@
+<% content_for :body_class, 'public-home' %>
+<section class="main-home">
+	<div class="overlay"></div>
+  <div class="video-wrapper">
+    <%= video_tag "video.mp4", :autoplay => true, :loop => true, :class => 'video-playing autoplay' %>
+  </div>
+  <%= image_tag("home-background.jpg", class: "responsive-background") %>
+  <div class="main-title">
+    <div class="title">
+      <h2>Cursos Online para...</h2>
+      <div id="typed-strings">
+        <p>Impulsar tu carrera</p>
+        <p>Aprender a tu propio ritmo</p>
+        <p>Ganar más dinero</p>
+        <p>Empoderar tu talento</p>
+        <p>Emprender un negocio</p>
+        <p>Desarrollar una habilidad</p>
+      </div>
+      <span id="typed"></span>
+    </div>
+    <button class="button-alternative">¡Comienza hoy!</button>
+  </div>
+</section>
+
+<section class="courses">
+  <div class="normal-container">
+    <h3>¡Estos cursos son especialmente para ti!</h3>
+    <p class="tagline">Puedes adquirirlos con cualquier Tarjeta de Crédito o Débito y Depósitos</p>
+
+    <div class="flex-container">
+
+      <% @courses.each do |course| %>
+        <article class="course">
+          <%= link_to course_path(course) do %>
+          <div class="professor-hover">
+            <div class="professor-hover-content">
+              <figure>
+                <%= image_tag("professor.jpg") %>
+              </figure>
+              <h5>Nombre del profesor</h5>
+              <p class="tagline">Profesor de la UPC</p>
+            </div>
+          </div>
+          <div class="course-image">
+            <%= image_tag(course.background_url) %>
+          </div>
+          <div class="course-title">
+            <h4><%= course.title %></h4>
+          </div>
+          <div class="course-details">
+            <div class="course-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              <span><%= course.duration %></span>
+            </div>
+            <div class="course-price">
+              <% if course.free %>
+                <span>Gratis</span>
+              <% else %>
+                <span>S/. <%= course.pricetag %></span>
+              <% end %>
+            </div>
+            <div class="course-discount">
+              <% if (course.discount != 0) && course.discount %>
+                <span>S/. <%= sprintf('%.2f', course.discount) %></span>
+              <% end %>
+            </div>
+          </div>
+          <% end %>
+        </article>
+      <% end %>
+
+    </div>
+  </div>
+
+  <%= link_to "/cursos" do %>
+  <button>Más cursos...</button>
+  <% end %>
+</section>
+
+<section class="mission">
+  <!-- Overlay -->
+  <p>"Somos una plataforma educativa online, cuyo propósito es brindarte <br/>los mejores conocimientos del mundo"</p>
+</section>
+
+<section class="why">
+  <h3>¿Por qué estudiar en Universyty?</h3>
+
+  <div class="normal-container flex-container">
+    <article class="reason">
+      <%= image_tag("reasons/experto.png") %>
+      <h4>Expertos</h4>
+      <p>Aprenderás de los mejores profesionales y especialistas</p>
+    </article>
+    <article class="reason">
+      <%= image_tag("reasons/libertad.png") %>
+      <h4>Libertad</h4>
+      <p>Aprende a tu propio ritmo, <br/>desde cualquier lugar y dispositivo</p>
+    </article>
+    <article class="reason">
+      <%= image_tag("reasons/plataforma.png") %>
+      <h4>Plataforma</h4>
+      <p>Clases 100% online, <br />con acceso las 24 horas del día</p>
+    </article>
+    <article class="reason">
+      <%= image_tag("reasons/ahorro.png") %>
+      <h4>Ahorro</h4>
+      <p>¡Ahorra tiempo y dinero! <br />Sin horarios, ni desplazamientos</p>
+    </article>
+    <article class="reason">
+      <%= image_tag("reasons/certificado.png") %>
+      <h4>Certificado</h4>
+      <p>Por cada curso concluido <br />obtendrás un certificado</p>
+    </article>
+    <article class="reason">
+      <%= image_tag("reasons/ganar.png") %>
+      <h4>Gana</h4>
+      <p>Ganarás dinero en efectivo <br />invitando a tus amigos</p>
+    </article>
+  </div>
+</section>
+
+<section class="motivation">
+  <p><strong>No dejes</strong> de lado lo más importante Aprende a <strong>tu propio ritmo</strong> <br />Aprende <strong>sin límites</strong></p>
+  <button>¡Comienza hoy!</button>
+</section>
