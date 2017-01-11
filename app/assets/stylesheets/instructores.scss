@@ -71,6 +71,11 @@
       bottom: 0;
     }
   }
+  .public-instructor .steps .step {
+    margin-right: 0;
+    margin-bottom: 2.5em;
+    flex-basis: 100%;
+  }
 }
 
 @media screen and (max-width: 430px) {
