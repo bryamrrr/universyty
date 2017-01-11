@@ -1,37 +1,16 @@
 <% content_for :body_class, 'courses-index' %>
 <section class="main-courses">
-
-  <div class="responsive-container">
-    <button class="scroll-marketing">
-      <%= image_tag("groups/marketing.png") %>
-      <span>Marketing & Negocios</span>
-    </button>
-    <button class="scroll-development">
-      <%= image_tag("groups/development.png") %>
-      <span>Diseño & Programación</span>
-    </button>
-    <button class="scroll-personal">
-      <%= image_tag("groups/personal.png") %>
-      <span>Idiomas & Des. Personal</span>
-    </button>
-  </div>
-
-  <div class="flex-container">
-    <article class="course-group">
-      <%= image_tag("groups/marketing.png") %>
-      <h2>Marketing & Negocios</h2>
-      <button class="scroll-marketing">Ver cursos</button>
-    </article>
-    <article class="course-group">
-      <%= image_tag("groups/development.png") %>
-      <h2>Diseño & Programación</h2>
-      <button class="scroll-development">Ver cursos</button>
-    </article>
-    <article class="course-group">
-      <%= image_tag("groups/personal.png") %>
-      <h2>Idiomas & <br />Des. Personal</h2>
-      <button class="scroll-personal">Ver cursos</button>
-    </article>
+  <div class="normal-container">
+    <h1>Dale un mejor curso <br />a tu vida!!!</h1>
+    <%= form_for(:user, :html => { :id => "register-form" }) do |f| %>
+      <div class="form-input">
+        <%= f.collection_select(:category, Category.all, :id, :name, :include_blank => true) %>
+      </div>
+      <div class="form-input">
+        <%= f.text_field :search, placeholder: 'Busca tu curso/diplomado o instructor' %>
+        <%= image_tag("search-ico.png") %>
+      </div>
+    <% end %>
   </div>
 </section>
 

@@ -136,8 +136,11 @@ $(document).on('turbolinks:load', function () {
   });
 
   $(function() {
-    $('select').selectize({
+    $('#user_province').selectize({
       placeholder: "Escoge una provincia..."
+    });
+    $('#user_category').selectize({
+      placeholder: "Escoge una categoría..."
     });
   });
 
