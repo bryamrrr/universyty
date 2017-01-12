@@ -157,6 +157,14 @@
     float: right;
     margin-bottom: 1.5em;
     width: calc(100% - 90px);
+    ul {
+      padding-left: 1em;
+      margin-top: -10px;
+    }
+    li {
+      list-style-type: disc;
+      overflow: visible;
+    }
   }
 }
 
