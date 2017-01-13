@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <h2>{{ course.title }} - Lista de profesores</h2>
+    <button class="button-right" type="button" ng-click="goToCreate()">
+      Agregar Profesor
+    </button>
+    <table class="table td-bg">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th colspan="2">Administrar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="professor in professors">
+          <td class="text-left">{{ professor.name }}</td>
+          <td class="no-padding">
+            <a ui-sref="courses.professors-edit({courseId: course.id, id: professor.id})" class="btn button-ico">
+              <span class="helper"></span><i class="fa fa-edit display-inline font-1-3em"></i>
+            </a>
+          </td>
+          <td class=" no-padding">
+            <a href="javascript:void(0)" ng-click="professorDelete(professor.id, $event)" class="btn button-ico">
+              <span class="helper"></span><i class="fa fa-times display-inline font-1em"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

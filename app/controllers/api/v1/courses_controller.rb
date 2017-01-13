@@ -58,6 +58,13 @@ class Api::V1::CoursesController < Api::V1::BaseController
     render :json => { :parts => parts, :course => course }
   end
 
+  def professors
+    professors = Professor.where(course_id: params[:id])
+    course = Course.find(params[:id])
+
+    render :json => { :professors => professors, :course => course }
+  end
+
   def change_state
     course = Course.find(params[:id])
 

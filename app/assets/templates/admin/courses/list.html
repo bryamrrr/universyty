@@ -7,7 +7,7 @@
           <th class="thin-column">Nombre</th>
           <th class="text-left">Categoría</th>
           <th class="text-left">Estado</th>
-          <th colspan="4">Administrar</th>
+          <th colspan="5">Administrar</th>
         </tr>
       </thead>
       <tbody>
@@ -31,6 +31,11 @@
           <td class="no-padding">
             <a ui-sref="courses.modules({id: course.id})" class="btn button-ico">
               <span class="helper"></span><i class="fa fa-list-ol display-inline font-1-3em"></i>
+            </a>
+          </td>
+          <td class="no-padding">
+            <a ui-sref="courses.professors({id: course.id})" class="btn button-ico">
+              <span class="helper"></span><i class="fa fa-users display-inline font-1-3em"></i>
             </a>
           </td>
           <td class=" no-padding">

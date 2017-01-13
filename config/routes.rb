@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
       resources :courses, except: [:new, :edit]
       get 'courses/:id/modules', to: 'courses#modules'
+      get 'courses/:id/professors', to: 'courses#professors'
       get 'courses/:id/change_state', to: 'courses#change_state'
       get 'courses/categories/:slug', to: 'courses#find_by_slug'
 
@@ -41,6 +42,8 @@ Rails.application.routes.draw do
       resources :topics, only: [:show, :destroy, :create, :update]
 
       resources :quizzes, only: [:show, :update]
+
+      resources :professors, except: [:new, :edit]
     end
   end
 end

@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <form name="form" ng-submit="edit(form, professor)" ng-validate="validationOptions" novalidate>
+      <div class="form-input">
+        <input class="input" type="text" id="name" name="name" ng-model="professor.name" required />
+        <div class="bar"></div>
+        <label class="label basic" for="name">Nombre Completo</label>
+      </div>
+      <div class="form-input">
+        <input class="input" type="text" id="bio" name="bio" ng-model="professor.bio" required />
+        <div class="bar"></div>
+        <label class="label basic" for="bio">Biografía</label>
+      </div>
+      <div class="form-input">
+        <input class="input" type="text" id="image" name="image" ng-model="professor.image_url" required />
+        <div class="bar"></div>
+        <label class="label basic" for="image">Imagen</label>
+      </div>
+      <div class="form-input">
+        <button type="submit" ng-disabled="form.$invalid || isLoading">
+          EDITAR PROFESOR
+          <div class="loader-wrapper" ng-show="isLoading">
+            <div class="loader-circles" id="loader">Loading...</div>
+          </div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

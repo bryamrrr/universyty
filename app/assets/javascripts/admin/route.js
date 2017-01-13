@@ -104,6 +104,42 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
+    .state('courses.professors', {
+      url: '/:id/profesores',
+      data: {
+        title: 'Profesores'
+      },
+      views: {
+        'content@courses': {
+          templateUrl: 'admin/courses/professor/list.html',
+          controller: 'ProfessorListController'
+        }
+      }
+    })
+    .state('courses.professors-create', {
+      url: '/:id/profesores/crear',
+      data: {
+        title: 'Agregar Profesor'
+      },
+      views: {
+        'content@courses': {
+          templateUrl: 'admin/courses/professor/create.html',
+          controller: 'ProfessorCreateController'
+        }
+      }
+    })
+    .state('courses.professors-edit', {
+      url: '/:courseId/profesores/:id/editar',
+      data: {
+        title: 'Editar Profesores'
+      },
+      views: {
+        'content@courses': {
+          templateUrl: 'admin/courses/professor/edit.html',
+          controller: 'ProfessorEditController'
+        }
+      }
+    })
     .state('courses.topics', {
       url: '/:id/temario',
       data: {
