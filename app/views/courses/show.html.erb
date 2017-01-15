@@ -9,9 +9,10 @@
   </div>
 
   <div class="video-info">
+    <div class="video-container">
     <div class="video-wrapper">
-      <%= video_tag "video.mp4", :controls => true, :class => 'video-playing autoplay' %>
-    </div><!--
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/n95eekfFZZg" frameborder="0" allowfullscreen></iframe>
+    </div></div><!--
     --><div class="side-info">
       <h4>Información</h4>
       <ul>
@@ -36,8 +37,15 @@
         </li>
       </ul>
       <h4>Profesor</h4>
-      <%= image_tag("logo-white.png") %><h5>Nombre Completo</h5>
-      <p>Breve descripción de la trayectoria profesional del profesor, sobre todo tu desempeño actual</p>
+      <article class="professor-card">
+        <figure>
+          <img src="<%= @course.professors.first.image_url %>" alt="">
+        </figure><!--
+        --><div class="professor-info">
+          <h5><%= @course.professors.first.name %></h5>
+          <p><%= @course.professors.first.bio %></p>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -80,12 +88,22 @@
   </div>
 
   <div class="info-section">
-    <h3>Sobre el profesor:</h3>
-    <%= image_tag("logo-white.png") %>
-    <div class="professor-info">
-      <h5>Nombres y Apellidos</h5>
-      <p>Breve descripción de la trayectoria profesional del profesor, sobre todo tu desempeño actual</p>
-    </div>
+    <% if @course.professors.count == 1 %>
+      <h3>Sobre el profesor:</h3>
+    <% else %>
+      <h3>Sobre los profesores:</h3>
+    <% end %>
+    <% @course.professors.each do |professor| %>
+    <article class="professor-card">
+      <figure>
+        <img src="<%= professor.image_url %>" alt="">
+      </figure><!--
+      --><div class="professor-info">
+        <h5><%= professor.name %></h5>
+        <p><%= professor.bio %></p>
+      </div>
+    </article>
+    <% end %>
   </div>
   </div>
 </section>
