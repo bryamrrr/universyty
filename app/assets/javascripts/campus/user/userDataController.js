@@ -58,6 +58,11 @@ function UserDataController($scope, $q, urls, CookieService, HttpRequest, valida
     promise.then(function (response) {
       toastr.success(response.message);
       $scope.isLoading = false;
+
+      CookieService.put("city", response.user.province.name);
+      CookieService.put("address", response.user.address);
+      CookieService.put("fullname", response.user.fullname);
+      putCookie("dni", data.user.dni);
     }, function(error) {
       toastr.error(error.message);
       $scope.isLoading = false;

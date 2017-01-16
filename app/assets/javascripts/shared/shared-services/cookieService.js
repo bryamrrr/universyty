@@ -7,6 +7,7 @@ CookieService.$inject = ['$window'];
 function CookieService($window){
   var self = this;
   this.put = function (name, value, expires, path, domain) {
+    console.log("test");
     var cookie = name + "=" + escape(value) + ";path=/;";
 
     if (expires) {

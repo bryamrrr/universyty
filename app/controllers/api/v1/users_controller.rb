@@ -20,7 +20,10 @@ class Api::V1::UsersController < Api::V1::BaseController
         render :json => { :errors => "Usuario bloqueado" }, status: :forbidden
       else
         token = user.tokens.create
-        render :json => { :token => token.token, :nickname => user.nickname, :role => user.role[:name], :first_entry => user.first_entry }
+        render :json => { :token => token.token, :user => user.as_json(
+            :except => [:created_at, :updated_at, :encrypted_password, :salt],
+            :include => [:province => { }]
+          )}
         if user.first_entry === false
           user.update_column(:first_entry, true)
         end
@@ -88,7 +91,9 @@ class Api::V1::UsersController < Api::V1::BaseController
     user = User.find_by(nickname: params[:id])
 
     if user.update(update_params)
-      render :json => { :message => "Datos actualizados" }
+      render :json => { :message => "Datos actualizados", :user => user.as_json(
+          :include => [:province => { }]
+        )}
     else
       puts user.errors.to_json
       render :json => { :message => "No se pudo cambiar la contraseña" }, status: :bad_request

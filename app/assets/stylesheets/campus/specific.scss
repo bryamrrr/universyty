@@ -6,7 +6,8 @@
 
 .main-course {
   background-position: top center;
-  background-size: 125%;
+  background-size: 135%;
+  padding-top: 3em;
   h1 {
     font-size: 2em;
     font-weight: bold;
@@ -18,6 +19,8 @@
   }
   .professor-card { padding-top: 1.5em; }
 }
+
+.video-info { top: 210px; }
 
 .info-course {
   h3 {

@@ -79,21 +79,7 @@
   }
 }
 
-.plan {
-  border: 3px solid $purple;
-  border-radius: 10px;
-  margin: 0 auto;
-  padding: 1em;
-  position: relative;
-  width: 200px;
-
-  .medalla {
-    position: absolute;
-    top: -50px;
-    right: -65px;
-    width: 150px;
-  }
-
+.plan, .billing {
   .price {
     color: $purple;
     margin-top: .3em;
@@ -116,6 +102,22 @@
   }
   .price-text {
     font-size: .7em;
+  }
+}
+
+.plan {
+  border: 3px solid $purple;
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 1em;
+  position: relative;
+  width: 200px;
+
+  .medalla {
+    position: absolute;
+    top: -50px;
+    right: -65px;
+    width: 150px;
   }
 
   a {

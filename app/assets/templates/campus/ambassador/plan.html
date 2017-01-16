@@ -1,10 +1,95 @@
-<div class="align-center">
-  <br>
-  <br>
-  <br>
-  <i class="fa fa-bullhorn fa-3x"></i>
-  <br>
-  <br>
-  <h1>En construcción</h1>
-  <p>Embajador / Plan embajador</p>
+<div class="billing">
+  <div class="billing-data">
+    <article>
+      <h4>* Datos de Facturación</h4>
+      <ul class="billing-user">
+        <li>
+          <span class="title-li">Nombre</span>
+          <span>:</span>
+          <span class="info-li">{{ fullname }}</span>
+        </li>
+        <li>
+          <span class="title-li">DNI/RUC</span>
+          <span>:</span>
+          <span class="info-li"><span ng-if="dni === ''">No tiene DNI. <a href="javascript:void(0)" ui-sref="user.data">Agregar</a></span>{{ dni }}</span>
+        </li>
+        <li>
+          <span class="title-li">Dirección</span>
+          <span>:</span>
+          <span class="info-li"><span ng-if="address !== 'null'">{{ address }} / </span>{{ city }}
+        </li>
+      </ul>
+    </article>
+    <article class="payment-methods">
+      <h4>* Elige tu método de Pago</h4>
+      <input type="radio" id="card" name="payment" value="1" ng-model="paymentMethod" />
+      <input type="radio" id="deposit" name="payment" value="2" ng-model="paymentMethod" />
+      <input type="radio" id="balance" name="payment" value="3" ng-model="paymentMethod" />
+      <div class="payment-options">
+        <!-- <label for="card" ng-class="{ selected: paymentMethod === '1' }">
+          <img src="/card.png" alt="" />
+          <h5>Tarjeta Crédito o Débito</h5>
+        </label> -->
+        <label for="deposit" ng-class="{ selected: paymentMethod === '2' }">
+          <img src="/deposit.png" alt="" />
+          <h5>Depósito Bancario</h5>
+        </label>
+        <label for="balance" ng-class="{ selected: paymentMethod === '3' }">
+          <img src="/balance.png" alt="" />
+          <h5>Saldo</h5>
+        </label>
+      </div>
+    </article>
+    <button>Comprar por S/. 29</button>
+  </div>
+  <div class="billing-cart">
+    <div class="billing-ambassador-plan">
+      <div class="plan-header">
+        <h4>Plan Embajador</h4>
+        <div class="price">
+          <span class="price-currency">S/.</span>
+          <span class="price-int">29</span>
+          <div class="aside-price">
+            <span class="price-decimal">.00</span>
+            <span class="price-text">al mes</span>
+          </div>
+        </div>
+      </div>
+      <div class="plan-body">
+        <ul>
+          <li>
+            <i class="fa fa-check"></i><!--
+            --><span>Obtendrás el 30% de descuento por la compra de cualquier Curso y/o Diplomado.</span>
+          </li>
+          <li>
+            <i class="fa fa-check"></i><!--
+            --><span>Certificados gratis y de forma ilimitada.</span>
+          </li>
+          <li>
+            <i class="fa fa-check"></i><!--
+            --><span>Invita a todos tus amigos a registrarse, acumula puntos por sus compras y luego canjéalos por Cursos/Diplomados y/o Dinero (1 punto = S/. 1). Puntuación:
+            <ul class="list-points">
+              <li>
+                <i class="fa fa-circle"></i><!--
+                --><span>Puntos de Recomendación.- Gana el 30% de comisión cada vez que tus invitados compren sus Cursos/Diplomados.</span>
+              </li>
+              <li>
+                <i class="fa fa-circle"></i><!--
+                --><span>Puntos de Amigo.- Gana 10 puntos cuando tu amigo se registra como Embajador.</span>
+              </li>
+              <li>
+                <i class="fa fa-circle"></i><!--
+                --><span>Puntos de Regalías.- Gana 1 punto por cada persona de tu Equipo de Embajadores que pague su mensualidad (hasta el 5º nivel).</span>
+              </li>
+            </ul>
+            </span>
+          </li>
+          <li>
+            <i class="fa fa-check"></i><!--
+            --><span>Oficina virtual para administrar tus puntos (saldo disponible, ingresos, canjes, etc).</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>

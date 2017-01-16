@@ -168,10 +168,14 @@ $(document).on('turbolinks:load', function () {
       url: url,
       data: data,
       success: function (data) {
-        putCookie("role", data.role);
-        putCookie("nickname", data.nickname);
+        putCookie("role", data.user.role);
+        putCookie("nickname", data.user.nickname);
         putCookie("token", data.token);
-        putCookie("first_entry", data.first_entry);
+        putCookie("first_entry", data.user.first_entry);
+        putCookie("city", data.user.province.name);
+        putCookie("address", data.user.address);
+        putCookie("fullname", data.user.fullname);
+        putCookie("dni", data.user.dni);
         if (data.role === "Admin") {
           window.location.href = baseUrl + "admin/inicio";
         } else {
