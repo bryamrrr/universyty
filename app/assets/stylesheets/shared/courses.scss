@@ -29,6 +29,7 @@
   text-align: center;
   transition: all .3s ease;
   width: 100%;
+  z-index: 2;
   figure {
     border-radius: 50%;
     display: inline-block;
@@ -46,8 +47,16 @@
 }
 
 .course-image {
+  height: 160px;
+  overflow: hidden;
+  position: relative;
   img {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
+    z-index: 1;
   }
 }
 

@@ -17,6 +17,11 @@
         <label class="label basic" for="image">Imagen</label>
       </div>
       <div class="form-input">
+        <input class="input" type="text" id="minibio" name="minibio" ng-model="professor.minibio" required />
+        <div class="bar"></div>
+        <label class="label basic" for="minibio">Minibio</label>
+      </div>
+      <div class="form-input">
         <button type="submit" ng-disabled="form.$invalid || isLoading">
           AGREGAR PROFESOR
           <div class="loader-wrapper" ng-show="isLoading">

@@ -46,6 +46,9 @@ function ProfessorCreateController($scope, $stateParams, $state, urls, HttpReque
       },
       image: {
         required: true
+      },
+      minibio: {
+        required: true
       }
     },
     messages: {
@@ -56,6 +59,9 @@ function ProfessorCreateController($scope, $stateParams, $state, urls, HttpReque
         required: 'Dato requerido'
       },
       image: {
+        required: 'Dato requerido'
+      },
+      minibio: {
         required: 'Dato requerido'
       }
     },

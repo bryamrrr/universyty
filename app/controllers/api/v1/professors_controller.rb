@@ -37,6 +37,7 @@ class Api::V1::ProfessorsController < Api::V1::BaseController
       :name,
       :bio,
       :image_url,
+      :minibio,
       :course_id
     )
   end

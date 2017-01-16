@@ -56,6 +56,18 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
+    .state('catalog.course', {
+      url: '/cursos/:id',
+      data: {
+        title: 'Información del curso'
+      },
+      views: {
+        'content@catalog': {
+          templateUrl: 'campus/catalog/course-info.html',
+          controller: 'CourseInfoController'
+        }
+      }
+    })
 
     // Courses
     .state('courses', {

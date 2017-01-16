@@ -45,6 +45,9 @@ function ProfessorEditController($scope, $stateParams, $state, urls, HttpRequest
       },
       image: {
         required: true
+      },
+      minibio: {
+        required: true
       }
     },
     messages: {
@@ -55,6 +58,9 @@ function ProfessorEditController($scope, $stateParams, $state, urls, HttpRequest
         required: 'Dato requerido'
       },
       image: {
+        required: 'Dato requerido'
+      },
+      minibio: {
         required: 'Dato requerido'
       }
     },

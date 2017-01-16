@@ -37,10 +37,10 @@
           <div class="professor-hover">
             <div class="professor-hover-content">
               <figure>
-                <%= image_tag("professor.jpg") %>
+                <img src="<%= course.professors.first.image_url %>" alt="">
               </figure>
-              <h5>Nombre del profesor</h5>
-              <p class="tagline">Profesor de la UPC</p>
+              <h5><%= course.professors.first.name %></h5>
+              <p class="tagline"><%= course.professors.first.minibio %></p>
             </div>
           </div>
           <div class="course-image">

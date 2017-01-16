@@ -3,19 +3,19 @@
 
   <div class="flex-container">
 
-    <article class="course" ng-repeat="course in courses">
+    <article class="course" ng-repeat="course in courses" ui-sref="catalog.course({ id: course.id })">
       <a href="#">
         <div class="professor-hover">
           <div class="professor-hover-content">
             <figure>
-              <img src="professor.jpg" alt="" />
+              <img ng-src="{{ course.professors[0].image_url }}" alt="" />
             </figure>
-            <h5>Nombre del profesor</h5>
-            <p class="tagline">Profesor de la UPC</p>
+            <h5>{{ course.professors[0].name }}</h5>
+            <p class="tagline">{{ course.professors[0].minibio }}</p>
           </div>
         </div>
         <div class="course-image">
-          <img ng-src="course.background_url" alt="" />
+          <img ng-src="{{ course.background_url }}" alt="" />
         </div>
         <div class="course-title">
           <h4>{{ course.title }}</h4>

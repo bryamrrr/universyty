@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105175535) do
+ActiveRecord::Schema.define(version: 20170116162255) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer  "question_id"
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 20170105175535) do
     t.string   "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "minibio"
     t.index ["course_id"], name: "index_professors_on_course_id"
   end
 

@@ -5,21 +5,33 @@ class Api::V1::CoursesController < Api::V1::BaseController
     @courses = Course.all.order(created_at: :desc)
 
     render :json => @courses.to_json(:include => {
-      :category => {}
+      :category => {},
+      :professors => {}
       })
   end
 
   def show
     @course = Course.find(params[:id])
+    parts = @course.parts.order(number: :asc)
 
-    render :json => @course
+    render :json => {
+      :course => @course.as_json(:include => {
+        :professors => {} }),
+      :parts => parts.as_json(
+        :include => {
+          :topics => {}
+        }
+      )}
   end
 
   def find_by_slug
     category = Category.find_by(slug: params[:slug])
     courses = category.courses
 
-    render :json => { :courses => courses, :category => category }
+    render :json => { :courses => courses.as_json(:include => {
+        :professors => {}
+        }
+      ), :category => category }
   end
 
   def create

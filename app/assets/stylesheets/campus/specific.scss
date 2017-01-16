@@ -1,3 +1,37 @@
 .plan-header {
   text-align: center;
 }
+
+.card.course-info { padding-bottom: 1em; }
+
+.main-course {
+  background-position: top center;
+  background-size: 125%;
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: left;
+  }
+  h4 {
+    color: $purple;
+    font-size: 1.2em;
+  }
+  .professor-card { padding-top: 1.5em; }
+}
+
+.info-course {
+  h3 {
+    color: $purple;
+    font-size: 1.7em;
+    font-weight: bold;
+    margin-left: 0;
+  }
+  h5 {
+    font-size: 1.3em;
+    margin-bottom: .5em;
+  }
+
+  h6, p {
+    font-size: 1.1em;
+  }
+}
