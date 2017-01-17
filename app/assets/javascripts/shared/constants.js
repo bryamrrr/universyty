@@ -5,8 +5,8 @@
   angular
     .module('shared')
     .constant('urls', {
-      BASE: 'http://localhost:3000 http://wituniversity-staging.herokuapp.com http://wituniversity.herokuapp.com',
-      BASE_API: 'http://wituniversity-staging.herokuapp.com/api/v1'
+      BASE: 'http://localhost:3000 http://universyty-staging.herokuapp.com http://universyty.herokuapp.com',
+      BASE_API: 'http://universyty-staging.herokuapp.com/api/v1'
     })
     .constant('toast',{
       DELAY: 5500
