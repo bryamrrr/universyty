@@ -96,3 +96,14 @@
     }
   }
 }
+
+.billing-cart .shopping-cart {
+  position: relative;
+  right: auto;
+  top: auto;
+  article:hover {
+    background-color: lighten($medium-gray, 40);
+    &:nth-child(2n) { background-color: white; }
+    .close-button { display: none; }
+  }
+}

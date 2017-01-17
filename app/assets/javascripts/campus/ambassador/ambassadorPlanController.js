@@ -11,6 +11,5 @@ function AmbassadorPlanController($scope, $cookies, CookieService) {
   $scope.address = CookieService.read('address');
   $scope.city = CookieService.read('city');
 
-console.log($scope);
   $scope.paymentMethod = '2';
 }
