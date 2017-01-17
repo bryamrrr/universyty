@@ -39,6 +39,25 @@
           <h5>Saldo</h5>
         </label>
       </div>
+      <div class="info-deposit" ng-show="paymentMethod === '2'">
+        <h3>DÉPOSITO EN AGENTE BCP</h3>
+        <p>Puedes realizar tu pago con depósito en efectivo en cualquier Agente BCP, sólo tienes que seguir estos pasos:</p>
+        <ol>
+          <li>Acude a un Agente BCP.</li>
+          <li>Indica que eres alumno de Universyty, y brinda como código tu USUARIO.</li>
+          <li>Paga en efectivo el monto total.</li>
+          <li>Espera un máximo de 48 horas para la activación de tu curso.</li>
+        </ol>
+      </div>
+      <div class="info-balance" ng-show="paymentMethod === '3'">
+        <h3>PAGO CON SALDO</h3>
+        <p>Puedes realizar tu pago con saldo de nuestros Embajadores, solo tienes que seguir estos pasos:</p>
+        <ol>
+          <li>Brinda tu nombre de usuario a uno de nuestros Embajadores para que proceda con el pago.</li>
+          <li>Cuando tu pedido esté pagado, procede a pagar el monto total en efectivo al Embajador.</li>
+          <li>Empieza a disfrutar de esta gran experiencia al ser parte de Universyty.</li>
+        </ol>
+      </div>
     </article>
     <button>Comprar por S/ 29</button>
   </div>
