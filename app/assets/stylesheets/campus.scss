@@ -36,11 +36,10 @@
  @import 'shared/table';
  @import 'shared/courses';
 
- @import 'override';
-
  @import 'money';
  @import 'courses';
 
+ @import 'campus/override';
  @import 'campus/user';
  @import 'campus/plan';
  @import 'campus/cart';
