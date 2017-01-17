@@ -171,17 +171,10 @@
       <i class="fa fa-long-arrow-right" ng-click="cart.toggle('hide')"></i>
     </div>
     <div class="cart-body">
-      <article>
-        <h5>título del curso corto</h5><!--
-        --><span class="price">S/ 145.00</span>
-        <div class="close-button" ng-click="cart.removeItem()">
-          <i class="fa fa-times"></i>
-        </div>
-      </article>
-      <article>
-        <h5>Título del curso que puede ser muy largo y debe entrar dentro del diseño</h5><!--
-        --><span class="price">S/ 45.00</span>
-        <div class="close-button" ng-click="cart.removeItem()">
+      <article ng-repeat="item in cart.items">
+        <h5>{{ item.title }}</h5><!--
+        --><span class="price">S/ {{ item.pricetag | number: 2 }}</span>
+        <div class="close-button" ng-click="cart.removeItem(item)">
           <i class="fa fa-times"></i>
         </div>
       </article>
@@ -190,10 +183,10 @@
       <div class="cart-total">
         <span>TOTAL:</span>
         <span>S/</span>
-        <span class="total-price">190.00</span>
+        <span class="total-price">{{ cart.total | number: 2 }}</span>
       </div>
       <div class="cart-pay">
-        <button>PAGAR</button>
+        <button ui-sref="sale.billing">PAGAR</button>
       </div>
     </div>
   </div>

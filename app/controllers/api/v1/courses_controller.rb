@@ -101,6 +101,7 @@ class Api::V1::CoursesController < Api::V1::BaseController
       :free,
       :pricetag,
       :discount,
+      :net,
       :duration,
       :background_url,
       :video_url,

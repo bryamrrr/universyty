@@ -3,6 +3,8 @@ angular.module("campus-app").controller("CourseInfoController", CourseInfoContro
 CourseInfoController.$inject = ['$scope', '$stateParams', 'urls', 'CookieService', 'HttpRequest'];
 
 function CourseInfoController($scope, $stateParams, urls, CookieService, HttpRequest) {
+  $scope.addToCart = addToCart;
+
   var url = urls.BASE_API + '/courses/' + $stateParams.id;
   var promise = HttpRequest.send("GET", url);
 
@@ -14,4 +16,14 @@ function CourseInfoController($scope, $stateParams, urls, CookieService, HttpReq
   }, function(error){
     toastr.error("Hubo un error");
   });
+
+  function addToCart(course) {
+    var item = {
+      id: course.id,
+      title: course.title,
+      pricetag: course.pricetag
+    };
+
+    $scope.$parent.cart.addItem(item);
+  }
 }

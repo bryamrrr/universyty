@@ -22,8 +22,7 @@ function EditCourseController($scope, $q, $state, $stateParams, urls, HttpReques
   var allPromises = $q.all([promise, promiseCategories]);
 
   allPromises.then(function (response) {
-    console.log(response);
-    $scope.course = response[0];
+    $scope.course = response[0].course;
     $scope.categories = response[1];
 
     var $contenido = $('#contenido');
@@ -39,6 +38,7 @@ function EditCourseController($scope, $q, $state, $stateParams, urls, HttpReques
 
     course.pricetag = parseFloat(course.pricetag);
     course.discount = parseFloat(course.discount);
+    course.net = parseFloat(course.net);
 
     if (course.priority) course.priority = parseInt(course.priority);
 
@@ -85,6 +85,10 @@ function EditCourseController($scope, $q, $state, $stateParams, urls, HttpReques
       discount: {
         regex: validators.decimal
       },
+      net: {
+        required: true,
+        regex: validators.decimal
+      },
       duration: {
         required: true
       },
@@ -122,6 +126,10 @@ function EditCourseController($scope, $q, $state, $stateParams, urls, HttpReques
         regex: 'Valor inválido'
       },
       discount: {
+        regex: 'Valor inválido'
+      },
+      net: {
+        required: 'Dato requerido',
         regex: 'Valor inválido'
       },
       duration: {

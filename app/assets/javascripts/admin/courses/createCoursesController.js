@@ -9,7 +9,7 @@ function CreateCourseController($scope, $state, urls, HttpRequest, toastr, valid
     labelField: 'name',
     delimiter: '|',
     maxItems: 1,
-    onInitialize: function(selectize){
+    onInitialize: function(selectize) {
     },
   };
 
@@ -32,6 +32,7 @@ function CreateCourseController($scope, $state, urls, HttpRequest, toastr, valid
 
     course.pricetag = parseFloat(course.pricetag);
     course.discount = parseFloat(course.discount);
+    course.net = parseFloat(course.net);
 
     if (course.priority) course.priority = parseInt(course.priority);
 
@@ -77,6 +78,10 @@ function CreateCourseController($scope, $state, urls, HttpRequest, toastr, valid
       discount: {
         regex: validators.decimal
       },
+      net: {
+        required: true,
+        regex: validators.decimal
+      },
       duration: {
         required: true
       },
@@ -114,6 +119,10 @@ function CreateCourseController($scope, $state, urls, HttpRequest, toastr, valid
         regex: 'Valor inválido'
       },
       discount: {
+        regex: 'Valor inválido'
+      },
+      net: {
+        required: 'Dato requerido',
         regex: 'Valor inválido'
       },
       duration: {

@@ -4,7 +4,7 @@
     <h1>{{ course.title }}</h1><!--
     --><div class="sales">
       <p>Puedes acceder a este curso con tarjeta (crédito o débito) y depósito (agente BCP)</p>
-      <button><i class="fa fa-shopping-cart"></i> ¡Quiero este curso!</button>
+      <button ng-click="addToCart(course)"><i class="fa fa-shopping-cart"></i> ¡Quiero este curso!</button>
     </div>
   </div>
 
@@ -99,7 +99,7 @@
       </div>
     </article>
   </div>
-  <button><i class="fa fa-shopping-cart"></i> ¡Quiero este curso!</button>
+  <button ng-click="addToCart(course)"><i class="fa fa-shopping-cart"></i> ¡Quiero este curso!</button>
   </div>
 </section>
 </div>

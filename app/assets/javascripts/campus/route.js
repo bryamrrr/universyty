@@ -246,6 +246,33 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
       }
     })
 
+    // Sale
+    .state('sale', {
+      url: '/campus/compra',
+      abstract: true,
+      data: {
+        'needAuth': true,
+        'title': 'Compra'
+      },
+      views: {
+        dashboard: {
+          templateUrl: 'campus/index.html'
+        }
+      }
+    })
+    .state('sale.billing', {
+      url: '/compra-cursos',
+      data: {
+        title: 'Compra de cursos'
+      },
+      views: {
+        'content@sale': {
+          templateUrl: 'campus/ambassador/plan.html',
+          controller: 'SaleController'
+        }
+      }
+    })
+
   // default fall back route
   $urlRouterProvider.otherwise('/campus/inicio');
 

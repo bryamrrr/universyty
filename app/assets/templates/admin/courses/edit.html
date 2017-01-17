@@ -57,12 +57,19 @@
         <div class="form-input">
           <input class="input" type="text" id="pricetag" name="pricetag" ng-model="course.pricetag" required />
           <div class="bar"></div>
-          <label class="label basic" for="pricetag">Costo</label>
+          <label class="label basic" for="pricetag">Precio de venta</label>
         </div>
         <div class="form-input">
           <input class="input" type="text" id="discount" name="discount" ng-model="course.discount" />
           <div class="bar"></div>
-          <label class="label basic" for="discount">Descuento</label>
+          <label class="label basic" for="discount">Precio anterior</label>
+        </div>
+      </div>
+      <div class="two-cols-form">
+        <div class="form-input">
+          <input class="input" type="text" id="net" name="net" ng-model="course.net" required />
+          <div class="bar"></div>
+          <label class="label basic" for="net">Precio Bruto</label>
         </div>
       </div>
       <div class="form-input">
