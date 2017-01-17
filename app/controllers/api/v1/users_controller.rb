@@ -22,7 +22,10 @@ class Api::V1::UsersController < Api::V1::BaseController
         token = user.tokens.create
         render :json => { :token => token.token, :user => user.as_json(
             :except => [:created_at, :updated_at, :encrypted_password, :salt],
-            :include => [:province => { }]
+            :include => {
+              :province => { },
+              :role => { }
+            }
           )}
         if user.first_entry === false
           user.update_column(:first_entry, true)

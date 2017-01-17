@@ -176,7 +176,7 @@ $(document).on('turbolinks:load', function () {
         putCookie("address", data.user.address);
         putCookie("fullname", data.user.fullname);
         putCookie("dni", data.user.dni);
-        if (data.user.role === "Admin") {
+        if (data.user.role.name === "Admin") {
           window.location.href = baseUrl + "admin/inicio";
         } else {
           window.location.href = baseUrl + "campus/inicio";
