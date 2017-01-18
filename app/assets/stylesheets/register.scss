@@ -66,6 +66,29 @@
     :-ms-input-placeholder { /* Internet Explorer 10-11 */
       color: $gray;
     }
+
+    &.radios {
+      background-color: transparent;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5em;
+      padding: 0 1.5em;
+      .radio-container {
+        flex-basis: 120px;
+      }
+      input {
+        cursor: pointer;
+        height: 24px;
+        margin-right: .5em;
+        width: auto;
+      }
+      label {
+        color: $purple;
+        font-weight: bold;
+        font-size: 1.2em;
+      }
+    }
   }
 
   .conditions {

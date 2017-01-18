@@ -1,30 +1,24 @@
 class UsersController < ApplicationController
   def create
-    province = Province.find(user_params[:province])
-    role = Role.find(2)
 
-    @user = User.new(
-        nickname: user_params["nickname"],
-        fullname: user_params["fullname"],
-        role: role,
-        province: province,
-        email: user_params["email"],
-        password: user_params["password"],
-        dni: user_params["dni"],
-        sponsor: user_params["sponsor"]
-      )
+    if user_params[:role_id] === "2"
+      user = User.new(user_params)
 
-    if @user.save
-      update_teams(@user, 1)
-      MailchimpWrapper.subscribe(@user)
-      redirect_to "/login"
+      if user.save
+        update_teams(user, 1) unless user.instructor === true
+        MailchimpWrapper.subscribe(user)
+        redirect_to "/login"
+      else
+        puts "Falló"
+        puts user.errors.to_json
+      end
     else
-      puts "Falló"
-      puts @user.errors.to_json
+      puts "Falló porque mandó otro role"
     end
   end
 
   def update_teams(user, level)
+    puts "ENTRO a UPDATE_TEAMS"
     if user[:sponsor] != ""
       father = User.where(nickname: user[:sponsor]).first
 
@@ -40,6 +34,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:nickname, :fullname, :email, :password, :role, :province, :dni, :sponsor)
+    params.require(:user).permit(:nickname, :fullname, :email, :password, :role_id, :sponsor, :city, :instructor)
   end
 end

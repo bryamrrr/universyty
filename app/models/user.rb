@@ -2,7 +2,7 @@ class User < ApplicationRecord
   attr_accessor :password
 
   belongs_to :role
-  belongs_to :province
+  belongs_to :province, optional: true
 
   has_many :tokens, :dependent => :destroy
   has_many :enrollments
@@ -12,10 +12,8 @@ class User < ApplicationRecord
   validates :nickname, presence: true, uniqueness: true
   validates_length_of :nickname, :in => 2..15
   validates :email, presence: true, email: true
-  validates :role, presence: true
-  validates :province, presence: true
+  validates :role_id, presence: true
   validates :password, presence: true, on: :create
-  validates :dni, uniqueness: true
   validates_format_of :password, :with => /\A(?=.{6,14})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!*]).*\z/, on: :create
 
   before_create :encrypt_password

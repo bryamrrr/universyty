@@ -20,7 +20,6 @@ $(document).on('turbolinks:load', function () {
 
   // Click to scroll
   $(".scroll-marketing").click(function() {
-    console.log("test");
     $('html,body').animate({ scrollTop: $("#marketing-courses").offset().top}, 'slow');
   });
   $(".scroll-development").click(function() {
@@ -28,6 +27,15 @@ $(document).on('turbolinks:load', function () {
   });
   $(".scroll-personal").click(function() {
     $('html,body').animate({ scrollTop: $("#personal-courses").offset().top}, 'slow');
+  });
+  $(".radio-container input").click(function() {
+    console.log($(this));
+    if ($(this)[0].id === 'js-instructor') {
+      console.log($('#js-sponsor'));
+      $('#js-sponsor').hide();
+    } else if ($(this)[0].id === 'js-alumno') {
+      $('#js-sponsor').show();
+    }
   });
 
   var token = checkCookie("token");
@@ -168,11 +176,17 @@ $(document).on('turbolinks:load', function () {
       url: url,
       data: data,
       success: function (data) {
+        var city = '';
+        if (data.user.province) {
+          city = data.user.province.name;
+        } else {
+          city = data.user.city;
+        }
         putCookie("role", data.user.role);
         putCookie("nickname", data.user.nickname);
         putCookie("token", data.token);
         putCookie("first_entry", data.user.first_entry);
-        putCookie("city", data.user.province.name);
+        putCookie("city", city);
         putCookie("address", data.user.address);
         putCookie("fullname", data.user.fullname);
         putCookie("dni", data.user.dni);

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118170338) do
+ActiveRecord::Schema.define(version: 20170118173243) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer  "question_id"
@@ -263,6 +263,8 @@ ActiveRecord::Schema.define(version: 20170118170338) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "sponsor"
+    t.boolean  "instructor"
+    t.string   "city"
     t.index ["province_id"], name: "index_users_on_province_id"
     t.index ["role_id"], name: "index_users_on_role_id"
   end

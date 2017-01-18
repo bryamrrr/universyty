@@ -2,6 +2,17 @@
   <div class="form-container">
     <h2>¡Tu vida cambiará<br /> a partir de este momento!</h2>
     <%= form_for(:user, :html => { :id => "register-form" }) do |f| %>
+      <div class="form-input radios">
+        <%= f.hidden_field :role_id, value: 2 %>
+        <div class="radio-container">
+          <%= f.radio_button :instructor, false, :checked => true, :id => 'js-alumno' %>
+          <%= f.label :instructor, "Alumno", :value => "false" %>
+        </div>
+        <div class="radio-container">
+          <%= f.radio_button :instructor, true, :id => 'js-instructor' %>
+          <%= f.label :instructor, "Instructor", :value => "true"  %>
+        </div>
+      </div>
       <div class="form-input">
         <figure><%= image_tag("inputs/name.png") %></figure><!--
         --><%= f.text_field :fullname, placeholder: 'Nombres y Apellidos' %>
@@ -20,9 +31,9 @@
       </div>
       <div class="form-input">
         <figure><%= image_tag("inputs/district.png") %></figure><!--
-        --><%= f.collection_select(:province, Province.all, :id, :name, :include_blank => true) %>
+        --><%= f.text_field(:city, placeholder: 'Ciudad / Pais') %>
       </div>
-      <div class="form-input">
+      <div class="form-input" id="js-sponsor">
         <figure><%= image_tag("inputs/referral.png") %></figure><!--
         --><%= f.text_field(:sponsor, placeholder: 'Invitado por') %>
       </div>
