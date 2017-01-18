@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118144328) do
+ActiveRecord::Schema.define(version: 20170118170338) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer  "question_id"
@@ -62,7 +62,9 @@ ActiveRecord::Schema.define(version: 20170118144328) do
     t.string   "level"
     t.string   "classes"
     t.decimal  "net"
+    t.integer  "user_id"
     t.index ["category_id"], name: "index_courses_on_category_id"
+    t.index ["user_id"], name: "index_courses_on_user_id"
   end
 
   create_table "departments", force: :cascade do |t|
