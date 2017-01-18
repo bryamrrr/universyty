@@ -6,7 +6,11 @@ class UsersController < ApplicationController
 
       if user.save
         update_teams(user, 1) unless user.instructor === true
-        MailchimpWrapper.subscribe(user)
+        begin
+          MailchimpWrapper.subscribe(user)
+        rescue Mailchimp::Error => e
+          logger.error "ERROR mailchimp #{e.message} #{params.inspect}"
+        end
         redirect_to "/login"
       else
         puts "Falló"
