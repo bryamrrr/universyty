@@ -37,11 +37,14 @@ Rails.application.routes.draw do
 
       resources :parts, only: [:show, :destroy, :create]
       get 'parts/:id/topics', to: 'parts#topics'
-      get 'parts/:id/quiz', to: 'parts#quiz'
+      get 'parts/:id/questions', to: 'parts#questions'
 
       resources :topics, only: [:show, :destroy, :create, :update]
 
-      resources :quizzes, only: [:show, :update]
+      resources :questions, except: [:index, :new, :edit]
+      get 'questions/:id/alternatives', to: 'questions#alternatives'
+
+      resources :alternatives, except: [:index, :new, :edit]
 
       resources :professors, except: [:new, :edit]
     end

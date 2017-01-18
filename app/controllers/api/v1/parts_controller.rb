@@ -31,6 +31,14 @@ class Api::V1::PartsController < Api::V1::BaseController
     render :json => { :topics => topics, :part => part, :course => course }
   end
 
+  def questions
+    questions = Question.where(part_id: params[:id])
+    part = Part.find(params[:id])
+    course = Course.find(part[:course_id])
+
+    render :json => { :questions => questions, :part => part, :course => course }
+  end
+
   def part_params
     params.require(:data).permit(
       :title,

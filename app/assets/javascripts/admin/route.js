@@ -165,7 +165,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
       }
     })
     .state('courses.quiz', {
-      url: '/:id/quiz',
+      url: '/:id/modulos/:idModule/quiz',
       data: {
         title: 'Cuestionario'
       },
@@ -173,6 +173,18 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         'content@courses': {
           templateUrl: 'admin/courses/quiz.html',
           controller: 'QuizController'
+        }
+      }
+    })
+    .state('courses.answers', {
+      url: '/:idModule/quiz/:id',
+      data: {
+        title: 'Pregunta'
+      },
+      views: {
+        'content@courses': {
+          templateUrl: 'admin/courses/question.html',
+          controller: 'QuestionController'
         }
       }
     })

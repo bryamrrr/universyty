@@ -1,0 +1,54 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <h2>{{ question.content }}</h2>
+
+    <form name="form" ng-submit="create(form, alternative)" ng-validate="validationOptions" novalidate>
+      <div class="add-element-priority">
+        <div class="form-input">
+          <input class="input" type="text" id="content" name="content" ng-model="alternative.content" required />
+          <div class="bar"></div>
+          <label class="label basic" for="content">Alternativa:</label>
+        </div>
+        <div class="form-input checkbox">
+          <div class="squaredCheck">
+            <input type="checkbox" value="None" id="starred" name="starred" ng-model="alternative.correct_answer" />
+            <label for="starred"></label>
+          </div>
+          <span>Respuesta correcta</span>
+        </div>
+        <div class="form-input">
+          <button type="submit" ng-disabled="form.$invalid || isLoading">
+            Agregar alternativa
+            <div class="loader-wrapper" ng-show="isLoading">
+              <div class="loader-circles" id="loader">Loading...</div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <table class="table td-bg">
+      <thead>
+        <tr>
+          <th class="text-left">Contenido</th>
+          <th class="thin-column">Respuesta</th>
+          <th colspan="1">Administrar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="alternative in alternatives">
+          <td class="text-left">{{ alternative.content }}</td>
+          <td class="thin-column">
+            <i ng-if="alternative.correct_answer" class="fa fa-check"></i>
+            <i ng-if="!alternative.correct_answer" class="fa fa-times"></i>
+          </td>
+          <td class=" no-padding">
+            <a href="javascript:void(0)" ng-click="alternativeDelete(alternative.id, $event)" class="btn button-ico">
+              <span class="helper"></span><i class="fa fa-times display-inline font-1em"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

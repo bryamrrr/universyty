@@ -1,3 +1,5 @@
 class Question < ApplicationRecord
-  belongs_to :quiz
+  belongs_to :part
+
+  has_many :alternatives
 end

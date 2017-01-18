@@ -1,20 +1,19 @@
-angular.module("admin-app").controller("QuizController", QuizController);
+angular.module("admin-app").controller("QuestionController", QuestionController);
 
-QuizController.$inject = ['$scope', '$state', '$stateParams', 'urls', 'HttpRequest', 'validators', 'SweetAlert'];
+QuestionController.$inject = ['$scope', '$state', '$stateParams', 'urls', 'HttpRequest', 'validators', 'SweetAlert'];
 
-function QuizController($scope, $state, $stateParams, urls, HttpRequest, validators, SweetAlert) {
+function QuestionController($scope, $state, $stateParams, urls, HttpRequest, validators, SweetAlert) {
   $scope.create = create;
-  $scope.questionDelete = questionDelete;
+  $scope.alternativeDelete = alternativeDelete;
 
-  var moduleId = $stateParams.idModule;
+  var questionId = $stateParams.id;
 
-  var url = urls.BASE_API + '/parts/' + moduleId + '/questions';
+  var url = urls.BASE_API + '/questions/' + questionId + '/alternatives';
   var promise = HttpRequest.send("GET", url);
 
   promise.then(function (response) {
-    $scope.questions = response.questions;
-    $scope.module = response.part;
-    $scope.course = response.course;
+    $scope.alternatives = response.alternatives;
+    $scope.question = response.question;
 
     var $contenido = $('#contenido');
     $contenido.addClass("loaded");
@@ -22,16 +21,15 @@ function QuizController($scope, $state, $stateParams, urls, HttpRequest, validat
     toastr.error('Hubo un error');
   });
 
-  function create(form, question) {
+  function create(form, alternative) {
     if (!form.validate()) return false;
 
     $scope.isLoading = true;
 
-    question.number = parseInt(question.number);
-    question.part_id = moduleId;
+    alternative.question_id = questionId;
 
-    var url = urls.BASE_API + '/questions';
-    var promise = HttpRequest.send("POST", url, question);
+    var url = urls.BASE_API + '/alternatives';
+    var promise = HttpRequest.send("POST", url, alternative);
 
     promise.then(function (response) {
       toastr.success(response.message);
@@ -45,7 +43,7 @@ function QuizController($scope, $state, $stateParams, urls, HttpRequest, validat
     });
   }
 
-  function questionDelete(id, $event){
+  function alternativeDelete(id, $event){
     SweetAlert.swal({
       title: "Estás seguro?",
       text: "Esta acción es irreversible!",
@@ -59,9 +57,9 @@ function QuizController($scope, $state, $stateParams, urls, HttpRequest, validat
       closeOnCancel: false
     }, function(isConfirm){
       if (isConfirm) {
-        var url = urls.BASE_API + '/questions/' + id;
-        var promise_delete = HttpRequest.send("DELETE", url);
-        promise_delete.then(function(response) {
+        var url = urls.BASE_API + '/alternatives/' + id;
+        var promise = HttpRequest.send("DELETE", url);
+        promise.then(function(response) {
           SweetAlert.swal("Eliminado!", "Se eliminó correctamente", "success");
           $state.reload();
         }, function(error) {
@@ -81,19 +79,11 @@ function QuizController($scope, $state, $stateParams, urls, HttpRequest, validat
     rules: {
       content: {
         required: true
-      },
-      number: {
-        required: true,
-        regex: validators.integer
       }
     },
     messages: {
       content: {
         required: 'Dato requerido'
-      },
-      number: {
-        required: 'Dato requerido',
-        regex: 'Formato inválido'
       }
     },
     highlight: function (element) {
