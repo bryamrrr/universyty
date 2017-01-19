@@ -182,7 +182,11 @@ $(document).on('turbolinks:load', function () {
         } else {
           city = data.user.city;
         }
-        putCookie("role", data.user.role);
+        if (data.user.instructor) {
+          putCookie("role", "Instructor");
+        } else {
+          putCookie("role", data.user.role);
+        }
         putCookie("nickname", data.user.nickname);
         putCookie("token", data.token);
         putCookie("first_entry", data.user.first_entry);

@@ -883,13 +883,17 @@ md-content.padding-15 {padding: 15px;}
   padding: 8px 25px;
   background-color: #fff;
   border-right: 1px solid #e7eaec;
+  i {
+    color: $gray;
+    font-size: .8em;
+  }
 }
 .nav-header .profile-element a { display: block; }
 .nav-header .profile-element span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 55%;
+  width: 100%;
 }
 .nav-header .profile-element img {
   margin-top: -25px;

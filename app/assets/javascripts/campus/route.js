@@ -107,6 +107,18 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
+    .state('courses.created', {
+      url: '/creados',
+      data: {
+        title: 'Cursos Creados'
+      },
+      views: {
+        'content@courses': {
+          templateUrl: 'campus/courses/created.html',
+          controller: 'CoursesCreatedController'
+        }
+      }
+    })
 
     // User
     .state('user', {
@@ -131,18 +143,6 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         'content@user': {
           templateUrl: 'campus/user/data.html',
           controller: 'UserDataController'
-        }
-      }
-    })
-    .state('user.bank', {
-      url: '/datos-bancarios',
-      data: {
-        title: 'Datos Bancarios'
-      },
-      views: {
-        'content@user': {
-          templateUrl: 'campus/user/bank.html',
-          controller: 'UserBankController'
         }
       }
     })
@@ -182,6 +182,18 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
       views: {
         dashboard: {
           templateUrl: 'campus/index.html'
+        }
+      }
+    })
+    .state('ambassador.students', {
+      url: '/alumnos',
+      data: {
+        title: 'Alumnos'
+      },
+      views: {
+        'content@ambassador': {
+          templateUrl: 'campus/ambassador/students.html',
+          controller: 'AmbassadorStudentsController'
         }
       }
     })
@@ -242,6 +254,18 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         'content@ambassador': {
           templateUrl: 'campus/ambassador/billing.html',
           controller: 'AmbassadorBillingController'
+        }
+      }
+    })
+    .state('ambassador.bank', {
+      url: '/datos-bancarios',
+      data: {
+        title: 'Datos Bancarios'
+      },
+      views: {
+        'content@ambassador': {
+          templateUrl: 'campus/ambassador/bank.html',
+          controller: 'AmbassadorBankController'
         }
       }
     })

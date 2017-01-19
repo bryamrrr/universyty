@@ -63,10 +63,10 @@
           <div class="bar"></div>
           <label class="label basic" for="gender">Sexo:</label>
         </div>
-        <div class="form-input">
+        <div class="form-input" ng-hide="!user.sponsor || user.instructor">
           <input class="input" type="text" id="sponsor" name="sponsor" disabled required />
           <div class="bar"></div>
-          <label class="label basic" for="sponsor"><span ng-if="user.sponsor"> Invitado por {{user.sponsor}}</span></label>
+          <label class="label basic" for="sponsor"><span> Invitado por {{user.sponsor}}</span></label>
         </div>
       </div>
       <div class="form-input">
