@@ -26,9 +26,17 @@ class User < ApplicationRecord
     self.balance ||= 0
     self.historical_balance ||= 0
     self.preferencial ||= false
-    self.ambassador ||= false
-    self.ambassador_active ||= false
-    self.ambassador_start ||= false
+
+    if self.instructor
+      self.ambassador = true
+      self.ambassador_active = true
+      self.ambassador_start = true
+    else
+      self.ambassador ||= false
+      self.ambassador_active ||= false
+      self.ambassador_start ||= false
+    end
+
     self.login_attempts ||= 0
     self.block ||= false
     self.paydate_expire ||= false
