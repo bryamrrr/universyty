@@ -16,7 +16,9 @@ class Api::V1::CoursesController < Api::V1::BaseController
 
     render :json => {
       :course => @course.as_json(:include => {
-        :professors => {} }),
+        :professors => {},
+        :user => {}
+      }),
       :parts => parts.as_json(
         :include => {
           :topics => {}
@@ -107,7 +109,8 @@ class Api::V1::CoursesController < Api::V1::BaseController
       :video_url,
       :priority,
       :level,
-      :classes
+      :classes,
+      :user_id
     )
   end
 end

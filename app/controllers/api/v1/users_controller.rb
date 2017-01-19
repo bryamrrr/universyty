@@ -62,13 +62,18 @@ class Api::V1::UsersController < Api::V1::BaseController
   # GET /api/v1/users/{nickname}
   def show
     user = User.find_by(nickname: params[:id])
-    if @current_user == user
-      render :json => user.to_json(
-        :except => [:created_at, :updated_at, :encrypted_password, :salt],
-        :include => [:province => { }]
-      )
+    if user
+      if @current_user == user || @current_user.role[:name] == "Admin"
+        render :json => user.to_json(
+          :except => [:created_at, :updated_at, :encrypted_password, :salt],
+          :include => [:province => { }]
+        )
+      else
+        puts @current_user.role[:name]
+        render :json => { :message => "Usuario no encontrado" }
+      end
     else
-      render :json => { :message => "Usuario no encontrado" }
+      render :json => { :message => "Usuario no encontrado" }, status: :bad_request
     end
   end
 

@@ -93,6 +93,11 @@
         <label class="label basic" for="priority">Prioridad</label>
       </div>
       <div class="form-input">
+        <input class="input" type="text" id="instructor" name="instructor" ng-model="instructor" />
+        <div class="bar"></div>
+        <label class="label basic" for="instructor">Instructor (Nombre de usuario)</label>
+      </div>
+      <div class="form-input">
         <button type="submit" ng-disabled="form.$invalid || isLoading">
           EDITAR CURSO
           <div class="loader-wrapper" ng-show="isLoading">

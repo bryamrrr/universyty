@@ -37,14 +37,38 @@ function CreateCourseController($scope, $state, urls, HttpRequest, toastr, valid
     if (course.priority) course.priority = parseInt(course.priority);
 
     var url = urls.BASE_API + '/courses';
-    var promise = HttpRequest.send("POST", url, course);
+    var promise;
 
-    promise.then(function (response) {
-      toastr.success(response.message);
-      $state.go('courses.list');
-    }, function(error){
-      toastr.error("Hubo un error");
-    });
+    if ($scope.instructor) {
+      var urlInstructor = urls.BASE_API + '/users/' + $scope.instructor;
+      var promiseInstructor = HttpRequest.send("GET", urlInstructor);
+
+      promiseInstructor.then(function (response) {
+        if (response.instructor) {
+          course.user_id = response.id;
+          promise = HttpRequest.send("POST", url, course);
+
+          promise.then(function (response) {
+            toastr.success(response.message);
+            $state.go('courses.list');
+          }, function(error){
+            toastr.error("Hubo un error");
+          });
+        } else {
+          toastr.error("No se puede poner ese usuario como instructor");
+        }
+      }, function (error) {
+        toastr.error("No se ha encontrado al instructor en la Base de Datos");
+      });
+    } else {
+      promise = HttpRequest.send("PUT", url, course);
+      promise.then(function (response) {
+        toastr.success(response.message);
+        $state.go('courses.list');
+      }, function(error){
+        toastr.error("Hubo un error");
+      });
+    }
   }
 
   /* ----------------------------------- */

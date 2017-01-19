@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :enrollments
   has_many :movements
   has_many :teams
+  has_many :courses
 
   validates :nickname, presence: true, uniqueness: true
   validates_length_of :nickname, :in => 2..15

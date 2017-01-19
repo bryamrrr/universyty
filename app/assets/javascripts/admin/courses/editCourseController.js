@@ -23,6 +23,7 @@ function EditCourseController($scope, $q, $state, $stateParams, urls, HttpReques
 
   allPromises.then(function (response) {
     $scope.course = response[0].course;
+    $scope.instructor = $scope.course.user.nickname;
     $scope.categories = response[1];
 
     var $contenido = $('#contenido');
@@ -43,15 +44,38 @@ function EditCourseController($scope, $q, $state, $stateParams, urls, HttpReques
     if (course.priority) course.priority = parseInt(course.priority);
 
     var url = urls.BASE_API + '/courses/' + $stateParams.id;
-    var promise = HttpRequest.send("PUT", url, course);
+    var promise;
 
-    promise.then(function (response) {
-      console.log(response);
-      toastr.success(response.message);
-      $state.go('courses.list');
-    }, function(error){
-      toastr.error("Hubo un error");
-    });
+    if ($scope.instructor) {
+      var urlInstructor = urls.BASE_API + '/users/' + $scope.instructor;
+      var promiseInstructor = HttpRequest.send("GET", urlInstructor);
+
+      promiseInstructor.then(function (response) {
+        if (response.instructor) {
+          course.user_id = response.id;
+          promise = HttpRequest.send("PUT", url, course);
+
+          promise.then(function (response) {
+            toastr.success(response.message);
+            $state.go('courses.list');
+          }, function(error){
+            toastr.error("Hubo un error");
+          });
+        } else {
+          toastr.error("No se puede poner ese usuario como instructor");
+        }
+      }, function (error) {
+        toastr.error("No se ha encontrado al instructor en la Base de Datos");
+      });
+    } else {
+      promise = HttpRequest.send("PUT", url, course);
+      promise.then(function (response) {
+        toastr.success(response.message);
+        $state.go('courses.list');
+      }, function(error){
+        toastr.error("Hubo un error");
+      });
+    }
   }
 
   /* ----------------------------------- */
