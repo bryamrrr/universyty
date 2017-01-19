@@ -143,13 +143,14 @@ $(document).on('turbolinks:load', function () {
     owl.trigger('owl.prev');
   });
 
-  $(function() {
-    $('#user_province').selectize({
-      placeholder: "Escoge una provincia..."
-    });
-    $('#user_category').selectize({
-      placeholder: "Escoge una categoría..."
-    });
+  $('#user_province').selectize({
+    placeholder: "Escoge una provincia..."
+  });
+  $('#user_category').selectize({
+    placeholder: "Escoge una categoría...",
+    onChange: function(value) {
+      showCoursesFromCategory(value);
+    }
   });
 
   $('.main-login input#password').on('keyup blur', function () {
@@ -252,3 +253,35 @@ $(window).scroll(function() {
     $("header").removeClass("scrolled");
   }
 });
+
+function showCoursesFromCategory(id) {
+  var location = window.location;
+  var baseUrl = location.protocol + "//" + location.host + "/"
+  var url = baseUrl + "/api/v1/courses/categories-id/" + id;
+
+  $.ajax({
+    type: "GET",
+    url: url,
+    success: function (data) {
+      showCourses(data);
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      console.log("ERROR!");
+      console.log("xml", XMLHttpRequest);
+      console.log("textstatus", textStatus);
+      console.log("error", errorThrown);
+
+      if (errorThrown === "Unauthorized") {
+        toastr.error('El usuario no existe o las credenciales son incorrectas');
+      } else if (errorThrown === "Forbidden") {
+        toastr.error('Usuario bloqueado');
+      }
+    },
+    contentType: 'application/json',
+    dataType: 'JSON'
+  });
+}
+
+function showCourses(courses) {
+  console.log(courses);
+}

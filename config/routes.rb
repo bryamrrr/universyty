@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       get 'courses/:id/professors', to: 'courses#professors'
       get 'courses/:id/change_state', to: 'courses#change_state'
       get 'courses/categories/:slug', to: 'courses#find_by_slug'
+      get 'courses/categories-id/:id', to: 'courses#find_by_category'
 
       resources :parts, only: [:show, :destroy, :create]
       get 'parts/:id/topics', to: 'parts#topics'

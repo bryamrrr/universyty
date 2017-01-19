@@ -37,6 +37,15 @@ class Api::V1::CoursesController < Api::V1::BaseController
       ), :category => category }
   end
 
+  def find_by_category
+    courses = Course.where(category_id: params[:id])
+    render :json => courses.to_json(:include => {
+      :category => {},
+      :professors => {},
+      :user => {}
+    })
+  end
+
   def create
     course = Course.new(course_params)
 

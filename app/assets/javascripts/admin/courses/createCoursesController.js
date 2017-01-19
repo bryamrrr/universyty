@@ -61,7 +61,7 @@ function CreateCourseController($scope, $state, urls, HttpRequest, toastr, valid
         toastr.error("No se ha encontrado al instructor en la Base de Datos");
       });
     } else {
-      promise = HttpRequest.send("PUT", url, course);
+      promise = HttpRequest.send("POST", url, course);
       promise.then(function (response) {
         toastr.success(response.message);
         $state.go('courses.list');
