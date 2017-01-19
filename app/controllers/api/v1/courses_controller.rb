@@ -6,7 +6,8 @@ class Api::V1::CoursesController < Api::V1::BaseController
 
     render :json => @courses.to_json(:include => {
       :category => {},
-      :professors => {}
+      :professors => {},
+      :user => {}
       })
   end
 

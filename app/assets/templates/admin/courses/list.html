@@ -7,6 +7,7 @@
           <th class="thin-column">Nombre</th>
           <th class="text-left">Categoría</th>
           <th class="text-left">Estado</th>
+          <th class="text-left">Instructor</th>
           <th colspan="5">Administrar</th>
         </tr>
       </thead>
@@ -17,6 +18,10 @@
           <td class="text-left">
             <span ng-if="course.published">Publicado</span>
             <span ng-if="!course.published">No Publicado</span>
+          </td>
+          <td class="text-left">
+            <span ng-if="course.user">{{ course.user.nickname }}</span>
+            <span ng-if="!course.user">-</span>
           </td>
           <td class="no-padding">
             <a href="javascript:void(0)" ng-click="coursePublish(course.id, $event)" class="btn button-ico">
