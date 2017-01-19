@@ -1,6 +1,7 @@
 module MailchimpWrapper
 
   def self.subscribe(user)
+    puts "LLEGO AL SUBSCRIBE DE MAILCHIMP WRAPPER"
     mailchimp = Mailchimp::API.new(ENV['MAILCHIMP_API_KEY'])
     merge_vars = merge_vars_hash(user)
     mailchimp.lists.subscribe(

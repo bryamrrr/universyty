@@ -22,18 +22,21 @@ class UsersController < ApplicationController
   end
 
   def update_teams(user, level)
-    puts "ENTRO a UPDATE_TEAMS"
     if user[:sponsor] != ""
       father = User.where(nickname: user[:sponsor]).first
 
-      father.teams.create(
-        sponsored: user[:nickname],
-        level: level
-      )
+      if father
+        father.teams.create(
+          sponsored: user[:nickname],
+          level: level
+        )
 
-      level = level + 1
+        level = level + 1
 
-      update_teams(father, level) unless father[:sponsor] == nil || level > 5
+        update_teams(father, level) unless father[:sponsor] == nil || level > 5
+      else
+        puts "No entró, NO ha creado TEAMS"
+      end
     end
   end
 
