@@ -4,6 +4,7 @@ class Course < ApplicationRecord
 
   has_many :parts
   has_many :professors
+  has_many :enrollments
 
   before_save :default_values
 

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       post 'users/logout', to: 'users#logout'
       put 'users/:nickname/change_password', to: 'users#change_password'
       put 'users/:id/block', to: 'users#block'
+      get 'users/:id/courses', to: 'users#courses'
 
       resources :provinces, only: [:index]
       resources :categories, except: [:new, :edit]

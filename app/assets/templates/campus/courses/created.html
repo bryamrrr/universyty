@@ -1,10 +1,25 @@
-<div class="align-center">
-  <br>
-  <br>
-  <br>
-  <i class="fa fa-bullhorn fa-3x"></i>
-  <br>
-  <br>
-  <h1>En construcción</h1>
-  <p>Mis cursos / Creados</p>
+<div class="card">
+  <div class="full-container card card-padding">
+    <h2>Mis Cursos Creados</h2>
+    <table class="table td-bg">
+      <thead>
+        <tr>
+          <th class="thin-column">Nº</th>
+          <th>Nombre del Curso/Diplomado</th>
+          <th>Precio Bruto</th>
+          <th>Fecha de Publicación</th>
+          <th>Cantidad de Alumnos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="course in courses">
+          <td>{{ $index + 1 }}</td>
+          <td>{{ course.title }}</td>
+          <td>S/ {{ course.net | number: 2 }}</td>
+          <td>{{ course.created_at | date: 'M/d/yy h:mm a' }}</td>
+          <td>{{ course.enrollments.length }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -108,6 +108,21 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
+  def courses
+    user = User.find_by(nickname: params[:id])
+    if user
+      render :json => user.courses.to_json(:include => {
+        :enrollments => {
+          :include => {
+            :user => {}
+          }
+        }
+        })
+    else
+      render :json => { :message => "No se pudo encontrar el usuario" }, status: :not_found
+    end
+  end
+
   def block
     user = User.find(params[:id])
 

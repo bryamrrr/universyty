@@ -34,7 +34,7 @@
           <a href="">
             <span class="inner">
               <ng-md-icon class="fa fa-star icono"></ng-md-icon>
-              <span class="nav-label">Mis cursos</span>
+              <span class="nav-label">Cursos</span>
               <ng-md-icon class="fa fa-chevron-right arrow"></ng-md-icon>
             </span>
           </a>
@@ -42,7 +42,7 @@
             <li><a
             ui-sref="courses.list"
             ui-sref-active="active"
-            >Cursos</a></li>
+            >Mis Cursos</a></li>
             <li ng-show="role === 'Alumno'"><a
             ui-sref="courses.grades"
             ui-sref-active="active"
@@ -116,13 +116,15 @@
               <a
               ui-sref="ambassador.preferencial"
               ui-sref-active="active">
-              Clientes Preferenciales</a>
+              Invitados</a>
             </li>
             <li>
               <a
               ui-sref="ambassador.financial"
               ui-sref-active="active">
-              Estado Financiero</a>
+                <span ng-show="role === 'Alumno'">Puntos</span>
+                <span ng-show="role === 'Instructor'">Estado Financiero</span>
+              </a>
             </li>
             <li ng-show="role === 'Alumno'">
               <a
