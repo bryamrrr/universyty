@@ -266,3 +266,10 @@ User.create(fullname: "Bryam Rodriguez", nickname: "brodriguez", password: "A3ei
 Category.create(name: "Marketing & Negocios", slug: "marketing")
 Category.create(name: "Diseño & Programación", slug: "diseno")
 Category.create(name: "Idiomas & Des. Personal", slug: "idiomas")
+
+Type.create(name: "Ingreso")
+Type.create(name: "Egreso")
+
+Paymethod.create(name: "Tarjeta")
+Paymethod.create(name: "Depósito")
+Paymethod.create(name: "Puntos")

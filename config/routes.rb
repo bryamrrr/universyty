@@ -50,6 +50,9 @@ Rails.application.routes.draw do
       resources :alternatives, except: [:index, :new, :edit]
 
       resources :professors, except: [:new, :edit]
+
+      post 'movements/payment/:paymethod', to: 'movements#payment'
+      get 'movements/:nickname/payments', to: 'movements#payments'
     end
   end
 end

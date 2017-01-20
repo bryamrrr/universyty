@@ -59,7 +59,12 @@
         </ol>
       </div>
     </article>
-    <button>Comprar por S/ <span ng-if="!$state.includes('sale.billing')">29</span><span ng-if="$state.includes('sale.billing')">{{ cart.total }}</span></button>
+    <button ng-click="pay(paymentMethod, cart)" ng-disabled="form.$invalid || isLoading">
+      Comprar por S/ <span ng-if="!$state.includes('sale.billing')">29</span><span ng-if="$state.includes('sale.billing')">{{ cart.total }}</span>
+      <div class="loader-wrapper" ng-show="isLoading">
+        <div class="loader-circles" id="loader">Loading...</div>
+      </div>
+    </button>
   </div>
   <div class="billing-cart">
     <div class="billing-ambassador-plan" ng-if="!$state.includes('sale.billing')">

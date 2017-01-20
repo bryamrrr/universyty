@@ -1,10 +1,42 @@
-<div class="align-center">
-  <br>
-  <br>
-  <br>
-  <i class="fa fa-bullhorn fa-3x"></i>
-  <br>
-  <br>
-  <h1>En construcción</h1>
-  <p>Usuario / Mis Pagos</p>
+<div class="card-with-image">
+  <div class="header-background">
+    <figure class="avatar">
+      <img src="/user-avatar.png" alt="" />
+    </figure>
+    <h2>{{fullname}}</h2>
+  </div>
+  <div class="full-container card card-padding">
+    <table class="table td-bg">
+      <thead>
+        <tr>
+          <th class="thin-column">Fecha del Pedido</th>
+          <th class="text-left">Detalles</th>
+          <th class="text-left">Modalidad</th>
+          <th class="text-left">Valor</th>
+          <th class="text-left">Estado</th>
+          <th class="text-left">Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="payment in payments">
+          <td class="text-left">{{ payment.created_at }}</td>
+          <td class="text-left"><a ui-sref="user.payment-details({ id: payment.id })">Ver</a></td>
+          <td class="text-left">
+            {{ payment.paymethod.name }}
+          </td>
+          <td class="text-left">
+            {{ payment.total | number: 2 }}
+          </td>
+          <td class="text-left" ng-class="{ 'color-red': payment.status === 'No pagado', 'color-purple': payment.status === 'Pagado' }">
+            {{ payment.status }}
+          </td>
+          <td class=" no-padding">
+            <a href="javascript:void(0)" ng-click="paymentDelete(payment.id, $event)" class="btn button-ico">
+              <span class="helper"></span><i class="fa fa-trash display-inline font-1em red-color"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

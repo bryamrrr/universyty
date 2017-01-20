@@ -6,6 +6,7 @@ function DashboardController($scope, $state, $cookies,  CookieService, urls, Htt
   $scope.role = CookieService.read('role');
   $scope.first_entry = CookieService.read('first_entry');
 
+
   var cart = $cookies.get('cart');
   if (cart === '' || !cart) {
     $scope.cart = {
@@ -18,6 +19,7 @@ function DashboardController($scope, $state, $cookies,  CookieService, urls, Htt
     };
   } else {
     $scope.cart = JSON.parse(cart);
+    console.log($scope.cart);
     $scope.cart.show = false;
     $scope.cart.toggle = toggle;
     $scope.cart.removeItem = removeItem;
@@ -111,6 +113,6 @@ function DashboardController($scope, $state, $cookies,  CookieService, urls, Htt
   }
 
   function updateCartCookie(cart) {
-    CookieService.put('cart', JSON.stringify(cart));
+    $cookies.putObject('cart', cart);
   }
 }
