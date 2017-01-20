@@ -11,9 +11,17 @@ class Api::V1::MovementsController < Api::V1::BaseController
   def manualPayment(paymethod, cart, nickname)
     user = User.find_by(nickname: nickname)
 
+    if paymethod == '1'
+      paymethod = Paymethod.find_by(name: "Tarjeta")
+    elsif paymethod == '2'
+      paymethod = Paymethod.find_by(name: "Depósito")
+    elsif paymethod == '3'
+      paymethod = Paymethod.find_by(name: "Puntos")
+    end
+
     movement = Movement.new(
       user_id: user.id,
-      paymethod_id: Integer(paymethod),
+      paymethod_id: paymethod.id,
       type_id: 2,
       status: "No pagado",
       total: cart[:total]
