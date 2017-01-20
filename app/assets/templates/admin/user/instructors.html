@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <table class="table td-bg">
+      <thead>
+        <tr>
+          <th class="thin-column">Usuario</th>
+          <th class="text-left">Nombre Completo</th>
+          <th class="text-left">Estado</th>
+          <th colspan="1">Administrar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="user in users">
+          <td class="text-left">{{ user.nickname }}</td>
+          <td class="text-left">{{ user.fullname }}</td>
+          <td class="text-left">
+            <span ng-if="user.block === true">Bloqueado</span>
+            <span ng-if="user.block === false">Activo</span>
+          </td>
+          <td class=" no-padding">
+            <a href="javascript:void(0)" ng-click="userBlock(user.id, $event)" class="btn button-ico">
+              <span class="helper"></span><i class="fa fa-ban display-inline font-1em"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

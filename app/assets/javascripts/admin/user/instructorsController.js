@@ -1,11 +1,11 @@
-angular.module("admin-app").controller("UsersListController", UsersListController);
+angular.module("admin-app").controller("InstructorsController", InstructorsController);
 
-UsersListController.$inject = ['$scope', '$state', 'urls', 'HttpRequest', 'toastr', 'validators', 'SweetAlert'];
+InstructorsController.$inject = ['$scope', '$state', 'urls', 'HttpRequest', 'toastr', 'validators', 'SweetAlert'];
 
-function UsersListController($scope, $state, urls, HttpRequest, toastr, validators, SweetAlert) {
+function InstructorsController($scope, $state, urls, HttpRequest, toastr, validators, SweetAlert) {
   $scope.userBlock = userBlock;
 
-  var url = urls.BASE_API + '/users/students/all';
+  var url = urls.BASE_API + '/users/instructors/all';
   var promise = HttpRequest.send("GET", url);
 
   promise.then(function (response) {

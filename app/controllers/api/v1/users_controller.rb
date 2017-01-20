@@ -9,6 +9,26 @@ class Api::V1::UsersController < Api::V1::BaseController
       })
   end
 
+  def students
+    @users = User.where(role_id: 2).order(created_at: :desc).as_json
+    @users.delete_if{ |x| x[:instructor] }
+
+    render :json => @users
+  end
+
+  def instructors
+    @users = User.where(role_id: 2).order(created_at: :desc).as_json
+    @users.delete_if{ |x| !x[:instructor] }
+
+    render :json => @users
+  end
+
+  def admins
+    @users = User.where(role_id: 1).order(created_at: :desc).as_json
+
+    render :json => @users
+  end
+
   # POST /api/v1/users/login
   def login
     data = {nickname: params[:nickname], password: params[:password]}

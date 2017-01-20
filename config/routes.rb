@@ -26,6 +26,9 @@ Rails.application.routes.draw do
       put 'users/:nickname/change_password', to: 'users#change_password'
       put 'users/:id/block', to: 'users#block'
       get 'users/:id/courses', to: 'users#courses'
+      get 'users/students/all', to: 'users#students'
+      get 'users/instructors/all', to: 'users#instructors'
+      get 'users/admins/all', to: 'users#admins'
 
       resources :provinces, only: [:index]
       resources :categories, except: [:new, :edit]

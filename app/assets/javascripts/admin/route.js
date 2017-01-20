@@ -227,15 +227,39 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
-    .state('user.list', {
+    .state('user.students', {
       url: '/lista',
       data: {
-        title: 'Lista de Usuarios'
+        title: 'Lista de Alumnos'
       },
       views: {
         'content@user': {
           templateUrl: 'admin/user/list.html',
           controller: 'UsersListController'
+        }
+      }
+    })
+    .state('user.instructors', {
+      url: '/lista/instructores',
+      data: {
+        title: 'Lista de Instructores'
+      },
+      views: {
+        'content@user': {
+          templateUrl: 'admin/user/instructors.html',
+          controller: 'InstructorsController'
+        }
+      }
+    })
+    .state('user.admins', {
+      url: '/lista/administradores',
+      data: {
+        title: 'Lista de Administradores'
+      },
+      views: {
+        'content@user': {
+          templateUrl: 'admin/user/admins.html',
+          controller: 'AdminsController'
         }
       }
     })
