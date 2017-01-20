@@ -31,7 +31,7 @@ class Api::V1::MovementsController < Api::V1::BaseController
       cart[:items].each do |item|
         movement.products.create(
           course_id: item[:id],
-          name: item[:name],
+          name: item[:title],
           pricetag: item[:pricetag]
         )
       end
@@ -48,10 +48,18 @@ class Api::V1::MovementsController < Api::V1::BaseController
     if @current_user == user || @current_user.role[:name] == "Admin"
       render :json => movements.to_json(:include => {
           :type => {},
-          :paymethod => {}
+          :paymethod => {},
+          :products => {}
         })
     else
       render :json => { :message => "No se encontraron movimientos" }, status: :not_found
     end
+  end
+
+  def destroy
+    movement = Movement.find(params[:id])
+
+    movement.destroy
+    render :json => { :message => "Movimiento eliminado" }
   end
 end

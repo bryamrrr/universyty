@@ -2,5 +2,6 @@ angular.module("shared", [
   'ngAnimate',
   'toastr',
   'selectize',
-  'ngCookies'
+  'ngCookies',
+  'ui.bootstrap'
 ]);

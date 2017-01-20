@@ -95,6 +95,20 @@
       }
     }
   }
+  &.modal {
+    display: block;
+    padding: 0;
+    top: 50%;
+    left: 50%;
+    height: 500px;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    article:hover {
+      background-color: lighten($medium-gray, 40);
+      &:nth-child(2n) { background-color: white; }
+      .close-button { display: none; }
+    }
+  }
 }
 
 .billing-cart .shopping-cart {

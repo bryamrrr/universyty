@@ -4,5 +4,5 @@ class Movement < ApplicationRecord
   belongs_to :paymethod
   belongs_to :user
 
-  has_many :products
+  has_many :products, :dependent => :destroy
 end
