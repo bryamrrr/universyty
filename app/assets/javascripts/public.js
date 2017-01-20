@@ -304,7 +304,7 @@ function showCoursesFromText(text) {
       $('#js-loading-content').hide();
       $('#js-courses-container').show();
       $('.courses').removeClass('loading');
-      showCourses(data);
+      showCourses(data, text);
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
       console.log("ERROR!");
@@ -323,9 +323,18 @@ function showCoursesFromText(text) {
   });
 }
 
-function showCourses(courses) {
+function showCourses(courses, text) {
   console.log(courses);
-  $('#js-category-title').text(courses[0].category.name);
+  if (courses[0]) {
+    if (text) {
+      $('#js-category-title').text('Resultados de "' + text + '"');
+    } else {
+      $('#js-category-title').text(courses[0].category.name);
+    }
+  } else {
+    $('#js-category-title').text('No se encontraron resultados');
+  }
+
   $('#js-flex-container .course').remove();
 
   var i = 0;
