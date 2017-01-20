@@ -20,16 +20,11 @@ $(document).on('turbolinks:load', function () {
 
   $('#js-loading-content').hide();
 
-  // Click to scroll
-  $(".scroll-marketing").click(function() {
-    $('html,body').animate({ scrollTop: $("#marketing-courses").offset().top}, 'slow');
+  $('#js-search-by-text').click(function () {
+    var text = $(this).siblings('input').val();
+    showCoursesFromText(text);
   });
-  $(".scroll-development").click(function() {
-    $('html,body').animate({ scrollTop: $("#development-courses").offset().top}, 'slow');
-  });
-  $(".scroll-personal").click(function() {
-    $('html,body').animate({ scrollTop: $("#personal-courses").offset().top}, 'slow');
-  });
+
   $(".radio-container input").click(function() {
     console.log($(this));
     if ($(this)[0].id === 'js-instructor') {
@@ -292,6 +287,103 @@ function showCoursesFromCategory(id) {
   });
 }
 
+function showCoursesFromText(text) {
+  var location = window.location;
+  var baseUrl = location.protocol + "//" + location.host + "/"
+  var url = baseUrl + "/api/v1/courses/text/" + text;
+
+  $('#js-loading-content').show();
+  $('#js-courses-container').hide();
+  $('.courses').addClass('loading');
+  $('html, body').animate({ scrollTop: $("#js-courses").offset().top - 58}, 'slow');
+
+  $.ajax({
+    type: "GET",
+    url: url,
+    success: function (data) {
+      $('#js-loading-content').hide();
+      $('#js-courses-container').show();
+      $('.courses').removeClass('loading');
+      showCourses(data);
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      console.log("ERROR!");
+      console.log("xml", XMLHttpRequest);
+      console.log("textstatus", textStatus);
+      console.log("error", errorThrown);
+
+      if (errorThrown === "Unauthorized") {
+        toastr.error('El usuario no existe o las credenciales son incorrectas');
+      } else if (errorThrown === "Forbidden") {
+        toastr.error('Usuario bloqueado');
+      }
+    },
+    contentType: 'application/json',
+    dataType: 'JSON'
+  });
+}
+
 function showCourses(courses) {
   console.log(courses);
+  $('#js-category-title').text(courses[0].category.name);
+  $('#js-flex-container .course').remove();
+
+  var i = 0;
+  for (i; i < courses.length; i++) {
+    addCourseTemplate(courses[i]);
+  }
 }
+
+function addCourseTemplate(course) {
+  var textPrice = '';
+  var discount = '';
+
+  (course.free) ? textPrice = 'Gratis' : textPrice = course.pricetag;
+
+  if (course.discount) discount = 'S/ ' + course.discount;
+
+  var html = '<article class="course">\
+          <a href="/cursos/' + course.id + '">\
+          <div class="professor-hover">\
+            <div class="professor-hover-content">\
+              <figure>\
+                <img src="' + course.professors[0].image_url + '" alt="">\
+              </figure>\
+              <h5>' + course.professors[0].name + '</h5>\
+              <p class="tagline">' + course.professors[0].minibio + '</p>\
+            </div>\
+          </div>\
+          <div class="course-image">\
+            <img src="' + course.background + '" />\
+          </div>\
+          <div class="course-title">\
+            <h4>' + course.title + '</h4>\
+          </div>\
+          <div class="course-details">\
+            <div class="course-time">\
+              <i class="fa fa-clock-o" aria-hidden="true"></i>\
+              <span>' + course.duration + '</span>\
+            </div>\
+            <div class="course-price">\
+                <span>' + textPrice + '</span>\
+            </div>\
+            <div class="course-discount">' + discount + '</div>\
+          </div>\
+          </a>\
+        </article>';
+
+  $("#js-flex-container").append(html);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

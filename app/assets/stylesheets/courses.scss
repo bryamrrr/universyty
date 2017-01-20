@@ -46,10 +46,11 @@
   }
 
   img {
-    position: absolute;
-    top: .6em;
-    right: .6em;
+    cursor: pointer;
     height: 25px;
+    position: absolute;
+    right: .6em;
+    top: .6em;
   }
 
   input {
@@ -238,6 +239,8 @@
   .prev { left: 6em; }
   .next { right: 6em; }
 }
+
+.courses-index h3 { margin-bottom: 1em; }
 
 @media screen and (max-width: 1024px) {
   .experts .prev { left: 3em; }

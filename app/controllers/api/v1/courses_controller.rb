@@ -46,6 +46,29 @@ class Api::V1::CoursesController < Api::V1::BaseController
     })
   end
 
+  def find_by_text
+    @courses = Course.where('title LIKE ?', '%' + params[:text] + '%').all
+    @courses = @courses.as_json(:include => {
+      :category => {},
+      :professors => {},
+      :user => {}
+    })
+    professors = Professor.where('name LIKE ?', '%' + params[:text] + '%')
+
+    professors.each do |professor|
+      more_course = professor.course
+      if !@courses.any?{|a| a["id"] == more_course["id"]}
+        @courses << more_course.as_json(:include => {
+          :category => {},
+          :professors => {},
+          :user => {}
+        })
+      end
+    end
+
+    render :json => @courses
+  end
+
   def create
     course = Course.new(course_params)
 

@@ -6,9 +6,9 @@
       <div class="form-input" id="js-select-category">
         <%= f.collection_select(:category, Category.all, :id, :name, :include_blank => true) %>
       </div>
-      <div class="form-input">
-        <%= f.text_field :search, placeholder: 'Busca tu curso/diplomado o instructor' %>
-        <%= image_tag("search-ico.png") %>
+      <div class="form-input search-course">
+        <%= f.text_field :search, placeholder: "Busca tu curso/diplomado o instructor" %>
+        <%= image_tag("search-ico.png", :id => "js-search-by-text") %>
       </div>
     <% end %>
   </div>
@@ -21,9 +21,9 @@
 
   <div class="normal-container" id="js-courses-container">
 
-    <h3>¡Los más destacados!</h3>
+    <h3 id="js-category-title">¡Los más destacados!</h3>
 
-    <div class="flex-container">
+    <div class="flex-container" id="js-flex-container">
 
       <% @courses_starred.each do |course| %>
         <article class="course">
