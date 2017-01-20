@@ -16,6 +16,16 @@
     &:nth-child(3n) { margin-right: 0; }
     &:hover .professor-hover { bottom: 0; }
   }
+  &.loading {
+    height: calc(100vh - 58px);
+    position: relative;
+    .loading-content {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 }
 
 .professor-hover {
@@ -23,7 +33,7 @@
   bottom: -100%;
   box-sizing: border-box;
   color: white;
-  padding: 2em .5em 1em;
+  padding: 4.5em .5em 1em;
   position: absolute;
   height: 100%;
   text-align: center;
@@ -47,7 +57,7 @@
 }
 
 .course-image {
-  height: 160px;
+  height: 210px;
   overflow: hidden;
   position: relative;
   img {

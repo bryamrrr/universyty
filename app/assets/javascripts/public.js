@@ -18,6 +18,8 @@ toastr.options = {
 
 $(document).on('turbolinks:load', function () {
 
+  $('#js-loading-content').hide();
+
   // Click to scroll
   $(".scroll-marketing").click(function() {
     $('html,body').animate({ scrollTop: $("#marketing-courses").offset().top}, 'slow');
@@ -186,7 +188,7 @@ $(document).on('turbolinks:load', function () {
         if (data.user.instructor) {
           putCookie("role", "Instructor");
         } else {
-          putCookie("role", data.user.role);
+          putCookie("role", data.user.role.name);
         }
         putCookie("nickname", data.user.nickname);
         putCookie("token", data.token);
@@ -259,10 +261,18 @@ function showCoursesFromCategory(id) {
   var baseUrl = location.protocol + "//" + location.host + "/"
   var url = baseUrl + "/api/v1/courses/categories-id/" + id;
 
+  $('#js-loading-content').show();
+  $('#js-courses-container').hide();
+  $('.courses').addClass('loading');
+  $('html, body').animate({ scrollTop: $("#js-courses").offset().top - 58}, 'slow');
+
   $.ajax({
     type: "GET",
     url: url,
     success: function (data) {
+      $('#js-loading-content').hide();
+      $('#js-courses-container').show();
+      $('.courses').removeClass('loading');
       showCourses(data);
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
