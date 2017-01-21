@@ -11,14 +11,14 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def students
     @users = User.where(role_id: 2).order(created_at: :desc).as_json
-    @users.delete_if{ |x| x[:instructor] }
+    @users.delete_if{ |x| x['instructor'] }
 
     render :json => @users
   end
 
   def instructors
     @users = User.where(role_id: 2).order(created_at: :desc).as_json
-    @users.delete_if{ |x| !x[:instructor] }
+    @users.delete_if{ |x| !x['instructor'] }
 
     render :json => @users
   end
