@@ -5,6 +5,7 @@ function DashboardController($scope, $state, $cookies,  CookieService, urls, Htt
   $scope.nickname = CookieService.read('nickname');
   $scope.role = CookieService.read('role');
   $scope.first_entry = CookieService.read('first_entry');
+  $scope.ambassador = CookieService.read('ambassador');
 
 
   var cart = $cookies.get('cart');

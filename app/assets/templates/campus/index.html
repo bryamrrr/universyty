@@ -7,7 +7,9 @@
         <div class="profile-element text-align-left">
           <a ui-sref="user.datos" class="display-inline" >
             <span class="sub-title">
-              {{ nickname }} <i>({{ role }})</i>
+              {{ nickname }}
+              <i ng-if="!ambassador">({{ role }})</i>
+              <i ng-if="ambassador">(Embajador)</i>
             </span>
           </a>
         </div>

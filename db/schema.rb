@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170123200356) do
+ActiveRecord::Schema.define(version: 20170123221035) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer  "question_id"
@@ -280,6 +280,8 @@ ActiveRecord::Schema.define(version: 20170123200356) do
     t.string   "sponsor"
     t.boolean  "instructor"
     t.string   "city"
+    t.string   "bank_titular"
+    t.string   "bank_account"
     t.index ["province_id"], name: "index_users_on_province_id"
     t.index ["role_id"], name: "index_users_on_role_id"
   end

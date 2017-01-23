@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       post 'users/login', to: 'users#login'
       post 'users/logout', to: 'users#logout'
       put 'users/:nickname/change_password', to: 'users#change_password'
+      put 'users/:nickname/change_bank', to: 'users#change_bank'
       put 'users/:id/block', to: 'users#block'
       get 'users/:id/courses', to: 'users#courses'
       get 'users/students/all', to: 'users#students'
