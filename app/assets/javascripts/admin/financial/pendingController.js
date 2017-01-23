@@ -1,9 +1,10 @@
 angular.module("admin-app").controller("PendingController", PendingController);
 
-PendingController.$inject = ['$scope', 'urls', 'HttpRequest', '$uibModal'];
+PendingController.$inject = ['$scope', '$state', 'urls', 'HttpRequest', '$uibModal', 'SweetAlert'];
 
-function PendingController($scope, urls, HttpRequest, $uibModal) {
+function PendingController($scope, $state, urls, HttpRequest, $uibModal, SweetAlert) {
   $scope.openDetails = openDetails;
+  $scope.activate = activate;
 
   var url = urls.BASE_API + '/movements/pendings';
   var promise = HttpRequest.send('GET', url);
@@ -33,4 +34,32 @@ function PendingController($scope, urls, HttpRequest, $uibModal) {
       appendTo: parentElem
     });
   };
+
+  function activate(id) {
+    SweetAlert.swal({
+      title: "Estás seguro?",
+      text: "Esta acción cambiará el estado del movimiento a 'Pagado'!",
+      type: "warning",
+      showCancelButton: true,
+      cancelButtonClass: "button-ln",
+      confirmButtonClass: "button-bg primary",
+      confirmButtonText: "Si",
+      cancelButtonText: "No",
+      closeOnConfirm: false,
+      closeOnCancel: false
+    }, function(isConfirm){
+      if (isConfirm) {
+        var url = urls.BASE_API + '/movements/' + id + '/change_activate';
+        var promise = HttpRequest.send("GET", url);
+        promise.then(function(response) {
+          SweetAlert.swal("Actualizado!", "Se cambió el estado correctamente", "success");
+          $state.reload();
+        }, function(error) {
+          toastr.error("Hubo un error");
+        });
+      } else {
+        SweetAlert.swal("Cancelado", "Se canceló la acción", "error");
+      }
+    });
+  }
 }

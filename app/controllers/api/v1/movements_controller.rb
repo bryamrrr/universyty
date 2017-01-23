@@ -76,6 +76,44 @@ class Api::V1::MovementsController < Api::V1::BaseController
         })
   end
 
+  def change_activate
+    movement = Movement.find(params[:id])
+
+    if @current_user.role[:name] == "Admin"
+      if movement[:status] == "No pagado"
+        activate_movement(movement)
+        render :json => { :message => "Se cambió el estado del pago correctamente" }
+      elsif movement[:status] == "Pagado"
+        puts "Desactivar pago/movimiento"
+        render :json => { :message => "Se cambió el estado del pago correctamente" }
+      end
+    else
+      render :json => { :message => "Acceso denegado" }, status: :forbidden
+    end
+  end
+
+  def activate_movement(movement)
+    movement.update_column(:status, "Pagado")
+    if movement.products.count > 0
+      puts "Es un pago de cursos"
+      movement.products.each do |product|
+        Enrollment.create(user_id: movement[:user_id], course_id: product.course_id)
+      end
+    else
+      puts "Es un pago de embajador"
+      user = User.find(movement[:user_id])
+      if user[:paydate] < Time.today
+        puts "Ya pasó a fecha de pago, se actualizará para que pague dentro de un mes exactamente"
+        user.update_column(:paydate, Time.today + 1.month)
+      else
+        puts "Aun no es la fecha de pago, se le sumará un mes más a la fecha de pago ya existente"
+        user.update_column(:paydate, user[:paydate] + 1.month)
+      end
+      user.update_column(:ambassador, true)
+      user.update_column(:ambassador_active, true)
+    end
+  end
+
   def destroy
     movement = Movement.find(params[:id])
 

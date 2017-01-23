@@ -59,6 +59,7 @@ Rails.application.routes.draw do
       get 'movements/:nickname/payments', to: 'movements#payments'
       get 'movements/pendings', to: 'movements#payments_pending'
       get 'movements/paids', to: 'movements#payments_paid'
+      get 'movements/:id/change_activate', to: 'movements#change_activate'
     end
   end
 end

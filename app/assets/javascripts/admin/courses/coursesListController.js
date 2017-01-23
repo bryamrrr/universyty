@@ -60,8 +60,8 @@ function CoursesListController($scope, $state, urls, HttpRequest, toastr, valida
     }, function(isConfirm){
       if (isConfirm) {
         var url = urls.BASE_API + '/courses/' + id + '/change_state';
-        var promise_delete = HttpRequest.send("GET", url);
-        promise_delete.then(function(response) {
+        var promise = HttpRequest.send("GET", url);
+        promise.then(function(response) {
           SweetAlert.swal("Actualizado!", "Se cambió el estado correctamente", "success");
           $state.reload();
         }, function(error) {
