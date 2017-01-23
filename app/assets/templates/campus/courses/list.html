@@ -1,10 +1,24 @@
-<div class="align-center">
-  <br>
-  <br>
-  <br>
-  <i class="fa fa-bullhorn fa-3x"></i>
-  <br>
-  <br>
-  <h1>En construcción</h1>
-  <p>Mis Cursos / Lista</p>
+<div class="courses">
+  <h2>Mis cursos</h2>
+
+  <div class="flex-container">
+
+    <article class="course" ng-repeat="enrollment in enrollments" ui-sref="course.course-index({ id: enrollment.enrollment.course.id })">
+      <a href="#">
+        <div class="professor-hover">
+          <div class="professor-hover-content">
+            <i class="fa fa-play-circle"></i>
+          </div>
+        </div>
+        <div class="course-image">
+          <img ng-src="{{ enrollment.course.background_url }}" alt="" />
+        </div>
+        <div class="course-title">
+          <h4>{{ enrollment.course.title }}</h4>
+        </div>
+      </a>
+    </article>
+
+  </div>
+
 </div>

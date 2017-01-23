@@ -60,6 +60,9 @@ Rails.application.routes.draw do
       get 'movements/pendings', to: 'movements#payments_pending'
       get 'movements/paids', to: 'movements#payments_paid'
       get 'movements/:id/change_activate', to: 'movements#change_activate'
+
+      resources :enrollments, only: [:destroy]
+      get 'enrollments/users/:id', to: 'enrollments#find_by_user'
     end
   end
 end

@@ -19,7 +19,6 @@ function DashboardController($scope, $state, $cookies,  CookieService, urls, Htt
     };
   } else {
     $scope.cart = JSON.parse(cart);
-    console.log($scope.cart);
     $scope.cart.show = false;
     $scope.cart.toggle = toggle;
     $scope.cart.removeItem = removeItem;
