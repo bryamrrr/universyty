@@ -79,44 +79,38 @@
           </ul>
         </li>
         <li
-        data-ng-class="{open: $state.includes('ambassador')}">
+        data-ng-class="{open: $state.includes('financial')}">
           <a href="">
             <span class="inner">
               <ng-md-icon class="fa fa-suitcase icono"></ng-md-icon>
-              <span class="nav-label">Embajador</span>
+              <span class="nav-label">Finanzas</span>
               <ng-md-icon class="fa fa-chevron-right arrow"></ng-md-icon>
             </span>
           </a>
           <ul class="nav nav-second-level ">
             <li>
               <a
-              ui-sref="ambassador.plan"
+              ui-sref="financial.pending"
               ui-sref-active="active">
-              Plan Embajador</a>
+              Pendientes de Pago</a>
             </li>
             <li>
               <a
-              ui-sref="ambassador.list"
+              ui-sref="financial.income"
               ui-sref-active="active">
-              Embajadores</a>
+              Ingresos</a>
             </li>
             <li>
               <a
-              ui-sref="ambassador.preferencial"
+              ui-sref="financial.outcome"
               ui-sref-active="active">
-              Clientes Preferenciales</a>
+              Egresos</a>
             </li>
             <li>
               <a
-              ui-sref="ambassador.financial"
+              ui-sref="financial.contingency"
               ui-sref-active="active">
-              Estado Financiero</a>
-            </li>
-            <li>
-              <a
-              ui-sref="ambassador.billing"
-              ui-sref-active="active">
-              Facturación</a>
+              Contingencia</a>
             </li>
           </ul>
         </li>

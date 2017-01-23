@@ -56,6 +56,26 @@ class Api::V1::MovementsController < Api::V1::BaseController
     end
   end
 
+  def payments_pending
+    movements = Movement.where(status: "No pagado").order(updated_at: :desc)
+    render :json => movements.to_json(:include => {
+          :type => {},
+          :paymethod => {},
+          :user => {},
+          :products => {}
+        })
+  end
+
+  def payments_paid
+    movements = Movement.where(status: "Pagado").order(updated_at: :desc)
+    render :json => movements.to_json(:include => {
+          :type => {},
+          :paymethod => {},
+          :user => {},
+          :products => {}
+        })
+  end
+
   def destroy
     movement = Movement.find(params[:id])
 

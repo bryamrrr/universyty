@@ -1,0 +1,40 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <h2>Ingresos</h2>
+    <table class="table td-bg" ng-if="payments.length > 0">
+      <thead>
+        <tr>
+          <th class="thin-column">Nombre del alumno</th>
+          <th class="text-left">Usuario</th>
+          <th class="text-left">Detalle del pedido</th>
+          <th class="text-left">Fecha de pedido</th>
+          <th class="text-left">Modo de pago</th>
+          <th class="text-left">Activar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="payment in payments">
+          <td class="text-left">{{ payment.user.fullname }}</td>
+          <td class="text-left">{{ payment.user.nickname }}</td>
+          <td class="text-left">
+            <a href="#" ng-click="openDetails(payment)">Ver</a>
+          </td>
+          <td class="text-left">
+            <span>{{ payment.created_at }}</span>
+          </td>
+          <td class="text-left">
+            <span>{{ payment.paymethod.name }}</span>
+          </td>
+          <td class="no-padding">
+            <a href="javascript:void(0)" ng-click="activate(payment.id, $event)" class="btn button-ico">
+              <span class="helper"></span><i class="fa fa-exchange display-inline font-1-3em"></i>
+            </a>
+        </tr>
+      </tbody>
+    </table>
+    <div class="alert-container important" ng-hide="payments.length > 0">
+      <i class="fa fa-warning"></i>
+      <span>No se encontraron ingresos.</span>
+    </div>
+  </div>
+</div>

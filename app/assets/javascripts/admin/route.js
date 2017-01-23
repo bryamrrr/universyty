@@ -277,6 +277,70 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
 
+    // Finanzas
+    .state('financial', {
+      url: '/admin/finanzas',
+      abstract: true,
+      data: {
+        'needAuth': true,
+        'title': 'Finanzas'
+      },
+      views: {
+        dashboard: {
+          templateUrl: 'admin/index.html'
+        }
+      }
+    })
+    .state('financial.pending', {
+      url: '/pendientes',
+      data: {
+        title: 'Pendientes de pago'
+      },
+      views: {
+        'content@financial': {
+          templateUrl: 'admin/financial/pending.html',
+          controller: 'PendingController'
+        }
+      }
+    })
+    .state('financial.income', {
+      url: '/ingresos',
+      data: {
+        title: 'Ingresos'
+      },
+      views: {
+        'content@financial': {
+          templateUrl: 'admin/financial/income.html',
+          controller: 'IncomeController'
+        }
+      }
+    })
+    .state('user.outcome', {
+      url: '/egresos',
+      data: {
+        title: 'Egresos'
+      },
+      views: {
+        'content@financial': {
+          templateUrl: 'admin/user/outcome.html',
+          controller: 'OutcomeController'
+        }
+      }
+    })
+    .state('user.contingency', {
+      url: '/contingencia',
+      data: {
+        title: 'Contingencia'
+      },
+      views: {
+        'content@financial': {
+          templateUrl: 'admin/financial/contingency.html',
+          controller: 'ContingencyController'
+        }
+      }
+    })
+
+
   // default fall back route
   $urlRouterProvider.otherwise('/admin/inicio');
 

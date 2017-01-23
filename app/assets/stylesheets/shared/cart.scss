@@ -32,9 +32,9 @@
   .cart-body {
     h5 {
       color: $purple;
-      display: inline-block;
       font-size: .9em;
       font-weight: normal;
+      text-align: left;
       width: calc(100% - 65px);
     }
     article {
