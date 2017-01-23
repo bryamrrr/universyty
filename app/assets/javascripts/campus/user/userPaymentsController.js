@@ -17,6 +17,7 @@ function UserPaymentsController($scope, $state, $q, $uibModal, $document, urls, 
   allPromises.then(function (response) {
     $scope.user = response[0];
     $scope.payments = response[1];
+    console.log(response[1]);
 
     $scope.fullname = angular.copy($scope.user.fullname);
 

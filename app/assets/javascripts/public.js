@@ -108,6 +108,7 @@ $(document).on('turbolinks:load', function () {
       }
     },
     submitHandler: function(form) {
+      console.log(form);
       $("#login-button").attr("disabled", false);
       form.submit();
     }
@@ -192,6 +193,8 @@ $(document).on('turbolinks:load', function () {
         putCookie("address", data.user.address);
         putCookie("fullname", data.user.fullname);
         putCookie("dni", data.user.dni);
+        putCookie("ambassador", data.user.ambassador);
+        putCookie("ambassador_active", data.user.ambassador_active);
         if (data.user.role.name === "Admin") {
           window.location.href = baseUrl + "admin/inicio";
         } else {

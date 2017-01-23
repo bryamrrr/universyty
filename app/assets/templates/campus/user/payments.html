@@ -20,7 +20,11 @@
       <tbody>
         <tr ng-repeat="payment in payments">
           <td class="text-left">{{ payment.created_at }}</td>
-          <td class="text-left"><a href="#" ng-click="openDetails(payment)">Ver</a></td>
+          <td class="text-left">
+            <a href="#" ng-click="openDetails(payment)" ng-if="!payment.ambassador">Ver</a>
+            <span ng-if="payment.ambassador && !payment.monthly">Plan Embajador</span>
+            <span ng-if="payment.monthly">Mensualidad</span>
+          </td>
           <td class="text-left">
             {{ payment.paymethod.name }}
           </td>

@@ -56,6 +56,7 @@ Rails.application.routes.draw do
 
       resources :movements, only: [:destroy]
       post 'movements/payment/:paymethod', to: 'movements#payment'
+      post 'movements/ambassador/:paymethod', to: 'movements#ambassador'
       get 'movements/:nickname/payments', to: 'movements#payments'
       get 'movements/pendings', to: 'movements#payments_pending'
       get 'movements/paids', to: 'movements#payments_paid'

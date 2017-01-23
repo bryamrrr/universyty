@@ -8,6 +8,48 @@ class Api::V1::MovementsController < Api::V1::BaseController
     end
   end
 
+  def ambassador
+    paymethod = params[:paymethod]
+    nickname = params[:data][:nickname]
+    if paymethod == '2' || paymethod == '3'
+      manualAmbassadorPayment(paymethod, nickname)
+    end
+  end
+
+  def manualAmbassadorPayment(paymethod, nickname)
+    user = User.find_by(nickname: nickname)
+
+    if paymethod == '1'
+      paymethod = Paymethod.find_by(name: "Tarjeta")
+    elsif paymethod == '2'
+      paymethod = Paymethod.find_by(name: "Depósito")
+    elsif paymethod == '3'
+      paymethod = Paymethod.find_by(name: "Puntos")
+    end
+
+    if user[:ambassador] == false
+      monthly = false
+    else
+      monthly = true
+    end
+
+    movement = Movement.new(
+      user_id: user.id,
+      paymethod_id: paymethod.id,
+      type_id: 2,
+      status: "No pagado",
+      total: 29,
+      monthly: monthly,
+      ambassador: true
+    )
+
+    if movement.save
+      render :json => { :message => "Pedido realizado" }
+    else
+      render :json => { :message => "No se pudo realizar el pedido", :dev_message => movement.errors.full_message.to_json }
+    end
+  end
+
   def manualPayment(paymethod, cart, nickname)
     user = User.find_by(nickname: nickname)
 
@@ -93,7 +135,6 @@ class Api::V1::MovementsController < Api::V1::BaseController
   end
 
   def activate_movement(movement)
-    movement.update_column(:status, "Pagado")
     if movement.products.count > 0
       puts "Es un pago de cursos"
       movement.products.each do |product|
@@ -102,16 +143,21 @@ class Api::V1::MovementsController < Api::V1::BaseController
     else
       puts "Es un pago de embajador"
       user = User.find(movement[:user_id])
-      if user[:paydate] < Time.today
-        puts "Ya pasó a fecha de pago, se actualizará para que pague dentro de un mes exactamente"
-        user.update_column(:paydate, Time.today + 1.month)
+      if user[:paydate]
+        if user[:paydate] < Date.today
+          puts "Ya pasó a fecha de pago, se actualizará para que pague dentro de un mes exactamente"
+          user.update_column(:paydate, Date.today + 1.month)
+        else
+          puts "Aun no es la fecha de pago, se le sumará un mes más a la fecha de pago ya existente"
+          user.update_column(:paydate, user[:paydate] + 1.month)
+        end
       else
-        puts "Aun no es la fecha de pago, se le sumará un mes más a la fecha de pago ya existente"
-        user.update_column(:paydate, user[:paydate] + 1.month)
+        user.update_column(:paydate, Date.today + 1.month)
       end
       user.update_column(:ambassador, true)
       user.update_column(:ambassador_active, true)
     end
+    movement.update_column(:status, "Pagado")
   end
 
   def destroy
