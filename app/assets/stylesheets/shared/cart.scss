@@ -95,6 +95,13 @@
       }
     }
   }
+  .cart-discount {
+    position: absolute;
+    bottom: 85px;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+  }
   &.modal {
     display: block;
     padding: 0;

@@ -12,10 +12,17 @@ function SaleController($scope, $cookies, $state, CookieService, SweetAlert, url
   $scope.dni = CookieService.read('dni');
   $scope.address = CookieService.read('address');
   $scope.city = CookieService.read('city');
+  var ambassador = CookieService.read('ambassador');
   var nickname = CookieService.read('nickname');
 
   var cart = $cookies.get('cart');
   if (cart) $scope.cart = JSON.parse(cart);
+  console.log($scope.cart);
+
+  if (ambassador === 'true') {
+    $scope.cart.discount = .2 * $scope.cart.total;
+    $scope.cart.total = .8 * $scope.cart.total;
+  }
 
   $scope.paymentMethod = '2';
 
