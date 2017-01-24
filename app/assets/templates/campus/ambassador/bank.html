@@ -37,8 +37,8 @@
       <div class="card">
         <h3>IMPORTANTE</h3>
         <ul>
-          <li>Completa los datos sólo si eres Embajador. Una vez establecidos no podrán ser modificados, sólo puedes hacerlo escribiéndonos a finanzas@universyty.com</li>
-          <li>Esta información brindada solo se utilizará para que Universyty deposite todas tus ganancias por invitar a tus amigos.</li>
+          <li><span ng-show="role === 'Estudiante'">Completa los datos sólo si eres Embajador. </span>Una vez establecidos estos datos no podrán ser modificados, sólo puedes hacerlo escribiéndonos a finanzas@universyty.com</li>
+          <li>Esta información brindada solo se utilizará para que Universyty deposite <span ng-show="role === 'Instructor'">todos sus ingresos generados</span> <span ng-show="role === 'Estudiante'">todas tus ganancias por invitar a tus amigos</span>.</li>
           <li>Asegúrese que los datos digitados sean correctos. Universyty no se responsabiliza de la información brindada.</li>
         </ul>
       </div>
