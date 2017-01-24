@@ -6,7 +6,7 @@
     <h2>{{fullname}}</h2>
   </div>
   <div class="full-container card card-padding">
-    <table class="table td-bg">
+    <table class="table td-bg" ng-show="payments.length > 0">
       <thead>
         <tr>
           <th class="thin-column">Fecha del Pedido</th>
@@ -42,5 +42,9 @@
         </tr>
       </tbody>
     </table>
+    <div class="alert-container important" ng-hide="payments.length > 0">
+      <i class="fa fa-warning"></i>
+      <span>Aún no hay alumnos invitados.</span>
+    </div>
   </div>
 </div>

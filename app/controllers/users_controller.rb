@@ -31,7 +31,7 @@ class UsersController < ApplicationController
           level: level
         )
       else
-        puts "No entró, NO ha creado TEAMS"
+        puts "El usuario sponsor no es embajador"
       end
     end
   end

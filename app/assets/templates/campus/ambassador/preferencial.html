@@ -1,10 +1,28 @@
-<div class="align-center">
-  <br>
-  <br>
-  <br>
-  <i class="fa fa-bullhorn fa-3x"></i>
-  <br>
-  <br>
-  <h1>En construcción</h1>
-  <p>Embajador / Clientes preferenciales</p>
+<div class="card">
+  <div class="full-container card card-padding">
+    <h2>Alumnos</h2>
+    <table class="table td-bg" ng-show="students.length > 0">
+      <thead>
+        <tr>
+          <th class="text-left">Nombre del Invitado</th>
+          <th class="text-left">Usuario</th>
+          <th class="text-left">Correo</th>
+          <th class="text-left">Fecha de Registro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="student in students">
+          <td class="text-left">{{ student.fullname }}</td>
+          <td class="text-left">{{ student.nickname }}</td>
+          <td class="text-left">{{ student.email }}</td>
+          <td class="text-left">{{ student.created_at }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="foot-note align-right" ng-show="students.length > 0">* Esta es la lista de todas las personas que has invitado, si alguno de ellos ha comprado su Plan Embajador, ubícalos en EMBAJADORES.</p>
+    <div class="alert-container important" ng-hide="students.length > 0">
+      <i class="fa fa-warning"></i>
+      <span>Aún no hay alumnos invitados.</span>
+    </div>
+  </div>
 </div>

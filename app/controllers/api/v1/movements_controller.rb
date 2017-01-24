@@ -141,8 +141,9 @@ class Api::V1::MovementsController < Api::V1::BaseController
         Enrollment.create(user_id: movement[:user_id], course_id: product.course_id)
       end
     else
-      puts "Es un pago de embajador"
       user = User.find(movement[:user_id])
+      update_teams(user, 1)
+
       if user[:paydate]
         if user[:paydate] < Date.today
           puts "Ya pasó a fecha de pago, se actualizará para que pague dentro de un mes exactamente"
@@ -158,6 +159,27 @@ class Api::V1::MovementsController < Api::V1::BaseController
       user.update_column(:ambassador_active, true)
     end
     movement.update_column(:status, "Pagado")
+  end
+
+  def update_teams(user, level, father = nil)
+    if user[:sponsor] != ""
+      if father
+        father = User.where(nickname: father[:sponsor]).first
+      else
+        father = User.where(nickname: user[:sponsor]).first
+      end
+
+      if father && father[:ambassador]
+        father.teams.create(
+          sponsored: user[:nickname],
+          level: level
+        )
+        level += 1
+        update_teams(user, level, father) unless father[:sponsor] == ""
+      else
+        puts "El usuario sponsor no es embajador"
+      end
+    end
   end
 
   def destroy

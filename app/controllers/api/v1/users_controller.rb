@@ -117,16 +117,9 @@ class Api::V1::UsersController < Api::V1::BaseController
   def change_bank
     user = User.find_by(nickname: params[:nickname])
     if (user)
-      # if user[:bank_account]
-      #   render :json => { :message => "No se puede actualizar los datos. Contáctese con soporte." }, status: :forbidden
-      # else
-        puts "LLEGUE AQUI"
-        puts params[:data][:titular]
-        puts params[:data][:account]
         user.update_column(:bank_titular, update_params[:titular])
         user.update_column(:bank_account, update_params[:account])
         render :json => { :message => "Datos actualizados" }
-      # end
     else
       render :json => { :message => "No se pudo actualizar los datos" }, status: :not_found
     end

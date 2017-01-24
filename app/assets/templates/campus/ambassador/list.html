@@ -1,10 +1,58 @@
-<div class="align-center">
-  <br>
-  <br>
-  <br>
-  <i class="fa fa-bullhorn fa-3x"></i>
-  <br>
-  <br>
-  <h1>En construcción</h1>
-  <p>Embajador / Embajadores</p>
+<div class="card">
+  <div class="full-container card card-padding">
+    <h2>Embajadores</h2>
+    <table class="table td-bg">
+      <thead>
+        <tr>
+          <th class="text-left">Nivel</th>
+          <th class="text-left">Equipo de Embajadores</th>
+          <th class="text-left">Nº de activos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1º</td>
+          <td>{{ data.total[0] }}</td>
+          <td>{{ data.total_active[0] }}</td>
+        </tr>
+        <tr>
+          <td>2º</td>
+          <td>{{ data.total[1] }}</td>
+          <td>{{ data.total_active[1] }}</td>
+        </tr>
+        <tr>
+          <td>3º</td>
+          <td>{{ data.total[2] }}</td>
+          <td>{{ data.total_active[2] }}</td>
+        </tr>
+        <tr>
+          <td>4º</td>
+          <td>{{ data.total[3] }}</td>
+          <td>{{ data.total_active[3] }}</td>
+        </tr>
+        <tr>
+          <td>5º</td>
+          <td>{{ data.total[4] }}</td>
+          <td>{{ data.total_active[4] }}</td>
+        </tr>
+        <tr>
+          <td>TOTAL</td>
+          <td>{{ data.total_sum }}</td>
+          <td>{{ data.total_active_sum }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="foot-note">
+      <ul>
+        <li><strong>* ACTIVO</strong>: Persona que ha pagado su mensualidad. El Embajador tiene que encontrarse activo para ser acreedor a todos los beneficios.</li>
+        <li><strong>* ACUMULA PUNTOS</strong>: Invita a todos tus amigos a registrarse, acumula puntos por sus compras y luego canjéalos por Cursos y/o Dinero. El Sistema de Puntuación es el siguiente:
+          <ul>
+            <li>- PUNTOS DE RECOMENDACIÓN.- Gana el 20% de comisión cada vez que tus invitados (registrados) compren Cursos/Diplomados.</li>
+            <li>- PUNTOS DE AMIGO.- Gana 10 puntos cuando tu amigo se registra como Embajador.</li>
+            <li>- PUNTOS DE EQUIPO.- Gana 1 punto por cada persona de tu Equipo de Embajadores que pague su mensualidad (hasta el 5° nivel). El 1° nivel está conformado por todos mis registrados directos, el 2° nivel está conformado por todo los registrados del 1° nivel y así sucesivamente.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
