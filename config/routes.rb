@@ -69,7 +69,7 @@ Rails.application.routes.draw do
       resources :teams, only: [:index]
       get 'teams/:nickname/students', to: 'teams#students'
       get 'teams/:nickname/ambassadors', to: 'teams#ambassadors'
-      get 'teams/:nickname/ambassadors:level', to: 'teams#ambassadors_by_level'
+      get 'teams/:nickname/ambassadors/:level', to: 'teams#ambassadors_by_level'
     end
   end
 end

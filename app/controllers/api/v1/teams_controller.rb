@@ -50,6 +50,22 @@ class Api::V1::TeamsController < Api::V1::BaseController
   end
 
   def ambassadors_by_level
+    level = params[:level]
     user = User.find_by(nickname: params[:nickname])
+    teams = user.teams.order(created_at: :desc)
+
+    my_ambassadors = Array.new
+
+    if teams.count > 0
+      teams.each do |team|
+        my_user = User.find_by(nickname: team[:sponsored])
+
+        if team[:level] == Integer(level) && my_user[:ambassador]
+          my_ambassadors.push(my_user)
+        end
+      end
+    end
+
+    render :json => my_ambassadors.to_json()
   end
 end

@@ -221,6 +221,18 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
+    .state('ambassador.level', {
+      url: '/lista/:level',
+      data: {
+        title: 'Embajadores'
+      },
+      views: {
+        'content@ambassador': {
+          templateUrl: 'campus/ambassador/list-level.html',
+          controller: 'AmbassadorLevelController'
+        }
+      }
+    })
     .state('ambassador.preferencial', {
       url: '/preferenciales',
       data: {
