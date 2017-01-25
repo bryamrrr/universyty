@@ -185,18 +185,6 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
-    .state('ambassador.students', {
-      url: '/alumnos',
-      data: {
-        title: 'Alumnos'
-      },
-      views: {
-        'content@ambassador': {
-          templateUrl: 'campus/ambassador/students.html',
-          controller: 'AmbassadorStudentsController'
-        }
-      }
-    })
     .state('ambassador.plan', {
       url: '/plan',
       data: {

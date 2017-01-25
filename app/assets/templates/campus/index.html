@@ -96,12 +96,6 @@
             </span>
           </a>
           <ul class="nav nav-second-level ">
-            <li ng-show="role === 'Instructor'">
-              <a
-              ui-sref="ambassador.students"
-              ui-sref-active="active">
-              Alumnos</a>
-            </li>
             <li ng-show="role === 'Estudiante'">
               <a
               ui-sref="ambassador.plan"
@@ -114,7 +108,7 @@
               ui-sref-active="active">
               Embajadores</a>
             </li>
-            <li ng-show="role === 'Estudiante'">
+            <li>
               <a
               ui-sref="ambassador.preferencial"
               ui-sref-active="active">
