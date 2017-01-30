@@ -1,0 +1,42 @@
+<div class="card-course">
+  <h2>{{ course.title }}</h2>
+  <p class="tagline">Por: {{ course.professors[0].name }}</p>
+
+  <section class="course-main">
+    <div class="video-wrapper-wistia">
+      <script src="//fast.wistia.com/embed/medias/2s2ojmr0ny.jsonp" async></script><script src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_embed wistia_async_2s2ojmr0ny videoFoam=true" style="height:100%;width:100%">&nbsp;</div></div></div>
+    </div>
+    <div class="parts-container">
+      <article ng-repeat="part in parts">
+        <div class="part-header">
+          <i class="fa fa-circle"></i>
+          <h4>{{ part.title }}</h4>
+        </div>
+        <div class="part-body">
+          <div class="part-topic" ng-repeat="topic in part.topics">
+            <h5>{{ $index + '. ' + topic.name }}</h5>
+          </div>
+          <div class="part-topic">
+            <h5>Exámen módulo {{ $index + 1 }}</h5>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+  <section class="course-tabs">
+    <ul>
+      <li>Información</li><!--
+      --><li>Notas</li><!--
+      --><li>Certificado</li>
+    </ul>
+    <!-- <article class="course-information">
+      Información del curso
+    </article>
+    <article class="course-grades">
+      Notas del curso
+    </article>
+    <article class="course-certificate">
+      Certificado
+    </article> -->
+  </section>
+</div>

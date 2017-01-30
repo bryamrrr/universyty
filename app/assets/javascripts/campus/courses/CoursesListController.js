@@ -1,8 +1,10 @@
 angular.module("campus-app").controller("CoursesListController", CoursesListController);
 
-CoursesListController.$inject = ['$scope', 'urls', 'HttpRequest', 'CookieService'];
+CoursesListController.$inject = ['$scope', '$state', 'urls', 'HttpRequest', 'CookieService'];
 
-function CoursesListController($scope, urls, HttpRequest, CookieService) {
+function CoursesListController($scope, $state, urls, HttpRequest, CookieService) {
+  $scope.goToCourse = goToCourse;
+
   var url = urls.BASE_API + '/enrollments/users/' + CookieService.read('nickname');
   var promise = HttpRequest.send('GET', url);
 
@@ -15,6 +17,13 @@ function CoursesListController($scope, urls, HttpRequest, CookieService) {
     console.log(error);
   });
 
-  var $contenido = $('#contenido');
-  $contenido.addClass("loaded");
+  function goToCourse(enrollment) {
+    console.log(enrollment);
+
+    if (enrollment.current_video) {
+      console.log('redirigirlo al video exacto')
+    } else {
+      $state.go('courses.view', { id: enrollment.course_id, topic: 0 })
+    }
+  }
 }

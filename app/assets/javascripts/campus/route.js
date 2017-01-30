@@ -95,6 +95,30 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
+    .state('courses.view', {
+      url: '/cursos/:id/tema/:topic',
+      data: {
+        title: 'Detalle'
+      },
+      views: {
+        'content@courses': {
+          templateUrl: 'campus/view/index.html',
+          controller: 'CoursesViewController'
+        }
+      }
+    })
+    .state('courses.quiz', {
+      url: '/cursos/:id/cuestionario/:quiz',
+      data: {
+        title: 'Detalle'
+      },
+      views: {
+        'content@courses': {
+          templateUrl: 'campus/view/index.html',
+          controller: 'CoursesViewController'
+        }
+      }
+    })
     .state('courses.grades', {
       url: '/notas',
       data: {

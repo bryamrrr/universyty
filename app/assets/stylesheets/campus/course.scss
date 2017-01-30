@@ -1,0 +1,47 @@
+.card-course {
+  h2 { margin-bottom: 0; }
+  .tagline { text-align: left; }
+  .course-main {
+    display: flex;
+    margin-bottom: 2em;
+    .video-wrapper-wistia {
+      flex-basis: 65%;
+      margin-right: 3%
+    }
+    .parts-container {
+      flex-basis: 32%;
+    }
+  }
+}
+
+.parts-container {
+  background-color: white;
+  max-height: 363px;
+}
+
+.part-header {
+  border-bottom: 1px solid $gray-border;
+  padding: .4em 1em;
+  h4 {
+    display: inline-block;
+    margin-left: .5em;
+  }
+  .fa-circle { color: green; }
+}
+
+.part-topic {
+  border-bottom: 1px solid $gray-border;
+  padding: .4em 1em .4em 2.6em;
+  h5 { font-weight: normal; }
+}
+
+.course-tabs {
+  li {
+    border-bottom: 1px solid black;
+    display: inline-block;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: .1em 1em;
+  }
+}
+

@@ -3,7 +3,7 @@
 
   <div class="flex-container">
 
-    <article class="course" ng-repeat="enrollment in enrollments" ui-sref="course.course-index({ id: enrollment.enrollment.course.id })">
+    <article class="course" ng-repeat="enrollment in enrollments" ng-click="goToCourse(enrollment)">
       <a href="#">
         <div class="professor-hover">
           <div class="professor-hover-content">
