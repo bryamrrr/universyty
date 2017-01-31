@@ -21,7 +21,7 @@ function CoursesListController($scope, $state, urls, HttpRequest, CookieService)
     console.log(enrollment);
 
     if (enrollment.current_video) {
-      console.log('redirigirlo al video exacto')
+      $state.go('courses.view', { id: enrollment.course_id, topic: enrollment.current_video })
     } else {
       $state.go('courses.view', { id: enrollment.course_id, topic: 0 })
     }

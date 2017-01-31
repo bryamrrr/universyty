@@ -4,7 +4,7 @@
 
   <section class="course-main">
     <div class="video-wrapper-wistia">
-      <script src="//fast.wistia.com/embed/medias/2s2ojmr0ny.jsonp" async></script><script src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_embed wistia_async_2s2ojmr0ny videoFoam=true" style="height:100%;width:100%">&nbsp;</div></div></div>
+      <script ng-src="{{ wistiaVideo | trusted }}" async></script><script src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_embed wistia_async_2s2ojmr0ny videoFoam=true" style="height:100%;width:100%">&nbsp;</div></div></div>
     </div>
     <div class="parts-container">
       <article ng-repeat="part in parts">
@@ -13,8 +13,8 @@
           <h4>{{ part.title }}</h4>
         </div>
         <div class="part-body">
-          <div class="part-topic" ng-repeat="topic in part.topics">
-            <h5>{{ $index + '. ' + topic.name }}</h5>
+          <div class="part-topic" ng-repeat="topic in part.topics" ng-class="{ active: currentTopic == topic }" ui-sref="courses.view({ id: idCourse, topic: topic.id })">
+            <h5>{{ ($index + 1) + '. ' + topic.title }}</h5>
           </div>
           <div class="part-topic">
             <h5>Exámen módulo {{ $index + 1 }}</h5>
@@ -29,14 +29,68 @@
       --><li>Notas</li><!--
       --><li>Certificado</li>
     </ul>
-    <!-- <article class="course-information">
-      Información del curso
+    <article class="course-information">
+        <div class="info-course-container">
+        <h3>Sobre el curso:</h3>
+
+        <div class="info-section">
+          <h5>Descripción del curso</h5>
+          <p><%= @course.description %></p>
+        </div>
+
+        <div class="info-section">
+          <h5>¿Qué vas a lograr con este curso?</h5>
+          <p><%= @course.goal %></p>
+        </div>
+
+        <div class="info-section">
+
+          <h5>Programa del curso</h5>
+
+          <% @course.parts.order(number: :asc).each do |part| %>
+          <h6>MÓDULO <%= part.number %>: <%= part.title %></h6>
+          <ul>
+            <% part.topics.order(number: :asc).each do |topic| %>
+            <li>
+              <i class="fa fa-lock"></i>
+              <span><%= part.title %></span>
+              <em>05min</em>
+            </li>
+            <% end %>
+          </ul>
+          <% end %>
+        </div>
+
+        <div class="info-section">
+          <h5>Certificado</h5>
+          <p><%= @course.certificate_info %></p>
+        </div>
+
+        <div class="info-section">
+          <% if @course.professors.count == 1 %>
+            <h3>Sobre el profesor:</h3>
+          <% else %>
+            <h3>Sobre los profesores:</h3>
+          <% end %>
+          <% @course.professors.each do |professor| %>
+          <article class="professor-card">
+            <figure>
+              <img src="<%= professor.image_url %>" alt="">
+            </figure><!--
+            --><div class="professor-info">
+              <h5><%= professor.name %></h5>
+              <p><%= professor.bio %></p>
+            </div>
+          </article>
+          <% end %>
+        </div>
+        </div>
     </article>
     <article class="course-grades">
       Notas del curso
     </article>
     <article class="course-certificate">
       Certificado
-    </article> -->
+    </article>
   </section>
 </div>
