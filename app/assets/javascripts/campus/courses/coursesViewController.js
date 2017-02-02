@@ -4,6 +4,9 @@ CoursesViewController.$inject = ['$scope', '$stateParams', 'urls', 'HttpRequest'
 
 function CoursesViewController($scope, $stateParams, urls, HttpRequest) {
   $scope.idCourse = $stateParams.id;
+  $scope.currentTab = 0;
+  $scope.changeTab = changeTab;
+  $scope.isTab = isTab;
 
   var url = urls.BASE_API + '/courses/' + $scope.idCourse;
   var promise = HttpRequest.send('GET', url);
@@ -42,5 +45,13 @@ function CoursesViewController($scope, $stateParams, urls, HttpRequest) {
         }
       }
     }
+  }
+
+  function changeTab(num) {
+    $scope.currentTab = num;
+  }
+
+  function isTab(num) {
+    return num === $scope.currentTab;
   }
 }

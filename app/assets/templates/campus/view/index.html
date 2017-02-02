@@ -4,7 +4,7 @@
 
   <section class="course-main">
     <div class="video-wrapper-wistia">
-      <script ng-src="{{ wistiaVideo | trusted }}" async></script><script src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_embed wistia_async_2s2ojmr0ny videoFoam=true" style="height:100%;width:100%">&nbsp;</div></div></div>
+      <script ng-src="{{ wistiaVideo | trusted }}" async></script><script src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><div class="wistia_embed wistia_async_{{ currentTopic.video_url }} videoFoam=true" style="height:100%;width:100%">&nbsp;</div></div></div>
     </div>
     <div class="parts-container">
       <article ng-repeat="part in parts">
@@ -25,11 +25,11 @@
   </section>
   <section class="course-tabs">
     <ul>
-      <li>Información</li><!--
-      --><li>Notas</li><!--
-      --><li>Certificado</li>
+      <li ng-click="changeTab(0)" ng-class="{ 'current-tab': isTab(0) }">Información</li><!--
+      --><li ng-click="changeTab(1)"  ng-class="{ 'current-tab': isTab(1) }">Notas</li><!--
+      --><li ng-click="changeTab(2)"  ng-class="{ 'current-tab': isTab(2) }">Certificado</li>
     </ul>
-    <article class="course-information">
+    <article class="course-information" ng-show="currentTab === 0">
       <div class="info-course-container">
         <h3>Sobre el curso:</h3>
 
@@ -66,10 +66,10 @@
         </div>
       </div>
     </article>
-    <article class="course-grades">
+    <article class="course-grades" ng-show="currentTab === 1">
       Notas del curso
     </article>
-    <article class="course-certificate">
+    <article class="course-certificate" ng-show="currentTab === 2">
       Certificado
     </article>
   </section>
