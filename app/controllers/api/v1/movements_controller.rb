@@ -53,6 +53,10 @@ class Api::V1::MovementsController < Api::V1::BaseController
   def manualPayment(paymethod, cart, nickname)
     user = User.find_by(nickname: nickname)
 
+    puts "asi llega"
+    puts paymethod.to_json
+    puts Paymethod.find_by(name: "Depósito")
+
     if paymethod == '1'
       paymethod = Paymethod.find_by(name: "Tarjeta")
     elsif paymethod == '2'
@@ -60,6 +64,9 @@ class Api::V1::MovementsController < Api::V1::BaseController
     elsif paymethod == '3'
       paymethod = Paymethod.find_by(name: "Puntos")
     end
+
+    puts "asi se transforma"
+    puts paymethod.to_json
 
     movement = Movement.new(
       user_id: user.id,
