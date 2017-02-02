@@ -2,7 +2,11 @@ class Api::V1::QuestionsController < Api::V1::BaseController
 
   def show
     question = Question.find(params[:id])
-    render :json => question
+    render :json => question.to_json(
+        :include => {
+          :alternatives => {}
+        }
+      )
   end
 
   def create

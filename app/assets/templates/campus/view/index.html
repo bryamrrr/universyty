@@ -16,7 +16,7 @@
           <div class="part-topic" ng-repeat="topic in part.topics" ng-class="{ active: currentTopic == topic }" ui-sref="courses.view({ id: idCourse, topic: topic.id })">
             <h5>{{ ($index + 1) + '. ' + topic.title }}</h5>
           </div>
-          <div class="part-topic">
+          <div class="part-topic" ui-sref="courses.quiz({ id: idCourse, part: part.id, number: part.number })">
             <h5>Exámen módulo {{ $index + 1 }}</h5>
           </div>
         </div>

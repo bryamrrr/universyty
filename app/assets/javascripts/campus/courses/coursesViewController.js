@@ -15,6 +15,7 @@ function CoursesViewController($scope, $stateParams, urls, HttpRequest) {
     $scope.course = response.course;
     $scope.parts = response.parts;
 
+    console.log(response);
     findTopic();
 
     var $contenido = $('#contenido');

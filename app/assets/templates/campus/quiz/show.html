@@ -1,0 +1,16 @@
+<div class="card quiz-show">
+  <div class="question-container">
+    <h2>{{ question.content }}</h2>
+    <ul>
+      <li ng-repeat="alternative in question.alternatives" class="alternative">
+        <div class="option" ng-click="select(alternative)" ng-class="{ selected: isSelected(alternative) }">
+          <span>{{ alphabet[$index] }}</span>
+        </div>
+        <p>{{ alternative.content }}</p>
+      </li>
+    </ul>
+    <div class="quiz-footer">
+      <button>Verificar</button>
+    </div>
+  </div>
+</div>

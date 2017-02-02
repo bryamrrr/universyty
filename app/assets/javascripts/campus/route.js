@@ -108,14 +108,26 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
       }
     })
     .state('courses.quiz', {
-      url: '/cursos/:id/cuestionario/:quiz',
+      url: '/cursos/:id/cuestionario/:part/modulo/:number',
       data: {
-        title: 'Detalle'
+        title: 'Cuestionario'
       },
       views: {
         'content@courses': {
-          templateUrl: 'campus/view/index.html',
-          controller: 'CoursesViewController'
+          templateUrl: 'campus/quiz/index.html',
+          controller: 'CoursesQuizController'
+        }
+      }
+    })
+    .state('courses.question', {
+      url: '/cursos/:id/cuestionario/:part/pregunta/:question',
+      data: {
+        title: 'Pregunta'
+      },
+      views: {
+        'content@courses': {
+          templateUrl: 'campus/quiz/show.html',
+          controller: 'CoursesQuestionController'
         }
       }
     })
