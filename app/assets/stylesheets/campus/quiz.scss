@@ -54,10 +54,19 @@
   }
   .alternative {
     margin-bottom: 1em;
+    position: relative;
     p {
       display: inline-block;
       margin-top: 6px;
       vertical-align: top;
     }
+    .fa {
+      font-size: 1.5em;
+      left: -25px;
+      position: absolute;
+      top: 8px;
+    }
+    .fa-times { color: $btn-failed; }
+    .fa-check { color: $btn-success; }
   }
 }

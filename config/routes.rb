@@ -50,6 +50,7 @@ Rails.application.routes.draw do
 
       resources :questions, except: [:index, :new, :edit]
       get 'questions/:id/alternatives', to: 'questions#alternatives'
+      get 'questions/:id/check/:alternative_id', to: 'questions#check'
 
       resources :alternatives, except: [:index, :new, :edit]
 

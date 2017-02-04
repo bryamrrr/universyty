@@ -2,11 +2,16 @@ class Api::V1::QuestionsController < Api::V1::BaseController
 
   def show
     question = Question.find(params[:id])
-    render :json => question.to_json(
-        :include => {
-          :alternatives => {}
-        }
-      )
+    next_question = Question.where('id > ?', question[:id]).where(part_id: question[:part_id]).first
+
+    render :json => {
+        question: question.as_json(
+          :include => {
+            :alternatives => {}
+          }
+        ),
+        next_question: next_question
+    }
   end
 
   def create
@@ -38,9 +43,20 @@ class Api::V1::QuestionsController < Api::V1::BaseController
 
   def alternatives
     alternatives = Alternative.where(question_id: params[:id])
-    question = Question.find(params[:id])
+    question = Questio
+
+    n.find(params[:id])
 
     render :json => { :alternatives => alternatives, :question => question }
+  end
+
+  def check
+    question = Question.find(params[:id])
+
+    next_question = Question.where('id > ?', question[:id]).where(part_id: question[:part_id]).first
+
+    render :json => { :next_question => next_question }
+
   end
 
   private

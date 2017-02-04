@@ -3,6 +3,8 @@
     <h2>{{ question.content }}</h2>
     <ul>
       <li ng-repeat="alternative in question.alternatives" class="alternative">
+        <i class="fa fa-times" ng-show="!alternative.correct_answer && $parent.showCheck && isSelected(alternative)"></i>
+        <i class="fa fa-check" ng-show="alternative.correct_answer && $parent.showCheck && isSelected(alternative)"></i>
         <div class="option" ng-click="select(alternative)" ng-class="{ selected: isSelected(alternative) }">
           <span>{{ alphabet[$index] }}</span>
         </div>
@@ -10,7 +12,9 @@
       </li>
     </ul>
     <div class="quiz-footer">
-      <button>Verificar</button>
+      <button ng-click="check()" ng-hide="showCheck">Verificar</button>
+      <button ng-click="next(question)" ng-show="showCheck && next_question">Siguiente >></button>
+      <button ng-click="finish(question)" ng-show="showCheck && !next_question">Finalizar</button>
     </div>
   </div>
 </div>
