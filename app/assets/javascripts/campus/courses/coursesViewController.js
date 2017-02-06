@@ -1,19 +1,26 @@
 angular.module("campus-app").controller("CoursesViewController", CoursesViewController);
 
-CoursesViewController.$inject = ['$scope', '$stateParams', 'urls', 'HttpRequest'];
+CoursesViewController.$inject = ['$scope', '$q', '$state', '$stateParams', 'urls', 'HttpRequest', 'CookieService'];
 
-function CoursesViewController($scope, $stateParams, urls, HttpRequest) {
+function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpRequest, CookieService) {
   $scope.idCourse = $stateParams.id;
   $scope.currentTab = 0;
   $scope.changeTab = changeTab;
   $scope.isTab = isTab;
+  $scope.goTo = goTo;
 
   var url = urls.BASE_API + '/courses/' + $scope.idCourse;
   var promise = HttpRequest.send('GET', url);
 
-  promise.then(function (response) {
-    $scope.course = response.course;
-    $scope.parts = response.parts;
+  var urlEnrollment = urls.BASE_API + '/enrollments/courses/' + $scope.idCourse;
+  var promiseEnrollment = HttpRequest.send('GET', urlEnrollment);
+
+  var allPromise = $q.all([promise, promiseEnrollment]);
+
+  allPromise.then(function (response) {
+    $scope.course = response[0].course;
+    $scope.parts = response[0].parts;
+    $scope.enrollment = response[1];
 
     console.log(response);
     findTopic();
@@ -54,5 +61,13 @@ function CoursesViewController($scope, $stateParams, urls, HttpRequest) {
 
   function isTab(num) {
     return num === $scope.currentTab;
+  }
+
+  function goTo(thing, params) {
+    if (thing === 'video') {
+      $state.go('courses.view', { id: params.id, topic: params.topic });
+    } else if (thing === 'quiz') {
+      $state.go('courses.quiz', { id: params.id, part: params.part, number: params.number });
+    }
   }
 }

@@ -27,17 +27,23 @@
   padding: .4em 1em;
   h4 {
     display: inline-block;
-    margin-left: .5em;
+    margin-left: 1.5em;
   }
-  .fa-circle { color: green; }
 }
 
 .part-topic {
   border-bottom: 1px solid $gray-border;
   cursor: pointer;
   padding: .4em 1em .4em 2.6em;
+  position: relative;
   h5 { font-weight: normal; }
   &.active, &:hover { background-color: $gray-border; }
+  .fa {
+    left: 16px;
+    position: absolute;
+    &.fa-lock { color: $purple; }
+    &.fa-circle { color: green; }
+  }
 }
 
 .course-tabs {

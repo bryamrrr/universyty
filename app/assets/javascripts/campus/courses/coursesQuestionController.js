@@ -18,7 +18,6 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
     $scope.question = response.question;
     $scope.next_question = response.next_question;
     $scope.next_exam = response.next_exam;
-    console.log("Esto llega de info sobre la pregunta: ", response);
     var $contenido = $('#contenido');
     $contenido.addClass("loaded");
   }, function (error) {
@@ -75,7 +74,6 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
 
     var promise = HttpRequest.send('POST', url, data);
     promise.then(function (response) {
-      console.log("Respuesta luego de guardar la nota en el back", response);
       $scope.isLoading = false;
 
       openDetails(response, $scope.next_exam);

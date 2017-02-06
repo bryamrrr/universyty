@@ -13,6 +13,20 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
       })
   end
 
+  def find_by_course
+    course = Course.find(params[:id])
+    enrollments = Enrollment.where(user_id: @current_user.id, course_id: course.id).first
+    render :json => enrollments.to_json(:include => {
+      :course => {
+        :include => {
+          :category => {},
+          :professors => {},
+          :user => {}
+        }
+      }
+      })
+  end
+
   def update_grade_course
     enrollment = @current_user.enrollments.find_by(course_id: params[:id])
 
