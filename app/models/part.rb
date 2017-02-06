@@ -3,4 +3,5 @@ class Part < ApplicationRecord
 
   has_many :topics
   has_many :questions
+  has_many :grades
 end

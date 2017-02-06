@@ -3,8 +3,8 @@
     <h2>{{ question.content }}</h2>
     <ul>
       <li ng-repeat="alternative in question.alternatives" class="alternative">
-        <i class="fa fa-times" ng-show="!alternative.correct_answer && $parent.showCheck && isSelected(alternative)"></i>
-        <i class="fa fa-check" ng-show="alternative.correct_answer && $parent.showCheck && isSelected(alternative)"></i>
+        <i class="fa fa-times" ng-show="!alternative.correct_answer && $parent.$parent.showCheck && isSelected(alternative)"></i>
+        <i class="fa fa-check" ng-show="alternative.correct_answer && $parent.$parent.showCheck && isSelected(alternative)"></i>
         <div class="option" ng-click="select(alternative)" ng-class="{ selected: isSelected(alternative) }">
           <span>{{ alphabet[$index] }}</span>
         </div>
@@ -12,9 +12,14 @@
       </li>
     </ul>
     <div class="quiz-footer">
-      <button ng-click="check()" ng-hide="showCheck">Verificar</button>
-      <button ng-click="next(question)" ng-show="showCheck && next_question">Siguiente >></button>
-      <button ng-click="finish(question)" ng-show="showCheck && !next_question">Finalizar</button>
+      <button ng-click="check(alternativeSelected)" ng-hide="$parent.showCheck">Verificar</button>
+      <button ng-click="next(question)" ng-show="$parent.showCheck && next_question">Siguiente >></button>
+      <button ng-click="finish(question)" ng-show="$parent.showCheck && !next_question" ng-disabled="form.$invalid || isLoading">
+        Calificación
+        <div class="loader-wrapper" ng-show="isLoading">
+          <div class="loader-circles" id="loader">Loading...</div>
+        </div>
+      </button>
     </div>
   </div>
 </div>

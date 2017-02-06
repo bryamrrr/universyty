@@ -1,0 +1,33 @@
+<div class="modal card-score">
+  <div class="card">
+    <h2 ng-if="data.score >= 14">¡Felicidades, <br />aprobaste este módulo!</h2>
+    <h2 ng-if="data.score < 14">¡Nooo, <br />desaprobaste este módulo!</h2>
+    <h4>Nota: <span ng-class="{ 'color-red': data.score < 14 }">{{ data.score }}</span></h4>
+    <button ng-click="nextPart()" ng-show="data.score >= 14" ng-disabled="form.$invalid || isLoading">
+      Siguiente clase
+      <div class="loader-wrapper" ng-show="isLoading">
+        <div class="loader-circles" id="loader">Loading...</div>
+      </div>
+    </button>
+    <div ng-show="data.score < 14">
+      <button ng-hide="data.exam !== 'Examen'" ng-click="goToSusti()" class="color-red" ng-disabled="form.$invalid || isLoading">
+        Dar sustitutorio
+        <div class="loader-wrapper" ng-show="isLoading">
+          <div class="loader-circles" id="loader">Loading...</div>
+        </div>
+      </button>
+      <button ng-hide="data.exam !== 'Sustitutorio'" ng-click="goToSusti()" class="color-red" ng-disabled="form.$invalid || isLoading">
+        Dar aplazado
+        <div class="loader-wrapper" ng-show="isLoading">
+          <div class="loader-circles" id="loader">Loading...</div>
+        </div>
+      </button>
+      <button ng-hide="data.exam !== 'Aplazado'" ng-click="repeatCourse()" class="color-red" ng-disabled="form.$invalid || isLoading">
+        Repetir curso
+        <div class="loader-wrapper" ng-show="isLoading">
+          <div class="loader-circles" id="loader">Loading...</div>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,7 @@ function CoursesQuizController($scope, $stateParams, $state, urls, CookieService
   $scope.number = $stateParams.number;
   $scope.id = $stateParams.id;
   $scope.part = $stateParams.part;
+  $scope.$parent.showCheck = false;
 
 
   var url = urls.BASE_API + '/parts/' + $scope.part + '/questions';

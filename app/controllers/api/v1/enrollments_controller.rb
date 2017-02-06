@@ -12,4 +12,13 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
       }
       })
   end
+
+  def update_grade_course
+    enrollment = @current_user.enrollments.find_by(course_id: params[:id])
+
+    if enrollment
+      score = enrollment.grades.create(part_id: params[:data][:part], score: params[:data][:grade], user_id: @current_user.id, exam: 'Examen')
+      render :json => score.to_json
+    end
+  end
 end

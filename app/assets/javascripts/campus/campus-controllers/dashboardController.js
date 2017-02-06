@@ -1,12 +1,16 @@
 angular.module('campus-app').controller('DashboardController', DashboardController)
 
-DashboardController.$inject = ['$scope', '$state', '$cookies', 'CookieService', 'urls', 'HttpRequest', 'toastr', 'SweetAlert'];
-function DashboardController($scope, $state, $cookies,  CookieService, urls, HttpRequest, toastr, SweetAlert) {
+DashboardController.$inject = ['$scope', '$state', '$stateParams', '$cookies', 'CookieService', 'urls', 'HttpRequest', 'toastr', 'SweetAlert'];
+function DashboardController($scope, $state, $stateParams, $cookies,  CookieService, urls, HttpRequest, toastr, SweetAlert) {
   $scope.nickname = CookieService.read('nickname');
   $scope.role = CookieService.read('role');
   $scope.first_entry = CookieService.read('first_entry');
   $scope.ambassador = CookieService.read('ambassador');
 
+  $scope.check = check;
+  $scope.showCheck = false;
+
+  updateQuiz();
 
   var cart = $cookies.get('cart');
   if (cart === '' || !cart) {
@@ -114,5 +118,36 @@ function DashboardController($scope, $state, $cookies,  CookieService, urls, Htt
 
   function updateCartCookie(cart) {
     $cookies.putObject('cart', cart);
+  }
+
+  function check(alternativeSelected) {
+    updateQuiz();
+    var puntos = 0;
+
+    if (!alternativeSelected) {
+      toastr.error('Por favor, selecciona una alternativa');
+    } else {
+      $scope.showCheck = true;
+
+      if (alternativeSelected.correct_answer) puntos = 2;
+
+      if ($scope.quiz[String(alternativeSelected.question_id)]) {
+        toastr.error('Hubo un error. Ya no se puede resolver el cuestionario');
+        $state.go('courses.view', { id: $stateParams.id, topic: 0 })
+      } else {
+        $scope.quiz[String(alternativeSelected.question_id)] = puntos;
+      }
+
+      $cookies.putObject('quiz', $scope.quiz);
+    }
+  }
+
+  function updateQuiz() {
+    var quiz = $cookies.get('quiz');
+    if (quiz === '' || !quiz) {
+      $scope.quiz = {};
+    } else {
+      $scope.quiz = JSON.parse(quiz);
+    }
   }
 }
