@@ -17,8 +17,18 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
     enrollment = @current_user.enrollments.find_by(course_id: params[:id])
 
     if enrollment
-      score = enrollment.grades.create(part_id: params[:data][:part], score: params[:data][:grade], user_id: @current_user.id, exam: 'Examen')
+      score = enrollment.grades.create(part_id: params[:data][:part], score: params[:data][:grade], user_id: @current_user.id, exam: params[:data][:exam])
       render :json => score.to_json
+    end
+  end
+
+  def repeat_course
+    enrollment = @current_user.enrollments.find_by(course_id: params[:id])
+
+    if enrollment
+      enrollment.update_column(:current_module, nil)
+      enrollment.update_column(:current_video, nil)
+      render :json => { message: "Se ha repetido el curso" }
     end
   end
 end

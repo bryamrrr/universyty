@@ -3,6 +3,16 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   def show
     question = Question.find(params[:id])
     next_question = Question.where('id > ?', question[:id]).where(part_id: question[:part_id]).first
+    part = Part.find(question[:part_id])
+    enrollment = @current_user.enrollments.find_by(course_id: part[:course_id])
+
+    if (enrollment.grades.last[:exam] == 'Examen')
+      next_exam = 'Aplazado'
+    elsif (enrollment.grades.last[:exam] == 'Sustitutorio')
+      next_exam = 'No hay'
+    elsif (enrollment.grades.last[:exam] == 'Aplazado')
+      enrollment.grades.all.destroy_all
+    end
 
     render :json => {
         question: question.as_json(
@@ -10,7 +20,8 @@ class Api::V1::QuestionsController < Api::V1::BaseController
             :alternatives => {}
           }
         ),
-        next_question: next_question
+        next_question: next_question,
+        next_exam: next_exam
     }
   end
 

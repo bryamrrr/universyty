@@ -17,7 +17,8 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
   promise.then(function (response) {
     $scope.question = response.question;
     $scope.next_question = response.next_question;
-    console.log(response);
+    $scope.next_exam = response.next_exam;
+    console.log("Esto llega de info sobre la pregunta: ", response);
     var $contenido = $('#contenido');
     $contenido.addClass("loaded");
   }, function (error) {
@@ -49,6 +50,7 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
     var url = urls.BASE_API + '/enrollments/update_grade_course/' + $stateParams.id;
 
     var quiz = JSON.parse($cookies.get('quiz'));
+    var examn = "";
     var grade = 0;
     var i = 0;
 
@@ -56,9 +58,18 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
       grade += quiz[property];
     }
 
+    if ($scope.next_exam === 'Aplazado') {
+      exam = 'Sustitutorio';
+    } else if ($scope.next_exam === 'No hay') {
+      exam = 'Aplazado';
+    } else {
+      exam = 'Examen';
+      $scope.next_exam = 'Sustitutorio';
+    }
+
     var data = {
       grade: grade,
-      type: 'Examen',
+      exam: exam,
       part: question.part_id
     }
 
@@ -67,7 +78,7 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
       console.log("Respuesta luego de guardar la nota en el back", response);
       $scope.isLoading = false;
 
-      openDetails(response);
+      openDetails(response, $scope.next_exam);
     }, function (error) {
       console.log(error);
       $scope.isLoading = false;
@@ -75,7 +86,7 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
 
   }
 
-  function openDetails(data, size, parentSelector) {
+  function openDetails(data, next_exam, size, parentSelector) {
     var parentElem = parentSelector ? angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
     $uibModal.open({
       animation: true,
@@ -86,6 +97,7 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
         $scope.data = data;
         $scope.repeatCourse = repeatCourse;
         $scope.goToSusti = goToSusti;
+        $scope.next_exam = next_exam;
       }],
       size: size,
       appendTo: parentElem
@@ -93,9 +105,16 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
   };
 
   function repeatCourse() {
-    $('.modal').remove();
-    $state.go('courses.view', { id: $stateParams.id, topic: 0 });
-    CookieService.remove('quiz');
+    var url = urls.BASE_API + '/enrollments/repeat_course/' + $stateParams.id;
+    var promise = HttpRequest.send('GET', url);
+
+    promise.then(function (response) {
+      $('.modal').remove();
+      $state.go('courses.view', { id: $stateParams.id, topic: 0 });
+      CookieService.remove('quiz');
+    }, function (error) {
+      console.log("ERROR: ", error);
+    });
   }
 
   function goToSusti() {

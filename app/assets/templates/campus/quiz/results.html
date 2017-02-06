@@ -10,19 +10,19 @@
       </div>
     </button>
     <div ng-show="data.score < 14">
-      <button ng-hide="data.exam !== 'Examen'" ng-click="goToSusti()" class="color-red" ng-disabled="form.$invalid || isLoading">
+      <button ng-show="next_exam === 'Sustitutorio'" ng-click="goToSusti()" class="color-red" ng-disabled="form.$invalid || isLoading">
         Dar sustitutorio
         <div class="loader-wrapper" ng-show="isLoading">
           <div class="loader-circles" id="loader">Loading...</div>
         </div>
       </button>
-      <button ng-hide="data.exam !== 'Sustitutorio'" ng-click="goToSusti()" class="color-red" ng-disabled="form.$invalid || isLoading">
+      <button ng-show="next_exam === 'Aplazado'" ng-click="goToSusti()" class="color-red" ng-disabled="form.$invalid || isLoading">
         Dar aplazado
         <div class="loader-wrapper" ng-show="isLoading">
           <div class="loader-circles" id="loader">Loading...</div>
         </div>
       </button>
-      <button ng-hide="data.exam !== 'Aplazado'" ng-click="repeatCourse()" class="color-red" ng-disabled="form.$invalid || isLoading">
+      <button ng-show="next_exam === 'No hay'" ng-click="repeatCourse()" class="color-red" ng-disabled="form.$invalid || isLoading">
         Repetir curso
         <div class="loader-wrapper" ng-show="isLoading">
           <div class="loader-circles" id="loader">Loading...</div>

@@ -67,6 +67,7 @@ Rails.application.routes.draw do
       resources :enrollments, only: [:destroy]
       get 'enrollments/users/:id', to: 'enrollments#find_by_user'
       post 'enrollments/update_grade_course/:id', to: 'enrollments#update_grade_course'
+      get 'enrollments/repeat_course/:id', to: 'enrollments#repeat_course'
 
       resources :teams, only: [:index]
       get 'teams/:nickname/students', to: 'teams#students'
