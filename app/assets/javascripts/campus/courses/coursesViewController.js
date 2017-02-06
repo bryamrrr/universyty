@@ -21,9 +21,12 @@ function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpReque
     $scope.course = response[0].course;
     $scope.parts = response[0].parts;
     $scope.enrollment = response[1];
+    currentVideo = response[1].current_video;
+    currentModule = response[1].current_module;
 
     console.log(response);
     findTopic();
+    enableTopics();
 
     var $contenido = $('#contenido');
     $contenido.addClass("loaded");
@@ -51,6 +54,15 @@ function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpReque
             $scope.wistiaVideo = 'http://fast.wistia.com/embed/medias/' + $scope.currentTopic.video_url;
           }
         }
+      }
+    }
+  }
+
+  function enabledTopics() {
+    var i = 0, j = 0;
+    for (i; i < $scope.parts.length; i++) {
+      for (j; j < $scope.parts[i].topics.length; j++) {
+        
       }
     }
   }

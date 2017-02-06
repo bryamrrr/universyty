@@ -15,16 +15,23 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
 
   def find_by_course
     course = Course.find(params[:id])
-    enrollments = Enrollment.where(user_id: @current_user.id, course_id: course.id).first
-    render :json => enrollments.to_json(:include => {
-      :course => {
-        :include => {
-          :category => {},
-          :professors => {},
-          :user => {}
+    enrollment = Enrollment.where(user_id: @current_user.id, course_id: course.id).first
+    part = Part.find(enrollment[:current_module]) unless enrollment[:current_module].nil?
+    video = Topic.find(enrollment[:current_video]) unless enrollment[:current_video].nil?
+
+    render :json => {
+      enrollment: enrollment.as_json(:include => {
+        :course => {
+          :include => {
+            :category => {},
+            :professors => {},
+            :user => {}
+          }
         }
-      }
-      })
+      }),
+      part: part,
+      video: video
+    }
   end
 
   def update_grade_course
