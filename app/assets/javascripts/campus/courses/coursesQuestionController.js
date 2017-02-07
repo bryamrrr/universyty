@@ -131,6 +131,7 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
     var promise = HttpRequest.send('GET', url);
 
     promise.then(function (response) {
+      $('.modal').remove();
       $state.go('courses.view', { id: $stateParams.id, topic: response.id });
       $scope.isLoading = false;
     }, function (error) {

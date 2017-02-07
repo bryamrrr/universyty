@@ -64,7 +64,7 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
         enrollment.update_column(:current_module, next_module[:id])
         video = Topic.where(part_id: next_module[:id], number: 1).first
         enrollment.update_column(:current_video, video[:id])
-        topic = Topic.where(part_id: next_module[:id], number: 1)
+        topic = Topic.where(part_id: next_module[:id], number: 1).first
         render :json => topic.to_json
       end
     end
