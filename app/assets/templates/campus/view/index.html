@@ -12,12 +12,12 @@
           <h4>{{ part.title }}</h4>
         </div>
         <div class="part-body">
-          <div class="part-topic" ng-repeat="topic in part.topics" ng-class="{ active: currentTopic == topic }" ng-click="goTo('video', { id: idCourse, topic: topic.id })">
+          <div class="part-topic" ng-repeat="topic in part.topics" ng-class="{ active: currentTopic == topic }" ng-click="goTo('video', { id: idCourse, topic: topic })">
             <i class="fa fa-lock" ng-hide="topic.enabled"></i>
             <i class="fa fa-circle" ng-show="topic.enabled"></i>
             <h5>{{ ($index + 1) + '. ' + topic.title }}</h5>
           </div>
-          <div class="part-topic" ng-click="goTo('quiz', { id: idCourse, part: part.id, number: part.number })">
+          <div class="part-topic" ng-click="goTo('quiz', { id: idCourse, part: part, number: part.number })">
             <i class="fa fa-lock" ng-hide="part.enabled"></i>
             <i class="fa fa-circle" ng-show="part.enabled"></i>
             <h5>Exámen módulo {{ $index + 1 }}</h5>

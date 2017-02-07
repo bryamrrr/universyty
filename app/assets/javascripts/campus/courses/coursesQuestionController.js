@@ -6,9 +6,9 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
   $scope.select = select;
   $scope.isSelected = isSelected;
   $scope.alphabet = ['A', 'B', 'C', 'D', 'E'];
-  $scope.showCheck = false;
   $scope.next = next;
   $scope.finish = finish;
+  $scope.$parent.showCheck = false;
 
   var questionId = $stateParams.question;
   var url = urls.BASE_API + '/questions/' + questionId;
@@ -25,7 +25,7 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
   });
 
   function select(alternative) {
-    if (!$scope.showCheck) $scope.alternativeSelected = alternative;
+    if (!$scope.$parent.showCheck) $scope.alternativeSelected = alternative;
   }
 
   function isSelected(alternative) {
@@ -33,14 +33,6 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
   }
 
   function next(question) {
-    // var url = urls.BASE_API + '/questions/' + question.id + '/check/' + $scope.alternativeSelected.id;
-    // var promise = HttpRequest.send('GET', url);
-
-    // promise.then(function (response) {
-    //   console.log(response);
-    // }, function (error) {
-    //   console.log(error);
-    // });
     $state.go('courses.question', { id: $stateParams.id, part: question.part_id, question: $scope.next_question.id })
   }
 
@@ -96,6 +88,7 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
         $scope.repeatCourse = repeatCourse;
         $scope.goToSusti = goToSusti;
         $scope.next_exam = next_exam;
+        $scope.nextPart = nextPart;
       }],
       size: size,
       appendTo: parentElem
@@ -123,6 +116,7 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
     promise.then(function (response) {
       $('.modal').remove();
       $state.go('courses.quiz', { id: $stateParams.id, part: $stateParams.part, number: response.number });
+      CookieService.remove('quiz');
       $scope.isLoading = false;
     }, function (error) {
       console.log(error);
@@ -130,8 +124,18 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
     });
   }
 
-  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options){
-      CookieService.remove('quiz');
+  function nextPart() {
+    $scope.isLoading = true;
 
-  })
+    var url = urls.BASE_API + '/enrollments/next_module/' + $stateParams.id;
+    var promise = HttpRequest.send('GET', url);
+
+    promise.then(function (response) {
+      $state.go('courses.view', { id: $stateParams.id, topic: response.id });
+      $scope.isLoading = false;
+    }, function (error) {
+      console.log(error);
+      $scope.isLoading = false;
+    });
+  }
 }

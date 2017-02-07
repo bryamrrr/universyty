@@ -122,6 +122,8 @@ function DashboardController($scope, $state, $stateParams, $cookies,  CookieServ
 
   function check(alternativeSelected) {
     updateQuiz();
+    console.log("Así estaba el cuestionario antes de verificar la pregunta");
+    console.log($scope.quiz);
     var puntos = 0;
 
     if (!alternativeSelected) {
@@ -132,21 +134,24 @@ function DashboardController($scope, $state, $stateParams, $cookies,  CookieServ
       if (alternativeSelected.correct_answer) puntos = 2;
 
       if ($scope.quiz[String(alternativeSelected.question_id)]) {
+        CookieService.remove('quiz');
         toastr.error('Hubo un error. Ya no se puede resolver el cuestionario');
         $state.go('courses.view', { id: $stateParams.id, topic: 0 })
       } else {
         $scope.quiz[String(alternativeSelected.question_id)] = puntos;
+        $cookies.putObject('quiz', $scope.quiz);
       }
-
-      $cookies.putObject('quiz', $scope.quiz);
     }
   }
 
   function updateQuiz() {
     var quiz = $cookies.get('quiz');
+    console.log("Se obtiene la cookie de cuestionario", quiz);
     if (quiz === '' || !quiz) {
+      console.log('Se reinicia el cuestionario a  {}');
       $scope.quiz = {};
     } else {
+      console.log('Se parseó', $scope.quiz);
       $scope.quiz = JSON.parse(quiz);
     }
   }

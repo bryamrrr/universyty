@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170206174027) do
+ActiveRecord::Schema.define(version: 20170207161110) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer  "question_id"
@@ -93,8 +93,9 @@ ActiveRecord::Schema.define(version: 20170206174027) do
     t.integer  "current_video"
     t.boolean  "certificate_requested"
     t.string   "certificate_url"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "finished",              default: false
     t.index ["course_id"], name: "index_enrollments_on_course_id"
     t.index ["user_id"], name: "index_enrollments_on_user_id"
   end

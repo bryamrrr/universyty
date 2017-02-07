@@ -6,12 +6,14 @@ class Api::V1::QuestionsController < Api::V1::BaseController
     part = Part.find(question[:part_id])
     enrollment = @current_user.enrollments.find_by(course_id: part[:course_id])
 
-    if (enrollment.grades.last[:exam] == 'Examen')
-      next_exam = 'Aplazado'
-    elsif (enrollment.grades.last[:exam] == 'Sustitutorio')
-      next_exam = 'No hay'
-    elsif (enrollment.grades.last[:exam] == 'Aplazado')
-      enrollment.grades.all.destroy_all
+    if enrollment.grades.last
+      if (enrollment.grades.last[:exam] == 'Examen')
+        next_exam = 'Aplazado'
+      elsif (enrollment.grades.last[:exam] == 'Sustitutorio')
+        next_exam = 'No hay'
+      elsif (enrollment.grades.last[:exam] == 'Aplazado')
+        enrollment.grades.all.destroy_all
+      end
     end
 
     render :json => {
@@ -54,9 +56,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
 
   def alternatives
     alternatives = Alternative.where(question_id: params[:id])
-    question = Questio
-
-    n.find(params[:id])
+    question = Question.find(params[:id])
 
     render :json => { :alternatives => alternatives, :question => question }
   end

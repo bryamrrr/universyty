@@ -64,11 +64,12 @@ Rails.application.routes.draw do
       get 'movements/paids', to: 'movements#payments_paid'
       get 'movements/:id/change_activate', to: 'movements#change_activate'
 
-      resources :enrollments, only: [:destroy]
+      resources :enrollments, only: [:destroy, :update]
       get 'enrollments/users/:id', to: 'enrollments#find_by_user'
       get 'enrollments/courses/:id', to: 'enrollments#find_by_course'
       post 'enrollments/update_grade_course/:id', to: 'enrollments#update_grade_course'
       get 'enrollments/repeat_course/:id', to: 'enrollments#repeat_course'
+      get 'enrollments/next_module/:id', to: 'enrollments#next_module'
 
       resources :teams, only: [:index]
       get 'teams/:nickname/students', to: 'teams#students'
