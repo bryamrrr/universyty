@@ -155,21 +155,13 @@
   .main-home .responsive-background { height: calc(100% - 88px); }
 }
 
-@media screen and (max-height: 375px) {
-  .main-home, .overlay {
-    height: 500px;
-  }
-
-  .main-home .responsive-background {
-    height: 500px;
-    position: static;
-  }
-
+@media screen and (max-height: 350px) {
   .main-title {
     left: 0;
     top: 0;
-    margin-top: 100px;
+    margin-top: 50px;
     transform: none;
+    .title { margin-bottom: 1em; }
   }
 }
 
