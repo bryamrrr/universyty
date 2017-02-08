@@ -258,12 +258,25 @@
       &:last-child { margin-bottom: 0; }
     }
   }
+
+  .main-course {
+    .video-container, .side-info {
+      width: 100%;
+    }
+
+    .main-info {
+      button, p { font-size: .8em; }
+    }
+  }
 }
 
-@media screen and (max-width: 430px) {
-
+@media screen and (max-width: 480px) {
+  .main-course {
+    .sales { display: none; }
+  }
+  .info-course { margin-top: 12em; }
 }
 
-@media screen and (max-width: 400px) {
-
+@media screen and (max-height: 500px) {
+  .main-courses h1 { font-size: 1.5em; }
 }
