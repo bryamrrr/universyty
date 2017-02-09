@@ -113,6 +113,9 @@ function EditCourseController($scope, $q, $state, $stateParams, urls, HttpReques
         required: true,
         regex: validators.decimal
       },
+      bono: {
+        regex: validators.decimal
+      },
       duration: {
         required: true
       },
@@ -154,6 +157,9 @@ function EditCourseController($scope, $q, $state, $stateParams, urls, HttpReques
       },
       net: {
         required: 'Dato requerido',
+        regex: 'Valor inválido'
+      },
+      bono: {
         regex: 'Valor inválido'
       },
       duration: {

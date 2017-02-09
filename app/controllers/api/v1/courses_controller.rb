@@ -146,6 +146,7 @@ class Api::V1::CoursesController < Api::V1::BaseController
       :free,
       :pricetag,
       :discount,
+      :bono,
       :net,
       :duration,
       :background_url,

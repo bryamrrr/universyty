@@ -106,6 +106,9 @@ function CreateCourseController($scope, $state, urls, HttpRequest, toastr, valid
         required: true,
         regex: validators.decimal
       },
+      bono: {
+        regex: validators.decimal
+      },
       duration: {
         required: true
       },
