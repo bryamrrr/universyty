@@ -46,7 +46,7 @@
           <li>Acude a un Agente BCP.</li>
           <li>Indica que eres alumno de Universyty, y brinda como código tu USUARIO.</li>
           <li>Paga en efectivo el monto total.</li>
-          <li>Espera un máximo de 48 horas para la activación de tu <span ng-if="$state.includes('sale.billing')">Curso y/o Diplomado</span><span ng-if="!$state.includes('sale.billing')">Plan</span>.</li>
+          <li>Espera un máximo de 48 horas para la activación de tu <span ng-if="$state.includes('sale.billing')">Curso y/o Diplomado</span><span ng-if="!$state.includes('sale.billing')">Plan Embajador</span>.</li>
         </ol>
       </div>
       <div class="info-balance" ng-show="paymentMethod === '3'">
@@ -59,8 +59,14 @@
         </ol>
       </div>
     </article>
-    <button ng-click="pay(paymentMethod, cart)" ng-disabled="form.$invalid || isLoading">
-      Confirmar pedido por S/ <span ng-if="!$state.includes('sale.billing')">29</span><span ng-if="$state.includes('sale.billing')">{{ cart.total }}</span>
+    <button ng-click="pay(paymentMethod, cart)" ng-disabled="isLoading || ambassador === 'true'" ng-if="!$state.includes('sale.billing')">
+      Confirmar pedido por S/ 29
+      <div class="loader-wrapper" ng-show="isLoading">
+        <div class="loader-circles" id="loader">Loading...</div>
+      </div>
+    </button>
+    <button ng-click="pay(paymentMethod, cart)" ng-disabled="isLoading" ng-if="$state.includes('sale.billing')">
+      Confirmar pedido por S/ {{ cart.total }}
       <div class="loader-wrapper" ng-show="isLoading">
         <div class="loader-circles" id="loader">Loading...</div>
       </div>
