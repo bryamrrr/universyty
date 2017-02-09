@@ -372,7 +372,7 @@ function addCourseTemplate(course) {
             </div>\
           </div>\
           <div class="course-image">\
-            <img src="' + course.background + '" />\
+            <img src="' + course.background_url + '" />\
           </div>\
           <div class="course-title">\
             <h4>' + course.title + '</h4>\
