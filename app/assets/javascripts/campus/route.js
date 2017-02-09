@@ -75,7 +75,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
       abstract: true,
       data: {
         'needAuth': true,
-        'title': 'Mis Cursos'
+        'title': 'Cursos'
       },
       views: {
         dashboard: {
@@ -86,7 +86,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('courses.list', {
       url: '/lista',
       data: {
-        title: 'Lista de Cursos'
+        title: 'Mis Cursos'
       },
       views: {
         'content@courses': {

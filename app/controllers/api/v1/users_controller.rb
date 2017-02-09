@@ -183,7 +183,8 @@ class Api::V1::UsersController < Api::V1::BaseController
       :province_id,
       :gender,
       :account,
-      :titular
+      :titular,
+      :city
     )
   end
 
