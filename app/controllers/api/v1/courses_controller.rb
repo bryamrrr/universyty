@@ -38,7 +38,7 @@ class Api::V1::CoursesController < Api::V1::BaseController
   end
 
   def find_by_slug
-    category = Category.find_by(slug: params[:slug])
+    category = Category.find_by(slug: params[:slug], published: true)
     courses = category.courses
 
     render :json => { :courses => courses.as_json(:include => {
@@ -57,13 +57,13 @@ class Api::V1::CoursesController < Api::V1::BaseController
   end
 
   def find_by_text
-    @courses = Course.where(published: true).where('title LIKE ?', '%' + params[:text] + '%')
+    @courses = Course.where(published: true).where('lower(title) LIKE ?', '%' + params[:text].downcase + '%')
     @courses = @courses.as_json(:include => {
       :category => {},
       :professors => {},
       :user => {}
     })
-    professors = Professor.where('name LIKE ?', '%' + params[:text] + '%')
+    professors = Professor.where('lower(name) LIKE ?', '%' + params[:text].downcase + '%')
 
     professors.each do |professor|
       more_course = professor.course

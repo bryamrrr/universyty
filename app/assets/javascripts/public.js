@@ -25,7 +25,10 @@ $(document).on('turbolinks:load', function () {
     showCoursesFromText(text);
   });
   $('#user_search').keyup(function(e){
-    if(e.keyCode == 13) $(this).trigger("enterKey");
+    if (e.keyCode === 13) {
+      var text = $(this).val();
+      showCoursesFromText(text);
+    }
   });
 
   $(".radio-container input").click(function() {
