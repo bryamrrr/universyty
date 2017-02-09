@@ -118,6 +118,20 @@
   }
 }
 
+.cart-counter {
+  background-color: red;
+  text-align: center;
+  border-radius: 50%;
+  font-size: .7em;
+  color: white;
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  top: -8px;
+  right: -8px;
+}
+#shopping-cart { position: relative; }
+
 .billing-cart .shopping-cart {
   position: relative;
   right: auto;
