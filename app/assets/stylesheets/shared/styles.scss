@@ -161,3 +161,5 @@ button[disabled] {
 .align-right { text-align: right; }
 
 button[disabled].still-purple { background-color: $purple; }
+
+.bread-crumb-item .fa-home { color: $gray; }
