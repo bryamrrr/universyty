@@ -144,7 +144,13 @@ button[disabled] {
 
 .color-red { color: red; }
 .color-green { color: green; }
-.color-purple { color: $purple; }
+.color-purple {
+  color: $purple;
+  p {
+    color: $gray;
+    font-size: .75em;
+  }
+}
 
 .bold { font-weight: bold; }
 

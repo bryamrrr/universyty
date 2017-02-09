@@ -19,7 +19,7 @@
       </thead>
       <tbody>
         <tr ng-repeat="payment in payments">
-          <td class="text-left">{{ payment.created_at }}</td>
+          <td class="text-left">{{ payment.created_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ payment.created_at | date:'H:mm' }}</td>
           <td class="text-left">
             <a href="#" ng-click="openDetails(payment)" ng-if="!payment.ambassador">Ver</a>
             <span ng-if="payment.ambassador && !payment.monthly">Plan Embajador</span>
@@ -33,6 +33,7 @@
           </td>
           <td class="text-left" ng-class="{ 'color-red': payment.status === 'No pagado', 'color-purple': payment.status === 'Pagado' }">
             {{ payment.status }}
+            <p ng-if="payment.status === 'Pagado'">{{ payment.updated_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ payment.updated_at | date:'H:mm' }}</p>
           </td>
           <td class=" no-padding">
             <a href="javascript:void(0)" ng-click="paymentDelete(payment.id, $event)" class="btn button-ico">
