@@ -356,9 +356,9 @@ function addCourseTemplate(course) {
   var textPrice = '';
   var discount = '';
 
-  (course.free) ? textPrice = 'Gratis' : textPrice = course.pricetag;
+  (course.free) ? textPrice = 'Gratis' : textPrice = 'S/ ' + parseInt(course.pricetag);
 
-  if (course.discount) discount = 'S/ ' + course.discount;
+  if (course.discount) discount = 'S/ ' + parseInt(course.discount);
 
   var html = '<article class="course">\
           <a href="/cursos/' + course.id + '">\

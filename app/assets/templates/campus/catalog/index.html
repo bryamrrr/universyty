@@ -27,10 +27,10 @@
           </div>
           <div class="course-price">
             <span ng-if="course.free">Gratis</span>
-            <span ng-if="!course.free">S/ {{ course.pricetag }}</span>
+            <span ng-if="!course.free">S/ {{ course.pricetag | number: 0 }}</span>
           </div>
           <div class="course-discount">
-            <span ng-if="(course.discount != 0) && course.discount">S/ {{ course.discount }}</span>
+            <span ng-if="(course.discount != 0) && course.discount">S/ {{ course.discount | number: 0 }}</span>
           </div>
         </div>
       </a>
