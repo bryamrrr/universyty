@@ -38,8 +38,8 @@ class Api::V1::CoursesController < Api::V1::BaseController
   end
 
   def find_by_slug
-    category = Category.find_by(slug: params[:slug], published: true)
-    courses = category.courses
+    category = Category.find_by(slug: params[:slug])
+    courses = category.courses.where(published: true)
 
     render :json => { :courses => courses.as_json(:include => {
         :professors => {}
