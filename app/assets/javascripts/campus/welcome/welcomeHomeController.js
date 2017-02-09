@@ -3,7 +3,7 @@ angular.module("campus-app").controller("WelcomeHomeController", WelcomeHomeCont
 WelcomeHomeController.$inject = ['$scope', 'urls', 'CookieService', 'HttpRequest'];
 
 function WelcomeHomeController($scope, urls, CookieService, HttpRequest) {
-  var url = urls.BASE_API + '/courses';
+  var url = urls.BASE_API + '/courses_starred';
   var promise = HttpRequest.send("GET", url);
 
   promise.then(function (response) {

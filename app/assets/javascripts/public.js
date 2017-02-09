@@ -24,6 +24,9 @@ $(document).on('turbolinks:load', function () {
     var text = $(this).siblings('input').val();
     showCoursesFromText(text);
   });
+  $('#user_search').keyup(function(e){
+    if(e.keyCode == 13) $(this).trigger("enterKey");
+  });
 
   $(".radio-container input").click(function() {
     console.log($(this));

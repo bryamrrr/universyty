@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       resources :categories, except: [:new, :edit]
 
       resources :courses, except: [:new, :edit]
+      get 'courses_starred', to: 'courses#show_starred'
       get 'courses/:id/modules', to: 'courses#modules'
       get 'courses/:id/professors', to: 'courses#professors'
       get 'courses/:id/change_state', to: 'courses#change_state'

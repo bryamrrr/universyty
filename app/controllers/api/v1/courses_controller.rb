@@ -11,6 +11,16 @@ class Api::V1::CoursesController < Api::V1::BaseController
       })
   end
 
+  def show_starred
+    @courses = Course.where(starred: true, published: true).order(priority: :asc)
+
+    render :json => @courses.to_json(:include => {
+      :category => {},
+      :professors => {},
+      :user => {}
+      })
+  end
+
   def show
     @course = Course.find(params[:id])
     parts = @course.parts.order(number: :asc)
@@ -38,7 +48,7 @@ class Api::V1::CoursesController < Api::V1::BaseController
   end
 
   def find_by_category
-    courses = Course.where(category_id: params[:id])
+    courses = Course.where(category_id: params[:id], published: true)
     render :json => courses.to_json(:include => {
       :category => {},
       :professors => {},
@@ -47,7 +57,7 @@ class Api::V1::CoursesController < Api::V1::BaseController
   end
 
   def find_by_text
-    @courses = Course.where('title LIKE ?', '%' + params[:text] + '%').all
+    @courses = Course.where(published: true).where('title LIKE ?', '%' + params[:text] + '%')
     @courses = @courses.as_json(:include => {
       :category => {},
       :professors => {},
