@@ -79,7 +79,8 @@
 
 .main-info {
   margin: 0 auto;
-  max-width: 910px;
+  max-width: 920px;
+  width: 95%;
 
   .sales {
     background-color: white;
@@ -89,15 +90,20 @@
     text-align: center;
     width: 35%;
 
-    p { font-size: .8em; }
+    p {
+      font-size: .8em;
+      margin-bottom: 12px;
+    }
   }
 
-  h1 {
+  .title {
     color: $gray;
     width: 65%;
+    h1 { margin-bottom: .2em; }
+    p { margin-top: 0; }
   }
 
-  h1, .sales {
+  .title, .sales {
     display: inline-block;
     vertical-align: top;
   }
@@ -105,6 +111,7 @@
 
 .video-info {
   background-color: white;
+  box-sizing: border-box;
   left: 50%;
   padding: 1em;
   position: absolute;
@@ -156,7 +163,8 @@
 .info-course {
   color: $gray;
   max-width: 900px;
-  margin: 8em auto 0;
+  margin: 5em auto 0;
+  padding: 0 1em;
 
   .professor-card { margin-bottom: 2em; }
 
@@ -260,21 +268,30 @@
   }
 
   .main-course {
-    .video-container, .side-info {
-      width: 100%;
-    }
+    .video-container, .side-info { width: 100%; }
 
     .main-info {
       button, p { font-size: .8em; }
     }
   }
+
+  .info-course { margin-top: 25em; }
+}
+
+@media screen and (max-width: 640px) {
+  .video-info { top: 260px }
 }
 
 @media screen and (max-width: 480px) {
-  .main-course {
-    .sales { display: none; }
+  .video-info { top: 290px }
+  .main-course .main-info {
+    margin-top: .75em;
+    button { font-size: .75em; }
+    p { margin-top: 0; }
+    .sales { padding: .75em; }
   }
-  .info-course { margin-top: 12em; }
+  .info-course { margin-top: 19em; }
+  .title h1 { font-size: 1.5em; }
 }
 
 @media screen and (max-height: 500px) {

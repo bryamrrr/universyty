@@ -1,9 +1,13 @@
 <div class="card course-info">
 <section class="main-course">
   <div class="main-info">
-    <h1>{{ course.title }}</h1><!--
+    <div class="title">
+      <h1>{{ course.title }}</h1>
+      <p>Por: {{ professorsText }}
+      </p>
+    </div><!--
     --><div class="sales">
-      <p>Puedes acceder a este curso con tarjeta (crédito o débito) y depósito (agente BCP)</p>
+      <p>Puedes acceder a este curso con Tarjeta (crédito o débito), Depósito (Agente BCP) y Puntos</p>
       <button ng-click="addToCart(course)"><i class="fa fa-shopping-cart"></i> ¡Quiero este curso!</button>
     </div>
   </div>
@@ -36,7 +40,7 @@
           <span class="tiny-text">Publicado el {{ course.created_at | date:'dd/MM/yyyy' }}</span>
         </li>
       </ul>
-      <h4>Profesor</h4>
+      <h4>Instructor</h4>
       <article class="professor-card">
         <figure>
           <img ng-src="{{ course.professors[0].image_url }}" alt="">
@@ -86,8 +90,8 @@
   </div>
 
   <div class="info-section">
-    <h3 ng-if="course.professor.length === 1">Sobre el profesor:</h3>
-    <h3 ng-if="course.professor.length !== 1">Sobre los profesores:</h3>
+    <h3 ng-if="course.professor.length === 1">Sobre el instructor:</h3>
+    <h3 ng-if="course.professor.length !== 1">Sobre los instructores:</h3>
 
     <article class="professor-card" ng-repeat="professor in course.professors">
       <figure>

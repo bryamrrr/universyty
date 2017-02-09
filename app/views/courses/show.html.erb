@@ -1,9 +1,19 @@
 <% content_for :body_class, 'courses-show' %>
 <section class="main-course">
   <div class="main-info">
-    <h1><%= @course.title %></h1><!--
+    <div class="title">
+      <h1><%= @course.title %></h1>
+      <p>Por:
+        <% @course.professors.each_with_index do |professor, index| %>
+          <% if index > 0 %>
+            <span>, </span>
+          <% end %>
+          <span><%= professor.name %></span>
+        <% end %>
+      </p>
+    </div><!--
     --><div class="sales">
-      <p>Puedes acceder a este curso con tarjeta (crédito o débito) y depósito (agente BCP)</p>
+      <p>Puedes acceder a este curso con Tarjeta (crédito o débito), Depósito (agente BCP) y Puntos</p>
       <button>¡Quiero este curso!</button>
     </div>
   </div>
@@ -36,7 +46,7 @@
           <span class="tiny-text">Publicado el <%= @course.created_at.to_time.strftime("%m/%d/%Y") %></span>
         </li>
       </ul>
-      <h4>Profesor</h4>
+      <h4>Instructor</h4>
       <article class="professor-card">
         <figure>
           <img src="<%= @course.professors.first.image_url %>" alt="">
@@ -89,9 +99,9 @@
 
   <div class="info-section">
     <% if @course.professors.count == 1 %>
-      <h3>Sobre el profesor:</h3>
+      <h3>Sobre el instructor:</h3>
     <% else %>
-      <h3>Sobre los profesores:</h3>
+      <h3>Sobre los instructores:</h3>
     <% end %>
     <% @course.professors.each do |professor| %>
     <article class="professor-card">

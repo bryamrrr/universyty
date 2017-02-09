@@ -11,6 +11,8 @@ function CourseInfoController($scope, $stateParams, urls, CookieService, HttpReq
   promise.then(function (response) {
     $scope.course = response.course;
     $scope.parts = response.parts;
+
+    getProfessors();
     var $contenido = $('#contenido');
     $contenido.addClass("loaded");
   }, function(error){
@@ -25,5 +27,16 @@ function CourseInfoController($scope, $stateParams, urls, CookieService, HttpReq
     };
 
     $scope.$parent.cart.addItem(item);
+  }
+
+  function getProfessors() {
+    var i = 0;
+    for (i; i < $scope.course.professors.length; i++) {
+      if (i === 0) {
+        $scope.professorsText = $scope.course.professors[i].name;
+      } else {
+        $scope.professorsText += ', ' + $scope.course.professors[i].name;
+      }
+    }
   }
 }
