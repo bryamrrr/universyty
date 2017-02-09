@@ -55,6 +55,9 @@ function TopicEditController($scope, $state, $stateParams, toastr, urls, HttpReq
       video: {
         required: true
       },
+      duration: {
+        required: true
+      },
       number: {
         required: true,
         regex: validators.integer
@@ -65,6 +68,9 @@ function TopicEditController($scope, $state, $stateParams, toastr, urls, HttpReq
         required: 'Dato requerido'
       },
       video: {
+        required: 'Dato requerido'
+      },
+      duration: {
         required: 'Dato requerido'
       },
       number: {

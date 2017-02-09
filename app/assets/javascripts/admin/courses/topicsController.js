@@ -85,6 +85,9 @@ function TopicsController($scope, $state, $stateParams, urls, HttpRequest, toast
       video: {
         required: true
       },
+      duration: {
+        required: true
+      },
       number: {
         required: true,
         regex: validators.integer
@@ -95,6 +98,9 @@ function TopicsController($scope, $state, $stateParams, urls, HttpRequest, toast
         required: 'Dato requerido'
       },
       video: {
+        required: 'Dato requerido'
+      },
+      duration: {
         required: 'Dato requerido'
       },
       number: {

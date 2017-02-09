@@ -84,8 +84,8 @@
       <% part.topics.order(number: :asc).each do |topic| %>
       <li>
         <i class="fa fa-lock"></i>
-        <span><%= part.title %></span>
-        <em>05min</em>
+        <span><%= topic.title %></span>
+        <em><%= topic.duration %></em>
       </li>
       <% end %>
     </ul>

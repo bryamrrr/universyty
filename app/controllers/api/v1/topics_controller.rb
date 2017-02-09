@@ -37,6 +37,7 @@ class Api::V1::TopicsController < Api::V1::BaseController
       :title,
       :video_url,
       :number,
+      :duration,
       :part_id
     )
   end

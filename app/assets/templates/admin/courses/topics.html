@@ -7,7 +7,7 @@
         <div class="bar"></div>
         <label class="label basic" for="title">Título:</label>
       </div>
-      <div class="add-element-priority">
+      <div class="add-element-priority with-duration">
         <div class="form-input">
           <input class="input" type="text" id="video" name="video" ng-model="topic.video_url" required />
           <div class="bar"></div>
@@ -17,6 +17,11 @@
           <input class="input" type="text" id="number" name="number" ng-model="topic.number" required />
           <div class="bar"></div>
           <label class="label basic" for="number">Número:</label>
+        </div>
+        <div class="form-input">
+          <input class="input" type="text" id="duration" name="duration" ng-model="topic.duration" required />
+          <div class="bar"></div>
+          <label class="label basic" for="duration">Duración:</label>
         </div>
         <div class="form-input">
           <button type="submit" ng-disabled="form.$invalid || isLoading">

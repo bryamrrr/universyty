@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209153007) do
+ActiveRecord::Schema.define(version: 20170209193624) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer  "question_id"
@@ -256,6 +256,7 @@ ActiveRecord::Schema.define(version: 20170209153007) do
     t.integer  "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "duration"
     t.index ["part_id"], name: "index_topics_on_part_id"
   end
 
