@@ -77,6 +77,7 @@ function DashboardController($scope, $state, $stateParams, $cookies,  CookieServ
         for (i; i < $scope.cart.items.length; i++) {
           if (item.id === $scope.cart.items[i].id) {
             $scope.cart.items.splice(i, 1);
+            calcTotal($scope.cart.items);
             break;
           }
         }

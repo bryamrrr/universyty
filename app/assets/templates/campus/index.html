@@ -196,6 +196,7 @@
         <span>TOTAL:</span>
         <span>S/</span>
         <span class="total-price">{{ cart.total | number: 2 }}</span>
+        <p ng-if="cart.items.length > 0">(Incluye IGV)</p>
       </div>
       <div class="cart-pay">
         <button ui-sref="sale.billing">PAGAR</button>
