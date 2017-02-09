@@ -1,8 +1,8 @@
 angular.module("campus-app").controller("AmbassadorBankController", AmbassadorBankController);
 
-AmbassadorBankController.$inject = ['$scope', 'urls', 'HttpRequest', 'CookieService'];
+AmbassadorBankController.$inject = ['$scope', 'urls', 'HttpRequest', 'CookieService', 'validators'];
 
-function AmbassadorBankController($scope, urls, HttpRequest, CookieService) {
+function AmbassadorBankController($scope, urls, HttpRequest, CookieService, validators) {
   $scope.updateBank = updateBank;
 
   var url = urls.BASE_API + '/users/' + CookieService.read("nickname");
@@ -50,7 +50,8 @@ function AmbassadorBankController($scope, urls, HttpRequest, CookieService) {
         required: true
       },
       account: {
-        required: true
+        required: true,
+        regex: validators.integer
       }
     },
     messages: {
@@ -58,7 +59,8 @@ function AmbassadorBankController($scope, urls, HttpRequest, CookieService) {
         required: 'Dato requerido'
       },
       account: {
-        required: 'Dato requerido'
+        required: 'Dato requerido',
+        regex: 'Formato inválido. Solo se permiten números'
       }
     },
     highlight: function (element) {
