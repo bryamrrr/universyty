@@ -153,3 +153,5 @@ button[disabled] {
   margin-top: 3em;
 }
 .align-right { text-align: right; }
+
+button[disabled].still-purple { background-color: $purple; }
