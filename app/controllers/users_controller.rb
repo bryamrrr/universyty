@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def update_teams(user, level)
-    if user[:sponsor] != ""
+    if user[:sponsor] != "" && level <= 7
       father = User.where(nickname: user[:sponsor]).first
 
       if father && father[:ambassador]

@@ -26,8 +26,8 @@ class Api::V1::TeamsController < Api::V1::BaseController
     data = {
       total_sum: 0,
       total_active_sum: 0,
-      total: [0, 0, 0, 0, 0],
-      total_active: [0, 0, 0, 0, 0]
+      total: [0, 0, 0, 0, 0, 0, 0],
+      total_active: [0, 0, 0, 0, 0, 0, 0]
     }
 
     if teams.count > 0
