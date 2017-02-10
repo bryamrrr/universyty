@@ -18,7 +18,7 @@ function AmbassadorPlanController($scope, $cookies, $state, CookieService, Sweet
 
   function pay(paymentMethod, cart) {
     $scope.isLoading = true;
-    if ($scope.dni) {
+    if ($scope.dni && $scope.dni !== 'null') {
       processPayment(paymentMethod, cart);
     } else {
       SweetAlert.swal({

@@ -11,7 +11,10 @@
         <li>
           <span class="title-li">DNI/RUC</span>
           <span>:</span>
-          <span class="info-li"><span ng-if="dni === ''">No tiene DNI. <a href="javascript:void(0)" ui-sref="user.data">Agregar</a></span>{{ dni }}</span>
+          <span class="info-li">
+            <span ng-hide="dni && dni !== 'null'">No tiene DNI. <a href="javascript:void(0)" ui-sref="user.data">Agregar</a></span>
+            <span ng-show="dni && dni !== 'null'">{{ dni }}</span>
+          </span>
         </li>
         <li>
           <span class="title-li">Dirección</span>

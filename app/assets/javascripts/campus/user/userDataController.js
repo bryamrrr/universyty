@@ -59,10 +59,10 @@ function UserDataController($scope, $q, urls, CookieService, HttpRequest, valida
       toastr.success(response.message);
       $scope.isLoading = false;
 
-      CookieService.put("city", response.user.province.name);
+      CookieService.put("city", response.user.city);
       CookieService.put("address", response.user.address);
       CookieService.put("fullname", response.user.fullname);
-      putCookie("dni", data.user.dni);
+      CookieService.put("dni", response.user.dni);
     }, function(error) {
       toastr.error(error.message);
       $scope.isLoading = false;
