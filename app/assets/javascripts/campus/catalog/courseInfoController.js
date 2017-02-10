@@ -11,6 +11,7 @@ function CourseInfoController($scope, $stateParams, urls, CookieService, HttpReq
   promise.then(function (response) {
     $scope.course = response.course;
     $scope.parts = response.parts;
+    $scope.videoUrl = 'https://www.youtube.com/embed/' + response.course.video_url;
 
     getProfessors();
     var $contenido = $('#contenido');

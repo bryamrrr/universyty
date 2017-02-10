@@ -2,8 +2,7 @@
   <h2>Mis cursos</h2>
 
   <div class="flex-container">
-
-    <article class="course" ng-repeat="enrollment in enrollments" ng-click="goToCourse(enrollment)">
+    <article class="course" ng-repeat="enrollment in enrollments" ng-click="goToCourse(enrollment)" ng-show="enrollments.length > 0">
       <a href="#">
         <div class="professor-hover">
           <div class="professor-hover-content">
@@ -18,7 +17,10 @@
         </div>
       </a>
     </article>
-
   </div>
 
+  <div class="alert-container important align-left" ng-hide="enrollments.length > 0">
+    <i class="fa fa-warning"></i>
+    <span>Aún no has adquirido un curso. <a href="welcome.home">Ver catálogo</a>.</span>
+  </div>
 </div>

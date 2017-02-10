@@ -15,7 +15,7 @@
   <div class="video-info video-info-campus">
     <div class="video-container">
     <div class="video-wrapper">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/n95eekfFZZg" frameborder="0" allowfullscreen></iframe>
+      <iframe width="560" height="315" ng-src="{{videoUrl | trusted}}" frameborder="0" allowfullscreen></iframe>
     </div></div><!--
     --><div class="side-info">
       <h4>Información</h4>
@@ -47,7 +47,7 @@
         </figure><!--
         --><div class="professor-info">
           <h5>{{ course.professors[0].name }}</h5>
-          <p>{{ course.professors[0].bio }}</p>
+          <p>{{ course.professors[0].minibio }}</p>
         </div>
       </article>
     </div>

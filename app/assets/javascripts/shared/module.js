@@ -3,5 +3,6 @@ angular.module("shared", [
   'toastr',
   'selectize',
   'ngCookies',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ngSanitize'
 ]);
