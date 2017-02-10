@@ -124,6 +124,11 @@ function DashboardController($scope, $state, $stateParams, $cookies,  CookieServ
 
   function updateCartCookie(cart) {
     $cookies.putObject('cart', cart);
+
+    if ($scope.ambassador === 'true') {
+      $scope.cart.discount = .2 * $scope.cart.total;
+      $scope.cart.total = .8 * $scope.cart.total;
+    }
   }
 
   function check(alternativeSelected) {

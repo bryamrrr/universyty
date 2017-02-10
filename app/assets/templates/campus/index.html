@@ -196,7 +196,7 @@
         </div>
       </article>
     </div>
-    <div class="cart-discount" ng-if="cart.discount">
+    <div class="cart-discount" ng-if="cart.discount > 0 && cart.total > 0">
       Descuento: - S/ {{ cart.discount | number: 2 }}
     </div>
     <div class="cart-footer">
