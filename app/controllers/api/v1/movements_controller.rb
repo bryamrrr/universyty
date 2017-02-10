@@ -27,19 +27,12 @@ class Api::V1::MovementsController < Api::V1::BaseController
       paymethod = Paymethod.find_by(name: "Puntos")
     end
 
-    if user[:ambassador] == false
-      monthly = false
-    else
-      monthly = true
-    end
-
     movement = Movement.new(
       user_id: user.id,
       paymethod_id: paymethod.id,
       type_id: 2,
       status: "No pagado",
       total: 29,
-      monthly: monthly,
       ambassador: true
     )
 
@@ -53,10 +46,6 @@ class Api::V1::MovementsController < Api::V1::BaseController
   def manualPayment(paymethod, cart, nickname)
     user = User.find_by(nickname: nickname)
 
-    puts "asi llega"
-    puts paymethod.to_json
-    puts Paymethod.find_by(name: "Depósito")
-
     if paymethod == '1'
       paymethod = Paymethod.find_by(name: "Tarjeta")
     elsif paymethod == '2'
@@ -65,15 +54,22 @@ class Api::V1::MovementsController < Api::V1::BaseController
       paymethod = Paymethod.find_by(name: "Puntos")
     end
 
-    puts "asi se transforma"
-    puts paymethod.to_json
+    if user[:ambassador] == false
+      discount = false
+      discount_value = 0.2
+    else
+      discount = true
+      discount_value = 0
+    end
 
     movement = Movement.new(
       user_id: user.id,
       paymethod_id: paymethod.id,
       type_id: 2,
       status: "No pagado",
-      total: cart[:total]
+      total: cart[:total],
+      discount: discount,
+      discount_value: discount_value
     )
 
     if movement.save

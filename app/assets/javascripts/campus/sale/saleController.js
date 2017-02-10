@@ -30,6 +30,15 @@ function SaleController($scope, $cookies, $state, CookieService, SweetAlert, url
     $scope.isLoading = true;
     if ($scope.dni) {
       processPayment(paymentMethod, cart);
+      CookieService.remove('cart');
+      $scope.$parent.cart = {
+        show: false,
+        items: [],
+        toggle: toggle,
+        removeItem: removeItem,
+        addItem: addItem,
+        total: 0
+      };
     } else {
       SweetAlert.swal({
         title: "Faltan datos de usuario",

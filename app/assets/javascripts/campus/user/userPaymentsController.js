@@ -17,7 +17,6 @@ function UserPaymentsController($scope, $state, $q, $uibModal, $document, urls, 
   allPromises.then(function (response) {
     $scope.user = response[0];
     $scope.payments = response[1];
-    console.log(response[1]);
 
     $scope.fullname = angular.copy($scope.user.fullname);
 
@@ -37,7 +36,7 @@ function UserPaymentsController($scope, $state, $q, $uibModal, $document, urls, 
       templateUrl: 'campus/user/payment-details.html',
       controller: ['$scope', function($scope) {
         $scope.cart = payment;
-        console.log(payment)
+        if (payment.discount) $scope.cart.discount_applied = $scope.cart.total / 4;
       }],
       size: size,
       appendTo: parentElem

@@ -30,6 +30,11 @@ function DashboardController($scope, $state, $stateParams, $cookies,  CookieServ
     $scope.cart.addItem = addItem;
   }
 
+  if ($scope.ambassador === 'true') {
+    $scope.cart.discount = .2 * $scope.cart.total;
+    $scope.cart.total = .8 * $scope.cart.total;
+  }
+
   $scope.goAmbassador = goAmbassador;
 
   if ($scope.first_entry === 'false') {
