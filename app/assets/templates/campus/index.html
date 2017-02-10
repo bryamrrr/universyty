@@ -5,10 +5,10 @@
       <div class="nav-header">
         <a class="nav-coverphoto" ui-sref="user.datos"></a>
         <div class="profile-element text-align-left">
-          <a ui-sref="user.datos" class="display-inline" >
+          <a class="display-inline" >
             <span class="sub-title">
               {{ nickname }}
-              <i ng-if="ambassador === 'false' && role !== 'Estudiante'">({{ role }})</i>
+              <i ng-if="ambassador === 'false' && role === 'Estudiante'">(Alumno)</i>
               <i ng-if="ambassador === 'false' && role !== 'Estudiante'">({{ role }})</i>
               <i ng-if="ambassador === 'true'">(Embajador)</i>
             </span>
