@@ -13,6 +13,8 @@ function CatalogController($scope, $stateParams, urls, HttpRequest) {
 
     var $contenido = $('#contenido');
     $contenido.addClass("loaded");
+
+    $('.bread-crumb li:last-child span').text(response.category.name);
   }, function (error) {
     toastr.error('Hubo un error');
   });

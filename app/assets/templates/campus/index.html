@@ -154,11 +154,15 @@
       </div>
       <div class="aside-menu">
         <a href="#" id="shopping-cart">
-          <i class="fa fa-shopping-cart" ng-click="cart.toggle()"></i>
+          <img src="/menu/cart.png" alt="" ng-click="cart.toggle()" />
           <div ng-if="cart.items.length > 0" class="cart-counter" ng-click="cart.toggle()">{{ cart.items.length }}</div>
         </a>
-        <a href="#" id="team-list"><i class="fa fa-graduation-cap"></i></a>
-        <a href="#" id="settings"><i class="fa fa-cog"></i></a>
+        <a href="#" id="team-list">
+          <img src="/menu/student.png" alt="" />
+        </a>
+        <a href="#" id="settings">
+          <img src="/menu/logout.png" alt="" />
+        </a>
         <div class="dropdown" ng-controller="LogoutController">
           <div class="listview">
             <div class="listview-header">
