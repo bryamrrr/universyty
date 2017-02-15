@@ -1,10 +1,39 @@
-<div class="align-center">
-  <br>
-  <br>
-  <br>
-  <i class="fa fa-bullhorn fa-3x"></i>
-  <br>
-  <br>
-  <h1>En construcción</h1>
-  <p>Embajador / Estado Financiero</p>
+<div class="financial-header">
+  <div class="balance">
+    <h4>Puntos Generados</h4>
+    <span>{{user.historical_balance | number: 0 }}</span>
+  </div>
+  <div class="balance">
+    <h4>Puntos Disponibles</h4>
+    <span>{{user.balance | number: 0 }}</span>
+  </div>
+  <div class="aside-buttons">
+    <button>Pagar</button>
+    <button>Transferir</button>
+    <button>Canjear</button>
+  </div>
 </div>
+<table class="table td-bg financial-table">
+  <thead>
+    <tr>
+      <th class="thin-column">Mes y Año</th>
+      <th class="text-left">Puntos</th>
+      <th class="text-left">Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="movement in movements">
+      <td class="text-left">
+        {{ movement.created_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ movement.created_at | date:'H:mm' }}
+      </td>
+      <td class="text-left">{{ movement.reason }}</td>
+      <td class="text-left">{{ movement.total }}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="2">SALDO TOTAL</td>
+      <td>{{ user.balance }}</td>
+    </tr>
+  </tfoot>
+</table>

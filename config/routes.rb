@@ -57,7 +57,7 @@ Rails.application.routes.draw do
 
       resources :professors, except: [:new, :edit]
 
-      resources :movements, only: [:destroy]
+      resources :movements, only: [:index, :destroy]
       post 'movements/payment/:paymethod', to: 'movements#payment'
       post 'movements/ambassador/:paymethod', to: 'movements#ambassador'
       get 'movements/:nickname/payments', to: 'movements#payments'

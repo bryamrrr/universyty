@@ -1,4 +1,11 @@
 class Api::V1::MovementsController < Api::V1::BaseController
+  def index
+    if @current_user[:role_id] != 1
+      movements = Movement.where(user_id: @current_user[:id], status: "Pagado")
+      render :json => movements.to_json
+    end
+  end
+
   def payment
     paymethod = params[:paymethod]
     cart = params[:data][:cart]

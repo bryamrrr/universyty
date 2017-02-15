@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170210210239) do
+ActiveRecord::Schema.define(version: 20170215214009) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer  "question_id"
@@ -147,6 +147,7 @@ ActiveRecord::Schema.define(version: 20170210210239) do
     t.boolean  "monthly",           default: false
     t.boolean  "discount",          default: false
     t.decimal  "discount_value"
+    t.string   "reason"
     t.index ["bono_id"], name: "index_movements_on_bono_id"
     t.index ["paymethod_id"], name: "index_movements_on_paymethod_id"
     t.index ["type_id"], name: "index_movements_on_type_id"
