@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attr_accessor :password
+  attr_accessor :password, :reset_token
 
   belongs_to :role
   belongs_to :province, optional: true
@@ -49,6 +49,14 @@ class User < ApplicationRecord
     self.encrypted_password= BCrypt::Engine.hash_secret(password, salt)
   end
 
+  def self.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def self.digest(string)
+    BCrypt::Engine.hash_secret(string, salt)
+  end
+
   def self.authenticate(data)
     user = User.find_by(nickname: data[:nickname])
     if (user)
@@ -76,5 +84,15 @@ class User < ApplicationRecord
     else
       return false
     end
+  end
+
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
   end
 end

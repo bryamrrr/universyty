@@ -91,3 +91,7 @@
   }
 }
 
+.main-recover {
+  @extend .main-login;
+  .outer-container { max-width: 600px; }
+}
