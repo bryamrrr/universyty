@@ -23,8 +23,12 @@ class User < ApplicationRecord
 
   def create_reset_digest
     self.reset_token = User.new_token
+    puts "acá cambia las cosas"
+    puts reset_digest
     update_attribute(:reset_digest,  User.digest(reset_token, salt))
     update_attribute(:reset_sent_at, Time.zone.now)
+    puts "Acá ya debe haber cambiado"
+    puts reset_digest
   end
 
   def send_password_reset_email
