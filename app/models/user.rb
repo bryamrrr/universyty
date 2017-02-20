@@ -31,68 +31,65 @@ class User < ApplicationRecord
     UserMailer.password_reset(self).deliver_now
   end
 
-  private
-  def default_values
-    self.first_entry ||= false
-    self.balance ||= 0
-    self.historical_balance ||= 0
-    self.preferencial ||= false
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
 
-    if self.instructor
-      self.ambassador = true
-      self.ambassador_active = true
-      self.ambassador_start = true
-    else
-      self.ambassador ||= false
-      self.ambassador_active ||= false
-      self.ambassador_start ||= false
-    end
+  def password_reset_exists?(token)
+    BCrypt::Engine.hash_secret(token, salt) == reset_digest
+  end
 
-    self.login_attempts ||= 0
-    self.block ||= false
-    self.paydate_expire ||= false
+  def change_with_token(new_password)
+    encrypted_password = BCrypt::Engine.hash_secret(new_password, salt)
+    update_attribute(:encrypted_password, encrypted_password)
   end
 
   private
-  def encrypt_password
-    self.salt = BCrypt::Engine.generate_salt
-    self.encrypted_password= BCrypt::Engine.hash_secret(password, salt)
-  end
+    def default_values
+      self.first_entry ||= false
+      self.balance ||= 0
+      self.historical_balance ||= 0
+      self.preferencial ||= false
 
-  def self.new_token
-    SecureRandom.urlsafe_base64
-  end
+      if self.instructor
+        self.ambassador = true
+        self.ambassador_active = true
+        self.ambassador_start = true
+      else
+        self.ambassador ||= false
+        self.ambassador_active ||= false
+        self.ambassador_start ||= false
+      end
 
-  def self.digest(string, salt)
-    BCrypt::Engine.hash_secret(string, salt)
-  end
+      self.login_attempts ||= 0
+      self.block ||= false
+      self.paydate_expire ||= false
+    end
 
-  def self.authenticate(data)
-    user = User.find_by(nickname: data[:nickname])
-    if (user)
-      encrypted_password = BCrypt::Engine.hash_secret(data[:password], user[:salt])
-      if user[:encrypted_password] == encrypted_password
-        return user
+    def encrypt_password
+      self.salt = BCrypt::Engine.generate_salt
+      self.encrypted_password= BCrypt::Engine.hash_secret(password, salt)
+    end
+
+    def self.new_token
+      SecureRandom.urlsafe_base64
+    end
+
+    def self.digest(string, salt)
+      BCrypt::Engine.hash_secret(string, salt)
+    end
+
+    def self.authenticate(data)
+      user = User.find_by(nickname: data[:nickname])
+      if (user)
+        encrypted_password = BCrypt::Engine.hash_secret(data[:password], user[:salt])
+        if user[:encrypted_password] == encrypted_password
+          return user
+        else
+          return false
+        end
       else
         return false
       end
-    else
-      return false
     end
-  end
-
-  def self.change(old_password, new_password, nickname)
-    user = User.find_by(nickname: nickname)
-    if (user)
-      encrypted_password = BCrypt::Engine.hash_secret(old_password, user[:salt])
-      if user[:encrypted_password] == encrypted_password
-        new_encrypted_password = BCrypt::Engine.hash_secret(new_password, user[:salt])
-        user.update(encrypted_password: new_encrypted_password)
-      else
-        return false
-      end
-    else
-      return false
-    end
-  end
 end
