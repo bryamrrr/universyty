@@ -6,7 +6,7 @@
     .module('shared')
     .constant('urls', {
       BASE: 'http://localhost:3000 http://universyty-staging.herokuapp.com http://universyty.herokuapp.com',
-      BASE_API: 'http://universyty.com/api/v1'
+      BASE_API: 'http://universyty.herokuapp.com/api/v1'
     })
     .constant('toast',{
       DELAY: 5500
