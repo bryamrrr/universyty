@@ -1,0 +1,14 @@
+<section class="main-recover">
+  <div class="outer-container">
+  <div class="form-container">
+    <h3>RECUPERAR CONTRASEÑA</h3>
+    <%= form_for(:password, url: passwords_path) do |f| %>
+      <div class="form-input">
+        <figure><%= image_tag("inputs/email.png") %></figure><!--
+        --><%= f.email_field :email, placeholder: 'Correo Electrónico' %>
+      </div>
+      <%= f.submit "Recuperar" %>
+    <% end %>
+  </div>
+  </div>
+</section>

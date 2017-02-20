@@ -1,0 +1,19 @@
+<section class="main-login">
+  <div class="outer-container">
+  <div class="form-container">
+    <h3>CAMBIAR CONTRASEÑA</h3>
+    <%= form_for(@user, url: password_path(params[:id])) do |f| %>
+      <%= hidden_field_tag :email, @user.email %>
+      <div class="form-input">
+        <figure><%= image_tag("inputs/password.png") %></figure><!--
+        --><%= f.password_field :password, placeholder: 'Contraseña' %>
+      </div>
+      <div class="form-input">
+        <figure><%= image_tag("inputs/password.png") %></figure><!--
+        --><%= f.password_field :password_confirmation, placeholder: 'Repetir contraseña' %>
+      </div>
+      <%= f.submit "Cambiar contraseña" %>
+    <% end %>
+  </div>
+  </div>
+</section>

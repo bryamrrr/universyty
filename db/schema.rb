@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170215214009) do
+ActiveRecord::Schema.define(version: 20170218122844) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer  "question_id"
@@ -302,6 +302,8 @@ ActiveRecord::Schema.define(version: 20170215214009) do
     t.string   "city"
     t.string   "bank_titular"
     t.string   "bank_account"
+    t.string   "reset_digest"
+    t.datetime "reset_sent_at"
     t.index ["province_id"], name: "index_users_on_province_id"
     t.index ["role_id"], name: "index_users_on_role_id"
   end

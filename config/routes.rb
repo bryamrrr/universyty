@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   post "/registro", to: "users#create"
 
+  resources :passwords, only: [:new, :create, :edit, :update]
+
   namespace :api, defaults: { format: "json" } do
     namespace :v1 do
       resources :users, except: [:new, :edit]
