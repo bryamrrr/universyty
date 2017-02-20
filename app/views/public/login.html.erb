@@ -11,7 +11,7 @@
         <figure><%= image_tag("inputs/password.png") %></figure><!--
         --><input id="password" name="password" type="password" placeholder="Contraseña" />
       </div>
-      <%= link_to "¿Has olvidado tu contraseña?", "/recuperar-contraseña", class: 'forgot-password' %>
+      <%= link_to "¿Has olvidado tu contraseña?", new_password_path, class: 'forgot-password' %>
       <!-- <a href="#" class="forgot-password">¿Has olvidado tu contraseña?</a> -->
       <button type="button" id="login-button">Ingresar</button>
     </form>

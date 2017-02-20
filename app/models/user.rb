@@ -21,6 +21,16 @@ class User < ApplicationRecord
   before_create :encrypt_password
   before_save :default_values
 
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  User.digest(reset_token, salt))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+
   private
   def default_values
     self.first_entry ||= false
@@ -53,7 +63,7 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
   end
 
-  def self.digest(string)
+  def self.digest(string, salt)
     BCrypt::Engine.hash_secret(string, salt)
   end
 
@@ -84,15 +94,5 @@ class User < ApplicationRecord
     else
       return false
     end
-  end
-
-  def create_reset_digest
-    self.reset_token = User.new_token
-    update_attribute(:reset_digest,  User.digest(reset_token))
-    update_attribute(:reset_sent_at, Time.zone.now)
-  end
-
-  def send_password_reset_email
-    UserMailer.password_reset(self).deliver_now
   end
 end
