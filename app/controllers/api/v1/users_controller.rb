@@ -35,6 +35,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     user = User.authenticate(data)
 
+<<<<<<< HEAD
     if user[:paydate]
       if Date.today > user[:paydate]
         paydate_color = 'red'
@@ -44,6 +45,14 @@ class Api::V1::UsersController < Api::V1::BaseController
       else
         paydate_color = 'green'
       end
+=======
+    if Date.today > user[:paydate]
+      paydate_color = 'red'
+    elsif Date.today >= user[:paydate] - 3.days
+      paydate_color = 'yellow'
+    else
+      paydate_color = 'green'
+>>>>>>> Add paydate to ambassador welcome view
     end
 
     if user

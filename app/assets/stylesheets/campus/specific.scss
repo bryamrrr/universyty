@@ -53,6 +53,7 @@
 
   .paydate {
     color: white;
+<<<<<<< HEAD
     font-size: 2em;
     position: absolute;
     top: 0;
@@ -68,6 +69,21 @@
   }
 
   a.cursor { cursor: pointer; }
+=======
+    font-size: 1.5em;
+    position: absolute;
+    top: 0;
+    right: 20px;
+    img {
+      width: 100px;
+    }
+    span {
+      position: absolute;
+      top: 25px;
+      right: 37px;
+    }
+  }
+>>>>>>> Add paydate to ambassador welcome view
 }
 
 .wrapper-content .courses { padding-top: 1em; }
