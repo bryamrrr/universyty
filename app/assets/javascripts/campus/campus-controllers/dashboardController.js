@@ -14,6 +14,8 @@ function DashboardController($scope, $state, $stateParams, $cookies,  CookieServ
   $scope.check = check;
   $scope.showCheck = false;
 
+  $scope.goTo = goTo;
+
   updateQuiz();
 
   var cart = $cookies.get('cart');
@@ -163,6 +165,12 @@ function DashboardController($scope, $state, $stateParams, $cookies,  CookieServ
       $scope.quiz = {};
     } else {
       $scope.quiz = JSON.parse(quiz);
+    }
+  }
+
+  function goTo() {
+    if ($scope.link_url) {
+      $state.go('catalog.course', { id: $scope.link_url });
     }
   }
 }

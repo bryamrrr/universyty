@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <form name="form" ng-submit="edit(form, image)" ng-validate="validationOptions" novalidate>
+      <div class="form-input">
+        <input class="input" type="text" id="image" name="image" ng-model="image.background_url" required />
+        <div class="bar"></div>
+        <label class="label basic" for="image">background</label>
+      </div>
+      <div class="form-input select-input">
+        <selectize placeholder='Selecciona una curso' config='coursesConfig' options='courses' ng-model="image.link_url"></selectize>
+        <input class="input" type="text" id="courses" name="courses" />
+        <div class="bar"></div>
+        <label class="label basic" for="courses">Enlace a curso:</label>
+      </div>
+      <div class="form-input">
+        <button type="submit" ng-disabled="form.$invalid || isLoading">
+          EDITAR
+          <div class="loader-wrapper" ng-show="isLoading">
+            <div class="loader-circles" id="loader">Loading...</div>
+          </div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

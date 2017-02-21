@@ -53,19 +53,21 @@
 
   .paydate {
     color: white;
-    font-size: 1.5em;
+    font-size: 2em;
     position: absolute;
     top: 0;
-    right: 20px;
+    right: 30px;
     img {
-      width: 100px;
+      width: 60px;
     }
     span {
       position: absolute;
-      top: 25px;
-      right: 37px;
+      top: 33px;
+      right: 15px;
     }
   }
+
+  a.cursor { cursor: pointer; }
 }
 
 .wrapper-content .courses { padding-top: 1em; }

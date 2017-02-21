@@ -35,12 +35,15 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     user = User.authenticate(data)
 
-    if Date.today > user[:paydate]
-      paydate_color = 'red'
-    elsif Date.today >= user[:paydate] - 3.days
-      paydate_color = 'yellow'
-    else
-      paydate_color = 'green'
+    if user[:paydate]
+      if Date.today > user[:paydate]
+        paydate_color = 'red'
+        user.update_column(:ambassador_active, false)
+      elsif Date.today >= user[:paydate] - 3.days
+        paydate_color = 'yellow'
+      else
+        paydate_color = 'green'
+      end
     end
 
     if user

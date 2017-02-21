@@ -340,6 +340,33 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
       }
     })
 
+    // Sale
+    .state('others', {
+      url: '/admin/otros',
+      abstract: true,
+      data: {
+        'needAuth': true,
+        'title': 'Otros'
+      },
+      views: {
+        dashboard: {
+          templateUrl: 'admin/index.html'
+        }
+      }
+    })
+    .state('others.welcomeimage', {
+      url: '/imagen-bienvenida',
+      data: {
+        title: 'Imagen de inicio'
+      },
+      views: {
+        'content@others': {
+          templateUrl: 'admin/others/welcome-image.html',
+          controller: 'WelcomeImageController'
+        }
+      }
+    })
+
 
   // default fall back route
   $urlRouterProvider.otherwise('/admin/inicio');
