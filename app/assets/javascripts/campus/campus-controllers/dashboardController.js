@@ -6,6 +6,10 @@ function DashboardController($scope, $state, $stateParams, $cookies,  CookieServ
   $scope.role = CookieService.read('role');
   $scope.first_entry = CookieService.read('first_entry');
   $scope.ambassador = CookieService.read('ambassador');
+  $scope.ambassador_active = CookieService.read('ambassador_active');
+  $scope.paydate = CookieService.read('paydate');
+  $scope.day = $scope.paydate.substring($scope.paydate.length - 2, $scope.paydate.length);
+  $scope.paydate_color = CookieService.read('paydate_color');
 
   $scope.check = check;
   $scope.showCheck = false;
@@ -133,8 +137,6 @@ function DashboardController($scope, $state, $stateParams, $cookies,  CookieServ
 
   function check(alternativeSelected) {
     updateQuiz();
-    console.log("Así estaba el cuestionario antes de verificar la pregunta");
-    console.log($scope.quiz);
     var puntos = 0;
 
     if (!alternativeSelected) {
@@ -157,12 +159,9 @@ function DashboardController($scope, $state, $stateParams, $cookies,  CookieServ
 
   function updateQuiz() {
     var quiz = $cookies.get('quiz');
-    console.log("Se obtiene la cookie de cuestionario", quiz);
     if (quiz === '' || !quiz) {
-      console.log('Se reinicia el cuestionario a  {}');
       $scope.quiz = {};
     } else {
-      console.log('Se parseó', $scope.quiz);
       $scope.quiz = JSON.parse(quiz);
     }
   }

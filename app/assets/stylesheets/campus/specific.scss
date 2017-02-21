@@ -40,3 +40,32 @@
 }
 
 .video-info-campus { top: 180px !important; }
+
+.banner {
+  margin: 0;
+  height: 280px;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    width: 100%;
+  }
+
+  .paydate {
+    color: white;
+    font-size: 1.5em;
+    position: absolute;
+    top: 0;
+    right: 20px;
+    img {
+      width: 100px;
+    }
+    span {
+      position: absolute;
+      top: 25px;
+      right: 37px;
+    }
+  }
+}
+
+.wrapper-content .courses { padding-top: 1em; }

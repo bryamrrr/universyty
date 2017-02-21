@@ -201,6 +201,8 @@ $(document).on('turbolinks:load', function () {
         putCookie("dni", data.user.dni);
         putCookie("ambassador", data.user.ambassador);
         putCookie("ambassador_active", data.user.ambassador_active);
+        putCookie("paydate", data.user.paydate);
+        putCookie("paydate_color", data.paydate_color);
         if (data.user.role.name === "Admin") {
           window.location.href = baseUrl + "admin/inicio";
         } else {
