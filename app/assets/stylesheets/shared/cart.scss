@@ -1,6 +1,8 @@
 .shopping-cart {
   background-color: white;
   min-height: 500px;
+  max-height: 500px;
+  overflow-y: scroll;
   position: fixed;
   right: -305px;
   top: 69px;
@@ -148,4 +150,23 @@
     .close-button { display: none; }
   }
   .cart-discount { bottom: 85px; }
+}
+
+.team-cart {
+  @extend .shopping-cart;
+  .cart-body {
+    .price { width: 110px; }
+    em {
+      background-color: $btn-success;
+      border-radius: 3px;
+      color: white;
+      font-size: .8em;
+      font-weight: bold;
+      padding: .2em .5em;
+    }
+  }
+}
+
+#team-list {
+  position: relative;
 }

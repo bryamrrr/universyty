@@ -5,6 +5,8 @@ class Team < ApplicationRecord
 
   private
   def default_values
-    self.new = true
+    if self.new.nil?
+      self.new ||= true
+    end
   end
 end

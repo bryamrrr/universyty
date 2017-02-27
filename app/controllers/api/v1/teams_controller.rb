@@ -68,4 +68,22 @@ class Api::V1::TeamsController < Api::V1::BaseController
 
     render :json => my_ambassadors.to_json()
   end
+
+  def index
+    teams = @current_user.teams.where('updated_at > ?', Date.today - 1.month).order(updated_at: :desc)
+    count = @current_user.teams.where('updated_at > ?', Date.today - 1.month).where(new: true).count
+
+    render :json => {
+      teams: teams,
+      count: count
+    }
+  end
+
+  def view_teams
+    teams = @current_user.teams.where('updated_at > ?', Date.today - 1.month)
+
+    teams.each do |team|
+      team.update_attribute(:new, false)
+    end
+  end
 end

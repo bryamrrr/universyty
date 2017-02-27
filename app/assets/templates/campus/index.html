@@ -158,7 +158,8 @@
           <div ng-if="cart.items.length > 0" class="cart-counter" ng-click="cart.toggle()">{{ cart.items.length }}</div>
         </a>
         <a href="#" id="team-list">
-          <img src="/menu/student.png" alt="" />
+          <img src="/menu/student.png" alt="" ng-click="team_cart.toggle()" />
+          <div ng-hide="teamChecked" class="cart-counter" ng-click="team_cart.toggle()">{{ team_cart.count }}</div>
         </a>
         <a href="#" id="settings">
           <img src="/menu/logout.png" alt="" />
@@ -209,6 +210,51 @@
       <div class="cart-pay">
         <button ui-sref="sale.billing">PAGAR</button>
       </div>
+    </div>
+  </div>
+  <div class="team-cart" ng-class="{ show: team_cart.show }">
+    <div class="cart-header">
+      <i class="fa fa-user"></i>
+      <h4>Equipo</h4>
+      <i class="fa fa-long-arrow-right" ng-click="team_cart.toggle('hide')"></i>
+    </div>
+    <div class="cart-body">
+      <article ng-repeat="team in team_cart.items">
+        <h5>{{ team.sponsored }} <em ng-show="team.new">NUEVO</em><br />
+          <strong>{{ team.type_team }}</strong>
+          <strong ng-show="team.type_team === 'Embajador'"> - {{ team.level }}º nivel</strong>
+        </h5><!--
+        --><span class="price">
+          {{ team.updated_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ team.updated_at | date:'H:mm' }}
+        </span>
+        <!-- <div class="close-button" ng-click="cart.removeItem(item)">
+          <i class="fa fa-times"></i>
+        </div> -->
+      </article>
+      <article ng-repeat="team in team_cart.items">
+        <h5>{{ team.sponsored }} <em ng-show="team.new">NUEVO</em><br />
+          <strong>{{ team.type_team }}</strong>
+          <strong ng-show="team.type_team === 'Embajador'"> - {{ team.level }}º nivel</strong>
+        </h5><!--
+        --><span class="price">
+          {{ team.updated_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ team.updated_at | date:'H:mm' }}
+        </span>
+        <!-- <div class="close-button" ng-click="cart.removeItem(item)">
+          <i class="fa fa-times"></i>
+        </div> -->
+      </article>
+      <article ng-repeat="team in team_cart.items">
+        <h5>{{ team.sponsored }} <em ng-show="team.new">NUEVO</em><br />
+          <strong>{{ team.type_team }}</strong>
+          <strong ng-show="team.type_team === 'Embajador'"> - {{ team.level }}º nivel</strong>
+        </h5><!--
+        --><span class="price">
+          {{ team.updated_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ team.updated_at | date:'H:mm' }}
+        </span>
+        <!-- <div class="close-button" ng-click="cart.removeItem(item)">
+          <i class="fa fa-times"></i>
+        </div> -->
+      </article>
     </div>
   </div>
 </div>
