@@ -72,3 +72,25 @@
 
   .info-section { margin-bottom: 1.5em; }
 }
+
+.my-courses-title {
+  margin-bottom: 1.5em;
+  position: relative;
+  text-align: left;
+  h2 {
+    display: inline-block;
+    font-weight: bold;
+    margin-right: .5em;
+    vertical-align: top;
+  }
+  input {
+    margin-top: 6px;
+    padding: .2em .5em;
+    width: 250px;
+  }
+  i {
+    position: absolute;
+    left: 370px;
+    top: 13px;
+  }
+}
