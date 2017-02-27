@@ -180,10 +180,17 @@ class Api::V1::MovementsController < Api::V1::BaseController
       end
 
       if father && father[:ambassador]
-        father.teams.create(
-          sponsored: user[:nickname],
-          level: level
-        )
+        if level == 1
+          team = father.teams.where(sponsored: user[:nickname], level: 1).first
+          team.update_attribute(:type_team, 'Embajador')
+          team.update_attribute(:new, true)
+        else
+          father.teams.create(
+            sponsored: user[:nickname],
+            level: level,
+            type_team: "Embajador"
+          )
+        end
         level += 1
         update_teams(user, level, father) unless father[:sponsor] == ""
       else

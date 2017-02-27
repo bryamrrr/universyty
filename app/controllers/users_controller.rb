@@ -28,7 +28,8 @@ class UsersController < ApplicationController
       if father && father[:ambassador]
         father.teams.create(
           sponsored: user[:nickname],
-          level: level
+          level: level,
+          type_team: "Alumno"
         )
       else
         puts "El usuario sponsor no es embajador"
