@@ -63,6 +63,7 @@ Rails.application.routes.draw do
       post 'movements/payment/:paymethod', to: 'movements#payment'
       post 'movements/ambassador/:paymethod', to: 'movements#ambassador'
       get 'movements/:nickname/payments', to: 'movements#payments'
+      get 'movements/:nickname/ambassador_payments', to: 'movements#ambassador_payments'
       get 'movements/pendings', to: 'movements#payments_pending'
       get 'movements/paids', to: 'movements#payments_paid'
       get 'movements/:id/change_activate', to: 'movements#change_activate'
