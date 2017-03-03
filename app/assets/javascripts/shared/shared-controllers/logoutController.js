@@ -20,6 +20,7 @@ function LogoutController($scope, $state, CookieService, HttpRequest, urls){
       CookieService.remove('token');
       CookieService.remove('nickname');
       CookieService.remove('role');
+      CookieService.remove('cart');
 
       var location = window.location;
       var baseUrl = location.protocol + "//" + location.host + "/";

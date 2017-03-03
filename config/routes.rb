@@ -79,6 +79,10 @@ Rails.application.routes.draw do
       get 'teams/:nickname/ambassadors', to: 'teams#ambassadors'
       get 'teams/:nickname/ambassadors/:level', to: 'teams#ambassadors_by_level'
       get 'teams/view_teams', to: 'teams#view_teams'
+
+      # Information
+      get 'informations/show_welcome_image', to: 'informations#show_welcome_image'
+      put 'informations/update_welcome_image', to: 'informations#update_welcome_image'
     end
   end
 end

@@ -17,7 +17,8 @@
       </div>
       <ul class="nav" id="side-menu" nav-collapse>
         <li
-          data-ng-class="{open: $state.includes('catalog')}">
+          data-ng-class="{open: $state.includes('catalog')}"
+          ng-hide="ambassador === 'true' && ambassador_active === 'false'">
           <a href="" toggle-submenu>
             <span class="inner">
               <ng-md-icon class="fa fa-th-large icono"></ng-md-icon>
@@ -33,7 +34,7 @@
             >{{category.name}}</a></li>
           </ul>
         </li>
-        <li data-ng-class="{open: $state.includes('courses')}">
+        <li data-ng-class="{open: $state.includes('courses')}" ng-hide="ambassador_active === 'false' && ambassador === 'true'">
           <a href="">
             <span class="inner">
               <ng-md-icon class="fa fa-star icono"></ng-md-icon>
@@ -57,7 +58,7 @@
           </ul>
         </li>
         <li
-        data-ng-class="{open: $state.includes('user')}">
+        data-ng-class="{open: $state.includes('user')}" ng-hide="ambassador_active === 'false' && ambassador === 'true'">
           <a href="">
             <span class="inner">
               <ng-md-icon class="fa fa-user icono"></ng-md-icon>
@@ -97,25 +98,25 @@
             </span>
           </a>
           <ul class="nav nav-second-level ">
-            <li ng-show="role === 'Estudiante'">
+            <li ng-show="role === 'Estudiante'" ng-hide="ambassador_active === 'false' && ambassador === 'true'">
               <a
               ui-sref="ambassador.plan"
               ui-sref-active="active">
               Plan Embajador</a>
             </li>
-            <li>
+            <li ng-hide="ambassador_active === 'false' && ambassador === 'true'">
               <a
               ui-sref="ambassador.list"
               ui-sref-active="active">
               Embajadores</a>
             </li>
-            <li>
+            <li ng-hide="ambassador_active === 'false' && ambassador === 'true'">
               <a
               ui-sref="ambassador.preferencial"
               ui-sref-active="active">
               Alumnos</a>
             </li>
-            <li>
+            <li ng-hide="ambassador_active === 'false' && ambassador === 'true'">
               <a
               ui-sref="ambassador.financial"
               ui-sref-active="active">
@@ -129,7 +130,7 @@
               ui-sref-active="active">
               Facturación</a>
             </li>
-            <li>
+            <li ng-hide="ambassador_active === 'false' && ambassador === 'true'">
               <a
               ui-sref="ambassador.bank"
               ui-sref-active="active">
@@ -176,6 +177,21 @@
   </header>
   <header-bread-crumb>
   </header-bread-crumb>
+<<<<<<< HEAD
+  <figure class="banner" ng-show="$state.includes('welcome.home')">
+    <a ng-click="goTo()" ng-class="{ cursor: goTo }">
+      <img ng-src="{{info.background_url}}" alt="" />
+=======
+  <figure class="banner">
+    <a href="#">
+      <img src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/06/30/16/arctic-monkeys.jpg" alt="" />
+>>>>>>> Add paydate to ambassador welcome view
+    </a>
+    <div class="paydate" ng-show="ambassador === 'true'">
+      <img ng-src="/paydate/{{paydate_color}}.png" alt="" />
+      <span>{{ day }}</span>
+    </div>
+  </figure>
   <main class="animate-fade-left content-view" id="contenido">
     <div class="loading-content loading-content-js">
       <img src="/loading-content.svg" alt="" />

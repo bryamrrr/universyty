@@ -273,3 +273,5 @@ Type.create(name: "Egreso")
 Paymethod.create(name: "Tarjeta")
 Paymethod.create(name: "Depósito")
 Paymethod.create(name: "Puntos")
+
+Information.create(title: "welcome_image", background_url: "https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/06/30/16/arctic-monkeys.jpg")

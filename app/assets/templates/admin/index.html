@@ -114,6 +114,24 @@
             </li>
           </ul>
         </li>
+        <li
+        data-ng-class="{open: $state.includes('others')}">
+          <a href="">
+            <span class="inner">
+              <ng-md-icon class="fa fa-suitcase icono"></ng-md-icon>
+              <span class="nav-label">Otros</span>
+              <ng-md-icon class="fa fa-chevron-right arrow"></ng-md-icon>
+            </span>
+          </a>
+          <ul class="nav nav-second-level ">
+            <li>
+              <a
+              ui-sref="others.welcomeimage"
+              ui-sref-active="active">
+              Imagen inicio</a>
+            </li>
+          </ul>
+        </li>
       </ul>
     </nav>
   </aside>
