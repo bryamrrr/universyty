@@ -95,13 +95,27 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
   def payments
     user = User.find_by(nickname: params[:nickname])
-    movements = Movement.where(user_id: user[:id], type: 2).order(created_at: :desc)
+    movements = Movement.where(user_id: user[:id], type: 2, ambassador: false).order(created_at: :desc)
 
     if @current_user == user || @current_user.role[:name] == "Admin"
       render :json => movements.to_json(:include => {
           :type => {},
           :paymethod => {},
           :products => {}
+        })
+    else
+      render :json => { :message => "No se encontraron movimientos" }, status: :not_found
+    end
+  end
+
+  def ambassador_payments
+    user = User.find_by(nickname: params[:nickname])
+    movements = Movement.where(user_id: user[:id], type: 2, ambassador: true).order(created_at: :desc)
+
+    if @current_user == user || @current_user.role[:name] == "Admin"
+      render :json => movements.to_json(:include => {
+          :type => {},
+          :paymethod => {}
         })
     else
       render :json => { :message => "No se encontraron movimientos" }, status: :not_found
