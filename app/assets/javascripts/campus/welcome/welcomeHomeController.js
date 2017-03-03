@@ -12,6 +12,7 @@ function WelcomeHomeController($scope, $q, urls, CookieService, HttpRequest) {
   var allPromise = $q.all([promise, promiseInfo]);
 
   allPromise.then(function (response) {
+    console.log(response);
     $scope.courses = response[0];
     $scope.$parent.info = response[1].image;
     if (response[1].image.link_url) $scope.$parent.link_url = response[1].image.link_url;
