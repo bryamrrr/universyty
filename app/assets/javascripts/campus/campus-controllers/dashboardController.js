@@ -13,6 +13,8 @@ function DashboardController($scope, $q, $state, $stateParams, $cookies,  Cookie
 
   $scope.teamChecked = true;
 
+  $scope.teamChecked = true;
+
   $scope.check = check;
   $scope.showCheck = false;
 
