@@ -17,6 +17,7 @@ toastr.options = {
 }
 
 $(document).on('turbolinks:load', function () {
+  videoPopup();
 
   $('#js-loading-content').hide();
 
@@ -395,7 +396,84 @@ function addCourseTemplate(course) {
   $("#js-flex-container").append(html);
 }
 
+function videoPopup() {
+  var ele = $('.btn-video-js'),
+    overlay = $('.overlay-js'),
+    html = $('html'),
+    body = $('body'),
+    btn_close = overlay.find('.btn-close-js'),
+    wrapperVideo = $('.popup-video-container');
 
+  if (ele.length > 0) {
+    ele.on('click', function () {
+      var self = $(this),
+        selfType = self.data('type'),
+        selfIDVideo = self.data('idvideo'), // para el caso de video-html5 es la url relativa al video mp4.
+        outputVideo = '';
+      if (!self.hasClass('active')) {
+        html.addClass('overflow');
+        self.addClass('active');
+        overlay.addClass('active');
+        if (selfIDVideo == '' || selfType == '') {
+          return;
+        }
+        switch (selfType) {
+          case 'youtube':
+            outputVideo = '<iframe width="420" height="315" src="https://www.youtube.com/embed/' + selfIDVideo + '?autoplay=1" frameborder="0" allowfullscreen></iframe>';
+
+            break;
+          case 'vimeo':
+            outputVideo = '<iframe src="https://player.vimeo.com/video/' + selfIDVideo + '?autoplay=1" width="500" height="375" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+
+            break;
+          case 'videohtml5':
+            outputVideo = '<video controls="controls" autoplay><source src="' + selfIDVideo + '" type="video/mp4" /></video>';
+            break;
+        }
+        wrapperVideo.append(outputVideo);
+      } else {
+        html.removeClass('overflow');
+        self.removeClass('active');
+        overlay.removeClass('active');
+      }
+      ;
+    });
+    $(document).keyup(function (e) {
+      if (e.keyCode === 27) {
+        if (overlay.hasClass('active')) {
+          html.removeClass('overflow');
+          ele.removeClass('active');
+          overlay.removeClass('active');
+          wrapperVideo.html('');
+        }
+      }
+    });
+    btn_close.on('click', function () {
+      if (overlay.hasClass('active')) {
+        html.removeClass('overflow');
+        ele.removeClass('active');
+        overlay.removeClass('active');
+        wrapperVideo.html('');
+      }
+    });
+
+    overlay.on('click', function () {
+      if (overlay.hasClass('active')) {
+        html.removeClass('overflow');
+        body.removeClass('overflow');
+        ele.removeClass('active');
+        overlay.removeClass('active');
+        wrapperVideo.html('');
+      }
+    });
+    ele.on('click', function (e) {
+      e.stopPropagation();
+    });
+    wrapperVideo.on('click', function (e) {
+      e.stopPropagation();
+    });
+  }
+}
 
 
 
