@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170227162523) do
+ActiveRecord::Schema.define(version: 20170304015354) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer  "question_id"
@@ -26,6 +26,9 @@ ActiveRecord::Schema.define(version: 20170227162523) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "user_id"
+    t.decimal  "value"
+    t.index ["user_id"], name: "index_bonos_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|

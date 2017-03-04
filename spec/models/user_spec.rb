@@ -16,10 +16,16 @@ RSpec.describe User, type: :model do
   it { should allow_value("bryamrr").for(:nickname) }
   it { should_not allow_value("bryamrr123456789").for(:nickname) }
 
-  # it "should give access to user if nickname and password are correct" do
-  #   user = FactoryGirl.create(:user)
-  #   reponse = User.authenticate({nick_name: user.nick_name, password: user.password})
-  #   expect(reponse).to eq(user)
+  # context 'Ambassador validation' do
+  #   before(:each) do
+  #     user = FactoryGirl.create(:user)
+  #   end
+
+  #   it "should return false if user is not ambassador" do
+  #     reponse = User.authenticate({nick_name: user.nick_name, password: user.password})
+  #     expect(reponse).to eq(user)
+
+  #   end
 
   # end
 
