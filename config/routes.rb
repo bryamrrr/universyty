@@ -84,6 +84,8 @@ Rails.application.routes.draw do
       # Information
       get 'informations/show_welcome_image', to: 'informations#show_welcome_image'
       put 'informations/update_welcome_image', to: 'informations#update_welcome_image'
+
+      resources :bonos, only: [:index]
     end
   end
 end

@@ -3,7 +3,7 @@ angular.module("campus-app").controller("AmbassadorFinancialController", Ambassa
 AmbassadorFinancialController.$inject = ['$scope', '$q', 'urls', 'HttpRequest', 'CookieService'];
 
 function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieService) {
-  var url = urls.BASE_API + '/movements';
+  var url = urls.BASE_API + '/bonos';
   var promise = HttpRequest.send('GET', url);
 
   var urlUser = urls.BASE_API + '/users/' + CookieService.read('nickname');

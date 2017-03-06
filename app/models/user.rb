@@ -61,7 +61,7 @@ class User < ApplicationRecord
     self.ambassador_active
   end
 
-  def increase_balance_ambassador(reason, course)
+  def increase_balance_ambassador(reason, course = nil)
     father = User.find_by(nickname: self.sponsor)
 
     case reason
@@ -76,9 +76,9 @@ class User < ApplicationRecord
             text = 'Puntos de Amigo'
           end
 
-          father.bono.create(
+          father.bonos.create(
             name: text,
-            description: '#{text} (#{self.nickname})',
+            description: "#{text} (#{self.nickname})",
             value: NEW_AMBASSADOR
           )
         end
@@ -97,10 +97,11 @@ class User < ApplicationRecord
             text = 'Puntos de Recomendación'
           end
 
-          father.bono.create(
+          father.bonos.create(
             name: text,
-            description: '#{text} (#{self.nickname})',
-            value: value
+            description: "#{text} (#{self.nickname})",
+            value: value,
+            course_id: course[:id]
           )
         end
     end
@@ -177,9 +178,9 @@ class User < ApplicationRecord
           text = 'Puntos de Equipo'
         end
 
-        father.bono.create(
+        father.bonos.create(
           name: text,
-          description: '#{text} (#{self.nickname})',
+          description: "#{text} (#{self.nickname})",
           value: MONTHLY_PAY
         )
         payFathers(father)

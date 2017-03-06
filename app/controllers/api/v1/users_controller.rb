@@ -35,8 +35,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     user = User.authenticate(data)
 
-
-    if user[:paydate]
+    if user && user[:paydate]
       if Date.today > user[:paydate]
         paydate_color = 'red'
         user.update_column(:ambassador_active, false)

@@ -1,11 +1,15 @@
 <div class="financial-header">
   <div class="balance">
-    <h4>Puntos Generados</h4>
-    <span>{{user.historical_balance | number: 0 }}</span>
+    <h4 ng-hide="role === 'Instructor'">Puntos Generados</h4>
+    <h4 ng-show="role === 'Instructor'">Ingresos Generados</h4>
+    <span ng-hide="role === 'Instructor'">{{user.historical_balance | number: 0 }}</span>
+    <span ng-show="role === 'Instructor'">S/ {{user.historical_balance | number: 0 }}</span>
   </div>
   <div class="balance">
-    <h4>Puntos Disponibles</h4>
-    <span>{{user.balance | number: 0 }}</span>
+    <h4 ng-hide="role === 'Instructor'">Puntos Disponibles</h4>
+    <h4 ng-show="role === 'Instructor'">Ingresos Disponibles</h4>
+    <span ng-hide="role === 'Instructor'">{{user.balance | number: 0 }}</span>
+    <span ng-show="role === 'Instructor'">S/ {{user.balance | number: 0 }}</span>
   </div>
   <div class="aside-buttons">
     <button>Pagar</button>
@@ -17,7 +21,10 @@
   <thead>
     <tr>
       <th class="thin-column">Mes y Año</th>
-      <th class="text-left">Puntos</th>
+      <th class="text-left">
+        <span ng-hide="role === 'Instructor'">Puntos</span>
+        <span ng-show="role === 'Instructor'">Movimientos</span>
+      </th>
       <th class="text-left">Subtotal</th>
     </tr>
   </thead>
@@ -26,8 +33,8 @@
       <td class="text-left">
         {{ movement.created_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ movement.created_at | date:'H:mm' }}
       </td>
-      <td class="text-left">{{ movement.reason }}</td>
-      <td class="text-left">{{ movement.total }}</td>
+      <td class="text-left">{{ movement.description }}</td>
+      <td class="text-left">{{ movement.value }}</td>
     </tr>
   </tbody>
   <tfoot>
