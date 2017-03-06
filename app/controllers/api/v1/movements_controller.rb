@@ -159,26 +159,39 @@ class Api::V1::MovementsController < Api::V1::BaseController
   end
 
   def activate_movement(movement)
+    user = User.find(movement[:user_id])
+
     if movement.products.count > 0
       puts "Es un pago de cursos"
       movement.products.each do |product|
         Enrollment.create(user_id: movement[:user_id], course_id: product.course_id)
+
+        course = Course.find(product.course_id)
+
+        user.increase_balance_ambassador('COMMEND', course)
+        course.increase_balance_instructor(user)
       end
     else
-      user = User.find(movement[:user_id])
       update_teams(user, 1)
 
       if user[:paydate]
         if user[:paydate] < Date.today
-          puts "Ya pasó a fecha de pago, se actualizará para que pague dentro de un mes exactamente"
           user.update_column(:paydate, Date.today + 1.month)
         else
-          puts "Aun no es la fecha de pago, se le sumará un mes más a la fecha de pago ya existente"
           user.update_column(:paydate, user[:paydate] + 1.month)
         end
       else
         user.update_column(:paydate, Date.today + 1.month)
       end
+
+      if user.is_ambassador?
+        puts "<===== El usuario SI es embajador =====>"
+        user.increase_balance_ambassador('MONTHLY_PAY')
+      else
+        puts "<===== El usuario NO es embajador AUN =====>"
+        user.increase_balance_ambassador('NEW_AMBASSADOR')
+      end
+
       user.update_column(:ambassador, true)
       user.update_column(:ambassador_active, true)
     end

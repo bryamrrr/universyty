@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :teams
   has_many :courses
   has_many :grades
+  has_many :bonos
 
   validates :nickname, presence: true, uniqueness: true
   validates_length_of :nickname, :in => 2..15
@@ -20,6 +21,10 @@ class User < ApplicationRecord
 
   before_create :encrypt_password
   before_save :default_values
+
+  NEW_AMBASSADOR = 10
+  MONTHLY_PAY = 1
+  COMMEND = 0.2
 
   def create_reset_digest
     self.reset_token = User.new_token
@@ -46,6 +51,69 @@ class User < ApplicationRecord
   def change_with_token(new_password)
     encrypted_password = BCrypt::Engine.hash_secret(new_password, salt)
     update_attribute(:encrypted_password, encrypted_password)
+  end
+
+  def is_ambassador?
+    self.ambassador
+  end
+
+  def is_active_ambassador?
+    self.ambassador_active
+  end
+
+  def increase_balance_ambassador(reason, course = nil)
+    father = User.find_by(nickname: self.sponsor)
+
+    case reason
+      when 'NEW_AMBASSADOR'
+        if father && father.is_active_ambassador?
+          father.update_attribute(:balance, father[:balance] += NEW_AMBASSADOR)
+          father.update_attribute(:historical_balance, father[:historical_balance] += NEW_AMBASSADOR)
+
+          if father[:instructor]
+            text = 'Bono de Amigo'
+          else
+            text = 'Puntos de Amigo'
+          end
+
+          father.bonos.create(
+            name: text,
+            description: "#{text} (#{self.nickname})",
+            value: NEW_AMBASSADOR
+          )
+        end
+      when 'MONTHLY_PAY'
+        payFathers(self)
+      when 'COMMEND'
+        if father && father.is_active_ambassador?
+          value = (course[:pricetag] * COMMEND).round
+
+          father.update_attribute(:balance, father[:balance] + value)
+          father.update_attribute(:historical_balance, father[:historical_balance] + value)
+
+          if father[:instructor]
+            text = 'Bono de Recomendación'
+          else
+            text = 'Puntos de Recomendación'
+          end
+
+          father.bonos.create(
+            name: text,
+            description: "#{text} (#{self.nickname})",
+            value: value,
+            course_id: course[:id]
+          )
+        end
+    end
+  end
+
+  def transfer(quantity, receiver)
+  end
+
+  def pay(receiver)
+  end
+
+  def withdraw(quantity)
   end
 
   private
@@ -94,6 +162,28 @@ class User < ApplicationRecord
         end
       else
         return false
+      end
+    end
+
+    def payFathers(user)
+      father = User.find_by(nickname: user[:sponsor])
+
+      if father && father.is_active_ambassador?
+        father.update_attribute(:balance, father[:balance] += MONTHLY_PAY)
+        father.update_attribute(:historical_balance, father[:historical_balance] += MONTHLY_PAY)
+
+        if father[:instructor]
+          text = 'Bono de Equipo'
+        else
+          text = 'Puntos de Equipo'
+        end
+
+        father.bonos.create(
+          name: text,
+          description: "#{text} (#{self.nickname})",
+          value: MONTHLY_PAY
+        )
+        payFathers(father)
       end
     end
 end
