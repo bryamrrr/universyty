@@ -44,3 +44,11 @@
     </tr>
   </tfoot>
 </table>
+<div class="space" ng-hide="movements.length > 5"></div>
+<div class="password-enter" ng-hide="hidePassword">
+  <div class="password-container">
+    <img src="/logo-purple-2.png" alt="" />
+    <input type="password" ng-model="password" placeholder="Contraseña" />
+    <button ng-click="sendPassword(password)">Ingresar</button>
+  </div>
+</div>

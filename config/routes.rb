@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       resources :users, except: [:new, :edit]
       post 'users/login', to: 'users#login'
       post 'users/logout', to: 'users#logout'
+      post 'users/confirm_password', to: 'users#confirm_password'
       put 'users/:nickname/change_password', to: 'users#change_password'
       put 'users/:nickname/change_bank', to: 'users#change_bank'
       put 'users/:id/block', to: 'users#block'

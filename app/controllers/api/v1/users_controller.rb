@@ -29,6 +29,18 @@ class Api::V1::UsersController < Api::V1::BaseController
     render :json => @users
   end
 
+  def confirm_password
+    data = {nickname: params[:data][:nickname], password: params[:data][:password]}
+
+    user = User.authenticate(data)
+
+    if user
+      render :json => { :message => "Usuario autorizado" }
+    else
+      render :json => { :errors => "Credenciales incorrectas" }
+    end
+  end
+
   # POST /api/v1/users/login
   def login
     data = {nickname: params[:nickname], password: params[:password]}
@@ -79,7 +91,6 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def create
-    puts params[:data].to_json
     user = User.new(user_params)
 
     if user.save
