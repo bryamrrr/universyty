@@ -69,6 +69,8 @@ Rails.application.routes.draw do
       get 'movements/paids', to: 'movements#payments_paid'
       get 'movements/:id/change_activate', to: 'movements#change_activate'
 
+      post 'movements/transfer', to: 'movements#transfer'
+
       resources :enrollments, only: [:destroy, :update]
       get 'enrollments/users/:id', to: 'enrollments#find_by_user'
       get 'enrollments/courses/:id', to: 'enrollments#find_by_course'

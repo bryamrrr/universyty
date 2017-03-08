@@ -12,9 +12,9 @@
     <span ng-show="role === 'Instructor'">S/ {{user.balance | number: 0 }}</span>
   </div>
   <div class="aside-buttons">
-    <button>Pagar</button>
-    <button>Transferir</button>
-    <button>Canjear</button>
+    <button ng-click="pay()">Pagar</button>
+    <button ng-click="transfer()">Transferir</button>
+    <button ng-click="withdraw()">Canjear</button>
   </div>
 </div>
 <table class="table td-bg financial-table">
@@ -50,5 +50,95 @@
     <img src="/logo-purple-2.png" alt="" />
     <input type="password" ng-model="password" placeholder="Contraseña" />
     <button ng-click="sendPassword(password)">Ingresar</button>
+  </div>
+</div>
+<div class="password-enter" ng-show="showPay">
+  <div class="password-container">
+    <span class="fa-stack fa-lg" ng-click="close()">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+    </span>
+    <h2>PAGAR</h2>
+    <p class="tagline">Realiza tus pagos y el de tus amigos</p>
+    <form ng-submit="goPay(form, paydata)" name="form" novalidate ng-validate="payOptions">
+      <div class="form-group">
+        <label for="payuser">Usuario:</label>
+        <input type="text" ng-model="paydata.user" name="payuser" id="payuser" />
+      </div>
+      <div class="form-group">
+        <label for="payamount">Monto:</label>
+        <input type="text" ng-model="paydata.amount" name="payamount" id="payamount" />
+      </div>
+      <button type="submit" ng-disabled="isLoading">
+        PAGAR
+        <div class="loader-wrapper" ng-show="isLoading">
+          <div class="loader-circles" id="loader">Loading...</div>
+        </div>
+      </button>
+    </form>
+  </div>
+</div>
+<div class="password-enter" ng-show="showTransfer">
+  <div class="password-container">
+    <span class="fa-stack fa-lg" ng-click="close()">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+    </span>
+    <h2>TRANSFERIR</h2>
+    <p class="tagline">Transfiere tu saldo en tiempo real</p>
+    <div class="benefits">
+      <ul>
+        <li>El monto mínimo de cada transferencia es 10.</li>
+        <li>La comisión por cada transferencia es 1.</li>
+        <li>Ejemplo:Si transfiero 100, al destinatario le llegará 99.</li>
+      </ul>
+    </div>
+    <form ng-submit="goTransfer(form, transferdata)" name="form" novalidate ng-validate="transferOptions">
+      <div class="form-group">
+        <label for="transferuser">Usuario:</label>
+        <input type="text" ng-model="transferdata.user" name="transferuser" id="transferuser" />
+      </div>
+      <div class="form-group">
+        <label for="transferamount">Monto:</label>
+        <input type="text" ng-model="transferdata.amount" name="transferamount" id="transferamount" />
+      </div>
+      <button type="submit" ng-disabled="isLoading">
+        TRANSFERIR
+        <div class="loader-wrapper" ng-show="isLoading">
+          <div class="loader-circles" id="loader">Loading...</div>
+        </div>
+      </button>
+    </form>
+  </div>
+</div>
+<div class="password-enter" ng-show="showWithdraw">
+  <div class="password-container">
+    <span class="fa-stack fa-lg" ng-click="close()">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+    </span>
+    <h2>CANJEAR</h2>
+    <p class="tagline">Canjea tus puntos por dinero (1 punto = S/ 1)</p>
+    <div class="benefits">
+      <ul>
+        <li>La solicitud de canje sólo procede el último día de cada mes (24 horas).</li>
+        <li>El monto canjeado se depositará en tu banco el 5° día.</li>
+        <li>El monto mínimo de canje es S/ 50.</li>
+        <li>El monto máximo de canje es S/ 5000.</li>
+        <li>La comisión por cada transferencia es S/ 5.</li>
+      </ul>
+    </div>
+    <form ng-submit="goWithdraw(form, withdrawdata)" name="form" novalidate ng-validate="withdrawOptions">
+      <div class="form-group">
+        <label for="withdrawamount">Monto:</label>
+        <input type="text" ng-model="withdrawdata.amount" name="withdrawamount" id="withdrawamount" />
+      </div>
+      <button type="submit" ng-disabled="isLoading">
+        CANJEAR
+        <div class="loader-wrapper" ng-show="isLoading">
+          <div class="loader-circles" id="loader">Loading...</div>
+        </div>
+      </button>
+    </form>
   </div>
 </div>

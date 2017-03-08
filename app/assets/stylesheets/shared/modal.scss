@@ -25,6 +25,14 @@
   border: 1px solid $purple;
   padding: 1.5em;
   text-align: center;
+  position: relative;
+  .fa-stack {
+    position: absolute;
+    top: -1.3em;
+    right: -1.3em;
+    z-index: 2;
+    &:hover { cursor: pointer; }
+  }
   img {
     margin-bottom: 1em;
     width: 200px;
@@ -35,5 +43,30 @@
     margin-bottom: 1em;
     padding: .5em;
     width: 100%;
+  }
+  h2 {
+    color: $purple;
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+  .benefits {
+    background-color: #ECECEC;
+    font-size: .8em;
+    margin-bottom: 2em;
+    padding: 1em;
+    text-align: left;
+  }
+  .form-group {
+    input { width: calc(100% - 65px); }
+    label {
+      display: inline-block;
+      text-align: left;
+      width: 60px;
+    }
+  }
+  ul {
+    list-style-type: disc;
+    padding-left: 2em;
   }
 }

@@ -93,6 +93,39 @@ class Api::V1::MovementsController < Api::V1::BaseController
     end
   end
 
+  def transfer
+    if params[:data][:amount]
+      if @current_user[:balance] < params[:data][:amount].to_d
+        render :json => { :errors => "Saldo insuficiente" } and return
+      end
+    else
+      render :json => { :errors => "Falta definir el monto" } and return
+    end
+
+    user = User.find_by(nickname: params[:data][:user])
+
+    if user
+      user.update_column(:balance, user[:balance] + params[:data][:amount].to_d.round)
+      user.update_column(:historical_balance, user[:historical_balance] + params[:data][:amount].to_d.round)
+      user.bonos.create(
+        name: "Puntos recibidos",
+        description: "Transferencia - Puntos Recibidos (#{@current_user[:nickname]})",
+        value: params[:data][:amount].to_d.round
+      )
+
+      @current_user.update_column(:balance, (@current_user[:balance] - params[:data][:amount].to_d).round)
+      @current_user.bonos.create(
+        name: "Puntos enviados",
+        description: "Transferencia - Puntos enviados (#{params[:data][:user]})",
+        value: params[:data][:amount].to_d.round
+      )
+
+      render :json => { :message => "Transferencia realizada con éxito" }
+    else
+      render :json => { :errors => "No existe el usuario" }
+    end
+  end
+
   def payments
     user = User.find_by(nickname: params[:nickname])
     movements = Movement.where(user_id: user[:id], type: 2, ambassador: false).order(created_at: :desc)
