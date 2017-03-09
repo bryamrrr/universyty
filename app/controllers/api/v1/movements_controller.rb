@@ -59,6 +59,9 @@ class Api::V1::MovementsController < Api::V1::BaseController
       paymethod = Paymethod.find_by(name: "Depósito")
     elsif paymethod == '3'
       paymethod = Paymethod.find_by(name: "Puntos")
+      if cart[:total] > @current_user[:balance]
+        render :json => { :errors => "Saldo insuficiente" } and return
+      end
     end
 
     if user[:ambassador] == false
@@ -87,7 +90,37 @@ class Api::V1::MovementsController < Api::V1::BaseController
           pricetag: item[:pricetag]
         )
       end
-      render :json => { :message => "Pedido realizado" }
+
+      if paymethod[:name] == 'Puntos'
+        movement.products.each do |product|
+          enrollment = Enrollment.find_by(user_id: movement[:user_id], course_id: product.course_id)
+
+          if enrollment
+            movement.destroy
+            render :json => { :errors => "Ya te encuentras suscrito a un curso. Por favor quítalo del carrito e intentalo de nuevo." } and return
+          end
+        end
+
+        movement.products.each do |product|
+          Enrollment.create(user_id: movement[:user_id], course_id: product.course_id)
+
+          course = Course.find(product.course_id)
+
+          @current_user.increase_balance_ambassador('COMMEND', course)
+          course.increase_balance_instructor(user)
+        end
+
+        @current_user.update_column(:balance, @current_user[:balance] - cart[:total].to_d.round)
+        movement.update_column(:status, "Pagado")
+        @current_user.bonos.create(
+          name: "Pago de cursos",
+          description: "Pago de cursos",
+          value: cart[:total].to_d.round
+        )
+        render :json => { :message => "Pago realizado con éxito" }
+      elsif paymethod[:name] == 'Depósito'
+        render :json => { :message => "Pedido realizado" }
+      end
     else
       render :json => { :message => "No se pudo realizar el pedido", :dev_message => movement.errors.full_message.to_json }
     end

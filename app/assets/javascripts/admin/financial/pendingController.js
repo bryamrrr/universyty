@@ -20,6 +20,7 @@ function PendingController($scope, $state, urls, HttpRequest, $uibModal, SweetAl
   });
 
   function openDetails(payment, size, parentSelector) {
+    console.log(payment);
     $scope.cart = payment;
     var parentElem = parentSelector ? angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
     $uibModal.open({
@@ -29,6 +30,7 @@ function PendingController($scope, $state, urls, HttpRequest, $uibModal, SweetAl
       templateUrl: 'admin/financial/pending-details.html',
       controller: ['$scope', function($scope) {
         $scope.cart = payment;
+        if (payment.discount) $scope.cart.discount_applied = $scope.cart.total / 4;
       }],
       size: size,
       appendTo: parentElem
