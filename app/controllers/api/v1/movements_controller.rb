@@ -138,24 +138,71 @@ class Api::V1::MovementsController < Api::V1::BaseController
     user = User.find_by(nickname: params[:data][:user])
 
     if user
-      user.update_column(:balance, user[:balance] + params[:data][:amount].to_d.round)
-      user.update_column(:historical_balance, user[:historical_balance] + params[:data][:amount].to_d.round)
+      user.update_column(:balance, user[:balance] + params[:data][:amount].to_d.round - 1)
+      user.update_column(:historical_balance, user[:historical_balance] + params[:data][:amount].to_d.round - 1)
       user.bonos.create(
         name: "Puntos recibidos",
         description: "Transferencia - Puntos Recibidos (#{@current_user[:nickname]})",
-        value: params[:data][:amount].to_d.round
+        value: params[:data][:amount].to_d.round - 1
       )
 
       @current_user.update_column(:balance, (@current_user[:balance] - params[:data][:amount].to_d).round)
       @current_user.bonos.create(
         name: "Puntos enviados",
         description: "Transferencia - Puntos enviados (#{params[:data][:user]})",
-        value: params[:data][:amount].to_d.round
+        value: -params[:data][:amount].to_d.round
       )
 
       render :json => { :message => "Transferencia realizada con éxito" }
     else
       render :json => { :errors => "No existe el usuario" }
+    end
+  end
+
+  def pay
+    if params[:data][:amount]
+      if @current_user[:balance] < params[:data][:amount].to_d
+        render :json => { :errors => "Saldo insuficiente" }
+      else
+        user = User.find_by(nickname: params[:data][:user])
+
+        if user
+          movements = user.movements.where(status: "No pagado")
+          if movements
+            activate_movement(movements.last)
+            @current_user.bonos.create(
+              name: "Pago a otro usuario",
+              description: "Pago a otro usuario (#{user[:nickname]})",
+              value: -Movement.last[:total]
+            )
+            @current_user.update_column(:balance, @current_user[:balance] - Movement.last[:total])
+          else
+            render :json => { :errors => "El usuario no tiene pagos pendientes" }
+          end
+        else
+          render :json => { :errors => "No existe el usuario" }
+        end
+      end
+    else
+      render :json => { :errors => "Falta definir el monto" }
+    end
+  end
+
+  def debt
+    if params[:data][:user]
+      user = User.find_by(nickname: params[:data][:user])
+      if user
+        movements = user.movements.where(status: "No pagado")
+        if movements
+          render :json => movements.last.to_json
+        else
+          render :json => { :errors => "El usuario no tiene pagos pendientes" }
+        end
+      else
+        render :json => { :errors => "No existe el usuario" }
+      end
+    else
+      render :json => { :errors => "Falta definir el monto" }
     end
   end
 
@@ -214,9 +261,8 @@ class Api::V1::MovementsController < Api::V1::BaseController
     if @current_user.role[:name] == "Admin"
       if movement[:status] == "No pagado"
         activate_movement(movement)
-        render :json => { :message => "Se cambió el estado del pago correctamente" }
       elsif movement[:status] == "Pagado"
-        puts "Desactivar pago/movimiento"
+        puts "FIXME Desactivar pago/movimiento"
         render :json => { :message => "Se cambió el estado del pago correctamente" }
       end
     else
@@ -227,6 +273,14 @@ class Api::V1::MovementsController < Api::V1::BaseController
   def activate_movement(movement)
     user = User.find(movement[:user_id])
 
+    movement.products.each do |product|
+      enrollment = Enrollment.find_by(user_id: movement[:user_id], course_id: product.course_id)
+
+      if enrollment
+        render :json => { :errors => "Ya se encuentra suscrito a un curso. No es posible realizar el movimiento" } and return
+      end
+    end
+
     if movement.products.count > 0
       puts "Es un pago de cursos"
       movement.products.each do |product|
@@ -234,7 +288,9 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
         course = Course.find(product.course_id)
 
-        user.increase_balance_ambassador('COMMEND', course)
+        if !@current_user[:ambassador]
+          user.increase_balance_ambassador('COMMEND', course)
+        end
         course.increase_balance_instructor(user)
       end
     else
@@ -262,6 +318,7 @@ class Api::V1::MovementsController < Api::V1::BaseController
       user.update_column(:ambassador_active, true)
     end
     movement.update_column(:status, "Pagado")
+    render :json => { :message => "Pago realizado con éxito" } and return
   end
 
   def update_teams(user, level, father = nil)

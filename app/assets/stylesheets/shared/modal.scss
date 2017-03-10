@@ -95,6 +95,9 @@ body.modal-opened .modal{display: block;}
     margin-bottom: 1em;
     padding: .5em;
     width: 100%;
+    &:disabled {
+      background-color: $gray-light;
+    }
   }
   h2 {
     color: $purple;

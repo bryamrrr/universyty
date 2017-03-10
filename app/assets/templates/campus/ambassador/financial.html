@@ -34,7 +34,7 @@
         {{ movement.created_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ movement.created_at | date:'H:mm' }}
       </td>
       <td class="text-left">{{ movement.description }}</td>
-      <td class="text-left">{{ movement.value }}</td>
+      <td class="text-left" ng-class="{ 'color-red': movement.value < 0 }">{{ movement.value | number: 0 }}</td>
     </tr>
   </tbody>
   <tfoot>
@@ -67,9 +67,15 @@
       </div>
       <div class="form-group">
         <label for="payamount">Monto:</label>
-        <input type="text" ng-model="paydata.amount" name="payamount" id="payamount" />
+        <input type="text" ng-model="paydata.amount" name="payamount" id="payamount" disabled />
       </div>
-      <button type="submit" ng-disabled="isLoading">
+      <button type="submit" ng-disabled="isLoading" ng-hide="debt">
+        BUSCAR DEUDA
+        <div class="loader-wrapper" ng-show="isLoading">
+          <div class="loader-circles" id="loader">Loading...</div>
+        </div>
+      </button>
+      <button type="submit" ng-disabled="isLoading" ng-show="debt">
         PAGAR
         <div class="loader-wrapper" ng-show="isLoading">
           <div class="loader-circles" id="loader">Loading...</div>

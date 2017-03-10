@@ -63,10 +63,9 @@ function SaleController($scope, $cookies, $state, CookieService, SweetAlert, url
         var messageTitle = '¡Buenísimo!';
         var messageText = 'Tu pedido ha sido reservado y está pendiente de pago.';
         var messageButton = 'Ir a mis pagos';
-        if (paymentMethod === '2' || paymentMethod === '3') {
+        if (paymentMethod === '1' || paymentMethod === '3') {
           var messageTitle = '¡Buenísimo!';
           var messageText = 'Pago realizado con Éxito.';
-          var messageButton = 'OK';
         }
         SweetAlert.swal({
           title: messageTitle,

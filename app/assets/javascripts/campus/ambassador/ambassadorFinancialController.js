@@ -6,12 +6,16 @@ function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieServ
   // $('.modal-overlay').show();
   $scope.hidePassword = true;
   $('.modal-overlay').hide();
+
   $scope.sendPassword = sendPassword;
   $scope.transfer = transfer;
   $scope.pay = pay;
   $scope.withdraw = withdraw;
   $scope.close = close;
   $scope.goTransfer = goTransfer;
+  $scope.goPay = goPay;
+
+  $scope.debt = false;
 
   $scope.transferdata = {};
   $scope.paydata = {};
@@ -104,6 +108,46 @@ function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieServ
     }, function (error) {
       //
     });
+  }
+
+  function goPay(form, data) {
+    $scope.isLoading = true;
+
+    if ($scope.debt) {
+      var url = urls.BASE_API + '/movements/pay';
+      var promise = HttpRequest.send('POST', url, data);
+
+      promise.then(function (response) {
+        $scope.isLoading = false;
+        if (response.errors) {
+          toastr.error(response.errors);
+        } else {
+          $scope.showPay = false;
+          $('.modal-overlay').hide();
+
+          toastr.success(response.message);
+          $scope.user.balance -= Math.round(data.amount);
+        }
+      }, function (error) {
+        //
+      });
+    }
+    else {
+      var url = urls.BASE_API + '/movements/debt';
+      var promise = HttpRequest.send('POST', url, data);
+
+      promise.then(function (response) {
+        $scope.isLoading = false;
+        if (response.errors) {
+          toastr.error(response.errors);
+        } else {
+          $scope.debt = true;
+          $scope.paydata.amount = response.total;
+        }
+      }, function (error) {
+        //
+      });
+    }
   }
 
   /* ----------------------------------- */
