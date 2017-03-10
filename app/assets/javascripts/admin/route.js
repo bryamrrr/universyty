@@ -315,14 +315,14 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
-    .state('user.outcome', {
+    .state('financial.outcome', {
       url: '/egresos',
       data: {
         title: 'Egresos'
       },
       views: {
         'content@financial': {
-          templateUrl: 'admin/user/outcome.html',
+          templateUrl: 'admin/financial/outcome.html',
           controller: 'OutcomeController'
         }
       }

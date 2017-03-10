@@ -135,6 +135,10 @@ class Api::V1::MovementsController < Api::V1::BaseController
       render :json => { :errors => "Falta definir el monto" } and return
     end
 
+    if !@current_user[:ambassador] || !@current_user[:ambassador_active]
+      render :json => { :errors => "No es posible realizar la transferencia" } and return
+    end
+
     user = User.find_by(nickname: params[:data][:user])
 
     if user
@@ -206,9 +210,39 @@ class Api::V1::MovementsController < Api::V1::BaseController
     end
   end
 
+  def withdraw
+    if @current_user[:ambassador] && @current_user[:ambassador_active]
+      bono = @current_user.bonos.create(
+        name: "Retiro de dinero",
+        description: "Retiro de dinero - En proceso",
+        value: -params[:data][:amount].to_d.round
+      )
+
+      paymethod = Paymethod.find_by(name: "Depósito")
+      movement = Movement.new(
+        user_id: @current_user.id,
+        paymethod_id: paymethod.id,
+        type_id: 1,
+        status: "No pagado",
+        total: params[:data][:amount].to_d.round,
+        ambassador: false,
+        bono_id: bono[:id]
+      )
+
+      if movement.save
+        @current_user.update_column(:balance, @current_user[:balance] - params[:data][:amount].to_d.round)
+        render :json => { :message => "Petición de retiro realizada con éxito" }
+      else
+        render :json => { :errors => "No es posible retirar el saldo" }
+      end
+    else
+      render :json => { :errors => "No es posible retirar el saldo" }
+    end
+  end
+
   def payments
     user = User.find_by(nickname: params[:nickname])
-    movements = Movement.where(user_id: user[:id], type: 2, ambassador: false).order(created_at: :desc)
+    movements = Movement.where(user_id: user[:id], ambassador: false).order(created_at: :desc)
 
     if @current_user == user || @current_user.role[:name] == "Admin"
       render :json => movements.to_json(:include => {
@@ -242,6 +276,15 @@ class Api::V1::MovementsController < Api::V1::BaseController
           :paymethod => {},
           :user => {},
           :products => {}
+        })
+  end
+
+  def outcomes
+    movements = Movement.where(status: "Pagado", type: 1).order(updated_at: :desc)
+    render :json => movements.to_json(:include => {
+          :type => {},
+          :paymethod => {},
+          :user => {}
         })
   end
 
@@ -347,6 +390,30 @@ class Api::V1::MovementsController < Api::V1::BaseController
         puts "El usuario sponsor no es embajador"
       end
     end
+  end
+
+  def finish_retire
+    movement = Movement.find(params[:id])
+    movement.update_attribute(:status, "Pagado")
+
+    user = User.find(movement[:user_id])
+    bono = user.bonos.find(movement.bono_id)
+    bono.update_attribute(:description, "Retiro de dinero")
+  end
+
+  def cancel_retire
+    movement = Movement.find(params[:id])
+    movement.update_attribute(:status, "Cancelado")
+
+    user = User.find(movement[:user_id])
+    user.update_column(:balance, user[:balance] + movement[:total])
+    bono = user.bonos.find(movement.bono_id)
+    bono.update_attribute(:description, "Retiro de dinero")
+    user.bonos.create(
+      name: "Devolución de saldo",
+      description: "Devolución de saldo",
+      value: movement[:total]
+    )
   end
 
   def destroy

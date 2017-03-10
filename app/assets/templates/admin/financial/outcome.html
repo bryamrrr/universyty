@@ -1,10 +1,38 @@
-<div class="align-center">
-  <br>
-  <br>
-  <br>
-  <i class="fa fa-bullhorn fa-3x"></i>
-  <br>
-  <br>
-  <h1>En construcción</h1>
-  <p>Finanzas / Egresos</p>
+<div class="card">
+  <div class="full-container card card-padding">
+    <h2>Egresos</h2>
+    <table class="table td-bg" ng-if="outcomes.length > 0">
+      <thead>
+        <tr>
+          <th class="thin-column">Nombre del alumno</th>
+          <th class="text-left">Usuario</th>
+          <th class="text-left">Detalle del pedido</th>
+          <th class="text-left">Fecha de pedido</th>
+          <th class="text-left">Modo de pago</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="outcome in outcomes">
+          <td class="text-left">{{ outcome.user.fullname }}</td>
+          <td class="text-left">{{ outcome.user.nickname }}</td>
+          <td class="text-left">
+            <a href="#" ng-click="openDetails(outcome)" ng-if="!outcome.ambassador && outcome.type.id != 1">Ver</a>
+            <span ng-if="outcome.ambassador && !outcome.monthly">Plan Embajador</span>
+            <span ng-if="outcome.monthly">Mensualidad</span>
+            <span ng-if="outcome.type.id == 1">Retiro de S/ {{ outcome.total | number: 0 }}</span>
+          </td>
+          <td class="text-left">
+            <span>{{ outcome.created_at }}</span>
+          </td>
+          <td class="text-left">
+            <span>{{ outcome.paymethod.name }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="alert-container important" ng-hide="outcomes.length > 0">
+      <i class="fa fa-warning"></i>
+      <span>No se encontraron retiros realizados.</span>
+    </div>
+  </div>
 </div>

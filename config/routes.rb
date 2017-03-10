@@ -72,6 +72,12 @@ Rails.application.routes.draw do
       post 'movements/transfer', to: 'movements#transfer'
       post 'movements/pay', to: 'movements#pay'
       post 'movements/debt', to: 'movements#debt'
+      post 'movements/withdraw', to: 'movements#withdraw'
+
+      get 'movements/:id/finish_retire', to: 'movements#finish_retire'
+      get 'movements/:id/cancel_retire', to: 'movements#cancel_retire'
+
+      get 'movements/outcomes', to: 'movements#outcomes'
 
       resources :enrollments, only: [:destroy, :update]
       get 'enrollments/users/:id', to: 'enrollments#find_by_user'

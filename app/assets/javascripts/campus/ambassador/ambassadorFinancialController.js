@@ -14,6 +14,7 @@ function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieServ
   $scope.close = close;
   $scope.goTransfer = goTransfer;
   $scope.goPay = goPay;
+  $scope.goWithdraw = goWithdraw;
 
   $scope.debt = false;
 
@@ -147,6 +148,31 @@ function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieServ
       }, function (error) {
         //
       });
+    }
+  }
+
+  function goWithdraw(form, data) {
+    $scope.isLoading = true;
+    if (data.amount >= 50 && data.amount <= 5000) {
+      var url = urls.BASE_API + '/movements/withdraw';
+      var promise = HttpRequest.send('POST', url, data);
+
+      promise.then(function (response) {
+        if (response.errors) {
+          toastr.error(response.errors);
+        } else {
+          $scope.showWithdraw = false;
+          $('.modal-overlay').hide();
+
+          toastr.success(response.message);
+          $scope.user.balance -= Math.round(data.amount);
+        }
+      }, function (error) {
+        console.log(error);
+      });
+    } else {
+      toastr.error("Agrega un monto dentro del rango");
+      $scope.isLoading = false;
     }
   }
 

@@ -9,7 +9,7 @@
           <th class="text-left">Detalle del pedido</th>
           <th class="text-left">Fecha de pedido</th>
           <th class="text-left">Modo de pago</th>
-          <th class="text-left">Activar</th>
+          <th class="text-left" colspan="3">Administrar</th>
         </tr>
       </thead>
       <tbody>
@@ -17,9 +17,10 @@
           <td class="text-left">{{ payment.user.fullname }}</td>
           <td class="text-left">{{ payment.user.nickname }}</td>
           <td class="text-left">
-            <a href="#" ng-click="openDetails(payment)" ng-if="!payment.ambassador">Ver</a>
+            <a href="#" ng-click="openDetails(payment)" ng-if="!payment.ambassador && payment.type.id != 1">Ver</a>
             <span ng-if="payment.ambassador && !payment.monthly">Plan Embajador</span>
             <span ng-if="payment.monthly">Mensualidad</span>
+            <span ng-if="payment.type.id == 1">Retiro de S/ {{ payment.total | number: 0 }}</span>
           </td>
           <td class="text-left">
             <span>{{ payment.created_at }}</span>
@@ -28,9 +29,16 @@
             <span>{{ payment.paymethod.name }}</span>
           </td>
           <td class="no-padding">
-            <a href="javascript:void(0)" ng-click="activate(payment.id, $event)" class="btn button-ico">
-              <span class="helper"></span><i class="fa fa-exchange display-inline font-1-3em"></i>
+            <a href="javascript:void(0)" ng-click="activate(payment.id, $event)" class="btn button-ico" ng-hide="payment.type.id == 1">
+              Activar
+            </a>&nbsp;
+            <a href="javascript:void(0)" ng-click="pay(payment.id, $event)" class="btn button-ico" ng-show="payment.type.id == 1">
+              Pagar
+            </a>&nbsp;
+            <a href="javascript:void(0)" ng-click="back(payment.id, $event)" class="btn button-ico" ng-show="payment.type.id == 1">
+              Devolver
             </a>
+          </td>
         </tr>
       </tbody>
     </table>
