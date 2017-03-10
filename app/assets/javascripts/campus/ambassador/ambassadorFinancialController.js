@@ -3,9 +3,7 @@ angular.module("campus-app").controller("AmbassadorFinancialController", Ambassa
 AmbassadorFinancialController.$inject = ['$scope', '$q', 'urls', 'HttpRequest', 'CookieService', 'toastr', 'validators'];
 
 function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieService, toastr, validators) {
-  // $('.modal-overlay').show();
-  $scope.hidePassword = true;
-  $('.modal-overlay').hide();
+  $('.modal-overlay').show();
 
   $scope.sendPassword = sendPassword;
   $scope.transfer = transfer;
