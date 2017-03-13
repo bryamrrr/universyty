@@ -122,7 +122,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   # PUT /api/v1/users/{nickname}/change_password
   def change_password
     user = User.find_by(nickname: params[:nickname])
-    if (user)
+    if user
       encrypted_password = BCrypt::Engine.hash_secret(params[:data][:old_password], user[:salt])
       if user[:encrypted_password] == encrypted_password
         new_encrypted_password = BCrypt::Engine.hash_secret(params[:data][:new_password], user[:salt])

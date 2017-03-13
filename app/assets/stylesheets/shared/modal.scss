@@ -1,3 +1,55 @@
+body.modal-opened {overflow: hidden;}
+body.modal-opened .modal{display: block;}
+
+.modal {
+  display: none;
+  padding: 30px 15px;
+  background-color: rgba($black,0.2);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99;
+  text-align: center;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal-content {
+  -moz-box-shadow: 0 0 15px rgba($black,0.1);
+  -webkit-box-shadow: 0 0 15px rgba($black,0.1);
+  box-shadow: 0 0 15px rgba($black,0.1);
+  text-align: left;
+  max-width: 100%;
+}
+
+.modal .card-header {
+  padding-right: 60px;
+  position: relative;
+}
+
+.modal .card-header .modal-btn-close {
+  display: block;
+  text-align: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid $gray-lighten;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 50%;
+}
+
+.modal-btn-close:hover {
+  border-width: 2px;
+  border-color: $primary-color;
+}
+
+.modal-btn-close:active { opacity: 0.9; }
+
+@media (min-width: 768px) { .modal-content{ max-width: 80%; } }
+
 .modal-overlay {
   background: rgba(0, 0, 0, 0.6);
   position: absolute;
@@ -25,6 +77,14 @@
   border: 1px solid $purple;
   padding: 1.5em;
   text-align: center;
+  position: relative;
+  .fa-stack {
+    position: absolute;
+    top: -1.3em;
+    right: -1.3em;
+    z-index: 2;
+    &:hover { cursor: pointer; }
+  }
   img {
     margin-bottom: 1em;
     width: 200px;
@@ -35,5 +95,33 @@
     margin-bottom: 1em;
     padding: .5em;
     width: 100%;
+    &:disabled {
+      background-color: $gray-light;
+    }
+  }
+  h2 {
+    color: $purple;
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+  .benefits {
+    background-color: #ECECEC;
+    font-size: .8em;
+    margin-bottom: 2em;
+    padding: 1em;
+    text-align: left;
+  }
+  .form-group {
+    input { width: calc(100% - 65px); }
+    label {
+      display: inline-block;
+      text-align: left;
+      width: 60px;
+    }
+  }
+  ul {
+    list-style-type: disc;
+    padding-left: 2em;
   }
 }

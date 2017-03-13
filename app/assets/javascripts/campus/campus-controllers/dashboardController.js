@@ -136,9 +136,9 @@ function DashboardController($scope, $q, $state, $stateParams, $cookies,  Cookie
     if (!itemExists(item)) {
       $scope.cart.items.push(item);
       calcTotal($scope.cart.items);
+      updateCartCookie($scope.cart);
     }
     toastr.success('Curso agregado al carrito de compras');
-    updateCartCookie($scope.cart);
   }
 
   function calcTotal(items) {

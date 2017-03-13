@@ -1,8 +1,8 @@
 angular.module("campus-app").controller("SaleController", SaleController);
 
-SaleController.$inject = ['$scope', '$cookies', '$state', 'CookieService', 'SweetAlert', 'urls', 'HttpRequest'];
+SaleController.$inject = ['$scope', '$cookies', '$state', 'CookieService', 'SweetAlert', 'urls', 'HttpRequest', 'toastr'];
 
-function SaleController($scope, $cookies, $state, CookieService, SweetAlert, urls, HttpRequest) {
+function SaleController($scope, $cookies, $state, CookieService, SweetAlert, urls, HttpRequest, toastr) {
   $scope.pay = pay;
 
   var $contenido = $('#contenido');
@@ -30,15 +30,6 @@ function SaleController($scope, $cookies, $state, CookieService, SweetAlert, url
     $scope.isLoading = true;
     if ($scope.dni) {
       processPayment(paymentMethod, cart);
-      CookieService.remove('cart');
-      $scope.$parent.cart = {
-        show: false,
-        items: [],
-        toggle: toggle,
-        removeItem: removeItem,
-        addItem: addItem,
-        total: 0
-      };
     } else {
       SweetAlert.swal({
         title: "Faltan datos de usuario",
@@ -64,31 +55,36 @@ function SaleController($scope, $cookies, $state, CookieService, SweetAlert, url
     };
     var promise = HttpRequest.send("POST", url, data);
     promise.then(function (response) {
-      var messageTitle = '¡Buenísimo!';
-      var messageText = 'Tu pedido ha sido reservado y está pendiente de pago.';
-      var messageButton = 'Ir a mis pagos';
-      if (paymentMethod === 2 || paymentMethod === 3) {
+      if (response.errors) {
+        toastr.error(response.errors);
+      } else {
+        CookieService.remove('cart');
+
         var messageTitle = '¡Buenísimo!';
-        var messageText = 'Pago realizado con Éxito.';
-        var messageButton = 'OK';
-      }
-      SweetAlert.swal({
-        title: messageTitle,
-        text: messageText,
-        type: "success",
-        showCancelButton: false,
-        confirmButtonClass: "button-bg primary",
-        confirmButtonText: messageButton,
-        closeOnConfirm: true
-      }, function(isConfirm){
-        if (isConfirm) {
-          if (paymentMethod === '2' || paymentMethod === '3') {
-            $state.go('user.payments');
-          } else {
-            console.log("Ya se realizó el pago automático. Qué hacer ahora?");
-          }
+        var messageText = 'Tu pedido ha sido reservado y está pendiente de pago.';
+        var messageButton = 'Ir a mis pagos';
+        if (paymentMethod === '1' || paymentMethod === '3') {
+          var messageTitle = '¡Buenísimo!';
+          var messageText = 'Pago realizado con Éxito.';
         }
-      });
+        SweetAlert.swal({
+          title: messageTitle,
+          text: messageText,
+          type: "success",
+          showCancelButton: false,
+          confirmButtonClass: "button-bg primary",
+          confirmButtonText: messageButton,
+          closeOnConfirm: true
+        }, function(isConfirm){
+          if (isConfirm) {
+            if (paymentMethod === '2' || paymentMethod === '3') {
+              $state.go('user.payments');
+            } else {
+              console.log("Ya se realizó el pago automático. Qué hacer ahora?");
+            }
+          }
+        });
+      }
     }, function (error) {
 
     });
