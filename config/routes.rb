@@ -10,13 +10,14 @@ Rails.application.routes.draw do
   get "/embajadores", to: "public#money"
   get "/login", to: "public#login"
   get "/registro", to: "public#register"
+  get "/registro/:nickname", to: "public#register"
   get "/bienvenido", to: "public#welcome"
   get "/instructores", to: "public#instructor"
 
   get "/cursos", to: "courses#index"
   get "/cursos/:id", to: "courses#show", as: 'course'
 
-  post "/registro", to: "users#create"
+  post "/registro/:nickname", to: "users#create"
 
   resources :passwords, only: [:new, :create, :edit, :update]
 

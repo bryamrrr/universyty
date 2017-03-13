@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   def create
-
     if user_params[:role_id] === "2"
       user = User.new(user_params)
 

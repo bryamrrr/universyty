@@ -35,7 +35,7 @@
       </div>
       <div class="form-input" id="js-sponsor">
         <figure><%= image_tag("inputs/referral.png") %></figure><!--
-        --><%= f.text_field(:sponsor, placeholder: 'Invitado por') %>
+        --><%= f.text_field(:sponsor, placeholder: 'Invitado por', :value => @data) %>
       </div>
       <%= f.submit '¡REGISTRARME!' %>
     <% end %>
