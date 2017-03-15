@@ -61,7 +61,7 @@ function AmbassadorPlanController($scope, $cookies, $state, CookieService, Sweet
       }, function(isConfirm){
         if (isConfirm) {
           if (paymentMethod === '2' || paymentMethod === '3') {
-            $state.go('user.payments');
+            $state.go('ambassador.billing');
           } else {
             console.log("Ya se realizó el pago automático. Qué hacer ahora?");
           }

@@ -58,7 +58,7 @@
           <div ng-repeat="professor in course.professors">
             <article class="professor-card">
               <figure>
-                <img ng-src="professor.image_url" alt="">
+                <img ng-src="{{professor.image_url}}" alt="">
               </figure><!--
               --><div class="professor-info">
                 <h5>{{ professor.name }}</h5>
@@ -70,10 +70,10 @@
       </div>
     </article>
     <article class="course-grades" ng-show="currentTab === 1">
-      Notas del curso
+      No existen notas actualmente
     </article>
     <article class="course-certificate" ng-show="currentTab === 2">
-      Certificado
+      Certificado no disponible
     </article>
   </section>
 </div>

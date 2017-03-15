@@ -106,15 +106,16 @@
             </li>
             <li ng-hide="ambassador_active === 'false' && ambassador === 'true'">
               <a
-              ui-sref="ambassador.list"
-              ui-sref-active="active">
-              Embajadores</a>
-            </li>
-            <li ng-hide="ambassador_active === 'false' && ambassador === 'true'">
-              <a
               ui-sref="ambassador.preferencial"
               ui-sref-active="active">
               Alumnos</a>
+            </li>
+            <li ng-hide="ambassador_active === 'false' && ambassador === 'true'">
+              <a
+              ui-sref="ambassador.list"
+              ui-sref-active="active"
+              ng-class="{ active: $state.is('ambassador.level') }">
+              Embajadores</a>
             </li>
             <li ng-hide="ambassador_active === 'false' && ambassador === 'true'">
               <a

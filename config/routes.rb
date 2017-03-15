@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get "/cursos/:id", to: "courses#show", as: 'course'
 
   post "/registro/:nickname", to: "users#create"
+  post "/registro", to: "users#create"
 
   resources :passwords, only: [:new, :create, :edit, :update]
 

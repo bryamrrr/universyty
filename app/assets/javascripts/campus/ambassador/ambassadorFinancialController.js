@@ -32,7 +32,10 @@ function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieServ
     $scope.movements = response[0];
     $scope.user = response[1];
 
-    console.log("HOLA", response);
+    if (!$scope.user.historical_balance) {
+      $scope.user.historical_balance = 0;
+      $scope.user.balance = 0;
+    }
 
     var $contenido = $('#contenido');
     $contenido.addClass("loaded");
@@ -53,6 +56,7 @@ function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieServ
     var promise = HttpRequest.send('POST', url, data);
 
     promise.then(function (response) {
+      $scope.isLoading = false;
       if (response.errors) {
         toastr.error(response.errors);
       } else {

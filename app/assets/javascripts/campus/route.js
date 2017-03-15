@@ -260,7 +260,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('ambassador.preferencial', {
       url: '/preferenciales',
       data: {
-        title: 'Clientes Preferenciales'
+        title: 'Alumnos'
       },
       views: {
         'content@ambassador': {
