@@ -416,6 +416,10 @@ class Api::V1::MovementsController < Api::V1::BaseController
     )
   end
 
+  def culqi
+    puts "Llegó hasta aquí con Culqi"
+  end
+
   def destroy
     movement = Movement.find(params[:id])
 

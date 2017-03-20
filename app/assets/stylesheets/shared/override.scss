@@ -1,1 +1,5 @@
 .sweet-alert button { width: 47%; }
+md-content {
+  top: 50%;
+  transform: translateY(-50%);
+}

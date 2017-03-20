@@ -76,6 +76,8 @@ Rails.application.routes.draw do
       post 'movements/debt', to: 'movements#debt'
       post 'movements/withdraw', to: 'movements#withdraw'
 
+      post 'movements/culqi', to: 'movements#culqi'
+
       get 'movements/:id/finish_retire', to: 'movements#finish_retire'
       get 'movements/:id/cancel_retire', to: 'movements#cancel_retire'
 

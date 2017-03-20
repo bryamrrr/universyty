@@ -29,10 +29,10 @@
       <input type="radio" id="deposit" name="payment" value="2" ng-model="paymentMethod" />
       <input type="radio" id="balance" name="payment" value="3" ng-model="paymentMethod" />
       <div class="payment-options">
-        <!-- <label for="card" ng-class="{ selected: paymentMethod === '1' }">
+        <label for="card" ng-class="{ selected: paymentMethod === '1' }">
           <img src="/card.png" alt="" />
           <h5>Tarjeta Crédito o Débito</h5>
-        </label> -->
+        </label>
         <label for="deposit" ng-class="{ selected: paymentMethod === '2' }">
           <img src="/deposit.png" alt="" />
           <h5>Depósito Bancario</h5>
@@ -62,7 +62,7 @@
         </ol>
       </div>
     </article>
-    <button ng-click="pay(paymentMethod, cart)" ng-disabled="isLoading || ambassador === 'true'" ng-if="!$state.includes('sale.billing')">
+    <button ng-click="pay(paymentMethod, cart)" ng-if="!$state.includes('sale.billing')">
       Confirmar pedido por S/ 29
       <div class="loader-wrapper" ng-show="isLoading">
         <div class="loader-circles" id="loader">Loading...</div>
@@ -154,3 +154,85 @@
     </div>
   </div>
 </div>
+<div
+  id="culqi-data"
+  data-publickey="pk_test_3Ediquczilr2qLNv"
+  data-title="Plan Embajador"
+  data-currency="PEN"
+  data-description="Plan Embajador"
+  data-amount="{{plan_amount}}"
+  data-email="{{email}}"
+  data-token="{{token}}"
+></div>
+<button id="culqi-button"></button>
+
+<script src="https://checkout.culqi.com/v2"></script>
+<script>
+  var interval = setInterval(function () {
+    try {
+      if (Culqi) {
+        ele = document.getElementById("culqi-data");
+        document.getElementById("culqi-button").addEventListener("click", showCulqi);
+
+        Culqi.publicKey = ele.dataset.publickey;
+        Culqi.settings({
+          title: ele.dataset.title,
+          currency: ele.dataset.currency,
+          description: ele.dataset.description,
+          amount: ele.dataset.amount
+        });
+
+        console.log("Ya se instanció Culqi");
+        clearInterval(interval);
+      }
+    }
+    catch(err) {
+      console.log("Aun no se instanció Culqi");
+    }
+  }, 300);
+
+  function showCulqi(e) {
+    console.log("Click en culqi button");
+    Culqi.open();
+    e.preventDefault();
+  }
+
+  function culqi() {
+    if (Culqi.token) {
+      var token = Culqi.token.id;
+
+      var location = window.location;
+      var baseUrl = location.protocol + "//" + location.host + '/api/v1';
+      var data = {
+        amount: ele.dataset.amount,
+        currency_code: "PEN",
+        email: ele.dataset.email,
+        source_id: token
+      };
+
+      $.ajax({
+        type: "POST",
+        url: baseUrl + '/movements/culqi',
+        data: JSON.stringify(data),
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + ele.dataset.token);
+        },
+        success: function (data) {
+          console.log("todo exitoso en el back y ya estas en front de nuevo");
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log("ERROR!");
+          console.log("xml", XMLHttpRequest);
+          console.log("textstatus", textStatus);
+          console.log("error", errorThrown);
+        },
+        contentType: 'application/json',
+        dataType: 'JSON'
+      });
+
+    } else {
+      console.log(Culqi.error);
+      alert(Culqi.error.mensaje);
+    }
+  };
+</script>

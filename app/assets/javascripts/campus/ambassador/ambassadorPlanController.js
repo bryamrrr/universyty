@@ -1,23 +1,32 @@
 angular.module("campus-app").controller("AmbassadorPlanController", AmbassadorPlanController);
 
-AmbassadorPlanController.$inject = ['$scope', '$cookies', '$state', 'CookieService', 'SweetAlert', 'urls', 'HttpRequest'];
+AmbassadorPlanController.$inject = ['$scope', '$cookies', '$state', 'CookieService', 'SweetAlert', 'urls', 'HttpRequest', '$timeout'];
 
-function AmbassadorPlanController($scope, $cookies, $state, CookieService, SweetAlert, urls, HttpRequest) {
+function AmbassadorPlanController($scope, $cookies, $state, CookieService, SweetAlert, urls, HttpRequest, $timeout) {
   $scope.pay = pay;
 
   var $contenido = $('#contenido');
   $contenido.addClass("loaded");
 
   $scope.fullname = $cookies.get('fullname');
+  $scope.email = $cookies.get('email');
   $scope.dni = CookieService.read('dni');
   $scope.address = CookieService.read('address');
   $scope.city = CookieService.read('city');
+  $scope.token = CookieService.read('token');
   var nickname = CookieService.read('nickname');
 
   $scope.paymentMethod = '2';
 
+  $scope.plan_amount = 2900;
+
   function pay(paymentMethod, cart) {
     $scope.isLoading = true;
+    if (paymentMethod === '1') {
+      $('#culqi-button').click();
+      return;
+    }
+
     if ($scope.dni && $scope.dni !== 'null') {
       processPayment(paymentMethod, cart);
     } else {
