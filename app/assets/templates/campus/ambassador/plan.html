@@ -62,7 +62,7 @@
         </ol>
       </div>
     </article>
-    <button ng-click="pay(paymentMethod, cart)" ng-if="!$state.includes('sale.billing')">
+    <button ng-click="pay(paymentMethod, cart)" ng-disabled="isLoading || ambassador === 'true'" ng-if="!$state.includes('sale.billing')">
       Confirmar pedido por S/ 29
       <div class="loader-wrapper" ng-show="isLoading">
         <div class="loader-circles" id="loader">Loading...</div>
@@ -157,14 +157,16 @@
 <div
   id="culqi-data"
   data-publickey="pk_test_3Ediquczilr2qLNv"
-  data-title="Plan Embajador"
+  data-title="{{payment_title}}"
   data-currency="PEN"
-  data-description="Plan Embajador"
+  data-description="{{payment_description}}"
   data-amount="{{plan_amount}}"
   data-email="{{email}}"
   data-token="{{token}}"
+  data-cart="{{cart}}"
 ></div>
 <button id="culqi-button"></button>
+<button ng-click="culqiFinish()" id="culqi-finish"></button>
 
 <script src="https://checkout.culqi.com/v2"></script>
 <script>
@@ -192,7 +194,6 @@
   }, 300);
 
   function showCulqi(e) {
-    console.log("Click en culqi button");
     Culqi.open();
     e.preventDefault();
   }
@@ -207,7 +208,9 @@
         amount: ele.dataset.amount,
         currency_code: "PEN",
         email: ele.dataset.email,
-        source_id: token
+        source_id: token,
+        title: ele.dataset.title,
+        cart: JSON.parse(ele.dataset.cart)
       };
 
       $.ajax({
@@ -218,13 +221,21 @@
           xhr.setRequestHeader('Authorization', 'Bearer ' + ele.dataset.token);
         },
         success: function (data) {
-          console.log("todo exitoso en el back y ya estas en front de nuevo");
+          document.getElementById('culqi-finish').click();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           console.log("ERROR!");
           console.log("xml", XMLHttpRequest);
           console.log("textstatus", textStatus);
           console.log("error", errorThrown);
+          if (XMLHttpRequest.responseJSON.user_message) {
+            document.getElementById('culqi-finish').dataset.error = XMLHttpRequest.responseJSON.user_message;
+          } else if (XMLHttpRequest.responseJSON.merchant_message) {
+            document.getElementById('culqi-finish').dataset.error = XMLHttpRequest.responseJSON.merchant_message;
+          } else {
+            document.getElementById('culqi-finish').dataset.error = 'Hubo un error';
+          }
+          document.getElementById('culqi-finish').click();
         },
         contentType: 'application/json',
         dataType: 'JSON'
@@ -232,7 +243,6 @@
 
     } else {
       console.log(Culqi.error);
-      alert(Culqi.error.mensaje);
     }
   };
 </script>

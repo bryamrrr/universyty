@@ -26,9 +26,7 @@ class Api::V1::MovementsController < Api::V1::BaseController
   def manualAmbassadorPayment(paymethod, nickname)
     user = User.find_by(nickname: nickname)
 
-    if paymethod == '1'
-      paymethod = Paymethod.find_by(name: "Tarjeta")
-    elsif paymethod == '2'
+    if paymethod == '2'
       paymethod = Paymethod.find_by(name: "Depósito")
     elsif paymethod == '3'
       paymethod = Paymethod.find_by(name: "Puntos")
@@ -43,8 +41,40 @@ class Api::V1::MovementsController < Api::V1::BaseController
       ambassador: true
     )
 
+
     if movement.save
-      render :json => { :message => "Pedido realizado" }
+      if paymethod[:name] == 'Depósito'
+        render :json => { :message => "Pedido realizado" }
+      elsif paymethod[:name] == 'Puntos' && 29 > @current_user[:balance]
+        render :json => { :message => "Pedido realizado" }
+      else
+        @current_user.update_column(:balance, @current_user[:balance] - 29)
+        movement.update_column(:status, "Pagado")
+
+        update_teams(@current_user, 1)
+
+        if @current_user[:paydate]
+          if @current_user[:paydate] < Date.today
+            @current_user.update_column(:paydate, Date.today + 1.month)
+          else
+            @current_user.update_column(:paydate, @current_user[:paydate] + 1.month)
+          end
+        else
+          @current_user.update_column(:paydate, Date.today + 1.month)
+        end
+
+        if @current_user.is_ambassador?
+          puts "<===== El usuario SI es embajador =====>"
+          @current_user.increase_balance_ambassador('MONTHLY_PAY')
+        else
+          puts "<===== El usuario NO es embajador AUN =====>"
+          @current_user.increase_balance_ambassador('NEW_AMBASSADOR')
+        end
+
+        @current_user.update_column(:ambassador, true)
+        @current_user.update_column(:ambassador_active, true)
+        render :json => { :message => "Pago realizado con éxito" }
+      end
     else
       render :json => { :message => "No se pudo realizar el pedido", :dev_message => movement.errors.full_message.to_json }
     end
@@ -53,23 +83,41 @@ class Api::V1::MovementsController < Api::V1::BaseController
   def manualPayment(paymethod, cart, nickname)
     user = User.find_by(nickname: nickname)
 
-    if paymethod == '1'
-      paymethod = Paymethod.find_by(name: "Tarjeta")
-    elsif paymethod == '2'
+    if paymethod == '2'
       paymethod = Paymethod.find_by(name: "Depósito")
     elsif paymethod == '3'
       paymethod = Paymethod.find_by(name: "Puntos")
       if cart[:total] > @current_user[:balance]
-        render :json => { :errors => "Saldo insuficiente" } and return
+        movement = Movement.new(
+          user_id: user.id,
+          paymethod_id: paymethod.id,
+          type_id: 2,
+          status: "No pagado",
+          total: cart[:total],
+          discount: discount,
+          discount_value: discount_value
+        )
+
+        if movement.save
+          cart[:items].each do |item|
+            movement.products.create(
+              course_id: item[:id],
+              name: item[:title],
+              pricetag: item[:pricetag]
+            )
+          end
+        end
+
+        render :json => { :message => "Pedido realizado" } and return
       end
     end
 
-    if user[:ambassador] == false
+    if user[:ambassador_active] == false
       discount = false
-      discount_value = 0.2
+      discount_value = 0
     else
       discount = true
-      discount_value = 0
+      discount_value = 0.2
     end
 
     movement = Movement.new(
@@ -417,7 +465,134 @@ class Api::V1::MovementsController < Api::V1::BaseController
   end
 
   def culqi
-    puts "Llegó hasta aquí con Culqi"
+    uri = URI.parse("https://api.culqi.com/v2/charges")
+
+    header = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + ENV['CULQI_PRIVATE']
+    }
+
+    data = {
+      amount: params[:amount],
+      currency_code: "PEN",
+      email: @current_user[:email],
+      source_id: params[:source_id]
+    }
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = (uri.scheme == "https")
+    request = Net::HTTP::Post.new(uri.request_uri, header)
+    request.body = data.to_json
+    puts "REQUEST"
+    puts data.to_json
+
+    response = http.request(request)
+    puts "RESPUESTA"
+    puts response.body
+
+    if response.code == '201'
+      if params[:title] == "Plan Embajador"
+        culqi_ambassador()
+      else
+        culqi_courses(params[:amount], params[:cart])
+      end
+    else
+      render :json => response.body, status: :unprocessable_entity
+    end
+  end
+
+  def culqi_ambassador
+    movement = Movement.new(
+      user_id: @current_user.id,
+      paymethod_id: 1,
+      type_id: 2,
+      status: "No pagado",
+      total: 29,
+      ambassador: true
+    )
+
+    if movement.save
+      movement.update_column(:status, "Pagado")
+
+      update_teams(@current_user, 1)
+
+      if @current_user[:paydate]
+        if @current_user[:paydate] < Date.today
+          @current_user.update_column(:paydate, Date.today + 1.month)
+        else
+          @current_user.update_column(:paydate, @current_user[:paydate] + 1.month)
+        end
+      else
+        @current_user.update_column(:paydate, Date.today + 1.month)
+      end
+
+      if @current_user.is_ambassador?
+        @current_user.increase_balance_ambassador('MONTHLY_PAY')
+      else
+        @current_user.increase_balance_ambassador('NEW_AMBASSADOR')
+      end
+
+      @current_user.update_column(:ambassador, true)
+      @current_user.update_column(:ambassador_active, true)
+
+      render :json => { :message => "Pago realizado con éxito" }, status: :ok
+    end
+  end
+
+  def culqi_courses(amount, cart)
+    if @current_user[:ambassador_active] == false
+      discount = false
+      discount_value = 0
+    else
+      discount = true
+      discount_value = 0.2
+    end
+
+    movement = Movement.new(
+      user_id: @current_user.id,
+      paymethod_id: 1,
+      type_id: 2,
+      status: "No pagado",
+      total: amount,
+      discount: discount,
+      discount_value: discount_value
+    )
+
+    if movement.save
+      cart[:items].each do |item|
+        puts "Elementos!!!!"
+        puts item
+        movement.products.create(
+          course_id: item[:id],
+          name: item[:title],
+          pricetag: item[:pricetag]
+        )
+      end
+
+      movement.products.each do |product|
+        enrollment = Enrollment.find_by(user_id: movement[:user_id], course_id: product.course_id)
+
+        if enrollment
+          movement.destroy
+          render :json => { :user_message => "Ya te encuentras suscrito a un curso. Por favor quítalo del carrito e intentalo de nuevo." }, status: :unprocessable_entity and return
+        end
+      end
+
+      movement.products.each do |product|
+        Enrollment.create(user_id: movement[:user_id], course_id: product.course_id)
+
+        course = Course.find(product.course_id)
+
+        @current_user.increase_balance_ambassador('COMMEND', course)
+        course.increase_balance_instructor(@current_user)
+      end
+
+      movement.update_column(:status, "Pagado")
+
+      render :json => { :message => "Pago realizado con éxito" }, status: :ok
+    else
+      render :json => { :user_message => "No se pudo realizar el pedido", :dev_message => movement.errors.full_message.to_json }, status: :unprocessable_entity
+    end
   end
 
   def destroy

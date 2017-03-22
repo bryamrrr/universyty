@@ -4,31 +4,41 @@ SaleController.$inject = ['$scope', '$cookies', '$state', 'CookieService', 'Swee
 
 function SaleController($scope, $cookies, $state, CookieService, SweetAlert, urls, HttpRequest, toastr) {
   $scope.pay = pay;
+  $scope.culqiFinish = culqiFinish;
 
   var $contenido = $('#contenido');
   $contenido.addClass("loaded");
 
   $scope.fullname = $cookies.get('fullname');
+  $scope.email = $cookies.get('email');
   $scope.dni = CookieService.read('dni');
   $scope.address = CookieService.read('address');
   $scope.city = CookieService.read('city');
+  $scope.token = CookieService.read('token');
   var ambassador = CookieService.read('ambassador');
   var nickname = CookieService.read('nickname');
 
   var cart = $cookies.get('cart');
   if (cart) $scope.cart = JSON.parse(cart);
-  console.log($scope.cart);
 
   if (ambassador === 'true') {
     $scope.cart.discount = .2 * $scope.cart.total;
     $scope.cart.total = .8 * $scope.cart.total;
   }
 
-  $scope.paymentMethod = '2';
+  $scope.paymentMethod = '1';
+  $scope.plan_amount = parseInt($scope.cart.total * 100);
+  $scope.payment_title = 'Pago de cursos';
+  $scope.payment_description = 'Pago de cursos';
 
   function pay(paymentMethod, cart) {
     $scope.isLoading = true;
-    if ($scope.dni) {
+
+    if ($scope.dni && $scope.dni !== 'null') {
+      if (paymentMethod === '1') {
+        $('#culqi-button').click();
+        return;
+      }
       processPayment(paymentMethod, cart);
     } else {
       SweetAlert.swal({
@@ -63,10 +73,12 @@ function SaleController($scope, $cookies, $state, CookieService, SweetAlert, url
         var messageTitle = '¡Buenísimo!';
         var messageText = 'Tu pedido ha sido reservado y está pendiente de pago.';
         var messageButton = 'Ir a mis pagos';
-        if (paymentMethod === '1' || paymentMethod === '3') {
-          var messageTitle = '¡Buenísimo!';
-          var messageText = 'Pago realizado con Éxito.';
+
+        if (response.message != 'Pedido realizado') {
+          messageTitle = '¡Buenísimo!';
+          messageText = 'Pago realizado con Éxito.';
         }
+
         SweetAlert.swal({
           title: messageTitle,
           text: messageText,
@@ -77,16 +89,34 @@ function SaleController($scope, $cookies, $state, CookieService, SweetAlert, url
           closeOnConfirm: true
         }, function(isConfirm){
           if (isConfirm) {
-            if (paymentMethod === '2' || paymentMethod === '3') {
-              $state.go('user.payments');
-            } else {
-              console.log("Ya se realizó el pago automático. Qué hacer ahora?");
-            }
+            $state.go('user.payments');
           }
         });
       }
     }, function (error) {
 
     });
+  }
+
+  function culqiFinish() {
+    $scope.isLoading = false;
+    if ($('#culqi-finish').data('error') != undefined) {
+      toastr.error($('#culqi-finish').data('error'));
+      location.reload();
+    } else {
+      SweetAlert.swal({
+        title: '¡Buenísimo!',
+        text: 'Pago realizado con Éxito.',
+        type: "success",
+        showCancelButton: false,
+        confirmButtonClass: "button-bg primary",
+        confirmButtonText: 'OK',
+        closeOnConfirm: true
+      }, function(isConfirm){
+        if (isConfirm) {
+          $state.go('ambassador.billing');
+        }
+      });
+    }
   }
 }
