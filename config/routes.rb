@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get "/cursos/:id", to: "courses#show", as: 'course'
 
   post "/registro/:nickname", to: "users#create"
+  post "/registro", to: "users#create"
 
   resources :passwords, only: [:new, :create, :edit, :update]
 
@@ -74,6 +75,8 @@ Rails.application.routes.draw do
       post 'movements/pay', to: 'movements#pay'
       post 'movements/debt', to: 'movements#debt'
       post 'movements/withdraw', to: 'movements#withdraw'
+
+      post 'movements/culqi', to: 'movements#culqi'
 
       get 'movements/:id/finish_retire', to: 'movements#finish_retire'
       get 'movements/:id/cancel_retire', to: 'movements#cancel_retire'

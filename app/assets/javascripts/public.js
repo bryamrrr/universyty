@@ -44,7 +44,7 @@ $(document).on('turbolinks:load', function () {
   var token = checkCookie("token");
   var role = checkCookie("role");
   var location = window.location;
-  var baseUrl = location.protocol + "//" + location.host + "/"
+  var baseUrl = location.protocol + "//" + location.host + "/";
 
   if (token !== "") {
     if (role === "Admin") {

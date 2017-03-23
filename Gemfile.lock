@@ -230,6 +230,7 @@ DEPENDENCIES
   font-awesome-rails
   jbuilder (~> 2.5)
   jquery-rails
+  json
   listen (~> 3.0.5)
   mailchimp-api
   normalize-rails
