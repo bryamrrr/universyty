@@ -47,6 +47,9 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     user = User.authenticate(data)
 
+    user.tokens.destroy_all
+
+
     if user && user[:paydate]
       if Date.today > user[:paydate]
         paydate_color = 'red'
