@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   validates :nickname, presence: true, uniqueness: true
   validates_length_of :nickname, :in => 2..15
-  validates :email, presence: true, email: true
+  validates :email, presence: true, email: true, uniqueness: true
   validates :role_id, presence: true
   validates :password, presence: true, on: :create
   validates_format_of :password, :with => /\A(?=.{6,14})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!*]).*\z/, on: :create

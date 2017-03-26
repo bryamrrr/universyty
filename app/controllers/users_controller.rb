@@ -11,9 +11,15 @@ class UsersController < ApplicationController
         rescue Mailchimp::Error => e
           logger.error "ERROR mailchimp #{e.message} #{params.inspect}"
         end
-        redirect_to "/login"
+        redirect_to "/login", notice: 'Registro realizado con éxito.'
       else
-        puts "Falló"
+        if user.errors[:nickname]
+          alert = "El nombre de usuario ya existe"
+        elsif user.errors[:email]
+          alert = "El correo ya ha sido utilizado"
+        end
+
+        redirect_to "/registro", alert: alert
         puts user.errors.to_json
       end
     else
