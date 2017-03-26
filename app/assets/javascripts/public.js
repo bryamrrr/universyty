@@ -77,7 +77,8 @@ $(document).on('turbolinks:load', function () {
         minlength: 6,
         regex: /(?=.{6,14})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!*]).*/
       },
-      'user[dni]': "required"
+      'user[dni]': "required",
+      'user[city]': "required"
     },
     messages: {
       'user[fullname]': "Por favor, ingrese su nombre completo",
@@ -88,7 +89,8 @@ $(document).on('turbolinks:load', function () {
         minlength: "Mínimo 6 caracteres",
         regex: "Debe contener mayúsculas, minúsculas, números y al menos un caracter especial (@#$%^&+=!*)"
       },
-      'user[dni]': "Por favor, ingrese su DNI"
+      'user[dni]': "Por favor, ingrese su DNI",
+      'user[city]': "Por favor, ingrese su ciudad"
     },
     submitHandler: function(form) {
       $("input[type=submit]").attr("disabled", true);
