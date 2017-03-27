@@ -42,7 +42,7 @@ function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpReque
       for (i; i < topics.length; i++) {
         if (topics[i].number === 1) {
           $scope.currentTopic = topics[i];
-          $scope.wistiaVideo = 'http://fast.wistia.com/embed/medias/' + $scope.currentTopic.video_url;
+          $scope.vimeoVideo = 'https://player.vimeo.com/video/' + $scope.currentTopic.video_url;
         }
       }
     } else {
@@ -51,7 +51,7 @@ function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpReque
         for (j; j < $scope.parts[i].topics.length; j++) {
           if ($scope.parts[i].topics[j].id === parseInt($stateParams.topic)) {
             $scope.currentTopic = $scope.parts[i].topics[j];
-            $scope.wistiaVideo = 'http://fast.wistia.com/embed/medias/' + $scope.currentTopic.video_url;
+            $scope.vimeoVideo = 'https://player.vimeo.com/video/' + $scope.currentTopic.video_url;
           }
         }
       }
