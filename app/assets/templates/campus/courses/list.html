@@ -16,6 +16,7 @@
         <div class="course-image">
           <img ng-src="{{ enrollment.course.background_url }}" alt="" />
         </div>
+        <div class="progress" style="width: {{percentages[$index]}}%;"></div>
         <div class="course-title">
           <h4>{{ enrollment.course.title }}</h4>
         </div>

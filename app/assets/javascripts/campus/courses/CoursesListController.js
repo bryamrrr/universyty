@@ -12,7 +12,8 @@ function CoursesListController($scope, $state, urls, HttpRequest, CookieService)
     console.log(response);
     var $contenido = $('#contenido');
     $contenido.addClass("loaded");
-    $scope.enrollments = response;
+    $scope.enrollments = response.enrollments;
+    $scope.percentages = response.percentages;
   }, function (error) {
     console.log(error);
   });

@@ -73,3 +73,14 @@
 .wrapper-content .courses { padding-top: 1em; }
 
 #culqi-button, #culqi-finish { display: none; }
+
+.progress {
+  background-color: $purple;
+  display: block;
+  height: 3px;
+}
+
+.course-title h4 {
+  color: $purple;
+  margin: .5em 0;
+}

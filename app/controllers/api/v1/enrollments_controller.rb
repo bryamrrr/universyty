@@ -2,7 +2,38 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
   def find_by_user
     user = User.find_by(nickname: params[:id])
     enrollments = Enrollment.where(user_id: user[:id])
-    render :json => enrollments.to_json(:include => {
+    percentages = Array.new
+
+    enrollments.each do |enrollment|
+      course = enrollment.course
+      parts = course.parts.order(number: :asc)
+      parts_count = course.parts.count
+      current_module = enrollment[:current_module]
+      counter = 0
+      percentage = 0
+
+      parts.each do |part|
+        if part[:id] == current_module
+          if parts_count == counter + 1
+            if enrollment.grades.last && enrollment.grades.last[:score] >= 14
+              counter += 1
+            end
+          end
+
+          break
+        end
+        counter += 1
+      end
+
+      if parts_count != 0
+        percentage = counter * 100 / parts_count
+      else
+        percentage = 0
+      end
+      percentages.push percentage
+    end
+
+    render :json => { :enrollments => enrollments.as_json(:include => {
       :course => {
         :include => {
           :category => {},
@@ -10,7 +41,8 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
           :user => {}
         }
       }
-      })
+      }), :percentages => percentages
+    }
   end
 
   def find_by_course
