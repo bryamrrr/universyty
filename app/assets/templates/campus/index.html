@@ -98,7 +98,7 @@
             </span>
           </a>
           <ul class="nav nav-second-level ">
-            <li ng-show="role === 'Estudiante'" ng-hide="ambassador_active === 'false' && ambassador === 'true'">
+            <li ng-hide="role !== 'Estudiante'">
               <a
               ui-sref="ambassador.plan"
               ui-sref-active="active">
