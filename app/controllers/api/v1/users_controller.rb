@@ -47,9 +47,6 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     user = User.authenticate(data)
 
-    user.tokens.destroy_all
-
-
     if user && user[:paydate]
       if Date.today > user[:paydate]
         paydate_color = 'red'
@@ -65,6 +62,7 @@ class Api::V1::UsersController < Api::V1::BaseController
       if user.block
         render :json => { :errors => "Usuario bloqueado" }, status: :forbidden
       else
+        user.tokens.destroy_all
         token = user.tokens.create
         render :json => { :paydate_color => paydate_color, :token => token.token, :user => user.as_json(
             :except => [:created_at, :updated_at, :encrypted_password, :salt],

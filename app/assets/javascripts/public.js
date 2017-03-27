@@ -159,15 +159,23 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
-  $('.main-login input#password').on('keyup blur', function () {
-      if ($('#login-form').valid()) {
-        $('#login-button').prop('disabled', false);
-      } else {
-          $('#login-button').prop('disabled', 'disabled');
-      }
+  $('.main-login input#password').on('keyup blur', function (e) {
+    if ($('#login-form').valid()) {
+      $('#login-button').prop('disabled', false);
+    } else {
+        $('#login-button').prop('disabled', 'disabled');
+    }
   });
 
-  $("#login-button").click(function() {
+  $('#login-form').keypress(function(e){
+    if (e.keyCode === 13) {
+      loginUser();
+    }
+  });
+
+  $("#login-button").click(loginUser);
+
+  function loginUser() {
     var data = {
       nickname: $("#nickname").val(),
       password: $("#password").val()
@@ -251,7 +259,7 @@ $(document).on('turbolinks:load', function () {
 
       document.cookie = cookie;
     }
-  });
+  }
 });
 
 $(window).scroll(function() {
