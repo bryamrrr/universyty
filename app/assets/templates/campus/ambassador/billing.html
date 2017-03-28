@@ -30,7 +30,8 @@
             <p ng-hide="payment.status === 'Pagado'">---</p>
           </td>
           <td class="text-left">
-            {{ payment.paymethod.name }}
+            <span ng-show="payment.paymethod">{{ payment.paymethod.name }}</span>
+            <a href="/campus/embajador/plan?mensualidad=true" ng-hide="payment.paymethod"><button>Por pagar</button></a>
           </td>
         </tr>
       </tbody>

@@ -1,10 +1,11 @@
 angular.module("campus-app").controller("AmbassadorPlanController", AmbassadorPlanController);
 
-AmbassadorPlanController.$inject = ['$scope', '$cookies', '$state', 'CookieService', 'SweetAlert', 'urls', 'HttpRequest', 'toastr'];
+AmbassadorPlanController.$inject = ['$scope', '$cookies', '$state', 'CookieService', 'SweetAlert', 'urls', 'HttpRequest', 'toastr', '$location'];
 
-function AmbassadorPlanController($scope, $cookies, $state, CookieService, SweetAlert, urls, HttpRequest, toastr) {
+function AmbassadorPlanController($scope, $cookies, $state, CookieService, SweetAlert, urls, HttpRequest, toastr, $location) {
   $scope.pay = pay;
   $scope.culqiFinish = culqiFinish;
+  $scope.monthly = $location.search().mensualidad;
 
   var $contenido = $('#contenido');
   $contenido.addClass("loaded");

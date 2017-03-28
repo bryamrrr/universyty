@@ -32,17 +32,22 @@ class Api::V1::MovementsController < Api::V1::BaseController
       paymethod = Paymethod.find_by(name: "Puntos")
     end
 
-    movement = Movement.new(
-      user_id: user.id,
-      paymethod_id: paymethod.id,
-      type_id: 2,
-      status: "No pagado",
-      total: 29,
-      ambassador: true
-    )
+    if user.movements.where(ambassador: true, status: "No pagado").last
+      movement = user.movements.where(ambassador: true, status: "No pagado").last
+      movement.update_column(:paymethod_id, paymethod[:id]) unless movement[:paymethod_id]
+    else
+      movement = Movement.new(
+        user_id: user.id,
+        paymethod_id: paymethod.id,
+        type_id: 2,
+        status: "No pagado",
+        total: 29,
+        ambassador: true
+      )
+    end
 
 
-    if movement.save
+    if movement && movement.save
       if paymethod[:name] == 'Depósito'
         render :json => { :message => "Pedido realizado" }
       elsif paymethod[:name] == 'Puntos' && 29 > @current_user[:balance]
@@ -502,16 +507,21 @@ class Api::V1::MovementsController < Api::V1::BaseController
   end
 
   def culqi_ambassador
-    movement = Movement.new(
-      user_id: @current_user.id,
-      paymethod_id: 1,
-      type_id: 2,
-      status: "No pagado",
-      total: 29,
-      ambassador: true
-    )
+    if user.movements.where(ambassador: true, status: "No pagado").last
+      movement = user.movements.where(ambassador: true, status: "No pagado").last
+      movement.update_column(:paymethod_id, 1) unless movement[:paymethod_id]
+    else
+      movement = Movement.new(
+        user_id: @current_user.id,
+        paymethod_id: 1,
+        type_id: 2,
+        status: "No pagado",
+        total: 29,
+        ambassador: true
+      )
+    end
 
-    if movement.save
+    if movement && movement.save
       movement.update_column(:status, "Pagado")
 
       update_teams(@current_user, 1)
