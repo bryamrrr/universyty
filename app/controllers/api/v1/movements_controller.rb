@@ -308,7 +308,8 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
   def payments
     user = User.find_by(nickname: params[:nickname])
-    movements = Movement.where(user_id: user[:id], ambassador: false).order(created_at: :desc)
+
+    movements = Movement.where(user_id: user[:id], ambassador: false, type_id: 2).order(created_at: :desc)
 
     if @current_user == user || @current_user.role[:name] == "Admin"
       render :json => movements.to_json(:include => {
@@ -336,7 +337,7 @@ class Api::V1::MovementsController < Api::V1::BaseController
   end
 
   def payments_pending
-    movements = Movement.where(status: "No pagado").order(updated_at: :desc)
+    movements = Movement.where(status: "No pagado", type_id: 2).order(updated_at: :desc)
     render :json => movements.to_json(:include => {
           :type => {},
           :paymethod => {},
@@ -346,7 +347,7 @@ class Api::V1::MovementsController < Api::V1::BaseController
   end
 
   def outcomes
-    movements = Movement.where(status: "Pagado", type: 1).order(updated_at: :desc)
+    movements = Movement.where(type: 1).order(updated_at: :desc)
     render :json => movements.to_json(:include => {
           :type => {},
           :paymethod => {},
@@ -355,7 +356,7 @@ class Api::V1::MovementsController < Api::V1::BaseController
   end
 
   def payments_paid
-    movements = Movement.where(status: "Pagado").order(updated_at: :desc)
+    movements = Movement.where(status: "Pagado", type_id: 2).order(updated_at: :desc)
     render :json => movements.to_json(:include => {
           :type => {},
           :paymethod => {},
