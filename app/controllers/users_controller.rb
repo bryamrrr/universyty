@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
   def create
     if user_params[:role_id] === "2"
-      if User.find_by(nickname: user_params[:sponsor])
-        user = User.new(user_params)
-      else
+      if user_params[:sponsor] != "" && !User.find_by(nickname: user_params[:sponsor])
         redirect_to "/registro", alert: "¡El usuario '#{user_params[:sponsor]}' no existe!" and return
+      else
+        user = User.new(user_params)
       end
 
       if user.save
@@ -17,9 +17,10 @@ class UsersController < ApplicationController
         end
         redirect_to "/login", notice: 'Registro realizado con éxito.'
       else
-        if user.errors[:nickname]
+        puts user.errors.to_json
+        if user.errors[:nickname].length > 0
           alert = "El nombre de usuario ya existe"
-        elsif user.errors[:email]
+        elsif user.errors[:email].length > 0
           alert = "El correo ya ha sido utilizado"
         end
 
