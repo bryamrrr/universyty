@@ -70,8 +70,8 @@ class Api::V1::TeamsController < Api::V1::BaseController
   end
 
   def index
-    teams = @current_user.teams.where('updated_at > ?', Date.today - 1.month).order(updated_at: :desc)
-    count = @current_user.teams.where('updated_at > ?', Date.today - 1.month).where(new: true).count
+    teams = @current_user.teams.where('updated_at BETWEEN ? AND ?', Date.current.beginning_of_month, Date.current.end_of_month).order(updated_at: :desc)
+    count = @current_user.teams.where('updated_at BETWEEN ? AND ?', Date.current.beginning_of_month, Date.current.end_of_month).where(new: true).count
 
     render :json => {
       teams: teams,

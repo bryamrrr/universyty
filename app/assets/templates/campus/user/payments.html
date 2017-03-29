@@ -29,7 +29,7 @@
             {{ payment.paymethod.name }}
           </td>
           <td class="text-left">
-            {{ payment.total | number: 2 }}
+            {{ payment.total | number: 0 }}
           </td>
           <td class="text-left" ng-class="{ 'color-red': payment.status === 'No pagado', 'color-purple': payment.status === 'Pagado' }">
             {{ payment.status }}

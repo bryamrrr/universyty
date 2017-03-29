@@ -100,13 +100,13 @@ class Api::V1::MovementsController < Api::V1::BaseController
       paymethod = Paymethod.find_by(name: "Depósito")
     elsif paymethod == '3'
       paymethod = Paymethod.find_by(name: "Puntos")
-      if cart[:total] > @current_user[:balance]
+      if cart[:total].round > @current_user[:balance]
         movement = Movement.new(
           user_id: user.id,
           paymethod_id: paymethod.id,
           type_id: 2,
           status: "No pagado",
-          total: cart[:total],
+          total: cart[:total].round,
           discount: discount,
           discount_value: discount_value
         )
@@ -130,7 +130,7 @@ class Api::V1::MovementsController < Api::V1::BaseController
       paymethod_id: paymethod.id,
       type_id: 2,
       status: "No pagado",
-      total: cart[:total],
+      total: cart[:total].round,
       discount: discount,
       discount_value: discount_value
     )
@@ -163,12 +163,12 @@ class Api::V1::MovementsController < Api::V1::BaseController
           course.increase_balance_instructor(user)
         end
 
-        @current_user.update_column(:balance, @current_user[:balance] - cart[:total].to_d.round)
+        @current_user.update_column(:balance, @current_user[:balance] - cart[:total].round.round)
         movement.update_column(:status, "Pagado")
         @current_user.bonos.create(
           name: "Pago de cursos",
           description: "Pago de cursos",
-          value: cart[:total].to_d.round
+          value: cart[:total].round.round
         )
         render :json => { :message => "Pago realizado con éxito" }
       elsif paymethod[:name] == 'Depósito'

@@ -69,7 +69,7 @@
       </div>
     </button>
     <button ng-click="pay(paymentMethod, cart)" ng-disabled="isLoading" ng-if="$state.includes('sale.billing')">
-      Confirmar pedido por S/ {{ cart.total }}
+      Confirmar pedido por S/ {{ cart.total | number: 0 }}
       <div class="loader-wrapper" ng-show="isLoading">
         <div class="loader-circles" id="loader">Loading...</div>
       </div>
@@ -140,13 +140,13 @@
         </article>
       </div>
       <div class="cart-discount" ng-if="cart.discount">
-        Descuento: - S/ {{ cart.discount | number: 2 }}
+        Descuento: - S/ {{ cart.discount | number: 0 }}
       </div>
       <div class="cart-footer">
         <div class="cart-total">
           <span>TOTAL:</span>
           <span>S/</span>
-          <span class="total-price">{{ cart.total | number: 2 }}</span>
+          <span class="total-price">{{ cart.total | number: 0 }}</span>
         </div>
         <div class="cart-pay">
         </div>
