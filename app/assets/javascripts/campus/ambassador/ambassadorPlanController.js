@@ -10,11 +10,10 @@ function AmbassadorPlanController($scope, $cookies, $state, CookieService, Sweet
   var $contenido = $('#contenido');
   $contenido.addClass("loaded");
 
-  $scope.fullname = $cookies.get('fullname');
-  $scope.email = $cookies.get('email');
+  $scope.fullname = localStorage.getItem('fullname');
   $scope.dni = CookieService.read('dni');
   $scope.address = CookieService.read('address');
-  $scope.city = CookieService.read('city');
+  $scope.city = localStorage.getItem('city');
   $scope.token = CookieService.read('token');
   var nickname = CookieService.read('nickname');
 

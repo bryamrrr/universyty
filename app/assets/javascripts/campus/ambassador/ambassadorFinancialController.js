@@ -20,6 +20,10 @@ function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieServ
   $scope.paydata = {};
   $scope.withdrawdata = {};
 
+  var year = new Date().getFullYear();
+  var month = new Date().getMonth();
+  if (new Date() == new Date(year, month, 0)) $scope.lastDay = true;
+
   var url = urls.BASE_API + '/bonos';
   var promise = HttpRequest.send('GET', url);
 
@@ -109,7 +113,7 @@ function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieServ
         $scope.user.balance -= Math.round(data.amount);
       }
     }, function (error) {
-      //
+      $scope.isLoading = false;
     });
   }
 
@@ -132,7 +136,7 @@ function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieServ
           $scope.user.balance -= Math.round(data.amount);
         }
       }, function (error) {
-        //
+        $scope.isLoading = false;
       });
     }
     else {
@@ -160,6 +164,7 @@ function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieServ
       var promise = HttpRequest.send('POST', url, data);
 
       promise.then(function (response) {
+        $scope.isLoading = false;
         if (response.errors) {
           toastr.error(response.errors);
         } else {
@@ -170,7 +175,7 @@ function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieServ
           $scope.user.balance -= Math.round(data.amount);
         }
       }, function (error) {
-        console.log(error);
+        $scope.isLoading = false;
       });
     } else {
       toastr.error("Agrega un monto dentro del rango");

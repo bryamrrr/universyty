@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
   def create
     if user_params[:role_id] === "2"
-      user = User.new(user_params)
+      if User.find_by(nickname: user_params[:sponsor])
+        user = User.new(user_params)
+      else
+        redirect_to "/registro", alert: "¡El usuario '#{user_params[:sponsor]}' no existe!" and return
+      end
 
       if user.save
         update_teams(user, 1) unless user.instructor === true

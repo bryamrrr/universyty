@@ -88,6 +88,14 @@ class Api::V1::MovementsController < Api::V1::BaseController
   def manualPayment(paymethod, cart, nickname)
     user = User.find_by(nickname: nickname)
 
+    if user[:ambassador_active] == false
+      discount = false
+      discount_value = 0
+    else
+      discount = true
+      discount_value = 0.2
+    end
+
     if paymethod == '2'
       paymethod = Paymethod.find_by(name: "Depósito")
     elsif paymethod == '3'
@@ -115,14 +123,6 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
         render :json => { :message => "Pedido realizado" } and return
       end
-    end
-
-    if user[:ambassador_active] == false
-      discount = false
-      discount_value = 0
-    else
-      discount = true
-      discount_value = 0.2
     end
 
     movement = Movement.new(
@@ -190,6 +190,8 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
     if !@current_user[:ambassador] || !@current_user[:ambassador_active]
       render :json => { :errors => "No es posible realizar la transferencia" } and return
+    elsif params[:data][:amount].to_d < 10
+      render :json => { :errors => "El monto mínimo para realizar la transferencia es 10" } and return
     end
 
     user = User.find_by(nickname: params[:data][:user])
@@ -264,10 +266,21 @@ class Api::V1::MovementsController < Api::V1::BaseController
   end
 
   def withdraw
+    if @current_user[:balance] < params[:data][:amount].to_d
+      render :json => { :errors => "Saldo insuficiente" } and return
+    elsif params[:data][:amount].to_d < 50 || params[:data][:amount].to_d > 5000
+      render :json => { :errors => "El monto a canjear debe estar entre 50 y 5000" } and return
+    end
+
     if @current_user[:ambassador] && @current_user[:ambassador_active]
+      if @current_user[:instructor]
+        bono_title = "Retiro de dinero"
+      else
+        bono_title = "Canje de Puntos"
+      end
       bono = @current_user.bonos.create(
-        name: "Retiro de dinero",
-        description: "Retiro de dinero - En proceso",
+        name: bono_title,
+        description: "#{bono_title} - En proceso",
         value: -params[:data][:amount].to_d.round
       )
 

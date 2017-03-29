@@ -9,11 +9,10 @@ function SaleController($scope, $cookies, $state, CookieService, SweetAlert, url
   var $contenido = $('#contenido');
   $contenido.addClass("loaded");
 
-  $scope.fullname = $cookies.get('fullname');
-  $scope.email = $cookies.get('email');
+  $scope.fullname = localStorage.getItem('fullname');
   $scope.dni = CookieService.read('dni');
   $scope.address = CookieService.read('address');
-  $scope.city = CookieService.read('city');
+  $scope.city = localStorage.getItem('city');
   $scope.token = CookieService.read('token');
   var ambassador = CookieService.read('ambassador');
   var nickname = CookieService.read('nickname');
@@ -21,7 +20,7 @@ function SaleController($scope, $cookies, $state, CookieService, SweetAlert, url
   var cart = $cookies.get('cart');
   if (cart) $scope.cart = JSON.parse(cart);
 
-  if (ambassador === 'true') {
+  if (ambassador === 'true' && $scope.ambassador_active === 'true') {
     $scope.cart.discount = .2 * $scope.cart.total;
     $scope.cart.total = .8 * $scope.cart.total;
   }

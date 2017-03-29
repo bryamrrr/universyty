@@ -17,8 +17,7 @@
       </div>
       <ul class="nav" id="side-menu" nav-collapse>
         <li
-          data-ng-class="{open: $state.includes('catalog')}"
-          ng-hide="ambassador === 'true' && ambassador_active === 'false'">
+          data-ng-class="{open: $state.includes('catalog')}">
           <a href="" toggle-submenu>
             <span class="inner">
               <ng-md-icon class="fa fa-th-large icono"></ng-md-icon>
@@ -34,7 +33,7 @@
             >{{category.name}}</a></li>
           </ul>
         </li>
-        <li data-ng-class="{open: $state.includes('courses')}" ng-hide="ambassador_active === 'false' && ambassador === 'true'">
+        <li data-ng-class="{open: $state.includes('courses')}">
           <a href="">
             <span class="inner">
               <ng-md-icon class="fa fa-star icono"></ng-md-icon>
@@ -58,7 +57,7 @@
           </ul>
         </li>
         <li
-        data-ng-class="{open: $state.includes('user')}" ng-hide="ambassador_active === 'false' && ambassador === 'true'">
+        data-ng-class="{open: $state.includes('user')}">
           <a href="">
             <span class="inner">
               <ng-md-icon class="fa fa-user icono"></ng-md-icon>
@@ -104,20 +103,20 @@
               ui-sref-active="active">
               Plan Embajador</a>
             </li>
-            <li ng-hide="ambassador_active === 'false' && ambassador === 'true'">
+            <li>
               <a
               ui-sref="ambassador.preferencial"
               ui-sref-active="active">
               Alumnos</a>
             </li>
-            <li ng-hide="ambassador_active === 'false' && ambassador === 'true'">
+            <li>
               <a
               ui-sref="ambassador.list"
               ui-sref-active="active"
               ng-class="{ active: $state.is('ambassador.level') }">
               Embajadores</a>
             </li>
-            <li ng-hide="ambassador_active === 'false' && ambassador === 'true'">
+            <li>
               <a
               ui-sref="ambassador.financial"
               ui-sref-active="active">
@@ -131,7 +130,7 @@
               ui-sref-active="active">
               Facturación</a>
             </li>
-            <li ng-hide="ambassador_active === 'false' && ambassador === 'true'">
+            <li>
               <a
               ui-sref="ambassador.bank"
               ui-sref-active="active">
