@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       get 'users/instructors/all', to: 'users#instructors'
       get 'users/admins/all', to: 'users#admins'
       get 'users/ambassadors/all', to: 'users#ambassadors'
+      get 'users/totals/all', to: 'users#totals'
 
       resources :provinces, only: [:index]
       resources :categories, except: [:new, :edit]

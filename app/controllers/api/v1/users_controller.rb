@@ -9,6 +9,24 @@ class Api::V1::UsersController < Api::V1::BaseController
       })
   end
 
+  def totals
+    total_ambassadors = User.where(ambassador: true, instructor: false, block: false).count
+    total_instructors = User.where(instructor: true, block: false).count
+    total_students = User.where(ambassador: false, instructor: false, block: false).count
+    total_ambassadors_active = User.where(ambassador: true, ambassador_active: true, instructor: false, block: false).count
+    ambassadors_today = User.where(ambassador: true, instructor: false, block: false).where("updated_at >= ?", Time.zone.now.beginning_of_day).count
+    students_today = User.where(ambassador: false, instructor: false, block: false).where("created_at >= ?", Time.zone.now.beginning_of_day).count
+
+    render :json => {
+      total_ambassadors: total_ambassadors,
+      total_instructors: total_instructors,
+      total_students: total_students,
+      total_ambassadors_active: total_ambassadors_active,
+      ambassadors_today: ambassadors_today,
+      students_today: students_today
+    }
+  end
+
   def students
     @users = User.where(role_id: 2, ambassador: false).order(created_at: :desc).as_json
     @users.delete_if{ |x| x['instructor'] }
