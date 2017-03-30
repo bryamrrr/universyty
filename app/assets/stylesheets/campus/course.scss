@@ -1,6 +1,8 @@
 .card-course {
   h2 { margin-bottom: 0; }
-  .tagline { text-align: left; }
+  .tagline {
+    text-align: left;
+  }
   .course-main {
     display: flex;
     margin-bottom: 2em;
@@ -12,6 +14,11 @@
       flex-basis: 32%;
     }
   }
+}
+
+.professor-hover .tagline {
+  color: white;
+  font-weight: bold;
 }
 
 .parts-container {

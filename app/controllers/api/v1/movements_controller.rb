@@ -60,12 +60,12 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
         if @current_user[:paydate]
           if @current_user[:paydate] < Date.today
-            @current_user.update_column(:paydate, Date.today + 1.month - 7.hours)
+            @current_user.update_column(:paydate, Date.today + 1.month)
           else
-            @current_user.update_column(:paydate, @current_user[:paydate] + 1.month - 7.hours)
+            @current_user.update_column(:paydate, @current_user[:paydate] + 1.month)
           end
         else
-          @current_user.update_column(:paydate, Date.today + 1.month - 7.hours)
+          @current_user.update_column(:paydate, Date.today + 1.month)
         end
 
         if @current_user.is_ambassador?
@@ -408,12 +408,12 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
       if user[:paydate]
         if user[:paydate] < Date.today
-          user.update_column(:paydate, Date.today + 1.month - 7.hours)
+          user.update_column(:paydate, Date.today + 1.month)
         else
-          user.update_column(:paydate, user[:paydate] + 1.month - 7.hours)
+          user.update_column(:paydate, user[:paydate] + 1.month)
         end
       else
-        user.update_column(:paydate, Date.today + 1.month - 7.hours)
+        user.update_column(:paydate, Date.today + 1.month)
       end
 
       if user.is_ambassador?
@@ -542,12 +542,12 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
       if @current_user[:paydate]
         if @current_user[:paydate] < Date.today
-          @current_user.update_column(:paydate, Date.today + 1.month - 7.hours)
+          @current_user.update_column(:paydate, Date.today + 1.month)
         else
-          @current_user.update_column(:paydate, @current_user[:paydate] + 1.month - 7.hours)
+          @current_user.update_column(:paydate, @current_user[:paydate] + 1.month)
         end
       else
-        @current_user.update_column(:paydate, Date.today + 1.month - 7.hours)
+        @current_user.update_column(:paydate, Date.today + 1.month)
       end
 
       if @current_user.is_ambassador?

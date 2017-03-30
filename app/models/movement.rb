@@ -10,7 +10,7 @@ class Movement < ApplicationRecord
     users = User.where(ambassador: true, instructor: false)
 
     users.each do |user|
-      if user[:paydate] && Date.today >= user[:paydate] - 3.days && user.movements.where(ambassador: true) && user.movements.where(ambassador: true).last && user.movements.where(ambassador: true).last[:status] != "No pagado" && user.movements.where(ambassador: true).last[:created_at] <= Date.today - 1.month + 1.day
+      if user[:paydate] && Date.today >= user[:paydate] - 3.days && user.movements.where(ambassador: true) && user.movements.where(ambassador: true).last && user.movements.where(ambassador: true).last[:status] != "No pagado" && user.movements.where(ambassador: true).last[:created_at] <= Date.today - 1.month
         puts "Si pasó el usuario con id: #{user[:id]}"
         movement = Movement.new(
           user_id: user.id,
