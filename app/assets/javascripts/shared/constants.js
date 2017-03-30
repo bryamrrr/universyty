@@ -5,7 +5,7 @@
   angular
     .module('shared')
     .constant('urls', {
-      BASE: 'http://localhost:3000 http://universyty-staging.herokuapp.com http://universyty.herokuapp.com',
+      BASE: 'http://localhost:3000 https://universyty-staging.herokuapp.com http://universyty.herokuapp.com',
       BASE_API: 'https://universyty.com/api/v1'
     })
     .constant('toast',{
