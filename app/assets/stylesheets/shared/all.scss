@@ -57,3 +57,35 @@
 .mb-30 {
   margin-bottom: 30px;
 }
+
+.totals.flex-container {
+  padding-top: 2em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.total-card {
+  border: 1px solid #39A935;
+  font-weight: bold;
+  margin: 1em 1em 2em;
+  min-width: 300px;
+  text-align: center;
+  width: 30%;
+  .total-header {
+    background-color: #39A935;
+    color: white;
+    font-size: .9em;
+    padding: .5em 1em;
+  }
+  .total-body {
+    background-color: white;
+    font-size: 1.1em;
+    padding: 1.5em 1em;
+  }
+  &.blue {
+    border: 1px solid #1D70B7;
+    .total-header {
+      background-color: #1D70B7;
+    }
+  }
+}
