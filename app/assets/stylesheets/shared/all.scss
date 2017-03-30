@@ -41,3 +41,15 @@
   h5 { margin-bottom: .5em; }
   p { margin-top: .5em; }
 }
+
+.filter-combo-text {
+  padding: 2em 2em 0;
+  input {
+    padding: .5em 1em;
+    min-width: 300px;
+    width: 50%;
+  }
+  select {
+    float: right;
+  }
+}

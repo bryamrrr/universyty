@@ -239,6 +239,18 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
+    .state('user.ambassadors', {
+      url: '/embajadores',
+      data: {
+        title: 'Lista de Embajadores'
+      },
+      views: {
+        'content@user': {
+          templateUrl: 'admin/user/ambassadors.html',
+          controller: 'AmbassadorsListController'
+        }
+      }
+    })
     .state('user.instructors', {
       url: '/lista/instructores',
       data: {

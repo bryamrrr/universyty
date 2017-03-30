@@ -10,7 +10,14 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def students
-    @users = User.where(role_id: 2).order(created_at: :desc).as_json
+    @users = User.where(role_id: 2, ambassador: false).order(created_at: :desc).as_json
+    @users.delete_if{ |x| x['instructor'] }
+
+    render :json => @users
+  end
+
+  def ambassadors
+    @users = User.where(role_id: 2, ambassador: true).order(created_at: :desc).as_json
     @users.delete_if{ |x| x['instructor'] }
 
     render :json => @users

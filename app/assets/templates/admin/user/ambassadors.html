@@ -1,17 +1,22 @@
 <div class="card">
+  <div class="filter-combo-text">
+    <input type="text" ng-model="filter.text" placeholder="Buscar embajador" />
+    <select ng-model="filter.option" ng-options="option as option.label for option in options track by option.id">
+    </select>
+  </div>
   <div class="full-container card card-padding">
     <table class="table td-bg">
       <thead>
         <tr>
           <th class="thin-column">Usuario</th>
-          <th class="text-left">Nombre del embajador</th>
+          <th class="text-left">Nombre del instructor</th>
           <th class="text-left">Fecha de registro</th>
           <th class="text-left">Estado</th>
           <th colspan="1">Bloquear</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="user in users">
+        <tr ng-repeat="user in users | filterUser:this track by user.id">
           <td class="text-left">{{ user.nickname }}</td>
           <td class="text-left">{{ user.fullname }}</td>
           <td class="text-left">{{ user.created_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ user.created_at | date:'H:mm' }}</td>
