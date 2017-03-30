@@ -60,12 +60,12 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
         if @current_user[:paydate]
           if @current_user[:paydate] < Date.today
-            @current_user.update_column(:paydate, Date.today + 1.month)
+            @current_user.update_column(:paydate, Date.today + 1.month - 7.hours)
           else
-            @current_user.update_column(:paydate, @current_user[:paydate] + 1.month)
+            @current_user.update_column(:paydate, @current_user[:paydate] + 1.month - 7.hours)
           end
         else
-          @current_user.update_column(:paydate, Date.today + 1.month)
+          @current_user.update_column(:paydate, Date.today + 1.month - 7.hours)
         end
 
         if @current_user.is_ambassador?
@@ -408,12 +408,12 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
       if user[:paydate]
         if user[:paydate] < Date.today
-          user.update_column(:paydate, Date.today + 1.month)
+          user.update_column(:paydate, Date.today + 1.month - 7.hours)
         else
-          user.update_column(:paydate, user[:paydate] + 1.month)
+          user.update_column(:paydate, user[:paydate] + 1.month - 7.hours)
         end
       else
-        user.update_column(:paydate, Date.today + 1.month)
+        user.update_column(:paydate, Date.today + 1.month - 7.hours)
       end
 
       if user.is_ambassador?
@@ -542,12 +542,12 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
       if @current_user[:paydate]
         if @current_user[:paydate] < Date.today
-          @current_user.update_column(:paydate, Date.today + 1.month)
+          @current_user.update_column(:paydate, Date.today + 1.month - 7.hours)
         else
-          @current_user.update_column(:paydate, @current_user[:paydate] + 1.month)
+          @current_user.update_column(:paydate, @current_user[:paydate] + 1.month - 7.hours)
         end
       else
-        @current_user.update_column(:paydate, Date.today + 1.month)
+        @current_user.update_column(:paydate, Date.today + 1.month - 7.hours)
       end
 
       if @current_user.is_ambassador?
