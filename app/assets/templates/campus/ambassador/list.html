@@ -1,6 +1,22 @@
 <div class="card">
   <div class="full-container card card-padding">
-    <h2>Embajadores</h2>
+    <div class="ambassadors-title">
+      <div class="input-container">
+        <input type="text" ng-model="searchText" placeholder="Buscar embajador" />
+        <i class="fa fa-search" ng-click="searchAmbassador(searchText)"></i>
+      </div>
+      <div class="user-active" ng-show="member">
+        Activo: <span class="color-green" ng-show="user_active">Si</span><span class="color-red" ng-hide="user_active">No</span>
+      </div>
+    </div>
+    <div class="alert-container important mb-30" ng-show="member">
+      <i class="fa fa-warning"></i>
+      <span>El usuario '{{ user_nickname }}' es miembro de tu equipo. Nivel: {{ user_level }}.</span>
+    </div>
+    <div class="alert-container important mb-30" ng-show="not_member">
+      <i class="fa fa-warning"></i>
+      <span>No existe el usuario '{{ user_nickname }}' en tu equipo.</span>
+    </div>
     <table class="table td-bg">
       <thead>
         <tr>
