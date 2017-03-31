@@ -2,4 +2,4 @@ Hola <%= @user.fullname %>
 
 Se ha bloqueado su cuenta debido a que se intentó acceder en varias oportunidades con credenciales erróneas. Para volver activar su cuenta ingrese al siguiente enlace:
 
-<%= link_to "Login", "/login?user=#{@user.nickname}&token=#{@user.block_token}" %>
+<%= link_to "Login", "https://www.universyty.com/login?user=#{@user.nickname}&token=#{@user.block_token}" %>
