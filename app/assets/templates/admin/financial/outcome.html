@@ -1,6 +1,7 @@
 <div class="card">
   <div class="full-container card card-padding">
     <h2>Egresos</h2>
+    <div class="table-container">
     <table class="table td-bg" ng-if="outcomes.length > 0">
       <thead>
         <tr>
@@ -32,6 +33,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <div class="alert-container important" ng-hide="outcomes.length > 0">
       <i class="fa fa-warning"></i>
       <span>No se encontraron retiros realizados.</span>

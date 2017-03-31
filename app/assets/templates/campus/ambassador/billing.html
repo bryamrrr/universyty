@@ -6,6 +6,7 @@
     <h2>{{fullname}}</h2>
   </div>
   <div class="full-container card card-padding">
+    <div class="table-container">
     <table class="table td-bg" ng-show="payments.length > 0">
       <thead>
         <tr>
@@ -36,6 +37,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <div class="alert-container important" ng-hide="payments.length > 0">
       <i class="fa fa-warning"></i>
       <span>Aún no hay pagos de Embajador.</span>

@@ -17,6 +17,7 @@
     <button ng-click="withdraw()" ng-disabled="!lastDay || ambassador_active === 'false'">Canjear</button>
   </div>
 </div>
+<div class="table-container">
 <table class="table td-bg financial-table">
   <thead>
     <tr>
@@ -44,6 +45,7 @@
     </tr>
   </tfoot>
 </table>
+</div>
 <div class="space" ng-hide="movements.length > 5"></div>
 <div class="password-enter" ng-hide="hidePassword">
   <div class="password-container">

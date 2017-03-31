@@ -35,3 +35,25 @@
     display: inline-block;
   }
 }
+
+@media screen and (max-width: 640px) {
+  .card-with-image {
+    .two-cols-form {
+      flex-wrap: wrap;
+      .form-input { flex-basis: 100%; }
+      > div:first-child.remove-margin { margin-right: 0; }
+    }
+    .figure {
+      display: block;
+      margin: 0 auto;
+    }
+    h2 {
+      display: block;
+      margin-bottom: .5em;
+    }
+  }
+
+  .header-background {
+    text-align: center;
+  }
+}

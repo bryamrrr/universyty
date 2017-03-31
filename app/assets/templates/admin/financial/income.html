@@ -1,6 +1,7 @@
 <div class="card">
   <div class="full-container card card-padding">
     <h2>Ingresos</h2>
+    <div class="table-container">
     <table class="table td-bg" ng-if="payments.length > 0">
       <thead>
         <tr>
@@ -31,6 +32,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <div class="alert-container important" ng-hide="payments.length > 0">
       <i class="fa fa-warning"></i>
       <span>No se encontraron ingresos.</span>
