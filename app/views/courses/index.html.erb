@@ -28,6 +28,7 @@
       <% @courses_starred.each do |course| %>
         <article class="course">
           <%= link_to course_path(course) do %>
+          <% if course.professors.first %>
           <div class="professor-hover">
             <div class="professor-hover-content">
               <figure>
@@ -37,6 +38,7 @@
               <p class="tagline"><%= course.professors.first.minibio %></p>
             </div>
           </div>
+          <% end %>
           <div class="course-image">
             <%= image_tag(course.background_url) %>
           </div>
