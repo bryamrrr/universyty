@@ -101,3 +101,17 @@
     top: 13px;
   }
 }
+
+.flex-container {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.courses {
+  padding: 3em 0;
+  .course {
+    flex-basis: 285px;
+    margin-right: 1em;
+    margin-left: 1em;
+  }
+}

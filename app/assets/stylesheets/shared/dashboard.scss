@@ -1138,6 +1138,16 @@ md-content.padding-15 {padding: 15px;}
   background-color: #fff;
   padding: 14px 0;
   border-bottom: 1px solid #e7eaec;
+  .fa {
+    color: $purple;
+    display: none;
+    font-size: 1.3em;
+    margin-left: 1em;
+    margin-top: -10px;
+    vertical-align: top;
+    width: 10px;
+    &:hover { cursor: pointer; }
+  }
 }
 
 #header-admin .header-inner {
@@ -1294,14 +1304,18 @@ md-content.padding-15 {padding: 15px;}
     left: 0;
   }
 
-  #aside {
-    display: none;
-    position: fixed;
-    left: 0;
-    ºp: 0;
-    bottom: 0;
+  #wrapper.aside-fixed #aside {
+    left: -220px;
     z-index: 12;
+    transition: left .3s;
+    &.show {
+      left: 0;
+    }
   }
+
+  header-bread-crumb { left: 0; }
+
+  #header-admin .fa { display: inline-block; }
 
   #page-wrapper {
     z-index: 20;
