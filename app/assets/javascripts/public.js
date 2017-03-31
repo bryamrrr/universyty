@@ -191,6 +191,7 @@ $(document).on('turbolinks:load', function () {
       url: url,
       data: data,
       success: function (data) {
+        console.log(data);
         var city = '';
         if (data.user.province) {
           city = data.user.province.name;
@@ -220,16 +221,7 @@ $(document).on('turbolinks:load', function () {
         }
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
-        console.log("ERROR!");
-        console.log("xml", XMLHttpRequest);
-        console.log("textstatus", textStatus);
-        console.log("error", errorThrown);
-
-        if (errorThrown === "Unauthorized") {
-          toastr.error('El usuario no existe o las credenciales son incorrectas');
-        } else if (errorThrown === "Forbidden") {
-          toastr.error('Usuario bloqueado');
-        }
+        toastr.error(XMLHttpRequest.responseJSON.errors)
       },
       contentType: 'application/json',
       dataType: 'JSON'

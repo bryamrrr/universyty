@@ -10,12 +10,12 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def totals
-    total_ambassadors = User.where(ambassador: true, instructor: false, block: false).count
-    total_instructors = User.where(instructor: true, block: false).count
-    total_students = User.where(ambassador: false, instructor: false, block: false).count
-    total_ambassadors_active = User.where(ambassador: true, ambassador_active: true, instructor: false, block: false).count
-    ambassadors_today = User.where(ambassador: true, instructor: false, block: false).where("updated_at >= ?", Time.zone.now.beginning_of_day).count
-    students_today = User.where(ambassador: false, instructor: false, block: false).where("created_at >= ?", Time.zone.now.beginning_of_day).count
+    total_ambassadors = User.where(ambassador: true, instructor: false).count
+    total_instructors = User.where(instructor: true).count
+    total_students = User.where(ambassador: false, instructor: false).count
+    total_ambassadors_active = User.where(ambassador: true, ambassador_active: true, instructor: false).count
+    ambassadors_today = User.where(ambassador: true, instructor: false).where("updated_at >= ?", Time.zone.now.beginning_of_day).count
+    students_today = User.where(ambassador: false, instructor: false).where("created_at >= ?", Time.zone.now.beginning_of_day).count
 
     render :json => {
       total_ambassadors: total_ambassadors,
@@ -101,7 +101,24 @@ class Api::V1::UsersController < Api::V1::BaseController
         end
       end
     else
-      render :json => { :errors => "Credenciales incorrectas" }, status: :unauthorized
+      user = User.find_by(nickname: params[:nickname])
+
+      if user
+        if user.login_attempts < 3
+          user.increment(:login_attempts)
+          user.save
+          if user[:login_attempts] == 3
+            user.update_column(:block, true)
+            render :json => { :errors => "Usuario bloqueado. Se le ha enviado un correo para activar su cuenta." }, status: :forbidden
+          else
+            render :json => { :errors => "Credenciales incorrectas" }, status: :forbidden
+          end
+        else
+          render :json => { :errors => "Usuario bloqueado" }, status: :forbidden
+        end
+      else
+        render :json => { :errors => "Credenciales incorrectas" }, status: :forbidden
+      end
     end
   end
 

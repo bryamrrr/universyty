@@ -28,12 +28,8 @@ class User < ApplicationRecord
 
   def create_reset_digest
     self.reset_token = User.new_token
-    puts "acá cambia las cosas"
-    puts reset_digest
     update_attribute(:reset_digest,  User.digest(reset_token, salt))
     update_attribute(:reset_sent_at, Time.zone.now)
-    puts "Acá ya debe haber cambiado"
-    puts reset_digest
   end
 
   def send_password_reset_email
@@ -122,6 +118,9 @@ class User < ApplicationRecord
       self.balance ||= 0
       self.historical_balance ||= 0
       self.preferencial ||= false
+      self.login_attempts ||= 0
+      self.block ||= false
+      self.paydate_expire ||= false
 
       if self.instructor
         self.ambassador = true
@@ -132,10 +131,6 @@ class User < ApplicationRecord
         self.ambassador_active ||= false
         self.ambassador_start ||= false
       end
-
-      self.login_attempts ||= 0
-      self.block ||= false
-      self.paydate_expire ||= false
     end
 
     def encrypt_password
