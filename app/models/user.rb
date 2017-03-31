@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attr_accessor :password, :reset_token
+  attr_accessor :password, :reset_token, :block_token
 
   belongs_to :role
   belongs_to :province, optional: true
@@ -28,8 +28,8 @@ class User < ApplicationRecord
 
   def create_reset_digest
     self.reset_token = User.new_token
-    update_attribute(:reset_digest,  User.digest(reset_token, salt))
-    update_attribute(:reset_sent_at, Time.zone.now)
+    update_column(:reset_digest,  User.digest(reset_token, salt))
+    update_column(:reset_sent_at, Time.zone.now)
   end
 
   def send_password_reset_email
@@ -46,7 +46,25 @@ class User < ApplicationRecord
 
   def change_with_token(new_password)
     encrypted_password = BCrypt::Engine.hash_secret(new_password, salt)
-    update_attribute(:encrypted_password, encrypted_password)
+    update_column(:encrypted_password, encrypted_password)
+  end
+
+  def create_block_digest
+    self.block_token = User.new_token
+    update_column(:block_digest,  User.digest(block_token, salt))
+    update_column(:block_sent_at, Time.zone.now)
+  end
+
+  def send_unblock_email
+    UserMailer.unblock(self).deliver_now
+  end
+
+  def unblock_expired?
+    block_sent_at < 2.hours.ago
+  end
+
+  def unblock_exists?(token)
+    BCrypt::Engine.hash_secret(token, salt) == block_digest
   end
 
   def is_ambassador?

@@ -9,4 +9,9 @@ class UserMailer < ApplicationMailer
     @user = user
     mail to: user.email, subject: "Recuperación de contraseña"
   end
+
+  def unblock(user)
+    @user = user
+    mail to: user.email, subject: "Desbloqueo de cuenta"
+  end
 end

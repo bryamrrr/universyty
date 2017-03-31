@@ -109,6 +109,8 @@ class Api::V1::UsersController < Api::V1::BaseController
           user.save
           if user[:login_attempts] == 3
             user.update_column(:block, true)
+            user.create_block_digest
+            user.send_unblock_email
             render :json => { :errors => "Usuario bloqueado. Se le ha enviado un correo para activar su cuenta." }, status: :forbidden
           else
             render :json => { :errors => "Credenciales incorrectas" }, status: :forbidden

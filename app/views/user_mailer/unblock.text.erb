@@ -1,0 +1,5 @@
+Hola <%= @user.fullname %>
+
+Se pidió la recuperación de contraseña de su cuenta. Para cambiar la contraseña ingrese al siguiente enlace:
+
+<%= link_to "Login", "/login?user=#{@user.nickname}&token=#{@user.block_token}" %>

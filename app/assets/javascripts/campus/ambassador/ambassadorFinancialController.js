@@ -20,9 +20,17 @@ function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieServ
   $scope.paydata = {};
   $scope.withdrawdata = {};
 
-  var year = new Date().getFullYear();
-  var month = new Date().getMonth();
-  if (new Date() == new Date(year, month, 0)) $scope.lastDay = true;
+  var today = new Date();
+  var current_year = today.getFullYear();
+  var current_month = today.getMonth();
+  var current_day = today.getDate();
+
+  var lastDay = new Date(current_year, current_month + 1, 0)
+  var last_day_year = lastDay.getFullYear();
+  var last_day_month = lastDay.getMonth();
+  var last_day_day = lastDay.getDate();
+
+  if (current_year === last_day_year && current_month === last_day_month && current_day === last_day_day) $scope.lastDay = true;
 
   var url = urls.BASE_API + '/bonos';
   var promise = HttpRequest.send('GET', url);
