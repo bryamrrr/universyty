@@ -60,7 +60,7 @@ class User < ApplicationRecord
   end
 
   def unblock_expired?
-    block_sent_at < 2.hours.ago
+    block_sent_at < 1.month.ago
   end
 
   def unblock_exists?(token)
