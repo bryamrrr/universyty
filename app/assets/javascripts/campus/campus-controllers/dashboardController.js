@@ -161,12 +161,12 @@ function DashboardController($scope, $q, $state, $stateParams, $cookies,  Cookie
   }
 
   function updateCartCookie(cart) {
-    $cookies.putObject('cart', cart);
-
     if ($scope.ambassador === 'true') {
       $scope.cart.discount = .2 * $scope.cart.total;
       $scope.cart.total = .8 * $scope.cart.total;
     }
+
+    $cookies.putObject('cart', cart);
   }
 
   function check(alternativeSelected) {

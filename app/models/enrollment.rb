@@ -2,5 +2,5 @@ class Enrollment < ApplicationRecord
   belongs_to :user
   belongs_to :course
 
-  has_many :grades
+  has_many :grades, :dependent => :destroy
 end
