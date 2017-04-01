@@ -266,8 +266,8 @@ class Api::V1::MovementsController < Api::V1::BaseController
   def withdraw
     if @current_user[:balance] < params[:data][:amount].to_d
       render :json => { :errors => "Saldo insuficiente" } and return
-    elsif params[:data][:amount].to_d < 50 || params[:data][:amount].to_d > 5000
-      render :json => { :errors => "El monto a canjear debe estar entre 50 y 5000" } and return
+    elsif params[:data][:amount].to_d < 50 || params[:data][:amount].to_d > 50000
+      render :json => { :errors => "El monto a canjear debe estar entre 50 y 50000" } and return
     end
 
     if @current_user[:ambassador] && @current_user[:ambassador_active]

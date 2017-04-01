@@ -132,9 +132,9 @@
     <div class="benefits">
       <ul>
         <li>La solicitud de canje sólo procede el último día de cada mes (24 horas).</li>
-        <li>El monto canjeado se depositará en tu banco el 5° día.</li>
+        <li>El monto canjeado se depositará en tu banco el <span ng-hide="role === 'Instructor'">5</span><span ng-show="role === 'Instructor'">15</span>º día.</li>
         <li>El monto mínimo de canje es S/ 50.</li>
-        <li>El monto máximo de canje es S/ 5000.</li>
+        <li>El monto máximo de canje es S/ 50000.</li>
         <li>La comisión por cada transferencia es S/ 5.</li>
       </ul>
     </div>

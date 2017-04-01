@@ -167,7 +167,7 @@ function AmbassadorFinancialController($scope, $q, urls, HttpRequest, CookieServ
 
   function goWithdraw(form, data) {
     $scope.isLoading = true;
-    if (data.amount >= 50 && data.amount <= 5000) {
+    if (data.amount >= 50 && data.amount <= 50000) {
       var url = urls.BASE_API + '/movements/withdraw';
       var promise = HttpRequest.send('POST', url, data);
 
