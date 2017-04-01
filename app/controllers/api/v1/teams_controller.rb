@@ -70,8 +70,8 @@ class Api::V1::TeamsController < Api::V1::BaseController
   end
 
   def search
-    user = User.find_by(nickname: params[:text])
-    user = User.find_by(fullname: params[:text]) unless user
+    user = User.find_by(nickname: params[:text], ambassador: true)
+    user = User.find_by(fullname: params[:text], ambassador: true) unless user
 
     if user
       nickname = user[:nickname]
