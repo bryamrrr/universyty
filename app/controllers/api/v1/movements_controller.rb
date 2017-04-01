@@ -69,10 +69,8 @@ class Api::V1::MovementsController < Api::V1::BaseController
         end
 
         if @current_user.is_ambassador?
-          puts "<===== El usuario SI es embajador =====>"
           @current_user.increase_balance_ambassador('MONTHLY_PAY')
         else
-          puts "<===== El usuario NO es embajador AUN =====>"
           @current_user.increase_balance_ambassador('NEW_AMBASSADOR')
         end
 
@@ -159,7 +157,7 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
           course = Course.find(product.course_id)
 
-          @current_user.increase_balance_ambassador('COMMEND', course)
+          @current_user.increase_balance_ambassador('COMMEND', course) unless @current_user[:ambassador]
           course.increase_balance_instructor(user)
         end
 
@@ -398,9 +396,7 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
         course = Course.find(product.course_id)
 
-        if !@current_user[:ambassador]
-          user.increase_balance_ambassador('COMMEND', course)
-        end
+        user.increase_balance_ambassador('COMMEND', course) unless @current_user[:ambassador]
         course.increase_balance_instructor(user)
       end
     else
@@ -607,7 +603,7 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
         course = Course.find(product.course_id)
 
-        @current_user.increase_balance_ambassador('COMMEND', course)
+        @current_user.increase_balance_ambassador('COMMEND', course) unless @current_user[:ambassador]
         course.increase_balance_instructor(@current_user)
       end
 
