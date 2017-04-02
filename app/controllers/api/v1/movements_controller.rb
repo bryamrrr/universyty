@@ -396,7 +396,7 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
         course = Course.find(product.course_id)
 
-        user.increase_balance_ambassador('COMMEND', course) unless @current_user[:ambassador]
+        user.increase_balance_ambassador('COMMEND', course) unless user[:ambassador]
         course.increase_balance_instructor(user)
       end
     else
