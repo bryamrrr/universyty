@@ -10,6 +10,7 @@
           <th class="text-left">Detalle del pedido</th>
           <th class="text-left">Fecha de pedido</th>
           <th class="text-left">Estado</th>
+          <th class="text-left">Cancelar</th>
         </tr>
       </thead>
       <tbody>
@@ -28,7 +29,14 @@
             </span>
           </td>
           <td class="text-left">
-            <span>{{ outcome.status }}</span>
+            <span ng-class="{ 'color-red': outcome.status === 'No pagado' }" class="cursor-pointer" ng-click="finish(outcome)">
+              {{ outcome.status }}
+            </span>
+          </td>
+          <td>
+            <a href="javascript:void(0)" ng-click="cancel(outcome, $event)" class="btn button-ico">
+              <span class="helper"></span><i class="fa fa-times display-inline font-1em"></i>
+            </a>
           </td>
         </tr>
       </tbody>

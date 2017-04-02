@@ -461,7 +461,11 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
     user = User.find(movement[:user_id])
     bono = user.bonos.find(movement.bono_id)
-    bono.update_attribute(:description, "Retiro de dinero")
+    if user[:instructor]
+      bono.update_attribute(:description, "Retiro de dinero")
+    else
+      bono.update_attribute(:description, "Canje de Puntos")
+    end
   end
 
   def cancel_retire
@@ -471,10 +475,17 @@ class Api::V1::MovementsController < Api::V1::BaseController
     user = User.find(movement[:user_id])
     user.update_column(:balance, user[:balance] + movement[:total])
     bono = user.bonos.find(movement.bono_id)
-    bono.update_attribute(:description, "Retiro de dinero")
+    if user[:instructor]
+      bono.update_attribute(:description, "Retiro de dinero")
+      text = "Devolución de dinero"
+    else
+      bono.update_attribute(:description, "Canje de Puntos")
+      text = "Devolución de saldo"
+    end
+
     user.bonos.create(
-      name: "Devolución de saldo",
-      description: "Devolución de saldo",
+      name: text,
+      description: text,
       value: movement[:total]
     )
   end
