@@ -94,3 +94,33 @@
   clear: right;
   overflow-x: auto;
 }
+
+.ambassadors-title {
+  margin-bottom: 1.5em;
+  text-align: left;
+  .input-container {
+    display: inline-block;
+    position: relative;
+    width: 50%;
+    min-width: 300px;
+  }
+  input {
+    margin-top: 6px;
+    padding: .5em 1em;
+    width: 100%;
+  }
+  i {
+    position: absolute;
+    right: 10px;
+    top: 17px;
+    &:hover { cursor: pointer; }
+  }
+}
+
+.user-active {
+  float: right;
+  line-height: 45px;
+  span {
+    margin-left: 5px;
+  }
+}

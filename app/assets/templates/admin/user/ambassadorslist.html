@@ -1,0 +1,101 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <div class="ambassadors-title">
+      <div class="input-container">
+        <input type="text" ng-model="searchText" placeholder="Buscar embajador" />
+        <i class="fa fa-search" ng-click="searchAmbassador(searchText)"></i>
+      </div>
+      <div class="user-active" ng-show="member">
+        Activo: <span class="color-green" ng-show="user_active">Si</span><span class="color-red" ng-hide="user_active">No</span>
+      </div>
+    </div>
+    <div class="alert-container important mb-30" ng-show="member">
+      <i class="fa fa-warning"></i>
+      <span>El usuario '{{ user_nickname }}' es miembro de su equipo. Nivel: {{ user_level }}.</span>
+    </div>
+    <div class="alert-container important mb-30" ng-show="not_member">
+      <i class="fa fa-warning"></i>
+      <span>No existe el usuario '{{ user_nickname }}' en su equipo.</span>
+    </div>
+    <div class="table-container">
+    <table class="table td-bg">
+      <thead>
+        <tr>
+          <th class="text-left">Nivel</th>
+          <th class="text-left">Equipo de Embajadores</th>
+          <th class="text-left">Nº de activos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1º</td>
+          <td ui-sref="user.level({ nickname: nickname, level: 1 })"> <a href="#">{{ data.total[0] }}</a></td>
+          <td>{{ data.total_active[0] }}</td>
+        </tr>
+        <tr>
+          <td>2º</td>
+          <td ui-sref="user.level({ nickname: nickname, level: 2 })"><a href="#">{{ data.total[1] }}</a></td>
+          <td>{{ data.total_active[1] }}</td>
+        </tr>
+        <tr>
+          <td>3º</td>
+          <td ui-sref="user.level({ nickname: nickname, level: 3 })"><a href="#">{{ data.total[2] }}</a></td>
+          <td>{{ data.total_active[2] }}</td>
+        </tr>
+        <tr>
+          <td>4º</td>
+          <td ui-sref="user.level({ nickname: nickname, level: 4 })"><a href="#">{{ data.total[3] }}</a></td>
+          <td>{{ data.total_active[3] }}</td>
+        </tr>
+        <tr>
+          <td>5º</td>
+          <td ui-sref="user.level({ nickname: nickname, level: 5 })"><a href="#">{{ data.total[4] }}</a></td>
+          <td>{{ data.total_active[4] }}</td>
+        </tr>
+        <tr>
+          <td>6º</td>
+          <td ui-sref="user.level({ nickname: nickname, level: 6 })"><a href="#">{{ data.total[5] }}</a></td>
+          <td>{{ data.total_active[5] }}</td>
+        </tr>
+        <tr>
+          <td>7º</td>
+          <td ui-sref="user.level({ nickname: nickname, level: 7 })"><a href="#">{{ data.total[6] }}</a></td>
+          <td>{{ data.total_active[6] }}</td>
+        </tr>
+        <tr>
+          <td>8º</td>
+          <td ui-sref="user.level({ nickname: nickname, level: 8 })"><a href="#">{{ data.total[7] }}</a></td>
+          <td>{{ data.total_active[7] }}</td>
+        </tr>
+        <tr>
+          <td>9º</td>
+          <td ui-sref="user.level({ nickname: nickname, level: 9 })"><a href="#">{{ data.total[8] }}</a></td>
+          <td>{{ data.total_active[8] }}</td>
+        </tr>
+        <tr>
+          <td>10º</td>
+          <td ui-sref="user.level({ nickname: nickname, level: 10 })"><a href="#">{{ data.total[9] }}</a></td>
+          <td>{{ data.total_active[9] }}</td>
+        </tr>
+        <tr>
+          <td>TOTAL</td>
+          <td>{{ data.total_sum }}</td>
+          <td>{{ data.total_active_sum }}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="foot-note">
+      <ul>
+        <li><strong>* ACTIVO</strong>: Persona que ha pagado su mensualidad. El Embajador tiene que encontrarse activo para ser acreedor a todos los beneficios.</li>
+        <li><strong>* ACUMULA PUNTOS</strong>: Invita a todos tus amigos a registrarse, acumula puntos por sus compras y luego canjéalos por Cursos y/o Dinero. El Sistema de Puntuación es el siguiente:
+          <ul>
+            <li>- PUNTOS DE RECOMENDACIÓN.- Gana el 20% de comisión cada vez que tus invitados (registrados) compren Cursos/Diplomados.</li>
+            <li>- PUNTOS DE AMIGO.- Gana 10 puntos cuando tu amigo se registra como Embajador.</li>
+            <li>- PUNTOS DE EQUIPO.- Gana 1 punto por cada persona de tu Equipo de Embajadores que pague su mensualidad (hasta el 10° nivel). El 1° nivel está conformado por todos mis registrados directos, el 2° nivel está conformado por todo los registrados del 1° nivel y así sucesivamente.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

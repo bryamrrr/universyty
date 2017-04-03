@@ -299,6 +299,30 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
+    .state('user.ambassadorslist', {
+      url: '/:nickname/lista',
+      data: {
+        title: 'Embajadores'
+      },
+      views: {
+        'content@user': {
+          templateUrl: 'admin/user/ambassadorslist.html',
+          controller: 'UserAmbassadorsController'
+        }
+      }
+    })
+    .state('user.level', {
+      url: '/:nickname/lista/:level',
+      data: {
+        title: 'Embajadores'
+      },
+      views: {
+        'content@user': {
+          templateUrl: 'campus/ambassador/list-level.html',
+          controller: 'UserLevelController'
+        }
+      }
+    })
 
 
     // Finanzas

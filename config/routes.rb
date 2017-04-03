@@ -98,6 +98,7 @@ Rails.application.routes.draw do
       get 'teams/:nickname/ambassadors/:level', to: 'teams#ambassadors_by_level'
       get 'teams/view_teams', to: 'teams#view_teams'
       get 'teams/search/:text', to: 'teams#search'
+      get 'teams/search/:text/:nickname', to: 'teams#search_by_user'
 
       # Information
       get 'informations/show_welcome_image', to: 'informations#show_welcome_image'

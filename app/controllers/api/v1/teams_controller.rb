@@ -91,6 +91,30 @@ class Api::V1::TeamsController < Api::V1::BaseController
     end
   end
 
+  def search_by_user
+    user = User.find_by(nickname: params[:text], ambassador: true)
+    user = User.find_by(fullname: params[:text], ambassador: true) unless user
+
+    @current_user = User.find_by(nickname: params[:nickname])
+
+    if user
+      nickname = user[:nickname]
+      team = @current_user.teams.find_by(sponsored: nickname)
+
+      if team
+        render :json => {
+          nickname: nickname,
+          level: team[:level],
+          active: user[:ambassador_active]
+        }
+      else
+        render :json => { message: "Usuario no encontrado" }, status: :unprocessable_entity
+      end
+    else
+      render :json => { message: "Usuario no encontrado" }, status: :unprocessable_entity
+    end
+  end
+
   def index
     teams = @current_user.teams.where('updated_at BETWEEN ? AND ?', Date.current.beginning_of_month, Date.current.end_of_month).order(updated_at: :desc)
     count = @current_user.teams.where('updated_at BETWEEN ? AND ?', Date.current.beginning_of_month, Date.current.end_of_month).where(new: true).count

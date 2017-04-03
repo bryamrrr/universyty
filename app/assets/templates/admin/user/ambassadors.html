@@ -13,6 +13,7 @@
           <th class="thin-column">Usuario</th>
           <th class="text-left">Nombre del Embajador</th>
           <th class="text-left">Datos</th>
+          <th class="text-left">Embajadores</th>
           <th class="text-left">Fecha de registro</th>
           <th class="text-left">Estado</th>
           <th class="text-left">Bloqueado</th>
@@ -26,6 +27,11 @@
           <td class="text-left">{{ user.fullname }}</td>
           <td class="no-padding">
             <a ui-sref="user.edit({ nickname: user.nickname })" class="btn button-ico">
+              Ver
+            </a>
+          </td>
+          <td class="no-padding">
+            <a ui-sref="user.ambassadorslist({ nickname: user.nickname })" class="btn button-ico">
               Ver
             </a>
           </td>
