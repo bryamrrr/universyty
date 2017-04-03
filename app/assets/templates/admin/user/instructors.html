@@ -1,4 +1,7 @@
 <div class="card">
+  <div class="filter-combo-text">
+    <input type="text" ng-model="filter.text" placeholder="Buscar instructor" />
+  </div>
   <div class="full-container card card-padding">
     <div class="table-container">
     <table class="table td-bg">
@@ -14,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="user in users">
+        <tr ng-repeat="user in users | filter: filter.text">
           <td>{{ users.length - $index }}</td>
           <td class="text-left">{{ user.nickname }}</td>
           <td class="text-left">{{ user.fullname }}</td>

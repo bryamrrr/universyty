@@ -55,7 +55,8 @@
             <li>
               <a
               ui-sref="user.ambassadors"
-              ui-sref-active="active">
+              ui-sref-active="active"
+              ng-class="{ active: $state.is('user.ambassadorslist'), active: $state.is('user.level') }">
               Embajadores</a>
             </li>
             <li>
