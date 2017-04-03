@@ -584,7 +584,7 @@ class Api::V1::MovementsController < Api::V1::BaseController
       paymethod_id: 1,
       type_id: 2,
       status: "No pagado",
-      total: amount,
+      total: amount.to_i / 100,
       discount: discount,
       discount_value: discount_value
     )

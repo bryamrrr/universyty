@@ -103,17 +103,31 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
   end
 
   def update
+    puts params[:id]
     enrollment = Enrollment.find(params[:id])
+    course = enrollment.course
 
     partSended = Part.find(params[:data][:part_id])
-    partHere = Part.find(enrollment[:current_module])
+
+    if enrollment[:current_module].nil?
+      partHere = course.parts.find_by(number: 1)
+      enrollment.update_column(:current_module, partHere[:id])
+    else
+      partHere =  Part.find(enrollment[:current_module])
+    end
 
     if partSended[:number] >= partHere[:number]
       enrollment.update_column(:current_module, params[:data][:part_id])
-      if params[:data][:topic_id] > enrollment[:current_video]
-        enrollment.update_column(:current_video, params[:data][:topic_id])
+      if enrollment[:current_video].nil?
+        first_topic = partHere.topics.find_by(number: 1)
+        enrollment.update_column(:current_video, first_topic[:id])
+      else
+        if params[:data][:topic_id] > enrollment[:current_video]
+          enrollment.update_column(:current_video, params[:data][:topic_id])
+        end
       end
     end
+
     part = Part.find(enrollment[:current_module]) unless enrollment[:current_module].nil?
     video = Topic.find(enrollment[:current_video]) unless enrollment[:current_video].nil?
     render :json => {

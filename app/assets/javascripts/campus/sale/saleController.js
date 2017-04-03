@@ -26,7 +26,7 @@ function SaleController($scope, $cookies, $state, CookieService, SweetAlert, url
   }
 
   $scope.paymentMethod = '1';
-  $scope.plan_amount = parseInt($scope.cart.total * 100);
+  $scope.plan_amount = Math.round($scope.cart.total) * 100;
   $scope.payment_title = 'Pago de cursos';
   $scope.payment_description = 'Pago de cursos';
 
@@ -113,7 +113,8 @@ function SaleController($scope, $cookies, $state, CookieService, SweetAlert, url
         closeOnConfirm: true
       }, function(isConfirm){
         if (isConfirm) {
-          $state.go('ambassador.billing');
+          CookieService.remove('cart');
+          $state.go('user.payments');
         }
       });
     }

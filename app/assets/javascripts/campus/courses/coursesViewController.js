@@ -67,6 +67,7 @@ function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpReque
     var promise = HttpRequest.send('PUT', url, data);
 
     promise.then(function (response) {
+      console.log(response);
       $scope.enrollment = response.enrollment;
       currentVideo = response.video;
       currentModule = response.part;
@@ -77,7 +78,6 @@ function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpReque
   }
 
   function Enabletopics() {
-    console.log(currentModule);
     var numModule = currentModule.number;
     var numVideo = currentVideo.number;
     var i = 0, j = 0, k = 0;
