@@ -62,7 +62,8 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
         }
       }),
       part: part,
-      video: video
+      video: video,
+      grades: enrollment.grades
     }
   end
 

@@ -1,13 +1,16 @@
 angular.module("campus-app").controller("CoursesViewController", CoursesViewController);
 
-CoursesViewController.$inject = ['$scope', '$q', '$state', '$stateParams', 'urls', 'HttpRequest', 'CookieService'];
+CoursesViewController.$inject = ['$scope', '$q', '$state', '$stateParams', 'urls', 'HttpRequest', 'CookieService', 'SweetAlert'];
 
-function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpRequest, CookieService) {
+function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpRequest, CookieService, SweetAlert) {
+  $scope.requestCertificate = requestCertificate;
   $scope.idCourse = $stateParams.id;
   $scope.currentTab = 0;
   $scope.changeTab = changeTab;
   $scope.isTab = isTab;
   $scope.goTo = goTo;
+  $scope.filteredGrades = [[]];
+  $scope.totals = [0];
   var currentVideo, currentModule;
 
   var url = urls.BASE_API + '/courses/' + $scope.idCourse;
@@ -22,11 +25,13 @@ function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpReque
     $scope.course = response[0].course;
     $scope.parts = response[0].parts;
     $scope.enrollment = response[1].enrollment;
+    $scope.grades = response[1].grades;
     currentVideo = response[1].video;
     currentModule = response[1].part;
 
     findTopic();
     sendUpdate();
+    filterGrades();
 
     var $contenido = $('#contenido');
     $contenido.addClass("loaded");
@@ -38,7 +43,7 @@ function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpReque
     var i = 0;
     var j = 0;
     var topics = $scope.parts[0].topics;
-    if ($stateParams.topic === '0') {
+    if ($stateParams.topic === '0' || $stateParams.topic === '') {
       for (i; i < topics.length; i++) {
         if (topics[i].number === 1) {
           $scope.currentTopic = topics[i];
@@ -75,6 +80,33 @@ function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpReque
     }, function (error) {
       console.log(error);
     });
+  }
+
+  function filterGrades() {
+    var counterTimes = 0;
+    var counter = 0;
+    var sum = 0;
+    for (var i = 0; i < $scope.grades.length; i++) {
+      $scope.filteredGrades[counter].push($scope.grades[i].score);
+      $scope.totals[counter] += $scope.grades[i].score;
+
+      counterTimes++;
+
+      if ($scope.grades[i].score >= 14) {
+        $scope.totals[counter] = Math.round($scope.totals[counter] / counterTimes);
+        $scope.filteredGrades.push([]);
+        counter++;
+        counterTimes = 0;
+        if (i + 1 !== $scope.grades.length) $scope.totals.push(0);
+      }
+    }
+
+    for (var j = 0; j < $scope.totals.length; j++) {
+      sum += $scope.totals[j];
+    }
+
+    $scope.grade_total = Math.round(sum / $scope.totals.length);
+
   }
 
   function Enabletopics() {
@@ -126,6 +158,36 @@ function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpReque
       $state.go('courses.view', { id: params.id, topic: params.topic.id });
     } else if (thing === 'quiz' && params.part.enabled) {
       $state.go('courses.quiz', { id: params.id, part: params.part.id, number: params.number });
+    }
+  }
+
+  function requestCertificate() {
+    if ($scope.grade_total >= 14) {
+      SweetAlert.swal({
+        title: "Deseas obtener tu certificado?",
+        text: "La URL de tu certificado estara disponible en la sección CERTIFICADO",
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonClass: "button-ln",
+        confirmButtonClass: "button-bg primary",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      }, function(isConfirm){
+        if (isConfirm) {
+          // var url = urls.BASE_API + '/alternatives/' + id;
+          // var promise = HttpRequest.send("DELETE", url);
+          // promise.then(function(response) {
+          //   SweetAlert.swal("Listo!", "Hemos recibido tu solicitud; por favor, espéranos un máximo de 72 horas. ¡Gracias!", "success");
+          //   $state.reload();
+          // }, function(error) {
+          //   toastr.error("Hubo un error");
+          // });
+        } else {
+          SweetAlert.swal("Cancelado", "Se canceló la solicitud", "error");
+        }
+      });
     }
   }
 }

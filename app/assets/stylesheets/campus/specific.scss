@@ -91,3 +91,48 @@
   width: 80%;
   min-width: 100px;
 }
+
+.table-grades {
+  display: block;
+  thead {
+    background-color: #39A935;
+    color: white;
+    font-weight: bold;
+  }
+  td, th {
+    width: 110px;
+  }
+  td {
+    border: 1px solid black;
+  }
+  th {
+    border: 1px solid darken(#39A935, 10);
+  }
+  .grade-result {
+    color: #21127B;
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+  .grade-note {
+    color: #21127B;
+    font-weight: bold;
+    &.color-red {
+      color: red;
+    }
+  }
+  .grade-color {
+    color: #21127B;
+    &.color-red {
+      color: red;
+    }
+  }
+  .grade-approved {
+    font-size: 1.3em;
+    font-weight: bold;
+  }
+}
+
+.request-certificate {
+  margin-top: 20px;
+  max-width: 567px;
+}

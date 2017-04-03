@@ -19,9 +19,12 @@
             <i class="fa fa-circle" ng-show="topic.enabled"></i>
             <h5>{{ ($index + 1) + '. ' + topic.title }}</h5>
           </div>
-          <div class="part-topic" ng-click="goTo('quiz', { id: idCourse, part: part, number: part.number })">
+          <div class="part-topic" ng-hide="part.enabled">
             <i class="fa fa-lock" ng-hide="part.enabled"></i>
-            <i class="fa fa-circle" ng-show="part.enabled"></i>
+            <h5>Exámen módulo {{ $index + 1 }}</h5>
+          </div>
+          <div class="part-topic" ng-click="goTo('quiz', { id: idCourse, part: part, number: part.number })" ng-show="part.enabled">
+            <i class="fa fa-circle"></i>
             <h5>Exámen módulo {{ $index + 1 }}</h5>
           </div>
         </div>
@@ -83,50 +86,34 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr ng-repeat="part in parts">
             <td class="text-left">
-              1
+              {{ $index + 1 }}
             </td>
-            <td class="text-left">
-              14
+            <td class="grade-color" ng-class="{ 'color-red': filteredGrades[$index][0] < 14 }">
+              {{ filteredGrades[$index][0] }}
             </td>
-            <td class="text-left">
-              
+            <td class="grade-color" ng-class="{ 'color-red': filteredGrades[$index][1] < 14 }">
+              {{ filteredGrades[$index][1] }}
             </td>
-            <td class="text-left">
-              
+            <td class="grade-color" ng-class="{ 'color-red': filteredGrades[$index][2] < 14 }">
+              {{ filteredGrades[$index][2] }}
             </td>
-            <td class="text-left">
-              
+            <td class="grade-color" ng-class="{ 'color-red': totals[$index] < 14 }">
+              {{ totals[$index] }}
             </td>
           </tr>
           <tr>
-            <td class="text-left">
-              1
+            <td colspan="3" class="grade-result">
+              <span ng-show="grade_total >= 14">APROBADO</span>
+              <span ng-hide="grade_total >= 14" class="color-red">DESAPROBADO</span>
             </td>
-            <td class="text-left">
-              10
-            </td>
-            <td class="text-left">
-              10
-            </td>
-            <td class="text-left">
-              14
-            </td>
-            <td class="text-left">
-              14
-            </td>
-          </tr>
-          <tr>
-            <td colspan="3">
-              <span>APROBADO</span>
-              <!-- <span>DESAPROBADO</span> -->
-            </td>
-            <td>Promedio</td>
-            <td>14</td>
+            <td class="grade-approved">Promedio</td>
+            <td class="grade-note" ng-class="{ 'color-red': grade_total < 14 }">{{ grade_total }}</td>
           </tr>
         </tbody>
       </table>
+      <button class="request-certificate" ng-disabled="grade_total < 14" ng-click="requestCertificate()">Solicitar certificado</button>
     </article>
     <article class="course-certificate" ng-show="currentTab === 2">
       Certificado no disponible

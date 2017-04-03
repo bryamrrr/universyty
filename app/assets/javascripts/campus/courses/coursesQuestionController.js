@@ -133,6 +133,7 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
     promise.then(function (response) {
       $('.modal').remove();
       $state.go('courses.view', { id: $stateParams.id, topic: response.id });
+      CookieService.remove('quiz');
       $scope.isLoading = false;
     }, function (error) {
       console.log(error);

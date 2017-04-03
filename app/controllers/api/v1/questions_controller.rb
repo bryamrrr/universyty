@@ -7,12 +7,13 @@ class Api::V1::QuestionsController < Api::V1::BaseController
     enrollment = @current_user.enrollments.find_by(course_id: part[:course_id])
 
     if enrollment.grades.last
-      if (enrollment.grades.last[:exam] == 'Examen')
+      if (enrollment.grades.last[:exam] == 'Examen' && enrollment.grades.last[:score] < 14)
         next_exam = 'Aplazado'
-      elsif (enrollment.grades.last[:exam] == 'Sustitutorio')
+      elsif (enrollment.grades.last[:exam] == 'Sustitutorio' && enrollment.grades.last[:score] < 14)
         next_exam = 'No hay'
-      elsif (enrollment.grades.last[:exam] == 'Aplazado')
-        enrollment.grades.all.destroy_all
+      elsif (enrollment.grades.last[:exam] == 'Aplazado' && enrollment.grades.last[:score] < 14)
+      elsif (enrollment.grades.last[:score] > 14)
+        next_exam = 'Sustitutorio'
       end
     end
 
