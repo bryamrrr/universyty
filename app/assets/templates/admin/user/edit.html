@@ -14,14 +14,14 @@
           <label class="label basic" for="nickname">Usuario:</label>
         </div>
         <div class="form-input">
-          <input class="input" type="text" id="fullname" name="fullname" ng-model="user.fullname" disabled required />
+          <input class="input" type="text" id="fullname" name="fullname" ng-model="user.fullname" required />
           <div class="bar"></div>
           <label class="label basic" for="fullname">Nombres y Apellidos:</label>
         </div>
       </div>
       <div class="two-cols-form">
         <div class="form-input">
-          <input class="input" type="email" id="email" name="email" ng-model="user.email" disabled required />
+          <input class="input" type="email" id="email" name="email" ng-model="user.email" required />
           <div class="bar"></div>
           <label class="label basic" for="email">Email:</label>
         </div>
@@ -66,6 +66,18 @@
           <input class="input" type="text" id="sponsor" name="sponsor" disabled required />
           <div class="bar"></div>
           <label class="label basic" for="sponsor"><span> Invitado por {{user.sponsor}}</span></label>
+        </div>
+      </div>
+      <div class="two-cols-form">
+        <div class="form-input">
+          <input class="input" type="text" id="account" name="account" ng-model="user.bank_account" />
+          <div class="bar"></div>
+          <label class="label basic" for="account">Número de cuenta:</label>
+        </div>
+        <div class="form-input">
+          <input class="input" type="text" id="titular" name="titular" ng-model="user.bank_titular" />
+          <div class="bar"></div>
+          <label class="label basic" for="titular">Titular de la cuenta:</label>
         </div>
       </div>
       <div class="form-input">

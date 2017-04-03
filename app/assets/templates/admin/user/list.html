@@ -7,6 +7,7 @@
           <th class="thin-column">Número</th>
           <th class="thin-column">Usuario</th>
           <th class="text-left">Nombre del alumno</th>
+          <th class="text-left">Datos</th>
           <th class="text-left">Fecha de registro</th>
           <th class="text-left">Bloqueado</th>
           <th colspan="1">Bloquear</th>
@@ -17,6 +18,11 @@
           <td>{{ users.length - $index }}</td>
           <td class="text-left">{{ user.nickname }}</td>
           <td class="text-left">{{ user.fullname }}</td>
+          <td class="no-padding">
+            <a ui-sref="user.edit({ nickname: user.nickname })" class="btn button-ico">
+              Ver
+            </a>
+          </td>
           <td class="text-left">{{ user.created_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ user.created_at | date:'H:mm' }}</td>
           <td class="text-left">
             <span ng-show="user.block">Si</span>

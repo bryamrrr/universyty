@@ -287,6 +287,18 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
+    .state('user.edit', {
+      url: '/edicion/:nickname',
+      data: {
+        title: 'Datos'
+      },
+      views: {
+        'content@user': {
+          templateUrl: 'admin/user/edit.html',
+          controller: 'UserEditController'
+        }
+      }
+    })
 
 
     // Finanzas

@@ -250,7 +250,9 @@ class Api::V1::UsersController < Api::V1::BaseController
       :province_id,
       :gender,
       :account,
+      :bank_account,
       :titular,
+      :bank_titular,
       :city
     )
   end
