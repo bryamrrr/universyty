@@ -1,10 +1,118 @@
-<div class="align-center">
-  <br>
-  <br>
-  <br>
-  <i class="fa fa-bullhorn fa-3x"></i>
-  <br>
-  <br>
-  <h1>En construcción</h1>
-  <p>Finanzas / Contingencia</p>
+<div class="contingency">
+  <div class="flex-container">
+    <div class="contingency-container">
+      <h2>Inyectar saldo</h2>
+      <form ng-submit="goInject(form, inject)" name="form" novalidate ng-validate="injectOptions">
+        <div class="form-group">
+          <label for="injectuser">Usuario:</label>
+          <input type="text" ng-model="inject.user" name="injectuser" id="injectuser" />
+        </div>
+        <div class="form-group">
+          <label for="injectamount">Monto:</label>
+          <input type="text" ng-model="inject.amount" name="injectamount" id="injectamount" />
+        </div>
+        <button type="submit" ng-disabled="injectLoading">
+          ¡Inyectar!
+          <div class="loader-wrapper" ng-show="injectLoading">
+            <div class="loader-circles" id="loader">Loading...</div>
+          </div>
+        </button>
+      </form>
+    </div>
+
+    <div class="contingency-container">
+      <h2>Extraer saldo</h2>
+      <form ng-submit="goExtract(form, extract)" name="form" novalidate ng-validate="extractOptions">
+        <div class="form-group">
+          <label for="extractuser">Usuario:</label>
+          <input type="text" ng-model="extract.user" name="extractuser" id="extractuser" />
+        </div>
+        <div class="form-group">
+          <label for="extractamount">Monto:</label>
+          <input type="text" ng-model="extract.amount" name="extractamount" id="extractamount" />
+        </div>
+        <button type="submit" ng-disabled="extractLoading">
+          ¡Extraer!
+          <div class="loader-wrapper" ng-show="extractLoading">
+            <div class="loader-circles" id="loader">Loading...</div>
+          </div>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab tab-1" ng-class="{ selected: tabSelected === 0 }"
+    ng-click="tabSelected = 0">Historial de inyección de saldo</div>
+    <div class="tab tab-2" ng-class="{ selected: tabSelected === 1 }" ng-click="tabSelected = 1">Historial de extracción de saldo</div>
+  </div>
+
+  <div class="ambassadors-title">
+    <div class="input-container">
+      <input type="text" ng-model="searchText" placeholder="Buscar alumno" />
+      <i class="fa fa-search"></i>
+    </div>
+  </div>
+
+  <div class="table-container" ng-show="tabSelected === 0">
+  <table class="table td-bg">
+    <thead>
+      <tr>
+        <th class="thin-column">Nº</th>
+        <th class="text-left">Nombre del alumno</th>
+        <th class="text-left">Usuario</th>
+        <th class="text-left">Fecha</th>
+        <th class="text-left">Monto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="inject in injects">
+        <td class="text-left">
+          {{ injects.length - $index }}
+        </td>
+        <td class="text-left">
+          {{ inject.user.fullname }}
+        </td>
+        <td class="text-left">
+          {{ inject.user.nickname }}
+        </td>
+        <td class="text-left">{{ inject.created_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ inject.created_at | date:'H:mm' }}</td>
+        <td class="text-left">
+          {{ inject.value | number: 0 }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="table-container" ng-hide="tabSelected === 0">
+  <table class="table td-bg">
+    <thead>
+      <tr>
+        <th class="thin-column">Nº</th>
+        <th class="text-left">Nombre del alumno</th>
+        <th class="text-left">Usuario</th>
+        <th class="text-left">Fecha</th>
+        <th class="text-left">Monto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="extract in extracts">
+        <td class="text-left">
+          {{ extracts.length - $index }}
+        </td>
+        <td class="text-left">
+          {{ extract.user.fullname }}
+        </td>
+        <td class="text-left">
+          {{ extract.user.nickname }}
+        </td>
+        <td class="text-left">{{ extract.created_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ extract.created_at | date:'H:mm' }}</td>
+        <td class="text-left">
+          {{ extract.value | number: 0 }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
 </div>

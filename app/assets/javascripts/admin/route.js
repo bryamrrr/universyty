@@ -387,7 +387,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
-    .state('user.contingency', {
+    .state('financial.contingency', {
       url: '/contingencia',
       data: {
         title: 'Contingencia'

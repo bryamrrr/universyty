@@ -109,6 +109,8 @@ Rails.application.routes.draw do
       put 'informations/update_welcome_image', to: 'informations#update_welcome_image'
 
       resources :bonos, only: [:index]
+      get 'bonos/contingency', to: 'bonos#contingency_list'
+      post 'bonos/contingency', to: 'bonos#contingency_change'
     end
   end
 end

@@ -161,3 +161,49 @@ table tr .img-link a {
   padding: .4em 1.5em;
   width: auto;
 }
+
+.contingency {
+  .flex-container {
+    justify-content: center;
+  }
+
+  .contingency-container {
+    background-color: white;
+    margin-right: 2em;
+    h2 {
+      background-color: $purple;
+      color: white;
+      text-align: center;
+      font-size: 1.1em;
+      font-weight: bold;
+      padding: .5em;
+      margin-bottom: 0;
+    }
+    form {
+      padding: 2em;
+    }
+    label {
+      display: inline-block;
+      width: 55px;
+    }
+    .form-group {
+      margin-bottom: 1em;
+    }
+    &:last-of-type { margin-right: 0; }
+  }
+
+  .tabs {
+    background-color: white;
+    display: flex;
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+  .tab {
+    flex-basis: 50%;
+    text-align: center;
+    font-weight: bold;
+    padding: .5em;
+    &.selected { background-color: lighten($gray, 50); }
+    &:hover { cursor: pointer; }
+  }
+}
