@@ -20,11 +20,6 @@ function SaleController($scope, $cookies, $state, CookieService, SweetAlert, url
   var cart = $cookies.get('cart');
   if (cart) $scope.cart = JSON.parse(cart);
 
-  if (ambassador === 'true' && $scope.ambassador_active === 'true') {
-    $scope.cart.discount = .2 * $scope.cart.total;
-    $scope.cart.total = .8 * $scope.cart.total;
-  }
-
   $scope.paymentMethod = '1';
   $scope.plan_amount = Math.round($scope.cart.total) * 100;
   $scope.payment_title = 'Pago de cursos';

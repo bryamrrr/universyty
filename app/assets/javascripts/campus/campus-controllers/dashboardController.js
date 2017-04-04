@@ -161,7 +161,7 @@ function DashboardController($scope, $q, $state, $stateParams, $cookies,  Cookie
   }
 
   function updateCartCookie(cart) {
-    if ($scope.ambassador === 'true') {
+    if ($scope.ambassador === 'true' && $scope.ambassador_active === 'true') {
       $scope.cart.discount = .2 * $scope.cart.total;
       $scope.cart.total = .8 * $scope.cart.total;
     }
