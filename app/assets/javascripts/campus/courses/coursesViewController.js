@@ -1,17 +1,22 @@
 angular.module("campus-app").controller("CoursesViewController", CoursesViewController);
 
-CoursesViewController.$inject = ['$scope', '$q', '$state', '$stateParams', 'urls', 'HttpRequest', 'CookieService', 'SweetAlert'];
+CoursesViewController.$inject = ['$scope', '$location', '$q', '$state', '$stateParams', 'urls', 'HttpRequest', 'CookieService', 'SweetAlert'];
 
-function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpRequest, CookieService, SweetAlert) {
+function CoursesViewController($scope, $location, $q, $state, $stateParams, urls, HttpRequest, CookieService, SweetAlert) {
   $scope.requestCertificate = requestCertificate;
   $scope.idCourse = $stateParams.id;
-  $scope.currentTab = 0;
   $scope.changeTab = changeTab;
   $scope.isTab = isTab;
   $scope.goTo = goTo;
   $scope.filteredGrades = [[]];
   $scope.totals = [0];
   var currentVideo, currentModule;
+
+  if ($location.$$search.notas) {
+    $scope.currentTab = 1;
+  } else {
+    $scope.currentTab = 0;
+  }
 
   var url = urls.BASE_API + '/courses/' + $scope.idCourse;
   var promise = HttpRequest.send('GET', url);
@@ -72,7 +77,6 @@ function CoursesViewController($scope, $q, $state, $stateParams, urls, HttpReque
     var promise = HttpRequest.send('PUT', url, data);
 
     promise.then(function (response) {
-      console.log(response);
       $scope.enrollment = response.enrollment;
       currentVideo = response.video;
       currentModule = response.part;

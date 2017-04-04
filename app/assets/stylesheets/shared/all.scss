@@ -115,6 +115,13 @@
     top: 17px;
     &:hover { cursor: pointer; }
   }
+
+  h2 {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 20px;
+    line-height: 50px;
+  }
 }
 
 .user-active {
@@ -123,4 +130,34 @@
   span {
     margin-left: 5px;
   }
+}
+
+.img-table {
+  margin-right: 10px;
+  width: 80px;
+}
+
+.img-title {
+  vertical-align: top;
+}
+
+table tr .img-link a {
+  border-bottom: 0;
+  &:hover { text-decoration: none; }
+}
+.img-link {
+  &.color-red a {
+    text-decoration: none;
+    color: red;
+  }
+  &.color-purple a {
+    text-decoration: none;
+    color: $purple;
+  }
+}
+
+.certificate-button-see {
+  font-size: .9em;
+  padding: .4em 1.5em;
+  width: auto;
 }

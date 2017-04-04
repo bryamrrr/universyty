@@ -91,6 +91,7 @@ Rails.application.routes.draw do
       post 'enrollments/update_grade_course/:id', to: 'enrollments#update_grade_course'
       get 'enrollments/repeat_course/:id', to: 'enrollments#repeat_course'
       get 'enrollments/next_module/:id', to: 'enrollments#next_module'
+      get 'enrollments/find_completed', to: 'enrollments#find_completed'
 
       resources :teams, only: [:index]
       get 'teams/:nickname/students', to: 'teams#students'

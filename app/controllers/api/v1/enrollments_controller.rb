@@ -67,11 +67,29 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
     }
   end
 
+  def find_completed
+    enrollments = @current_user.enrollments.where(finished: true).order(created_at: :desc)
+    render :json => enrollments.as_json(
+      :include => {
+        :course => {}
+      }
+    )
+  end
+
   def update_grade_course
     enrollment = @current_user.enrollments.find_by(course_id: params[:id])
 
     if enrollment
+      part = Part.find(params[:data][:part])
+      number = part[:number] + 1
+
       score = enrollment.grades.create(part_id: params[:data][:part], score: params[:data][:grade], user_id: @current_user.id, exam: params[:data][:exam])
+
+      unless enrollment.course.parts.find_by(number: number)
+        enrollment.update_column(:finished, true)
+        enrollment.calcGrade()
+      end
+
       render :json => score.to_json
     end
   end
