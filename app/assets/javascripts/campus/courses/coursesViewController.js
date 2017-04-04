@@ -180,14 +180,13 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
         closeOnCancel: false
       }, function(isConfirm){
         if (isConfirm) {
-          // var url = urls.BASE_API + '/alternatives/' + id;
-          // var promise = HttpRequest.send("DELETE", url);
-          // promise.then(function(response) {
-          //   SweetAlert.swal("Listo!", "Hemos recibido tu solicitud; por favor, espéranos un máximo de 72 horas. ¡Gracias!", "success");
-          //   $state.reload();
-          // }, function(error) {
-          //   toastr.error("Hubo un error");
-          // });
+          var url = urls.BASE_API + '/enrollments/' + $scope.enrollment.id + '/request_certificate';
+          var promise = HttpRequest.send("GET", url);
+          promise.then(function(response) {
+            SweetAlert.swal("Listo!", "Hemos recibido tu solicitud; por favor, espéranos un máximo de 72 horas. ¡Gracias!", "success");
+          }, function(error) {
+            toastr.error("Hubo un error");
+          });
         } else {
           SweetAlert.swal("Cancelado", "Se canceló la solicitud", "error");
         }

@@ -7,9 +7,9 @@ function CoursesGradesController($scope, urls, HttpRequest) {
   var promise = HttpRequest.send('GET', url);
 
   promise.then(function (response) {
-    console.log(response);
     var $contenido = $('#contenido');
     $contenido.addClass("loaded");
+
     $scope.enrollments = response;
   }, function (error) {
     console.log(error);

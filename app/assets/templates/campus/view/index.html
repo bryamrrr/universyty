@@ -116,7 +116,8 @@
       <button class="request-certificate" ng-disabled="grade_total < 14" ng-click="requestCertificate()">Solicitar certificado</button>
     </article>
     <article class="course-certificate" ng-show="currentTab === 2">
-      Certificado no disponible
+      <a ng-href="{{ enrollment.certificate_url }}" ng-show="enrollment.certificate_url !== null" target="_blank">Ver certificado</a>
+      <span ng-hide="enrollment.certificate_url !== null">Certificado no disponible</span>
     </article>
   </section>
 </div>

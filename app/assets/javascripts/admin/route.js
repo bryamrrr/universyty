@@ -191,12 +191,24 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('courses.categoryedit', {
       url: '/categorias/:id',
       data: {
-        title: 'Editar Categría'
+        title: 'Editar Categoría'
       },
       views: {
         'content@courses': {
           templateUrl: 'admin/courses/category-edit.html',
           controller: 'CategoryEditController'
+        }
+      }
+    })
+    .state('courses.certificates', {
+      url: '/certificados',
+      data: {
+        title: 'Certificados'
+      },
+      views: {
+        'content@courses': {
+          templateUrl: 'admin/courses/certificates.html',
+          controller: 'CertificatesController'
         }
       }
     })

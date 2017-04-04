@@ -163,4 +163,26 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
       video: video
     }
   end
+
+  def request_certificate
+    enrollment = Enrollment.find(params[:id])
+    enrollment.update_column(:certificate_requested, true)
+    render :json => { :message => "Pedido realizado" }, status: :ok
+  end
+
+  def certificates_requested
+    enrollments = Enrollment.where(finished: true, certificate_requested: true).order(created_at: :desc)
+    render :json => enrollments.as_json(
+      :include => {
+        :course => {},
+        :user => {}
+      }
+    )
+  end
+
+  def update_certificate
+    enrollment = Enrollment.find(params[:id])
+    enrollment.update_column(:certificate_url, params[:data][:certificate_url])
+    render :json => { :message => "Certificado actualizado" }, status: :ok
+  end
 end

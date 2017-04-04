@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <table class="table td-bg">
+      <thead>
+        <tr>
+          <th class="text-left">Nombre del alumno</th>
+          <th class="text-left">Usuario</th>
+          <th class="text-left">Condición</th>
+          <th class="text-left">Curso</th>
+          <th class="text-left">Nota</th>
+          <th class="text-left">Certificado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="enrollment in enrollments">
+          <td class="text-left">{{ enrollment.user.fullname }}</td>
+          <td class="text-left">{{ enrollment.user.nickname }}</td>
+          <td class="text-left">
+            <span ng-show="enrollment.user.ambassador">Embajador</span>
+            <span ng-hide="enrollment.user.ambassador">Cliente</span>
+          </td>
+          <td class="text-left">{{ enrollment.course.title }}</td>
+          <td class="text-left">{{ enrollment.first_score }}</td>
+          <td class="text-left">
+            <input type="text" ng-model="enrollment.certificate_url" placeholder="Certificado requerido" />
+            <button ng-click="updateCertificate(enrollment)" class="certificate-button-see">Guardar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
