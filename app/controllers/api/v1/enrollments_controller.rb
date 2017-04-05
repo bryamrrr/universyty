@@ -164,6 +164,18 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
     }
   end
 
+  def free
+    course = Course.find(params[:id])
+    enrollment = Enrollment.find_by(course_id: course[:id], user_id: @current_user[:id])
+
+    if course[:free] && enrollment.nil?
+      @current_user.enrollments.create(course_id: params[:id])
+      render :json => { message: "Curso agregado a Mis Cursos" }, status: :ok
+    else
+      render :json => { errors: "Ya tienes este curso" }
+    end
+  end
+
   def request_certificate
     enrollment = Enrollment.find(params[:id])
     enrollment.update_column(:certificate_requested, true)

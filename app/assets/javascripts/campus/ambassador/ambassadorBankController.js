@@ -1,8 +1,8 @@
 angular.module("campus-app").controller("AmbassadorBankController", AmbassadorBankController);
 
-AmbassadorBankController.$inject = ['$scope', 'urls', 'HttpRequest', 'CookieService', 'validators'];
+AmbassadorBankController.$inject = ['$scope', '$state', 'urls', 'HttpRequest', 'CookieService', 'validators'];
 
-function AmbassadorBankController($scope, urls, HttpRequest, CookieService, validators) {
+function AmbassadorBankController($scope, $state, urls, HttpRequest, CookieService, validators) {
   $scope.updateBank = updateBank;
 
   var url = urls.BASE_API + '/users/' + CookieService.read("nickname");
@@ -12,6 +12,7 @@ function AmbassadorBankController($scope, urls, HttpRequest, CookieService, vali
     $scope.user = response;
 
     $scope.fullname = angular.copy($scope.user.fullname);
+    if (angular.copy($scope.user.bank_titular) !== null && angular.copy($scope.user.bank_account) !== null) $scope.disableButton = true;
 
     var $contenido = $('#contenido');
     $contenido.addClass("loaded");
@@ -34,6 +35,7 @@ function AmbassadorBankController($scope, urls, HttpRequest, CookieService, vali
     promise.then(function (response) {
       toastr.success(response.message);
       $scope.isLoading = false;
+      $state.reload();
     }, function(error) {
       toastr.error(error.message);
       $scope.isLoading = false;

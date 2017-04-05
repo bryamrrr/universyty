@@ -86,6 +86,7 @@ Rails.application.routes.draw do
       get 'movements/outcomes', to: 'movements#outcomes'
 
       resources :enrollments, only: [:destroy, :update]
+      get 'enrollments/free/:id', to: 'enrollments#free'
       get 'enrollments/users/:id', to: 'enrollments#find_by_user'
       get 'enrollments/courses/:id', to: 'enrollments#find_by_course'
       post 'enrollments/update_grade_course/:id', to: 'enrollments#update_grade_course'

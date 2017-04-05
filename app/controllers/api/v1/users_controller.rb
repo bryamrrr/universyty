@@ -96,6 +96,7 @@ class Api::V1::UsersController < Api::V1::BaseController
               :role => { }
             }
           )}
+        user.update_column(:login_attempts, 0)
         if user.first_entry === false
           user.update_column(:first_entry, true)
         end

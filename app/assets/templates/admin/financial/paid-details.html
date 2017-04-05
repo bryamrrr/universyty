@@ -12,6 +12,9 @@
       </div>
     </article>
   </div>
+  <div class="cart-discount" ng-if="cart.discount">
+    Descuento: - S/ {{ cart.discount_applied | number: 0 }}
+  </div>
   <div class="cart-footer">
     <div class="cart-total">
       <span>TOTAL:</span>

@@ -8,7 +8,7 @@
     </div><!--
     --><div class="sales">
       <p>Puedes acceder a este curso con Tarjeta (crédito o débito), Depósito (Agente BCP) y Puntos</p>
-      <button ng-click="addToCart(course)"><i class="fa fa-shopping-cart"></i> ¡Quiero este curso!</button>
+      <button ng-click="addToCart(course)"><i class="fa fa-shopping-cart"></i> ¡Quiero este curso! <span ng-hide="course.free">S/ {{ course.pricetag | number: 0 }}</span> <span ng-show="course.free">Gratis</span></button>
     </div>
   </div>
 
@@ -90,8 +90,8 @@
   </div>
 
   <div class="info-section">
-    <h3 ng-if="course.professor.length === 1">Sobre el instructor:</h3>
-    <h3 ng-if="course.professor.length !== 1">Sobre los instructores:</h3>
+    <h3 ng-if="course.professors.length === 1">Sobre el instructor:</h3>
+    <h3 ng-if="course.professors.length !== 1">Sobre los instructores:</h3>
 
     <article class="professor-card" ng-repeat="professor in course.professors">
       <figure>

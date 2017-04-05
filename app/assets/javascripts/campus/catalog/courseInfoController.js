@@ -1,8 +1,8 @@
 angular.module("campus-app").controller("CourseInfoController", CourseInfoController);
 
-CourseInfoController.$inject = ['$scope', '$stateParams', 'urls', 'CookieService', 'HttpRequest'];
+CourseInfoController.$inject = ['$scope', '$stateParams', 'urls', 'CookieService', 'HttpRequest', 'toastr'];
 
-function CourseInfoController($scope, $stateParams, urls, CookieService, HttpRequest) {
+function CourseInfoController($scope, $stateParams, urls, CookieService, HttpRequest, toastr) {
   $scope.addToCart = addToCart;
 
   var url = urls.BASE_API + '/courses/' + $stateParams.id;
@@ -21,13 +21,31 @@ function CourseInfoController($scope, $stateParams, urls, CookieService, HttpReq
   });
 
   function addToCart(course) {
-    var item = {
-      id: course.id,
-      title: course.title,
-      pricetag: course.pricetag
-    };
+    if (course.free) {
+      var url = urls.BASE_API + '/enrollments/free/' + course.id;
+      var promise = HttpRequest.send("GET", url);
 
-    $scope.$parent.cart.addItem(item);
+      promise.then(function (response) {
+        if (response.errors) {
+          toastr.error(response.errors);
+        } else {
+          toastr.success(response.message);
+        }
+
+        var $contenido = $('#contenido');
+        $contenido.addClass("loaded");
+      }, function(error) {
+        toastr.error("Hubo un error");
+      });
+    } else {
+      var item = {
+        id: course.id,
+        title: course.title,
+        pricetag: course.pricetag
+      };
+
+      $scope.$parent.cart.addItem(item);
+    }
   }
 
   function getProfessors() {

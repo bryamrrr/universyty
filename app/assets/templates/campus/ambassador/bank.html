@@ -24,7 +24,7 @@
           <label class="label basic" for="titular"><span> Titular de la cuenta</span></label>
         </div>
         <div class="form-input">
-          <button type="submit" ng-disabled="isLoading">
+          <button type="submit" ng-disabled="isLoading || disableButton">
             GUARDAR CAMBIOS
             <div class="loader-wrapper" ng-show="isLoading">
               <div class="loader-circles" id="loader">Loading...</div>

@@ -32,6 +32,8 @@ function WelcomeImageController($scope, urls, HttpRequest) {
   function edit(form, image) {
     if (!form.validate()) return false;
 
+    if (image.link_url === undefined) image.link_url = null;
+
     var url = urls.BASE_API + '/informations/update_welcome_image';
     var promise = HttpRequest.send("PUT", url, image);
 

@@ -28,6 +28,7 @@ function IncomeController($scope, urls, HttpRequest, $uibModal) {
       templateUrl: 'admin/financial/paid-details.html',
       controller: ['$scope', function($scope) {
         $scope.cart = payment;
+        if (payment.discount) $scope.cart.discount_applied = $scope.cart.total / 5;
       }],
       size: size,
       appendTo: parentElem

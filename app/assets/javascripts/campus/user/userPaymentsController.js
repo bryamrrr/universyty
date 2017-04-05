@@ -36,7 +36,7 @@ function UserPaymentsController($scope, $state, $q, $uibModal, $document, urls, 
       templateUrl: 'campus/user/payment-details.html',
       controller: ['$scope', function($scope) {
         $scope.cart = payment;
-        if (payment.discount) $scope.cart.discount_applied = $scope.cart.total / 4;
+        if (payment.discount) $scope.cart.discount_applied = $scope.cart.total / 5;
       }],
       size: size,
       appendTo: parentElem
