@@ -52,7 +52,7 @@ function UserEditController($scope, $stateParams, $q, urls, CookieService, HttpR
 
     $scope.isLoading = true;
 
-    var url = urls.BASE_API + '/users/' + CookieService.read("nickname");
+    var url = urls.BASE_API + '/users/' + $stateParams.nickname;
     var promise = HttpRequest.send("PUT", url, user);
 
     promise.then(function (response) {
