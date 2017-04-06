@@ -66,7 +66,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="inject in injects">
+      <tr ng-repeat="inject in injects | filter: searchText">
         <td class="text-left">
           {{ injects.length - $index }}
         </td>
@@ -97,7 +97,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="extract in extracts">
+      <tr ng-repeat="extract in extracts | filter: searchText">
         <td class="text-left">
           {{ extracts.length - $index }}
         </td>

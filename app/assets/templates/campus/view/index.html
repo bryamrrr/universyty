@@ -57,8 +57,8 @@
         </div>
 
         <div class="info-section">
-          <h3 ng-if="course.professors.count == 1">Sobre el profesor:</h3>
-          <h3 ng-if="course.professors.count > 1">Sobre los profesores:</h3>
+          <h3 ng-if="course.professors.length == 1">Sobre el profesor:</h3>
+          <h3 ng-if="course.professors.length > 1">Sobre los profesores:</h3>
 
           <div ng-repeat="professor in course.professors">
             <article class="professor-card">
