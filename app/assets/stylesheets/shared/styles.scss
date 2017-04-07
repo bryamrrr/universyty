@@ -137,9 +137,9 @@ button, input[type=submit], .button {
 
 button[disabled] {
   cursor: default;
-  border: 3px solid $light-gray;
-  background-color: white;
-  color: #d7d7d7;
+  border: 3px solid lighten(#B1B1B1, 20);
+  background-color: lighten(#B1B1B1, 20);
+  color: #262100;
   &:hover {
     transform: scale(1);
   }

@@ -5,15 +5,19 @@
     <table class="table td-bg">
       <thead>
         <tr>
+          <th class="thin-column">Número</th>
           <th class="thin-column">Nombre</th>
           <th class="text-left">Categoría</th>
           <th class="text-left">Estado</th>
           <th class="text-left">Instructor</th>
+          <th class="text-left">Fecha de publicación</th>
+          <th class="text-left">Cantidad de Alumnos</th>
           <th colspan="5">Administrar</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="course in courses">
+          <td class="text-left">{{ courses.length - $index }}</td>
           <td class="text-left">{{ course.title }}</td>
           <td class="text-left">{{ course.category.name }}</td>
           <td class="text-left">
@@ -23,6 +27,12 @@
           <td class="text-left">
             <span ng-if="course.user">{{ course.user.nickname }}</span>
             <span ng-if="!course.user">-</span>
+          </td>
+          <td>
+            {{ course.created_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ course.created_at | date:'H:mm' }}
+          </td>
+          <td>
+            {{ course.enrollments.length }}
           </td>
           <td class="no-padding">
             <a href="javascript:void(0)" ng-click="coursePublish(course.id, $event)" class="btn button-ico">

@@ -103,7 +103,7 @@
       </div>
     </article>
   </div>
-  <button ng-click="addToCart(course)"><i class="fa fa-shopping-cart"></i> ¡Quiero este curso!</button>
+  <button ng-click="addToCart(course)"><i class="fa fa-shopping-cart"></i> ¡Quiero este curso! <span ng-hide="course.free">S/ {{ course.pricetag | number: 0 }}</span> <span ng-show="course.free">Gratis</span></button>
   </div>
 </section>
 </div>

@@ -413,17 +413,15 @@ class Api::V1::MovementsController < Api::V1::BaseController
       end
 
       if user.is_ambassador?
-        puts "<===== El usuario SI es embajador =====>"
         user.increase_balance_ambassador('MONTHLY_PAY')
       else
-        puts "<===== El usuario NO es embajador AUN =====>"
         user.increase_balance_ambassador('NEW_AMBASSADOR')
       end
 
       user.update_column(:ambassador, true)
       user.update_column(:ambassador_active, true)
     end
-    movement.update_column(:status, "Pagado")
+    movement.update_attribute(:status, "Pagado")
     render :json => { :message => "Pago realizado con éxito" } and return
   end
 

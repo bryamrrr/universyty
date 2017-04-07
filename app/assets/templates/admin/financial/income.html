@@ -9,6 +9,7 @@
           <th class="text-left">Usuario</th>
           <th class="text-left">Detalle del pedido</th>
           <th class="text-left">Fecha de pedido</th>
+          <th class="text-left">Fecha de pago</th>
           <th class="text-left">Modo de pago</th>
         </tr>
       </thead>
@@ -24,6 +25,11 @@
           <td class="text-left">
             <span>
               {{ payment.created_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ payment.created_at | date:'H:mm' }}
+            </span>
+          </td>
+          <td class="text-left">
+            <span>
+              {{ payment.updated_at | date:'dd/MM/yyyy' }} &nbsp;&nbsp;&nbsp; {{ payment.updated_at | date:'H:mm' }}
             </span>
           </td>
           <td class="text-left">

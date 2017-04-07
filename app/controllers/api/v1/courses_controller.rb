@@ -7,7 +7,8 @@ class Api::V1::CoursesController < Api::V1::BaseController
     render :json => @courses.to_json(:include => {
       :category => {},
       :professors => {},
-      :user => {}
+      :user => {},
+      :enrollments => {}
       })
   end
 
@@ -126,9 +127,9 @@ class Api::V1::CoursesController < Api::V1::BaseController
     course = Course.find(params[:id])
 
     if course.published
-      course.update_column(:published, false)
+      course.update_attribute(:published, false)
     else
-      course.update_column(:published, true)
+      course.update_attribute(:published, true)
     end
 
     render :json => { :message => "Curso actualizado" }

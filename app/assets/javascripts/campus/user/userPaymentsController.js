@@ -35,8 +35,14 @@ function UserPaymentsController($scope, $state, $q, $uibModal, $document, urls, 
       ariaDescribedBy: 'modal-body',
       templateUrl: 'campus/user/payment-details.html',
       controller: ['$scope', function($scope) {
+        var total = 0;
         $scope.cart = payment;
-        if (payment.discount) $scope.cart.discount_applied = $scope.cart.total / 5;
+        if (payment.discount) {
+          for (var i = 0; i < payment.products.length; i++) {
+            total += parseInt(payment.products[i].pricetag);
+          }
+          $scope.cart.discount_applied = total - payment.total;
+        }
       }],
       size: size,
       appendTo: parentElem
