@@ -11,7 +11,7 @@ function SaleController($scope, $cookies, $state, CookieService, SweetAlert, url
 
   $scope.fullname = localStorage.getItem('fullname');
   $scope.dni = CookieService.read('dni');
-  $scope.address = CookieService.read('address');
+  $scope.address = localStorage.getItem('address');
   $scope.city = localStorage.getItem('city');
   $scope.token = CookieService.read('token');
   var ambassador = CookieService.read('ambassador');

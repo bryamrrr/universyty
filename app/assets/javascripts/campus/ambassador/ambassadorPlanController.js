@@ -12,7 +12,7 @@ function AmbassadorPlanController($scope, $cookies, $state, CookieService, Sweet
 
   $scope.fullname = localStorage.getItem('fullname');
   $scope.dni = CookieService.read('dni');
-  $scope.address = CookieService.read('address');
+  $scope.address = localStorage.getItem('address');
   $scope.city = localStorage.getItem('city');
   $scope.token = CookieService.read('token');
   var nickname = CookieService.read('nickname');

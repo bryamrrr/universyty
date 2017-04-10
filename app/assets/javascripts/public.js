@@ -207,7 +207,7 @@ $(document).on('turbolinks:load', function () {
         putCookie("token", data.token);
         putCookie("first_entry", data.user.first_entry);
         localStorage.setItem('city', city);
-        putCookie("address", data.user.address);
+        localStorage.setItem('address', data.user.address);
         localStorage.setItem('fullname', data.user.fullname);
         putCookie("dni", data.user.dni);
         putCookie("ambassador", data.user.ambassador);
