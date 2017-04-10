@@ -11,7 +11,7 @@
     <div class="parts-container">
       <article ng-repeat="part in parts">
         <div class="part-header">
-          <h4>{{ part.title }}</h4>
+          <h4>Módulo Nº {{ part.number }}: {{ part.title }}</h4>
         </div>
         <div class="part-body">
           <div class="part-topic" ng-repeat="topic in part.topics" ng-class="{ active: currentTopic == topic }" ng-click="goTo('video', { id: idCourse, topic: topic })">
