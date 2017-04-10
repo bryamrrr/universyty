@@ -3,7 +3,8 @@ $(document).on("ready", function () {
     $(".aside-menu").toggleClass("open");
   });
 
-  $('#toggle-aside').on('click', function () {
-    $("#aside").toggleClass("show");
-  });
+  // $('#toggle-aside').on('click', function () {
+  //   $("#aside").toggleClass("show");
+  //   console.log('susto');
+  // });
 })

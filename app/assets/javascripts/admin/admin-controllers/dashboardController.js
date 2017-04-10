@@ -4,4 +4,8 @@ DashboardController.$inject = ['$scope', '$state', 'CookieService'];
 function DashboardController($scope, $state,  CookieService) {
   $scope.nickname = CookieService.read('nickname');
   $scope.role = CookieService.read('role');
+
+  $scope.toggleAside = function () {
+    $("#aside").toggleClass("show");
+  };
 }

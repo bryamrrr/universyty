@@ -20,6 +20,10 @@ function DashboardController($scope, $q, $state, $stateParams, $cookies,  Cookie
 
   $scope.goTo = goTo;
 
+  $scope.toggleAside = function () {
+    $("#aside").toggleClass("show");
+  };
+
   updateQuiz();
 
   var cart = $cookies.get('cart');
