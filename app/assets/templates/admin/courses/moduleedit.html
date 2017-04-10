@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="full-container card card-padding">
+    <form name="form" ng-submit="update(form, part)" ng-validate="validationOptions" novalidate>
+      <div class="form-input">
+        <input class="input" type="text" id="title" name="title" ng-model="part.title" required />
+        <div class="bar"></div>
+        <label class="label basic" for="title">Título:</label>
+      </div>
+      <div class="form-input">
+        <input class="input" type="text" id="number" name="number" ng-model="part.number" required />
+        <div class="bar"></div>
+        <label class="label basic" for="number">Número:</label>
+      </div>
+      <div class="form-input">
+        <button type="submit" ng-disabled="form.$invalid || isLoading">
+          Actualizar Módulo
+          <div class="loader-wrapper" ng-show="isLoading">
+            <div class="loader-circles" id="loader">Loading...</div>
+          </div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -39,6 +39,16 @@ class Api::V1::PartsController < Api::V1::BaseController
     render :json => { :questions => questions, :part => part, :course => course }
   end
 
+  def update
+    part = Part.find(params[:id])
+
+    if part.update(part_params)
+      render :json => { :message => "Módulo actualizado" }
+    else
+      render :json => { :message => "No se pudo actualizar el módulo" }, status: :bad_request
+    end
+  end
+
   def part_params
     params.require(:data).permit(
       :title,

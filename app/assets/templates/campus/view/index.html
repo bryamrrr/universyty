@@ -18,6 +18,7 @@
             <i class="fa fa-lock" ng-hide="topic.enabled"></i>
             <i class="fa fa-circle" ng-show="topic.enabled"></i>
             <h5>{{ ($index + 1) + '. ' + topic.title }}</h5>
+            <span class="part-topic-duration">{{ topic.duration }}</span>
           </div>
           <div class="part-topic" ng-hide="part.enabled">
             <i class="fa fa-lock" ng-hide="part.enabled"></i>

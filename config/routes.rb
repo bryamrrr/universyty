@@ -50,7 +50,7 @@ Rails.application.routes.draw do
       get 'courses/categories-id/:id', to: 'courses#find_by_category'
       get 'courses/text/:text', to: 'courses#find_by_text'
 
-      resources :parts, only: [:show, :destroy, :create]
+      resources :parts, only: [:show, :update, :destroy, :create]
       get 'parts/:id/topics', to: 'parts#topics'
       get 'parts/:id/questions', to: 'parts#questions'
 
