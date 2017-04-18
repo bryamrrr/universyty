@@ -490,7 +490,7 @@ TUTORIAL
 MODAL - POPUPS
 #######################################
 */
-.overlay{position: fixed; left: 0; top: 0; right: 0; bottom: 0; width: 100%; height: 100%; z-index: 100; background-color: rgba(0,0,0,0.65);
+.tutorial-overlay{position: fixed; left: 0; top: 0; right: 0; bottom: 0; width: 100%; height: 100%; z-index: 100; background-color: rgba(0,0,0,0.65);
          overflow-x: hidden; text-align: center;
          display: none;
          -webkit-overflow-scrolling: touch;
@@ -500,14 +500,14 @@ MODAL - POPUPS
          -ms-transition: opacity 0.3s ease, visibility 0.3s ease, padding-top 0.3s ease;
          transition: opacity 0.3s ease, visibility 0.3s ease, padding-top 0.3s ease;
 }
-.overlay.active{display: block;}
+.tutorial-overlay.active{display: block;}
 
 /*
 #######################################
 OVERLAY-VIDEOS
 #######################################
 */
-.overlay .popup-video{
+.tutorial-overlay .popup-video{
     max-width: 850px;
     width: 90%;
     position: absolute;
@@ -518,11 +518,11 @@ OVERLAY-VIDEOS
     zoom: 1;
     vertical-align: middle;
 }
-.overlay .popup-video .loading{
+.tutorial-overlay .popup-video .loading{
     position: absolute; left: 50%; top: 50%; margin: -22px 0 0 -22px;
 }
 
-.overlay .btn-close{
+.tutorial-overlay .btn-close{
     position: absolute;
     width: 30px;
     height: 30px;
@@ -539,17 +539,17 @@ OVERLAY-VIDEOS
       line-height: 1.8em;
     }
 }
-.overlay .btn-close:hover{
+.tutorial-overlay .btn-close:hover{
     color: #e85b21;
     text-decoration: none;
 }
 
-.overlay .popup-video .popup-video-container{
+.tutorial-overlay .popup-video .popup-video-container{
     height: 0;
     padding-bottom: 56.25%;
     width: 100%;
 }
-.overlay .popup-video .popup-video-container iframe{
+.tutorial-overlay .popup-video .popup-video-container iframe{
     position: absolute;
     top: 0;
     left: 0;
