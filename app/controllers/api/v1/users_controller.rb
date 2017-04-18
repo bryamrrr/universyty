@@ -227,6 +227,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     if user.block
       user.update_column(:block, false)
+      user.update_column(:login_attempts, 0)
     else
       user.update_column(:block, true)
     end
