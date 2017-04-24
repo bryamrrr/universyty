@@ -34,14 +34,15 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
     course = Course.find(params[:id])
     enrollment = Enrollment.find_by(user_id: @current_user.id, course_id: course.id)
     enrollment
-    part = course.parts.find_by(number: enrollment[:current_module])
-    video = part.topics.find_by(number: enrollment[:current_video])
+    part = course.parts.find_by(number: params[:part])
+    video = part.topics.find_by(number: params[:topic])
     count = part.topics.count
 
     if video[:number] == count
       view_exam = true
     else
       view_exam = false
+      enrollment.update_column(:current_video, enrollment[:current_video] + 1)
     end
 
     render :json => {

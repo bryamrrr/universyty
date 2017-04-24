@@ -47,22 +47,6 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     console.log(error);
   })
 
-  function sendUpdate() {
-    var url = urls.BASE_API + '/enrollments/' + $scope.enrollment.id;
-    var data = {
-      topic_id: parseInt($stateParams.topic),
-      part_id: parseInt($stateParams.part),
-      view_exam: $scope.view_exam
-    };
-    var promise = HttpRequest.send('PUT', url, data);
-
-    promise.then(function (response) {
-      enabletopics();
-    }, function (error) {
-      console.log(error);
-    });
-  }
-
   function enabletopics() {
     var numModule = currentModule.number;
     var numVideo = currentVideo.number;
@@ -70,9 +54,11 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
 
     if (numModule > 1) {
       for (i; i <= numModule-1; i++) {
+        j = 0;
         if (i === numModule-1) {
           if (numVideo > 1) {
             for (j; j < numVideo; j++) {
+              console.log("Holi", $scope.parts[i].topics[j]);
               $scope.parts[i].topics[j].enabled = true;
             }
           } else {
@@ -90,6 +76,8 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
         $scope.parts[0].topics[j].enabled = true;
       }
     }
+
+    console.log($scope.parts);
 
     if ($scope.view_exam) $scope.parts[numModule-1].enabled = true;
   }
