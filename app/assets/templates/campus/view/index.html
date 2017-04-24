@@ -14,7 +14,7 @@
           <h4>Módulo Nº {{ part.number }}: {{ part.title }}</h4>
         </div>
         <div class="part-body">
-          <div class="part-topic" ng-repeat="topic in part.topics" ng-class="{ active: currentTopic == topic }" ng-click="goTo('video', { id: idCourse, topic: topic })">
+          <div class="part-topic" ng-repeat="topic in part.topics" ng-class="{ active: currentTopic.id == topic.id }" ng-click="goTo('video', { id: idCourse, topic: topic, part: part })">
             <i class="fa fa-lock" ng-hide="topic.enabled"></i>
             <i class="fa fa-circle" ng-show="topic.enabled"></i>
             <h5>{{ ($index + 1) + '. ' + topic.title }}</h5>

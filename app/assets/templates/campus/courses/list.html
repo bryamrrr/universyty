@@ -6,7 +6,7 @@
   </div>
 
   <div class="flex-container">
-    <article class="course" ng-repeat="enrollment in enrollments | filter: searchText" ng-click="goToCourse(enrollment)" ng-show="enrollments.length > 0">
+    <article class="course" ng-repeat="enrollment in enrollments | filter: searchText" ui-sref="courses.view({ id: enrollment.course_id, part: enrollment.current_module, topic: current_video })" ng-show="enrollments.length > 0">
       <a href="#">
         <div class="professor-hover">
           <div class="professor-hover-content">

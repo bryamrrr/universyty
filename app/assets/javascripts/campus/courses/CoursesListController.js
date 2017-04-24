@@ -17,14 +17,4 @@ function CoursesListController($scope, $state, urls, HttpRequest, CookieService)
   }, function (error) {
     console.log(error);
   });
-
-  function goToCourse(enrollment) {
-    console.log(enrollment);
-
-    if (enrollment.current_video) {
-      $state.go('courses.view', { id: enrollment.course_id, topic: enrollment.current_video })
-    } else {
-      $state.go('courses.view', { id: enrollment.course_id, topic: 0 })
-    }
-  }
 }

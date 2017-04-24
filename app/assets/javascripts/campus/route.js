@@ -96,7 +96,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
       }
     })
     .state('courses.view', {
-      url: '/cursos/:id/tema/:topic',
+      url: '/cursos/:id/:part/tema/:topic',
       data: {
         title: 'Detalle'
       },
