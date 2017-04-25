@@ -48,8 +48,8 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
   })
 
   function enabletopics() {
-    var numModule = currentModule.number;
-    var numVideo = currentVideo.number;
+    var numModule = $scope.enrollment.current_module;
+    var numVideo = $scope.enrollment.current_video;
     var i = 0, j = 0, k = 0;
 
     if (numModule > 1) {
@@ -58,7 +58,6 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
         if (i === numModule-1) {
           if (numVideo > 1) {
             for (j; j < numVideo; j++) {
-              console.log("Holi", $scope.parts[i].topics[j]);
               $scope.parts[i].topics[j].enabled = true;
             }
           } else {
@@ -88,12 +87,10 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     var sum = 0;
     for (var i = 0; i < $scope.grades.length; i++) {
       $scope.filteredGrades[counter].push($scope.grades[i].score);
-      $scope.totals[counter] += $scope.grades[i].score;
-
       counterTimes++;
 
       if ($scope.grades[i].score >= 14) {
-        $scope.totals[counter] = Math.round($scope.totals[counter] / counterTimes);
+        $scope.totals[counter] = $scope.grades[i].score;
         $scope.filteredGrades.push([]);
         counter++;
         counterTimes = 0;
