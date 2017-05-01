@@ -21,7 +21,7 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
   var url = urls.BASE_API + '/courses/' + $scope.idCourse;
   var promise = HttpRequest.send('GET', url);
 
-  var urlEnrollment = urls.BASE_API + '/enrollments/courses/' + $scope.idCourse;
+  var urlEnrollment = urls.BASE_API + '/enrollments/courses/' + $scope.idCourse + '/' + $stateParams.part + '/' + $stateParams.topic;
   var promiseEnrollment = HttpRequest.send('GET', urlEnrollment);
 
   var allPromise = $q.all([promise, promiseEnrollment]);
@@ -31,11 +31,14 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     $scope.parts = response[0].parts;
     $scope.enrollment = response[1].enrollment;
     $scope.grades = response[1].grades;
+    $scope.view_exam = response[1].view_exam;
     currentVideo = response[1].video;
     currentModule = response[1].part;
 
-    findTopic();
-    sendUpdate();
+    $scope.currentTopic = currentVideo;
+    $scope.vimeoVideo = 'https://player.vimeo.com/video/' + $scope.currentTopic.video_url;
+
+    enabletopics();
     filterGrades();
 
     var $contenido = $('#contenido');
@@ -44,46 +47,38 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     console.log(error);
   })
 
-  function findTopic() {
-    var i = 0;
-    var j = 0;
-    var topics = $scope.parts[0].topics;
-    if ($stateParams.topic === '0' || $stateParams.topic === '') {
-      for (i; i < topics.length; i++) {
-        if (topics[i].number === 1) {
-          $scope.currentTopic = topics[i];
-          $scope.vimeoVideo = 'https://player.vimeo.com/video/' + $scope.currentTopic.video_url;
-        }
-      }
-    } else {
-      for (i; i < $scope.parts.length; i++) {
+  function enabletopics() {
+    var numModule = $scope.enrollment.current_module;
+    var numVideo = $scope.enrollment.current_video;
+    var i = 0, j = 0, k = 0;
+
+    if (numModule > 1) {
+      for (i; i <= numModule-1; i++) {
         j = 0;
-        for (j; j < $scope.parts[i].topics.length; j++) {
-          if ($scope.parts[i].topics[j].id === parseInt($stateParams.topic)) {
-            $scope.currentTopic = $scope.parts[i].topics[j];
-            $scope.vimeoVideo = 'https://player.vimeo.com/video/' + $scope.currentTopic.video_url;
+        if (i === numModule-1) {
+          if (numVideo > 1) {
+            for (j; j < numVideo; j++) {
+              $scope.parts[i].topics[j].enabled = true;
+            }
+          } else {
+            $scope.parts[i].topics[0].enabled = true;
+          }
+          if ($scope.parts[i].topics[numVideo]) $scope.parts[i].topics[numVideo].enabled = true;
+        } else {
+          for (j; j < $scope.parts[i].topics.length; j++) {
+            $scope.parts[i].topics[j].enabled = true;
           }
         }
       }
+    } else if (numModule === 1) {
+      for (j; j <= numVideo-1; j++) {
+        $scope.parts[0].topics[j].enabled = true;
+      }
     }
-  }
 
-  function sendUpdate() {
-    var url = urls.BASE_API + '/enrollments/' + $scope.enrollment.id;
-    var data = {
-      topic_id: $scope.currentTopic.id,
-      part_id: $scope.currentTopic.part_id
-    };
-    var promise = HttpRequest.send('PUT', url, data);
+    console.log($scope.parts);
 
-    promise.then(function (response) {
-      $scope.enrollment = response.enrollment;
-      currentVideo = response.video;
-      currentModule = response.part;
-      Enabletopics();
-    }, function (error) {
-      console.log(error);
-    });
+    if ($scope.view_exam) $scope.parts[numModule-1].enabled = true;
   }
 
   function filterGrades() {
@@ -92,12 +87,10 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     var sum = 0;
     for (var i = 0; i < $scope.grades.length; i++) {
       $scope.filteredGrades[counter].push($scope.grades[i].score);
-      $scope.totals[counter] += $scope.grades[i].score;
-
       counterTimes++;
 
       if ($scope.grades[i].score >= 14) {
-        $scope.totals[counter] = Math.round($scope.totals[counter] / counterTimes);
+        $scope.totals[counter] = $scope.grades[i].score;
         $scope.filteredGrades.push([]);
         counter++;
         counterTimes = 0;
@@ -113,42 +106,6 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
 
   }
 
-  function Enabletopics() {
-    var numModule = currentModule.number;
-    var numVideo = currentVideo.number;
-    var i = 0, j = 0, k = 0;
-
-    if (numModule > 1) {
-      for (i; i <= numModule-1; i++) {
-        if (i === numModule-1) {
-          if (numVideo > 1) {
-            for (j; j < numVideo; j++) {
-              $scope.parts[i].topics[j].enabled = true;
-            }
-          } else {
-            $scope.parts[i].topics[0].enabled = true;
-          }
-        } else {
-          for (j; j < $scope.parts[i].topics.length; j++) {
-            $scope.parts[i].topics[j].enabled = true;
-          }
-        }
-      }
-    } else if (numModule === 1) {
-      for (j; j <= numVideo-1; j++) {
-        $scope.parts[0].topics[j].enabled = true;
-      }
-    } else {
-      $scope.parts[0].topics[0].enabled = true;
-    }
-
-    if ($scope.parts[numModule-1].topics[numVideo]) {
-      $scope.parts[numModule-1].topics[numVideo].enabled = true;
-    } else {
-      $scope.parts[numModule-1].enabled = true;
-    }
-  }
-
   function changeTab(num) {
     $scope.currentTab = num;
   }
@@ -159,7 +116,7 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
 
   function goTo(thing, params) {
     if (thing === 'video' && params.topic.enabled) {
-      $state.go('courses.view', { id: params.id, topic: params.topic.id });
+      $state.go('courses.view', { id: params.id, part: params.part.number, topic: params.topic.number });
     } else if (thing === 'quiz' && params.part.enabled) {
       $state.go('courses.quiz', { id: params.id, part: params.part.id, number: params.number });
     }

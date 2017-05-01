@@ -4,6 +4,8 @@ class Enrollment < ApplicationRecord
 
   has_many :grades, :dependent => :destroy
 
+  before_save :default_values
+
   def calcGrade
     grades = self.grades
     notes = Array.new(1)
@@ -28,4 +30,10 @@ class Enrollment < ApplicationRecord
     total = sum / counter
     self.update_column(:first_score, total)
   end
+
+  private
+    def default_values
+      self.current_module ||= 1;
+      self.current_video ||= 1;
+    end
 end

@@ -116,8 +116,16 @@
 .courses {
   padding: 3em 0;
   .course {
+    background-color: #DDD;
     flex-basis: 285px;
     margin-right: 1em;
     margin-left: 1em;
   }
+  .course-title {
+    background-color: white;
+    margin-bottom: 0;
+    padding-bottom: 1em;
+    padding-top: .5em;
+  }
+  .course-image { background-color: white; }
 }

@@ -101,7 +101,7 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
 
     promise.then(function (response) {
       $('.modal').remove();
-      $state.go('courses.view', { id: $stateParams.id, topic: 0 });
+      $state.go('courses.view', { id: $stateParams.id, part: $stateParams.part , topic: 1 });
       CookieService.remove('quiz');
     }, function (error) {
       console.log("ERROR: ", error);
@@ -132,11 +132,10 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
 
     promise.then(function (response) {
       $('.modal').remove();
-      $state.go('courses.view', { id: $stateParams.id, topic: response.id });
+      $state.go('courses.view', { id: $stateParams.id, part: response.part_number, topic: response.topic_number });
       CookieService.remove('quiz');
       $scope.isLoading = false;
     }, function (error) {
-      console.log(error);
       $scope.isLoading = false;
     });
   }

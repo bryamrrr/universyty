@@ -9,24 +9,17 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
       parts = course.parts.order(number: :asc)
       parts_count = course.parts.count
       current_module = enrollment[:current_module]
-      counter = 0
-      percentage = 0
-
-      parts.each do |part|
-        if part[:id] == current_module
-          if parts_count == counter + 1
-            if enrollment.grades.last && enrollment.grades.last[:score] >= 14
-              counter += 1
-            end
-          end
-
-          break
-        end
-        counter += 1
-      end
 
       if parts_count != 0
-        percentage = counter * 100 / parts_count
+        puts parts_count
+        puts current_module - 1
+        puts (current_module - 1) * 100
+        if enrollment.finished
+          percentage = 100
+        else
+          puts "Aqui"
+          percentage = (current_module - 1) * 100 / parts_count
+        end
       else
         percentage = 0
       end
@@ -47,9 +40,21 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
 
   def find_by_course
     course = Course.find(params[:id])
-    enrollment = Enrollment.where(user_id: @current_user.id, course_id: course.id).first
-    part = Part.find(enrollment[:current_module]) unless enrollment[:current_module].nil?
-    video = Topic.find(enrollment[:current_video]) unless enrollment[:current_video].nil?
+    enrollment = Enrollment.find_by(user_id: @current_user.id, course_id: course.id)
+    enrollment
+    part = course.parts.find_by(number: params[:part])
+    video = part.topics.find_by(number: params[:topic])
+    count = course.parts.find_by(number: enrollment[:current_module]).topics.count
+
+    if enrollment[:current_video] == count
+      view_exam = true
+    else
+      view_exam = false
+    end
+
+    if enrollment[:current_module] == params[:part].to_i && params[:topic].to_i == enrollment[:current_video] + 1
+      enrollment.update_column(:current_video, enrollment[:current_video] + 1)
+    end
 
     render :json => {
       enrollment: enrollment.as_json(:include => {
@@ -63,7 +68,8 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
       }),
       part: part,
       video: video,
-      grades: enrollment.grades
+      grades: enrollment.grades,
+      view_exam: view_exam
     }
   end
 
@@ -98,70 +104,71 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
     enrollment = @current_user.enrollments.find_by(course_id: params[:id])
 
     if enrollment
-      enrollment.update_column(:current_module, nil)
-      enrollment.update_column(:current_video, nil)
-      render :json => { message: "Se ha repetido el curso" }
+      enrollment.update_column(:current_video, 1)
+      render :json => { message: "Se ha repetido el módulo" }
     end
   end
 
   def next_module
     enrollment = @current_user.enrollments.find_by(course_id: params[:id])
-    parts = Part.where(course_id: params[:id]).order(number: :asc)
-    current_part = Part.find(enrollment[:current_module])
 
     if enrollment
-      next_module = parts.where('number > ?', current_part[:number]).first unless parts.where('number > ?', current_part[:number]).nil?
+      next_module = enrollment.course.parts.find_by(number: enrollment[:current_module] + 1)
       if next_module
-        enrollment.update_column(:current_module, next_module[:id])
-        video = Topic.where(part_id: next_module[:id], number: 1).first
-        enrollment.update_column(:current_video, video[:id])
-        topic = Topic.where(part_id: next_module[:id], number: 1).first
-        render :json => topic.to_json
+        enrollment.update_column(:current_module, enrollment[:current_module] + 1)
+        enrollment.update_column(:current_video, 1)
+        part = enrollment.course.parts.find_by(number: enrollment[:current_module])
+        topic = part.topics.find_by(number: 1)
+        render :json => {
+          part_number: part[:number],
+          topic_number: topic[:number]
+        }
+      else
+        render :json => {
+          part_number: 1,
+          topic_number: 1
+        }
       end
     end
   end
 
+  # LEGACY METHOD
   def update
-    puts params[:id]
     enrollment = Enrollment.find(params[:id])
     course = enrollment.course
 
-    partSended = Part.find(params[:data][:part_id])
+    if enrollment[:current_module] == params[:data][:part_id] && enrollment[:current_video] >= params[:data][:topic_id] - 1 && !params[:data][:view_exam]
+      enrollment.increment(:current_video)
+      puts "SE IMCREMENTÒ EL VIDEO"
+      part = course.parts.find_by(number: enrollment[:current_module])
+      video = part.topics.find_by(number: enrollment[:current_video])
+      count = part.topics.count
 
-    if enrollment[:current_module].nil?
-      partHere = course.parts.find_by(number: 1)
-      enrollment.update_column(:current_module, partHere[:id])
-    else
-      partHere =  Part.find(enrollment[:current_module])
-    end
-
-    if partSended[:number] >= partHere[:number]
-      enrollment.update_column(:current_module, params[:data][:part_id])
-      if enrollment[:current_video].nil?
-        first_topic = partHere.topics.find_by(number: 1)
-        enrollment.update_column(:current_video, first_topic[:id])
+      if video[:number] == count
+        view_exam = true
       else
-        if params[:data][:topic_id] > enrollment[:current_video]
-          enrollment.update_column(:current_video, params[:data][:topic_id])
-        end
+        view_exam = false
       end
-    end
 
-    part = Part.find(enrollment[:current_module]) unless enrollment[:current_module].nil?
-    video = Topic.find(enrollment[:current_video]) unless enrollment[:current_video].nil?
-    render :json => {
-      enrollment: enrollment.as_json(:include => {
-        :course => {
-          :include => {
-            :category => {},
-            :professors => {},
-            :user => {}
+      render :json => {
+        enrollment: enrollment.as_json(:include => {
+          :course => {
+            :include => {
+              :category => {},
+              :professors => {},
+              :user => {}
+            }
           }
-        }
-      }),
-      part: part,
-      video: video
-    }
+        }),
+        part: part,
+        video: video,
+        grades: enrollment.grades,
+        view_exam: view_exam
+      }
+    else
+      puts "NO SE INCREMENTÓ EL VIDEO"
+      render :json => { :message => "No se realizó ningún cambio" }, status: :ok
+    end
   end
 
   def free

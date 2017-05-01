@@ -14,7 +14,7 @@
           <h4>Módulo Nº {{ part.number }}: {{ part.title }}</h4>
         </div>
         <div class="part-body">
-          <div class="part-topic" ng-repeat="topic in part.topics" ng-class="{ active: currentTopic == topic }" ng-click="goTo('video', { id: idCourse, topic: topic })">
+          <div class="part-topic" ng-repeat="topic in part.topics" ng-class="{ active: currentTopic.id == topic.id }" ng-click="goTo('video', { id: idCourse, topic: topic, part: part })">
             <i class="fa fa-lock" ng-hide="topic.enabled"></i>
             <i class="fa fa-circle" ng-show="topic.enabled"></i>
             <h5>{{ ($index + 1) + '. ' + topic.title }}</h5>
@@ -106,11 +106,19 @@
           </tr>
           <tr>
             <td colspan="3" class="grade-result">
-              <span ng-show="grade_total >= 14">APROBADO</span>
-              <span ng-hide="grade_total >= 14" class="color-red">DESAPROBADO</span>
+              <div ng-show="enrollment.finished">
+                <span ng-show="grade_total >= 14">APROBADO</span>
+                <span ng-hide="grade_total >= 14" class="color-red">DESAPROBADO</span>
+              </div>
+              <div ng-hide="enrollment.finished">
+                ---
+              </div>
             </td>
             <td class="grade-approved">Promedio</td>
-            <td class="grade-note" ng-class="{ 'color-red': grade_total < 14 }">{{ grade_total }}</td>
+            <td class="grade-note" ng-class="{ 'color-red': grade_total < 14 }">
+              <div ng-show="enrollment.finished">{{ grade_total }}</div>
+              <div ng-hide="enrollment.finished">---</div>
+            </td>
           </tr>
         </tbody>
       </table>
