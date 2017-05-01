@@ -185,7 +185,12 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
 
   def request_certificate
     enrollment = Enrollment.find(params[:id])
-    enrollment.update_column(:certificate_requested, true)
+
+    unless enrollment[:certificate_requested] == true
+      enrollment.update_column(:certificate_requested, true)
+      enrollment.generate_certificate_code
+    end
+
     render :json => { :message => "Pedido realizado" }, status: :ok
   end
 
