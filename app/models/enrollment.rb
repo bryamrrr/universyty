@@ -39,6 +39,7 @@ class Enrollment < ApplicationRecord
       code.insert(3, "0")
     end
     self.update_column(:code, code)
+    info.update_column(:value, info[:value] + 1)
   end
 
   private

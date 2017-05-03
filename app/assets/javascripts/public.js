@@ -18,6 +18,7 @@ toastr.options = {
 
 $(document).on('turbolinks:load', function () {
   videoPopup();
+  validateCertificate();
 
   $('#js-loading-content').hide();
 
@@ -437,8 +438,7 @@ function videoPopup() {
         html.removeClass('overflow');
         self.removeClass('active');
         overlay.removeClass('active');
-      }
-      ;
+      };
     });
     $(document).keyup(function (e) {
       if (e.keyCode === 27) {
@@ -477,7 +477,74 @@ function videoPopup() {
   }
 }
 
+function validateCertificate() {
+  var ele = $('#js-validate'),
+    overlay = $('.overlay-js'),
+    html = $('html'),
+    body = $('body'),
+    btn_close = overlay.find('.btn-close-js'),
+    wrapperVideo = $('.popup-video-container');
 
+  ele.on('click', function () {
+    var self = $(this);
+    var code = $('#js-code').val();
+
+    if (!self.hasClass('active')) {
+      html.addClass('overflow');
+      self.addClass('active');
+      overlay.addClass('active');
+    } else {
+      html.removeClass('overflow');
+      self.removeClass('active');
+      overlay.removeClass('active');
+    }
+
+    (code === 'uni1') ? showCertificate() : showToast();
+  });
+
+  $(document).keyup(function (e) {
+    if (e.keyCode === 27) {
+      if (overlay.hasClass('active')) {
+        html.removeClass('overflow');
+        ele.removeClass('active');
+        overlay.removeClass('active');
+        wrapperVideo.html('');
+      }
+    }
+  });
+  btn_close.on('click', function () {
+    if (overlay.hasClass('active')) {
+      html.removeClass('overflow');
+      ele.removeClass('active');
+      overlay.removeClass('active');
+      wrapperVideo.html('');
+    }
+  });
+
+  overlay.on('click', function () {
+    if (overlay.hasClass('active')) {
+      html.removeClass('overflow');
+      body.removeClass('overflow');
+      ele.removeClass('active');
+      overlay.removeClass('active');
+      wrapperVideo.html('');
+    }
+  });
+  ele.on('click', function (e) {
+    e.stopPropagation();
+  });
+  wrapperVideo.on('click', function (e) {
+    e.stopPropagation();
+  });
+}
+
+function showCertificate() {
+  console.log('showCertificate');
+}
+
+function showToast() {
+  console.log('showToast');
+}
 
 
 
