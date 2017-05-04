@@ -181,21 +181,23 @@ class User < ApplicationRecord
     def payFathers(user)
       father = User.find_by(nickname: user[:sponsor])
 
-      if father && father.is_active_ambassador?
-        father.update_attribute(:balance, father[:balance] += MONTHLY_PAY)
-        father.update_attribute(:historical_balance, father[:historical_balance] += MONTHLY_PAY)
+      if father
+        if father.is_active_ambassador?
+          father.update_attribute(:balance, father[:balance] += MONTHLY_PAY)
+          father.update_attribute(:historical_balance, father[:historical_balance] += MONTHLY_PAY)
 
-        if father[:instructor]
-          text = 'Bono de Equipo'
-        else
-          text = 'Puntos de Equipo'
+          if father[:instructor]
+            text = 'Bono de Equipo'
+          else
+            text = 'Puntos de Equipo'
+          end
+
+          father.bonos.create(
+            name: text,
+            description: "#{text} (#{self.nickname})",
+            value: MONTHLY_PAY
+          )
         end
-
-        father.bonos.create(
-          name: text,
-          description: "#{text} (#{self.nickname})",
-          value: MONTHLY_PAY
-        )
         payFathers(father)
       end
     end
