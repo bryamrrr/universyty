@@ -304,8 +304,8 @@ function showCoursesFromCategory(id) {
 
 function showCoursesFromText(text) {
   var location = window.location;
-  var baseUrl = location.protocol + "//" + location.host + "/"
-  var url = baseUrl + "/api/v1/courses/text/" + text;
+  var baseUrl = location.protocol + "//" + location.host + "/";
+  var url = baseUrl + "api/v1/courses/text/" + text;
 
   $('#js-loading-content').show();
   $('#js-courses-container').hide();
@@ -499,7 +499,31 @@ function validateCertificate() {
       overlay.removeClass('active');
     }
 
-    (code === 'uni1') ? showCertificate() : showToast();
+    var location = window.location;
+    var baseUrl = location.protocol + "//" + location.host + "/"
+    var url = baseUrl + "api/v1/enrollments/" + code + '/verificate';
+
+    $.ajax({
+      type: "GET",
+      url: url,
+      success: function (data) {
+        if (data.message) {
+          showCertificate(data, 'error');
+        } else {
+          showCertificate(data, 'success');
+        }
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("ERROR!");
+        console.log("xml", XMLHttpRequest);
+        console.log("textstatus", textStatus);
+        console.log("error", errorThrown);
+
+        showCertificate({ message: 'Hubo un error' }, 'error');
+      },
+      contentType: 'application/json',
+      dataType: 'JSON'
+    });
   });
 
   $(document).keyup(function (e) {
@@ -512,14 +536,6 @@ function validateCertificate() {
       }
     }
   });
-  btn_close.on('click', function () {
-    if (overlay.hasClass('active')) {
-      html.removeClass('overflow');
-      ele.removeClass('active');
-      overlay.removeClass('active');
-      wrapperVideo.html('');
-    }
-  });
 
   overlay.on('click', function () {
     if (overlay.hasClass('active')) {
@@ -528,6 +544,7 @@ function validateCertificate() {
       ele.removeClass('active');
       overlay.removeClass('active');
       wrapperVideo.html('');
+      $('#card-certificate').hide();
     }
   });
   ele.on('click', function (e) {
@@ -538,12 +555,44 @@ function validateCertificate() {
   });
 }
 
-function showCertificate() {
-  console.log('showCertificate');
-}
+function showCertificate(data, type) {
+  var html;
+  if (type === 'success') {
+    html = '<div class="card">\
+      <div class="full-container card card-padding">\
+        <table class="table td-bg">\
+          <thead>\
+            <tr>\
+              <th class="text-left">Código</th>\
+              <th class="text-left">Nombre del alumno</th>\
+              <th class="text-left">Usuario</th>\
+              <th class="text-left">Curso</th>\
+              <th class="text-left">Nota</th>\
+            </tr>\
+          </thead>\
+          <tbody>\
+            <tr>\
+              <td class="text-left">' + data.code + '</td>\
+              <td class="text-left">' + data.user.fullname + '</td>\
+              <td class="text-left">' + data.user.nickname + '</td>\
+              <td class="text-left">' + data.course.title + '</td>\
+              <td class="text-left">' + data.first_score + '</td>\
+            </tr>\
+          </tbody>\
+        </table>\
+      </div>\
+    </div>';
+  } else {
+    html = '<div class="card">\
+      <div class="full-container card card-padding">\
+        <p>' + data.message + '</p>\
+      </div>\
+    </div>';
+  };
 
-function showToast() {
-  console.log('showToast');
+  $('#card-certificate').show();
+  $('#card-certificate').empty();
+  $('#card-certificate').append(html);
 }
 
 

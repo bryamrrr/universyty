@@ -1,4 +1,6 @@
 class Api::V1::EnrollmentsController < Api::V1::BaseController
+  skip_before_action :authenticate
+
   def find_by_user
     user = User.find_by(nickname: params[:id])
     enrollments = Enrollment.where(user_id: user[:id])
@@ -11,13 +13,9 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
       current_module = enrollment[:current_module]
 
       if parts_count != 0
-        puts parts_count
-        puts current_module - 1
-        puts (current_module - 1) * 100
         if enrollment.finished
           percentage = 100
         else
-          puts "Aqui"
           percentage = (current_module - 1) * 100 / parts_count
         end
       else
@@ -208,5 +206,20 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
     enrollment = Enrollment.find(params[:id])
     enrollment.update_column(:certificate_url, params[:data][:certificate_url])
     render :json => { :message => "Certificado actualizado" }, status: :ok
+  end
+
+  def verificate
+    enrollment = Enrollment.find_by(code: params[:code].upcase)
+
+    if enrollment
+      render :json => enrollment.as_json(
+        :include => {
+          :course => {},
+          :user => {}
+        }
+      )
+    else
+      render :json => { :message => "No existe certificado con el código #{params[:code]}" }
+    end
   end
 end

@@ -96,6 +96,7 @@ Rails.application.routes.draw do
       get 'enrollments/:id/request_certificate', to: 'enrollments#request_certificate'
       get 'enrollments/certificates_requested', to: 'enrollments#certificates_requested'
       put 'enrollments/:id/update_certificate', to: 'enrollments#update_certificate'
+      get 'enrollments/:code/verificate', to: 'enrollments#verificate'
 
       resources :teams, only: [:index]
       get 'teams/:nickname/students', to: 'teams#students'

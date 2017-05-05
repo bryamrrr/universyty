@@ -37,6 +37,37 @@
   }
 }
 
+#card-certificate {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  .card {
+    background-color: white;
+    padding: 2em 1em;
+  }
+  .table {
+    border-collapse: collapse;
+    text-align: center;
+    width: 100%;
+  }
+
+  .table th {
+    font-size: .8em;
+    font-weight: 700;
+    padding: 15px;
+    text-transform: uppercase;
+  }
+
+  .table td { padding: 15px; }
+  .td-bg thead {
+    background-color: #e8ecf5;
+  }
+
+  .td-bg tbody tr:nth-child(2n) { background-color: lighten(#f6f6f6, 1%); }
+}
+
 @media screen and (max-width: 480px) {
   .main-certificates {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), image-url("certificates-responsive-background.jpg") center center;
