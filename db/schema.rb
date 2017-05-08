@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331162403) do
+ActiveRecord::Schema.define(version: 20170501174147) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer  "question_id"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 20170331162403) do
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.boolean  "finished",              default: false
+    t.string   "code"
     t.index ["course_id"], name: "index_enrollments_on_course_id"
     t.index ["user_id"], name: "index_enrollments_on_user_id"
   end
@@ -135,6 +136,7 @@ ActiveRecord::Schema.define(version: 20170331162403) do
     t.string   "link_url"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "value"
   end
 
   create_table "movements", force: :cascade do |t|

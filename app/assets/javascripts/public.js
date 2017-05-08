@@ -18,6 +18,7 @@ toastr.options = {
 
 $(document).on('turbolinks:load', function () {
   videoPopup();
+  validateCertificate();
 
   $('#js-loading-content').hide();
 
@@ -303,8 +304,8 @@ function showCoursesFromCategory(id) {
 
 function showCoursesFromText(text) {
   var location = window.location;
-  var baseUrl = location.protocol + "//" + location.host + "/"
-  var url = baseUrl + "/api/v1/courses/text/" + text;
+  var baseUrl = location.protocol + "//" + location.host + "/";
+  var url = baseUrl + "api/v1/courses/text/" + text;
 
   $('#js-loading-content').show();
   $('#js-courses-container').hide();
@@ -437,8 +438,7 @@ function videoPopup() {
         html.removeClass('overflow');
         self.removeClass('active');
         overlay.removeClass('active');
-      }
-      ;
+      };
     });
     $(document).keyup(function (e) {
       if (e.keyCode === 27) {
@@ -477,7 +477,123 @@ function videoPopup() {
   }
 }
 
+function validateCertificate() {
+  var ele = $('#js-validate'),
+    overlay = $('.overlay-js'),
+    html = $('html'),
+    body = $('body'),
+    btn_close = overlay.find('.btn-close-js'),
+    wrapperVideo = $('.popup-video-container');
 
+  ele.on('click', function () {
+    var self = $(this);
+    var code = $('#js-code').val();
+
+    if (!self.hasClass('active')) {
+      html.addClass('overflow');
+      self.addClass('active');
+      overlay.addClass('active');
+    } else {
+      html.removeClass('overflow');
+      self.removeClass('active');
+      overlay.removeClass('active');
+    }
+
+    var location = window.location;
+    var baseUrl = location.protocol + "//" + location.host + "/"
+    var url = baseUrl + "api/v1/enrollments/" + code + '/verificate';
+
+    $.ajax({
+      type: "GET",
+      url: url,
+      success: function (data) {
+        if (data.message) {
+          showCertificate(data, 'error');
+        } else {
+          showCertificate(data, 'success');
+        }
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("ERROR!");
+        console.log("xml", XMLHttpRequest);
+        console.log("textstatus", textStatus);
+        console.log("error", errorThrown);
+
+        showCertificate({ message: 'Hubo un error' }, 'error');
+      },
+      contentType: 'application/json',
+      dataType: 'JSON'
+    });
+  });
+
+  $(document).keyup(function (e) {
+    if (e.keyCode === 27) {
+      if (overlay.hasClass('active')) {
+        html.removeClass('overflow');
+        ele.removeClass('active');
+        overlay.removeClass('active');
+        wrapperVideo.html('');
+      }
+    }
+  });
+
+  overlay.on('click', function () {
+    if (overlay.hasClass('active')) {
+      html.removeClass('overflow');
+      body.removeClass('overflow');
+      ele.removeClass('active');
+      overlay.removeClass('active');
+      wrapperVideo.html('');
+      $('#card-certificate').hide();
+    }
+  });
+  ele.on('click', function (e) {
+    e.stopPropagation();
+  });
+  wrapperVideo.on('click', function (e) {
+    e.stopPropagation();
+  });
+}
+
+function showCertificate(data, type) {
+  var html;
+  if (type === 'success') {
+    html = '<div class="card">\
+      <div class="full-container card card-padding">\
+        <table class="table td-bg">\
+          <thead>\
+            <tr>\
+              <th class="text-left">Código</th>\
+              <th class="text-left">Nombre del alumno</th>\
+              <th class="text-left">Usuario</th>\
+              <th class="text-left">Curso</th>\
+              <th class="text-left">Nota</th>\
+            </tr>\
+          </thead>\
+          <tbody>\
+            <tr>\
+              <td class="text-left">' + data.code + '</td>\
+              <td class="text-left">' + data.user.fullname + '</td>\
+              <td class="text-left">' + data.user.nickname + '</td>\
+              <td class="text-left">' + data.course.title + '</td>\
+              <td class="text-left">' + data.first_score + '</td>\
+            </tr>\
+          </tbody>\
+        </table>\
+      </div>\
+    </div>';
+  } else {
+    html = '<div class="card">\
+      <div class="full-container card card-padding">\
+        <p>' + data.message + '</p>\
+      </div>\
+    </div>';
+  };
+
+  $('#card-certificate').show();
+  $('#card-certificate').empty();
+  $('#card-certificate').append(html);
+}
 
 
 
