@@ -1,5 +1,5 @@
 class Api::V1::EnrollmentsController < Api::V1::BaseController
-  skip_before_action :authenticate
+  skip_before_action :authenticate, :only => :verificate
 
   def find_by_user
     user = User.find_by(nickname: params[:id])
@@ -38,8 +38,12 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
 
   def find_by_course
     course = Course.find(params[:id])
+    puts "AQUI"
+    puts course.to_json
+    puts "USER"
+    puts @current_user.to_json
+    puts "FINAL"
     enrollment = Enrollment.find_by(user_id: @current_user.id, course_id: course.id)
-    enrollment
     part = course.parts.find_by(number: params[:part])
     video = part.topics.find_by(number: params[:topic])
     count = course.parts.find_by(number: enrollment[:current_module]).topics.count
