@@ -1,0 +1,14 @@
+.category-campus {
+  width: 100%;
+}
+
+@media screen and (max-width: 560px) {
+  .add-element-priority,
+  .two-column-create { display: block; }
+  .add-element-priority .form-input:nth-child(1),
+  .add-element-priority .form-input:nth-child(2),
+  .add-element-priority .form-input:nth-child(3),
+  .form-input {
+    width: 100%;
+  }
+}

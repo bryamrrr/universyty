@@ -12,9 +12,9 @@
     <span ng-show="role === 'Instructor'">S/ {{user.balance | number: 0 }}</span>
   </div>
   <div class="aside-buttons">
-    <button ng-click="pay()" ng-disabled="ambassador_active === 'false'">Pagar</button>
-    <button ng-click="transfer()" ng-disabled="ambassador_active === 'false'">Transferir</button>
-    <button ng-click="withdraw()" ng-disabled="ambassador_active === 'false'">Canjear</button>
+    <button ng-click="pay()" ng-disabled="ambassador_active === 'false' && role !== 'Instructor'">Pagar</button>
+    <button ng-click="transfer()" ng-disabled="ambassador_active === 'false' && role !== 'Instructor'">Transferir</button>
+    <button ng-click="withdraw()" ng-disabled="ambassador_active === 'false' && role !== 'Instructor'">Canjear</button>
   </div>
 </div>
 <div class="table-container">

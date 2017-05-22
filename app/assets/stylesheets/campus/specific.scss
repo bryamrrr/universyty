@@ -143,3 +143,50 @@
   font-size: 1.2em;
   padding-top: 1.5em;
 }
+
+@media screen and (max-width: 768px) {
+  .banner {
+    height: 250px;
+  }
+  .video-info-campus {
+    position: static;
+    transform: none;
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .info-course-campus {
+    margin-top: 3em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .banner {
+    height: 180px;
+  }
+  .shopping-cart .cart-body {
+    height: calc(100vh - 235px);
+  }
+  .shopping-cart {
+    min-height: calc(100vh - 69px);
+    max-height: calc(100vh - 69px);
+  }
+  .ambassadors-title .input-container {
+    min-width: 100%;
+  }
+  .aside-buttons {
+    display: inline-block;
+    float: none;
+    width: 200px;
+  }
+  .financial-header {
+    text-align: center;
+    .balance { margin-bottom: 1em; }
+  }
+  .financial-table {
+    margin-top: 1em;
+  }
+  .password-enter {
+    width: 95%;
+  }
+}

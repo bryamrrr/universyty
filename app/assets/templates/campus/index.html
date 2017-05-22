@@ -11,6 +11,7 @@
               <i ng-if="ambassador === 'false' && role === 'Estudiante'">(Alumno)</i>
               <i ng-if="ambassador === 'true' && role !== 'Estudiante'">({{ role }})</i>
               <i ng-if="ambassador === 'true' && role === 'Estudiante'">(Embajador)</i>
+              <i ng-if="role === 'Instructor'">Instructor</i>
             </span>
           </a>
         </div>

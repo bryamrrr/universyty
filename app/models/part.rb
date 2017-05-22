@@ -1,7 +1,7 @@
 class Part < ApplicationRecord
   belongs_to :course
 
-  has_many :topics, -> { order 'number asc' }
-  has_many :questions
-  has_many :grades
+  has_many :topics, -> { order 'number asc' },  dependent: :destroy
+  has_many :questions,  dependent: :destroy
+  has_many :grades,  dependent: :destroy
 end

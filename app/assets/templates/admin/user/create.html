@@ -43,11 +43,10 @@
           <div class="bar"></div>
           <label class="label basic" for="address">Dirección:</label>
         </div>
-        <div class="form-input select-input">
-          <selectize placeholder='Selecciona un valor' config='provinceConfig' options='provinces' ng-model="user.province_id" id="province"></selectize>
-          <input class="input" type="text" id="province" name="province" />
+        <div class="form-input">
+          <input class="input" type="text" id="city" name="city" ng-model="user.city" />
           <div class="bar"></div>
-          <label class="label basic" for="province">Provincia:</label>
+          <label class="label basic" for="city">Ciudad/Pais:</label>
         </div>
       </div>
       <div class="two-cols-form">

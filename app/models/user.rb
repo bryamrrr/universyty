@@ -5,12 +5,12 @@ class User < ApplicationRecord
   belongs_to :province, optional: true
 
   has_many :tokens, :dependent => :destroy
-  has_many :enrollments
-  has_many :movements
-  has_many :teams
-  has_many :courses
-  has_many :grades
-  has_many :bonos
+  has_many :enrollments,  dependent: :destroy
+  has_many :movements,  dependent: :destroy
+  has_many :teams,  dependent: :destroy
+  has_many :courses,  dependent: :destroy
+  has_many :grades,  dependent: :destroy
+  has_many :bonos,  dependent: :destroy
 
   validates :nickname, presence: true, uniqueness: true
   validates_length_of :nickname, :in => 2..15
