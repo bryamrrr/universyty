@@ -70,8 +70,18 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
         if @current_user.is_ambassador?
           @current_user.increase_balance_ambassador('MONTHLY_PAY')
+          @current_user.bonos.create(
+            name: "Pago de mensualidad",
+            description: "Pago de mensualidad",
+            value: -29
+          )
         else
           @current_user.increase_balance_ambassador('NEW_AMBASSADOR')
+          @current_user.bonos.create(
+            name: "Pago de embajador",
+            description: "Pago de embajador",
+            value: -29
+          )
         end
 
         @current_user.update_column(:ambassador, true)

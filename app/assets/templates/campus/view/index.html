@@ -76,6 +76,7 @@
       </div>
     </article>
     <article class="course-grades" ng-show="currentTab === 1">
+      <div class="table-container">
       <table class="table td-bg table-grades">
         <thead>
           <tr>
@@ -122,7 +123,8 @@
           </tr>
         </tbody>
       </table>
-      <button class="request-certificate" ng-disabled="grade_total < 14" ng-click="requestCertificate()">Solicitar certificado</button>
+      </div>
+      <button class="request-certificate" ng-disabled="grade_total < 14 || !enrollment.finished" ng-click="requestCertificate()">Solicitar certificado</button>
     </article>
     <article class="course-certificate" ng-show="currentTab === 2">
       <a ng-href="{{ enrollment.certificate_url }}" ng-show="enrollment.certificate_url !== null" target="_blank">Ver certificado</a>

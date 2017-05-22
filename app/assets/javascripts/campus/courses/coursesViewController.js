@@ -51,6 +51,7 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     var numModule = $scope.enrollment.current_module;
     var numVideo = $scope.enrollment.current_video;
     var i = 0, j = 0, k = 0;
+    console.log($scope.parts);
 
     if (numModule > 1) {
       for (i; i <= numModule-1; i++) {
@@ -63,7 +64,6 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
           } else {
             $scope.parts[i].topics[0].enabled = true;
           }
-          if ($scope.parts[i].topics[numVideo]) $scope.parts[i].topics[numVideo].enabled = true;
         } else {
           for (j; j < $scope.parts[i].topics.length; j++) {
             $scope.parts[i].topics[j].enabled = true;
@@ -75,8 +75,6 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
         $scope.parts[0].topics[j].enabled = true;
       }
     }
-
-    console.log($scope.parts);
 
     if ($scope.view_exam) $scope.parts[numModule-1].enabled = true;
   }

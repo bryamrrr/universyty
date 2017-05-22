@@ -404,7 +404,6 @@ function videoPopup() {
     overlay = $('.overlay-js'),
     html = $('html'),
     body = $('body'),
-    btn_close = overlay.find('.btn-close-js'),
     wrapperVideo = $('.popup-video-container');
 
   if (ele.length > 0) {
@@ -448,14 +447,6 @@ function videoPopup() {
           overlay.removeClass('active');
           wrapperVideo.html('');
         }
-      }
-    });
-    btn_close.on('click', function () {
-      if (overlay.hasClass('active')) {
-        html.removeClass('overflow');
-        ele.removeClass('active');
-        overlay.removeClass('active');
-        wrapperVideo.html('');
       }
     });
 
@@ -559,6 +550,10 @@ function showCertificate(data, type) {
   var html;
   if (type === 'success') {
     html = '<div class="card">\
+      <a href="javascript:void(0)" class="btn-close btn-close-js">\
+        <div class="helper"></div><!-- \
+        --><i class="fa fa-times"></i>\
+      </a>\
       <div class="full-container card card-padding">\
         <table class="table td-bg">\
           <thead>\
@@ -584,15 +579,55 @@ function showCertificate(data, type) {
     </div>';
   } else {
     html = '<div class="card">\
+      <a href="javascript:void(0)" class="btn-close btn-close-js">\
+        <div class="helper"></div><!-- \
+        --><i class="fa fa-times"></i>\
+      </a>\
       <div class="full-container card card-padding">\
         <p>' + data.message + '</p>\
       </div>\
     </div>';
   };
 
+
   $('#card-certificate').show();
   $('#card-certificate').empty();
   $('#card-certificate').append(html);
+
+  var ele = $('.btn-video-js'),
+    overlay = $('.overlay-js'),
+    html = $('html'),
+    body = $('body'),
+    wrapperVideo = $('.popup-video-container');
+  var btn_close = $('.btn-close-js');
+  btn_close.on('click', function () {
+    console.log("a");
+    if (overlay.hasClass('active')) {
+      html.removeClass('overflow');
+      ele.removeClass('active');
+      overlay.removeClass('active');
+      wrapperVideo.html('');
+      $('#card-certificate').hide();
+      $('#js-validate').removeClass('active');
+    }
+  });
+  overlay.on('click', function () {
+    if (overlay.hasClass('active')) {
+      html.removeClass('overflow');
+      body.removeClass('overflow');
+      ele.removeClass('active');
+      overlay.removeClass('active');
+      wrapperVideo.html('');
+      $('#card-certificate').hide();
+      $('#js-validate').removeClass('active');
+    }
+  });
+  ele.on('click', function (e) {
+    e.stopPropagation();
+  });
+  wrapperVideo.on('click', function (e) {
+    e.stopPropagation();
+  });
 }
 
 

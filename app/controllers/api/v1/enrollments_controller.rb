@@ -38,22 +38,10 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
 
   def find_by_course
     course = Course.find(params[:id])
-    puts "AQUI"
-    puts course.to_json
-    puts "USER"
-    puts @current_user.to_json
-    puts "FINAL"
     enrollment = Enrollment.find_by(user_id: @current_user.id, course_id: course.id)
     part = course.parts.find_by(number: params[:part])
     video = part.topics.find_by(number: params[:topic])
     count = course.parts.find_by(number: enrollment[:current_module]).topics.count
-
-    puts "DATOS"
-    puts enrollment[:current_module]
-    puts params[:part].to_i
-    puts params[:topic].to_i
-    puts enrollment[:current_video] + 1
-    puts "CIERRE DATOS"
 
     if enrollment[:current_video] == count
       view_exam = true
@@ -124,6 +112,7 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
     if enrollment
       next_module = enrollment.course.parts.find_by(number: enrollment[:current_module] + 1)
       if next_module
+        puts "VA PASAR AL SIGUIENTE MODULO"
         enrollment.update_column(:current_module, enrollment[:current_module] + 1)
         enrollment.update_column(:current_video, 1)
         part = enrollment.course.parts.find_by(number: enrollment[:current_module])
@@ -133,6 +122,7 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
           topic_number: topic[:number]
         }
       else
+        puts "YA ACABÓ CREO"
         render :json => {
           part_number: 1,
           topic_number: 1

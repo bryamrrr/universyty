@@ -139,6 +139,10 @@
 
 .img-title {
   vertical-align: top;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 
 table tr .img-link a {
