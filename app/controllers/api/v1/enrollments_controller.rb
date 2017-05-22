@@ -48,14 +48,21 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
     video = part.topics.find_by(number: params[:topic])
     count = course.parts.find_by(number: enrollment[:current_module]).topics.count
 
-    if enrollment[:current_module] == params[:part].to_i && params[:topic].to_i == enrollment[:current_video] + 1
-      enrollment.update_column(:current_video, enrollment[:current_video] + 1)
-    end
+    puts "DATOS"
+    puts enrollment[:current_module]
+    puts params[:part].to_i
+    puts params[:topic].to_i
+    puts enrollment[:current_video] + 1
+    puts "CIERRE DATOS"
 
     if enrollment[:current_video] == count
       view_exam = true
     else
       view_exam = false
+      if enrollment[:current_module] == params[:part].to_i && params[:topic].to_i == enrollment[:current_video]
+        puts "SI ENTRÓ AQUI"
+        enrollment.update_column(:current_video, enrollment[:current_video] + 1)
+      end
     end
 
     render :json => {

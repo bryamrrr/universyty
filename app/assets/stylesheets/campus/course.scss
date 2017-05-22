@@ -12,6 +12,7 @@
     }
     .parts-container {
       flex-basis: 32%;
+      overflow: scroll;
     }
   }
 }
