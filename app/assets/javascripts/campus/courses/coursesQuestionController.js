@@ -101,7 +101,7 @@ function CoursesQuestionController($scope, $stateParams, $state, $cookies, $uibM
 
     promise.then(function (response) {
       $('.modal').remove();
-      $state.go('courses.view', { id: $stateParams.id, part: $stateParams.part , topic: 1 });
+      $state.go('courses.view', { id: $stateParams.id, part: response.part , topic: 1 });
       CookieService.remove('quiz');
     }, function (error) {
       console.log("ERROR: ", error);

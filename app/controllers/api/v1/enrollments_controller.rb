@@ -100,9 +100,17 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
   def repeat_course
     enrollment = @current_user.enrollments.find_by(course_id: params[:id])
 
+    # Delete last three grades
+    enrollment.grades.last.destroy
+    enrollment.grades.last.destroy
+    enrollment.grades.last.destroy
+
     if enrollment
       enrollment.update_column(:current_video, 1)
-      render :json => { message: "Se ha repetido el módulo" }
+      render :json => {
+        message: "Se ha repetido el módulo",
+        part: enrollment[:current_module]
+      }
     end
   end
 
@@ -112,17 +120,16 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
     if enrollment
       next_module = enrollment.course.parts.find_by(number: enrollment[:current_module] + 1)
       if next_module
-        puts "VA PASAR AL SIGUIENTE MODULO"
         enrollment.update_column(:current_module, enrollment[:current_module] + 1)
         enrollment.update_column(:current_video, 1)
         part = enrollment.course.parts.find_by(number: enrollment[:current_module])
         topic = part.topics.find_by(number: 1)
+
         render :json => {
           part_number: part[:number],
           topic_number: topic[:number]
         }
       else
-        puts "YA ACABÓ CREO"
         render :json => {
           part_number: 1,
           topic_number: 1

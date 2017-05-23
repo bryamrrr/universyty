@@ -19,11 +19,11 @@
       <tbody>
         <tr ng-repeat="enrollment in enrollments | filter: searchText">
           <td>
-            <img ng-src="{{ enrollment.course.background_url }}" alt="" class="img-table" ui-sref="courses.view({ id: enrollment.course_id, topic: 0 })">
-            <span class="img-title" ui-sref="courses.view({ id: enrollment.course_id, topic: 0 })">{{ enrollment.course.title }}</span>
+            <img ng-src="{{ enrollment.course.background_url }}" alt="" class="img-table" ui-sref="courses.view({ id: enrollment.course_id, topic: 1, part: 1 })">
+            <span class="img-title" ui-sref="courses.view({ id: enrollment.course_id, topic: 1, part: 1 })">{{ enrollment.course.title }}</span>
           </td>
           <td class="img-link" ng-class="{ 'color-red': enrollment.first_score < 14, 'color-purple': enrollment.first_score >= 14 }">
-            <a ng-href="/campus/cursos/cursos/{{ enrollment.course_id }}/tema/0?notas=true">
+            <a ng-href="/campus/cursos/cursos/{{ enrollment.course_id }}/1/tema/1?notas=true">
               {{ enrollment.first_score }} <br />
               <span ng-show="enrollment.first_score >= 14">Aprobado</span>
               <span ng-hide="enrollment.first_score >= 14">Desaprobado</span>

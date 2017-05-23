@@ -187,7 +187,7 @@ function DashboardController($scope, $q, $state, $stateParams, $cookies,  Cookie
       if ($scope.quiz[String(alternativeSelected.question_id)]) {
         CookieService.remove('quiz');
         toastr.error('Hubo un error. Ya no se puede resolver el cuestionario');
-        $state.go('courses.view', { id: $stateParams.id, topic: 0 })
+        $state.go('courses.view', { id: $stateParams.id, topic: 1, part: 1 })
       } else {
         $scope.quiz[String(alternativeSelected.question_id)] = puntos;
         $cookies.putObject('quiz', $scope.quiz);
