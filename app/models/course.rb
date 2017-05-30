@@ -13,7 +13,6 @@ class Course < ApplicationRecord
       instructor = User.find(self.user_id)
 
       if self.bono
-        puts "El curso #{self.title} tiene de bono: #{self.bono}"
         value = self.bono.round
 
         instructor.update_attribute(:balance, instructor[:balance] + value)

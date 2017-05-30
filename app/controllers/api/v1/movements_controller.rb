@@ -243,6 +243,32 @@ class Api::V1::MovementsController < Api::V1::BaseController
               value: -Movement.last[:total]
             )
             @current_user.update_column(:balance, @current_user[:balance] - Movement.last[:total])
+
+            if !movements.last[:ambassador]
+              movements.last.products.each do |product|
+                enrollment = Enrollment.find_by(user_id: movements.last[:user_id], course_id: product.course_id)
+
+                if enrollment
+                  movements.last.destroy
+                  render :json => { :errors => "Ya se encuentra suscrito a un curso. No se puede proceder al pago." } and return
+                end
+              end
+
+              movements.last.products.each do |product|
+                Enrollment.create(user_id: movements.last[:user_id], course_id: product.course_id)
+
+                course = Course.find(product.course_id)
+
+                user.increase_balance_ambassador('COMMEND', course) unless user[:ambassador]
+                course.increase_balance_instructor(user)
+              end
+            else
+              if user.is_ambassador?
+                user.increase_balance_ambassador('MONTHLY_PAY')
+              else
+                user.increase_balance_ambassador('NEW_AMBASSADOR')
+              end
+            end
           else
             render :json => { :errors => "El usuario no tiene pagos pendientes" }
           end
