@@ -102,7 +102,7 @@ class User < ApplicationRecord
         if father && father.is_active_ambassador?
           value = (course[:pricetag] * COMMEND).round
 
-          father.(:balance, father[:balance] + value)
+          father.update_column(:balance, father[:balance] + value)
           father.update_column(:historical_balance, father[:historical_balance] + value)
 
           if father[:instructor]
