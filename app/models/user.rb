@@ -81,8 +81,8 @@ class User < ApplicationRecord
     case reason
       when 'NEW_AMBASSADOR'
         if father && father.is_active_ambassador?
-          father.update_attribute(:balance, father[:balance] += NEW_AMBASSADOR)
-          father.update_attribute(:historical_balance, father[:historical_balance] += NEW_AMBASSADOR)
+          father.update_column(:balance, father[:balance] += NEW_AMBASSADOR)
+          father.update_column(:historical_balance, father[:historical_balance] += NEW_AMBASSADOR)
 
           if father[:instructor]
             text = 'Bono de Amigo'
@@ -102,8 +102,8 @@ class User < ApplicationRecord
         if father && father.is_active_ambassador?
           value = (course[:pricetag] * COMMEND).round
 
-          father.update_attribute(:balance, father[:balance] + value)
-          father.update_attribute(:historical_balance, father[:historical_balance] + value)
+          father.(:balance, father[:balance] + value)
+          father.update_column(:historical_balance, father[:historical_balance] + value)
 
           if father[:instructor]
             text = 'Bono de Recomendación'
