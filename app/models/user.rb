@@ -77,7 +77,6 @@ class User < ApplicationRecord
 
   def increase_balance_ambassador(reason, course = nil)
     father = User.find_by(nickname: self.sponsor)
-
     case reason
       when 'NEW_AMBASSADOR'
         if father && father.is_active_ambassador?
@@ -101,7 +100,6 @@ class User < ApplicationRecord
       when 'COMMEND'
         if father && father.is_active_ambassador?
           value = (course[:pricetag] * COMMEND).round
-
           father.update_column(:balance, father[:balance] + value)
           father.update_column(:historical_balance, father[:historical_balance] + value)
 

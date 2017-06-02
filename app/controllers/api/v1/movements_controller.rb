@@ -235,7 +235,6 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
         if user
           movements = user.movements.where(status: "No pagado")
-          puts "si existe el usuario"
           if movements
             activate_movement(movements.last, true)
           else
@@ -432,7 +431,8 @@ class Api::V1::MovementsController < Api::V1::BaseController
         description: "Pago a otro usuario (#{user[:nickname]})",
         value: -Movement.last[:total]
       )
-      @current_user.update_column(:balance, @current_user[:balance] - Movement.last[:total])
+      pay_user = User.find_by(nickname: user[:sponsor])
+      pay_user.update_column(:balance, pay_user[:balance] - Movement.last[:total])
     end
 
     movement.update_attribute(:status, "Pagado")

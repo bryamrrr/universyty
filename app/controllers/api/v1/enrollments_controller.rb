@@ -83,8 +83,7 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
     enrollment = @current_user.enrollments.find_by(course_id: params[:id])
 
     if enrollment
-      part = Part.find(params[:data][:part])
-      number = part[:number] + 1
+      number = enrollment[:current_module] + 1
 
       score = enrollment.grades.create(part_id: params[:data][:part], score: params[:data][:grade], user_id: @current_user.id, exam: params[:data][:exam])
 
