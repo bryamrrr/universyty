@@ -44,11 +44,6 @@ function DashboardController($scope, $q, $state, $stateParams, $cookies,  Cookie
     $scope.cart.addItem = addItem;
   }
 
-  if ($scope.ambassador === 'true' && $scope.ambassador_active === 'true') {
-    $scope.cart.discount = .2 * $scope.cart.total;
-    $scope.cart.total = .8 * $scope.cart.total;
-  }
-
   $scope.goAmbassador = goAmbassador;
 
   if ($scope.first_entry === 'false') {
@@ -165,6 +160,7 @@ function DashboardController($scope, $q, $state, $stateParams, $cookies,  Cookie
   }
 
   function updateCartCookie(cart) {
+    console.log(cart);
     if ($scope.ambassador === 'true' && $scope.ambassador_active === 'true') {
       $scope.cart.discount = .2 * $scope.cart.total;
       $scope.cart.total = .8 * $scope.cart.total;
