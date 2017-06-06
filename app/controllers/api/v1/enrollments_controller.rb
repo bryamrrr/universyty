@@ -88,8 +88,10 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
       score = enrollment.grades.create(part_id: params[:data][:part], score: params[:data][:grade], user_id: @current_user.id, exam: params[:data][:exam])
 
       unless enrollment.course.parts.find_by(number: number)
-        enrollment.update_column(:finished, true)
-        enrollment.calcGrade()
+        if params[:data][:grade] >= 14
+          enrollment.update_column(:finished, true)
+          enrollment.calcGrade()
+        end
       end
 
       render :json => score.to_json
