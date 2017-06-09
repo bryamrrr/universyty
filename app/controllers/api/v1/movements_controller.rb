@@ -382,7 +382,7 @@ class Api::V1::MovementsController < Api::V1::BaseController
     end
   end
 
-  def activate_movement(movement, pay)
+  def activate_movement(movement, pay = false)
     user = User.find(movement[:user_id])
 
     movement.products.each do |product|
