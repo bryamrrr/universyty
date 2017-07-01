@@ -96,13 +96,13 @@ class Api::V1::MovementsController < Api::V1::BaseController
   def manualPayment(paymethod, cart, nickname)
     user = User.find_by(nickname: nickname)
 
-    if user[:ambassador_active] == false
+    # if user[:ambassador_active] == false
       discount = false
       discount_value = 0
-    else
-      discount = true
-      discount_value = 0.2
-    end
+    # else
+    #   discount = true
+    #   discount_value = 0.2
+    # end
 
     if paymethod == '2'
       paymethod = Paymethod.find_by(name: "Depósito")
