@@ -87,7 +87,8 @@
           </ul>
         </li>
         <li
-        data-ng-class="{open: $state.includes('ambassador')}">
+        data-ng-class="{open: $state.includes('ambassador')}"
+        ng-hide="role === 'Estudiante'">
           <a href="">
             <span class="inner">
               <ng-md-icon class="fa fa-suitcase icono"></ng-md-icon>
@@ -109,13 +110,13 @@
               ui-sref-active="active">
               Alumnos</a>
             </li>
-            <li>
+            <!-- <li>
               <a
               ui-sref="ambassador.list"
               ui-sref-active="active"
               ng-class="{ active: $state.is('ambassador.level') }">
               Embajadores</a>
-            </li>
+            </li> -->
             <li>
               <a
               ui-sref="ambassador.financial"
@@ -159,10 +160,10 @@
           <img src="/menu/cart.png" alt="" ng-click="cart.toggle()" />
           <div ng-if="cart.items.length > 0" class="cart-counter" ng-click="cart.toggle()">{{ cart.items.length }}</div>
         </a>
-        <a href="#" id="team-list">
+        <!-- <a href="#" id="team-list">
           <img src="/menu/student.png" alt="" ng-click="team_cart.toggle()" />
           <div ng-hide="teamChecked" class="cart-counter" ng-click="team_cart.toggle()">{{ team_cart.count }}</div>
-        </a>
+        </a> -->
         <a href="#" id="settings">
           <img src="/menu/logout.png" alt="" />
         </a>
