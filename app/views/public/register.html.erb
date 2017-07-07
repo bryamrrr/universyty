@@ -33,10 +33,10 @@
         <figure><%= image_tag("inputs/district.png") %></figure><!--
         --><%= f.text_field(:city, placeholder: 'Ciudad / Pais') %>
       </div>
-      <!-- <div class="form-input" id="js-sponsor">
-        <figure><%= image_tag("inputs/referral.png") %></figure> --><!--
-        --><!--<%= f.text_field(:sponsor, placeholder: 'Invitado por', :value => @data) %>
-      </div>-->
+      <div class="form-input" id="js-sponsor" style="display:none">
+        <figure><%= image_tag("inputs/referral.png") %></figure><!--
+        --><%= f.text_field(:sponsor, placeholder: 'Invitado por', :value => @data) %>
+      </div>
       <%= f.submit '¡REGISTRARME!' %>
     <% end %>
     <p class="conditions">Al darle clic estas de acuerdo con todos los <br /><a href="https://drive.google.com/file/d/0BxuTJyS9NYwfa0tobEwzdGFUTWc/view?usp=sharing" target="_blank">Términos y Condiciones</a></p>
