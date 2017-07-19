@@ -32,7 +32,7 @@ class Api::V1::PartsController < Api::V1::BaseController
   end
 
   def questions
-    questions = Question.where(part_id: params[:id])
+    questions = Question.where(part_id: params[:id]).order(created_at: :asc)
     part = Part.find(params[:id])
     course = Course.find(part[:course_id])
 
