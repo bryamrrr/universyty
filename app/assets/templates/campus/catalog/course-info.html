@@ -8,7 +8,9 @@
     </div><!--
     --><div class="sales">
       <p>Puedes acceder a este curso con Tarjeta (crédito o débito) y Depósito (Agente BCP).</p>
-      <button ng-click="addToCart(course)"><i class="fa fa-shopping-cart"></i> ¡Quiero este curso! <span ng-hide="course.free">S/ {{ course.pricetag | number: 0 }}</span> <span ng-show="course.free">Gratis</span></button>
+      <a href='/campus/embajador/plan'>
+        <button><i class="fa fa-shopping-cart"></i> ¡Quiero este curso! <span ng-hide="course.free">S/ {{ course.pricetag | number: 0 }}</span> <span ng-show="course.free">Gratis</span></button>
+      </a>
     </div>
   </div>
 
@@ -59,7 +61,7 @@
   <h3>Sobre el curso:</h3>
 
   <div class="info-section">
-    <h5>Descripción del curso</h5>
+    <h5>Descripción del idioma</h5>
     <p>{{ course.description }}</p>
   </div>
 
@@ -73,7 +75,7 @@
     <h5>Programa del curso</h5>
 
     <div ng-repeat="part in parts">
-      <h6>MÓDULO {{ part.number }}: {{ part.title }}</h6>
+      <h6>NIVEL {{ part.number }}: {{ part.title }}</h6>
       <ul>
         <li ng-repeat="topic in part.topics">
           <i class="fa fa-lock"></i>
@@ -90,8 +92,8 @@
   </div>
 
   <div class="info-section">
-    <h3 ng-if="course.professors.length === 1">Sobre el instructor:</h3>
-    <h3 ng-if="course.professors.length !== 1">Sobre los instructores:</h3>
+    <h3 ng-if="course.professors.length === 1">Sobre el Coach:</h3>
+    <h3 ng-if="course.professors.length !== 1">Sobre los Coaches:</h3>
 
     <article class="professor-card" ng-repeat="professor in course.professors">
       <figure>
@@ -103,7 +105,9 @@
       </div>
     </article>
   </div>
-  <button ng-click="addToCart(course)"><i class="fa fa-shopping-cart"></i> ¡Quiero este curso! <span ng-hide="course.free">S/ {{ course.pricetag | number: 0 }}</span> <span ng-show="course.free">Gratis</span></button>
+  <a href='/campus/embajador/plan'>
+    <button><i class="fa fa-shopping-cart"></i> ¡Quiero este curso! <span ng-hide="course.free">S/ {{ course.pricetag | number: 0 }}</span> <span ng-show="course.free">Gratis</span></button>
+  </a>
   </div>
 </section>
 </div>

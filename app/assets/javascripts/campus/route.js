@@ -86,7 +86,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('courses.list', {
       url: '/lista',
       data: {
-        title: 'Mis Cursos'
+        title: 'Mis Idiomas'
       },
       views: {
         'content@courses': {

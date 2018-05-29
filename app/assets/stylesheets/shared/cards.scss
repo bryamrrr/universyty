@@ -7,7 +7,7 @@
 }
 
 .header-background {
-  background-image: url('/card-background.jpg');
+  background-image: url('/card-background.png');
   background-size: cover;
   background-position: center center;
   padding: 3em 2em;
@@ -17,6 +17,7 @@
   background-color: $purple;
   border: 2px solid white;
   padding: 1em 1.5em .5em;
+  margin-right: 1rem;
   width: 100px;
 
   img {
@@ -26,7 +27,7 @@
 
 .card-with-image {
   h2 {
-    color: white;
+    color: $purple;
     display: inline-block;
     vertical-align: top;
     margin-top: 1.8em;

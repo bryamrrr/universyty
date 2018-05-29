@@ -16,7 +16,7 @@
         </div>
       </div>
       <ul class="nav" id="side-menu" nav-collapse>
-        <li
+        <!-- <li
           data-ng-class="{open: $state.includes('catalog')}">
           <a href="" toggle-submenu>
             <span class="inner">
@@ -32,7 +32,7 @@
             ng-repeat="category in categories"
             >{{category.name}}</a></li>
           </ul>
-        </li>
+        </li> -->
         <li data-ng-class="{open: $state.includes('courses')}">
           <a href="">
             <span class="inner">
@@ -45,7 +45,7 @@
             <li><a
             ui-sref="courses.list"
             ui-sref-active="active"
-            >Mis Cursos</a></li>
+            >Mis idiomas</a></li>
             <li ng-show="role === 'Estudiante'"><a
             ui-sref="courses.grades"
             ui-sref-active="active"
@@ -78,17 +78,15 @@
               ui-sref-active="active">
               Cambiar Contraseña</a>
             </li>
-            <li>
+            <!-- <li>
               <a
               ui-sref="user.payments"
               ui-sref-active="active">
               Mis Pagos</a>
-            </li>
+            </li> -->
           </ul>
         </li>
-        <li
-        data-ng-class="{open: $state.includes('ambassador')}"
-        ng-hide="role === 'Estudiante'">
+        <li data-ng-class="{open: $state.includes('ambassador')}">
           <a href="">
             <span class="inner">
               <ng-md-icon class="fa fa-suitcase icono"></ng-md-icon>
@@ -104,19 +102,19 @@
               ui-sref-active="active">
               Plan Embajador</a>
             </li>
-            <!-- <li>
+            <li>
               <a
               ui-sref="ambassador.preferencial"
               ui-sref-active="active">
               Alumnos</a>
-            </li> -->
-            <!-- <li>
+            </li>
+            <li>
               <a
               ui-sref="ambassador.list"
               ui-sref-active="active"
               ng-class="{ active: $state.is('ambassador.level') }">
               Embajadores</a>
-            </li> -->
+            </li>
             <li>
               <a
               ui-sref="ambassador.financial"
@@ -156,14 +154,14 @@
         </div>
       </div>
       <div class="aside-menu">
-        <a href="#" id="shopping-cart">
+        <!-- <a href="#" id="shopping-cart">
           <img src="/menu/cart.png" alt="" ng-click="cart.toggle()" />
           <div ng-if="cart.items.length > 0" class="cart-counter" ng-click="cart.toggle()">{{ cart.items.length }}</div>
-        </a>
-        <!-- <a href="#" id="team-list">
-          <img src="/menu/student.png" alt="" ng-click="team_cart.toggle()" />
-          <div ng-hide="teamChecked" class="cart-counter" ng-click="team_cart.toggle()">{{ team_cart.count }}</div>
         </a> -->
+        <a href="#" id="team-list">
+          <img src="/menu/team.png" alt="" ng-click="team_cart.toggle()" />
+          <div ng-hide="teamChecked" class="cart-counter" ng-click="team_cart.toggle()">{{ team_cart.count }}</div>
+        </a>
         <a href="#" id="settings">
           <img src="/menu/logout.png" alt="" />
         </a>
