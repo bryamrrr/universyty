@@ -8,9 +8,9 @@
           <a class="display-inline" >
             <span class="sub-title">
               {{ nickname }}
-              <i ng-if="ambassador === 'false' && role === 'Estudiante'">(Alumno)</i>
+              <i ng-if="ambassador === 'false' && role === 'Estudiante'">(Invitado)</i>
               <i ng-if="ambassador === 'true' && role !== 'Estudiante'">({{ role }})</i>
-              <i ng-if="ambassador === 'true' && role === 'Estudiante'">(Embajador)</i>
+              <i ng-if="ambassador === 'true' && role === 'Estudiante'">(Alumno)</i>
             </span>
           </a>
         </div>
@@ -74,6 +74,18 @@
             </li>
             <li>
               <a
+              ui-sref="user.plan"
+              ui-sref-active="active">
+              Suscripción</a>
+            </li>
+            <li ng-show="role === 'Estudiante'">
+              <a
+              ui-sref="user.billing"
+              ui-sref-active="active">
+              Facturación</a>
+            </li>
+            <li>
+              <a
               ui-sref="user.password"
               ui-sref-active="active">
               Cambiar Contraseña</a>
@@ -90,13 +102,13 @@
           <a href="">
             <span class="inner">
               <ng-md-icon class="fa fa-suitcase icono"></ng-md-icon>
-              <span ng-show="role === 'Estudiante'" class="nav-label">Embajador</span>
+              <span ng-show="role === 'Estudiante'" class="nav-label">Equipo</span>
               <span ng-show="role === 'Instructor'" class="nav-label">Finanzas</span>
               <ng-md-icon class="fa fa-chevron-right arrow"></ng-md-icon>
             </span>
           </a>
           <ul class="nav nav-second-level ">
-            <li ng-hide="role !== 'Estudiante'">
+            <!-- <li ng-hide="role !== 'Estudiante'">
               <a
               ui-sref="ambassador.plan"
               ui-sref-active="active">
@@ -128,13 +140,13 @@
               ui-sref="ambassador.billing"
               ui-sref-active="active">
               Facturación</a>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
               <a
               ui-sref="ambassador.bank"
               ui-sref-active="active">
               Datos Bancarios</a>
-            </li>
+            </li> -->
           </ul>
         </li>
       </ul>

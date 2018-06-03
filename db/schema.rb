@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501174147) do
+ActiveRecord::Schema.define(version: 20180603220929) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer  "question_id"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20170501174147) do
     t.decimal  "net"
     t.integer  "user_id"
     t.decimal  "bono"
+    t.string   "language"
     t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["user_id"], name: "index_courses_on_user_id"
   end

@@ -182,6 +182,30 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
+    .state('user.plan', {
+      url: '/plan',
+      data: {
+        title: 'Suscripción'
+      },
+      views: {
+        'content@user': {
+          templateUrl: 'campus/ambassador/plan.html',
+          controller: 'AmbassadorPlanController'
+        }
+      }
+    })
+    .state('user.billing', {
+      url: '/facturacion',
+      data: {
+        title: 'Facturación'
+      },
+      views: {
+        'content@user': {
+          templateUrl: 'campus/ambassador/billing.html',
+          controller: 'AmbassadorBillingController'
+        }
+      }
+    })
     .state('user.password', {
       url: '/cambiar-contrasena',
       data: {
@@ -218,18 +242,6 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
       views: {
         dashboard: {
           templateUrl: 'campus/index.html'
-        }
-      }
-    })
-    .state('ambassador.plan', {
-      url: '/plan',
-      data: {
-        title: 'Plan Embajador'
-      },
-      views: {
-        'content@ambassador': {
-          templateUrl: 'campus/ambassador/plan.html',
-          controller: 'AmbassadorPlanController'
         }
       }
     })
@@ -278,18 +290,6 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         'content@ambassador': {
           templateUrl: 'campus/ambassador/financial.html',
           controller: 'AmbassadorFinancialController'
-        }
-      }
-    })
-    .state('ambassador.billing', {
-      url: '/facturacion',
-      data: {
-        title: 'Facturación'
-      },
-      views: {
-        'content@ambassador': {
-          templateUrl: 'campus/ambassador/billing.html',
-          controller: 'AmbassadorBillingController'
         }
       }
     })
