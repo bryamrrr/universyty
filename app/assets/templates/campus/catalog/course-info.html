@@ -40,10 +40,10 @@
         </li>
         <li>
           <img ng-src='/icons/certificate.png' />
-          <span>Certificado: {{ course.certificate_info }}</span>
+          <span>Certificado: {{ course.certified ? 'Sí' : 'No' }}</span>
         </li>
       </ul>
-      <h4>Instructor</h4>
+      <h4>Coach</h4>
       <article class="professor-card">
         <figure>
           <img ng-src="{{ course.professors[0].image_url }}" alt="">

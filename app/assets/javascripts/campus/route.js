@@ -237,7 +237,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
       abstract: true,
       data: {
         'needAuth': true,
-        'title': 'Embajador'
+        'title': 'Equipo'
       },
       views: {
         dashboard: {
@@ -248,7 +248,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('ambassador.list', {
       url: '/lista',
       data: {
-        title: 'Embajadores'
+        title: 'Mi equipo'
       },
       views: {
         'content@ambassador': {
@@ -272,7 +272,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('ambassador.preferencial', {
       url: '/preferenciales',
       data: {
-        title: 'Alumnos'
+        title: 'Invitados'
       },
       views: {
         'content@ambassador': {

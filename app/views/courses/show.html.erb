@@ -53,7 +53,13 @@
         </li>
         <li>
           <%= image_tag("/icons/certificate.png") %>
-          <span>Certificado: <%= @course.certificate_info %></span>
+          <span>Certificado:
+            <% if @course.certified %>
+              Sí
+            <% else %>
+              No
+            <% end %>
+          </span>
         </li>
       </ul>
       <% if @course.professors.first %>
