@@ -81,7 +81,7 @@ class User < ApplicationRecord
       when 'NEW_AMBASSADOR'
         payFathers(self, 0, true)
       when 'MONTHLY_PAY'
-        payFathers(self, 0)
+        payFathers(self, 0, false)
       when 'COMMEND'
         if father && father.is_active_ambassador?
           value = (course[:pricetag] * COMMEND).round
