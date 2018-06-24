@@ -160,7 +160,10 @@
       padding-bottom: .2em;
     }
 
-    img { width: 12px; }
+    img {
+      width: 12px;
+      &.professor-avatar { width: 100%; }
+    }
 
     .professor-info { padding-left: .5em; }
 

@@ -189,7 +189,7 @@ class User < ApplicationRecord
             value: MONTHLY_PAY
           )
         end
-        payFathers(father, counter + 1)
+        payFathers(father, counter + 1, is_new)
       end
     end
 end

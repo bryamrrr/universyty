@@ -180,6 +180,16 @@
 
 }
 
+@media screen and (max-width: 500px) {
+  .main-home {
+    background-image: image-url('home-background-mobile.png');
+    height: 667px;
+    .overlay {
+      height: 667px;
+    }
+  }
+}
+
 @media screen and (max-width: 480px) {
   .main-home {
     h2 { font-size: 2em; }
