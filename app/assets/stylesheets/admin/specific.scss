@@ -2,6 +2,46 @@
   width: 100%;
 }
 
+.new-topic {
+  h2 {
+    margin-top: 2rem;
+    margin-bottom: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+  }
+
+  h3 {
+    margin-top: 1rem;
+    margin-left: 0;
+  }
+
+  fieldset {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    legend {
+      font-weight: 800;
+    }
+    .form-input:first-of-type {
+      margin-top: 1rem;
+    }
+  }
+
+  form {
+    margin-bottom: 2rem;
+  }
+}
+
+.chats-container {
+  a {
+    color: $purple;
+    cursor: pointer;
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 @media screen and (max-width: 560px) {
   .add-element-priority,
   .two-column-create { display: block; }

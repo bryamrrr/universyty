@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181220041400) do
+ActiveRecord::Schema.define(version: 20181226152654) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer  "question_id"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20181220041400) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "topic_id"
+    t.index ["topic_id"], name: "index_auditions_on_topic_id"
   end
 
   create_table "bonos", force: :cascade do |t|
@@ -56,6 +58,8 @@ ActiveRecord::Schema.define(version: 20181220041400) do
     t.string   "fonetica"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "topic_id"
+    t.index ["topic_id"], name: "index_chats_on_topic_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -166,6 +170,8 @@ ActiveRecord::Schema.define(version: 20181220041400) do
     t.string   "fonetica"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "topic_id"
+    t.index ["topic_id"], name: "index_memorizations_on_topic_id"
   end
 
   create_table "movements", force: :cascade do |t|
@@ -306,6 +312,8 @@ ActiveRecord::Schema.define(version: 20181220041400) do
     t.string   "answers"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "topic_id"
+    t.index ["topic_id"], name: "index_transcriptions_on_topic_id"
   end
 
   create_table "types", force: :cascade do |t|

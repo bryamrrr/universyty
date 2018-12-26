@@ -5,6 +5,19 @@ TopicsController.$inject = ['$scope', '$state', '$stateParams', 'urls', 'HttpReq
 function TopicsController($scope, $state, $stateParams, urls, HttpRequest, toastr, validators, SweetAlert) {
   $scope.topicDelete = topicDelete;
   $scope.create = create;
+  $scope.addChat = addChat;
+  $scope.topic = {
+    chats: [
+      {
+        description: '',
+        url: '',
+        translate: '',
+        fonetica: '',
+      }
+    ],
+    memorization: {},
+    transcription: {},
+  };
 
   var moduleId = $stateParams.id;
 
@@ -53,23 +66,35 @@ function TopicsController($scope, $state, $stateParams, urls, HttpRequest, toast
   function create(form, topic) {
     if (!form.validate()) return false;
 
-    $scope.isLoading = true;
+    // $scope.isLoading = true;
 
     topic.number = parseInt(topic.number);
     topic.part_id = moduleId;
 
+    var newTopic = Object.assign({}, topic);
+    console.log('newTopic', newTopic);
+
     var url = urls.BASE_API + '/topics';
-    var promise = HttpRequest.send("POST", url, topic);
+    var promise = HttpRequest.send("POST", url, newTopic);
 
     promise.then(function (response) {
       toastr.success(response.message);
       $state.reload();
 
-      $scope.isLoading = false;
+      // $scope.isLoading = false;
     }, function(error){
       toastr.error("Hubo un error");
 
-      $scope.isLoading = false;
+      // $scope.isLoading = false;
+    });
+  }
+
+  function addChat() {
+    $scope.topic.chats.push({
+      description: '',
+      url: '',
+      translate: '',
+      fonetica: '',
     });
   }
 
@@ -82,12 +107,12 @@ function TopicsController($scope, $state, $stateParams, urls, HttpRequest, toast
       title: {
         required: true
       },
-      video: {
-        required: true
-      },
-      duration: {
-        required: true
-      },
+      // video: {
+      //   required: true
+      // },
+      // duration: {
+      //   required: true
+      // },
       number: {
         required: true,
         regex: validators.integer
@@ -97,12 +122,12 @@ function TopicsController($scope, $state, $stateParams, urls, HttpRequest, toast
       title: {
         required: 'Dato requerido'
       },
-      video: {
-        required: 'Dato requerido'
-      },
-      duration: {
-        required: 'Dato requerido'
-      },
+      // video: {
+      //   required: 'Dato requerido'
+      // },
+      // duration: {
+      //   required: 'Dato requerido'
+      // },
       number: {
         required: 'Dato requerido',
         regex: 'Formato inválido'
