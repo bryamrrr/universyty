@@ -42,6 +42,10 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
     part = course.parts.find_by(number: params[:part])
     video = part.topics.find_by(number: params[:topic])
     count = course.parts.find_by(number: enrollment[:current_module]).topics.count
+    auditions = video.auditions
+    chats = video.chats
+    memorizations = video.memorizations
+    transcriptions = video.transcriptions
 
     if enrollment[:current_video] == count
       view_exam = true
@@ -64,6 +68,10 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
         }
       }),
       part: part,
+      auditions: auditions,
+      chats: chats,
+      memorizations: memorizations,
+      trancriptions: transcriptions,
       video: video,
       grades: enrollment.grades,
       view_exam: view_exam

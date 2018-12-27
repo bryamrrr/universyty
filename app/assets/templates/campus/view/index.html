@@ -1,11 +1,42 @@
 <div class="card-course">
-  <h2>{{ course.title }}</h2>
-  <p class="tagline">Por: {{ course.professors[0].name }}</p>
+  <h2>{{ currentTopic.title }}</h2>
 
   <section class="course-main">
     <div class="video-wrapper-wistia">
-      <div class="video-wrapper">
+      <div class="video-wrapper" ng-if="currentTopic.video_url && currentTopic.video_url !== ''">
         <iframe ng-src="{{ vimeoVideo | trusted }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
+      <div class="interactive-wrapper" ng-if="!currentTopic.video_url || currentTopic.video_url === ''">
+        <ul class="interactive-tabs">
+          <li class="interactive-tab-active">
+            <a href="#">
+              <input type="radio" />
+              <span>Audición</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <input type="radio" />
+              <span>Perfeccionamiento</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <input type="radio" />
+              <span>Memorización</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <input type="radio" />
+              <span>Transcripción</span>
+            </a>
+          </li>
+        </ul>
+        <div ng-if="interactiveStep === 0" class="interactive-step-0">
+          <h3>¡Entretenemos oidos,<br /> y pronuncialo sin roche!</h3>
+          <button ng-click="auditionAudio.play()">Click me</button>
+        </div>
       </div>
     </div>
     <div class="parts-container">

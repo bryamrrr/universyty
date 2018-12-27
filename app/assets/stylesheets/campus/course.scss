@@ -6,6 +6,7 @@
   .course-main {
     display: flex;
     margin-bottom: 2em;
+    margin-top: 1em;
     .video-wrapper-wistia {
       flex-basis: 65%;
       margin-right: 3%
@@ -13,6 +14,53 @@
     .parts-container {
       flex-basis: 32%;
       overflow: scroll;
+    }
+  }
+
+  .interactive-tabs {
+    display: flex;
+    flex-direction: row;
+
+    li {
+      background-color: #69e781;
+      flex: 1;
+      margin-right: .25em;
+      position: relative;
+      &:last-of-type { margin-right: 0; }
+      &.interactive-tab-active::after {
+        content: "";
+        background-color: yellow;
+        height: 3px;
+        width: 100%;
+        position: absolute;
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        padding: .25em .5em;
+        input {
+          height: 15px;
+          margin-right: .5rem;
+        }
+        span {
+          color: black;
+          font-weight: 500;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .interactive-step-0 {
+    background-color: white;
+    padding: 2em;
+    color: #7bb7d7;
+    text-align: center;
+    h3 {
+      display: inline-block;
+      font-size: 1.5em;
+      max-width: 300px;
     }
   }
 }

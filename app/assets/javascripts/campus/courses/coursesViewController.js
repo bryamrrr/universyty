@@ -1,8 +1,8 @@
 angular.module("campus-app").controller("CoursesViewController", CoursesViewController);
 
-CoursesViewController.$inject = ['$scope', '$location', '$q', '$state', '$stateParams', 'urls', 'HttpRequest', 'CookieService', 'SweetAlert'];
+CoursesViewController.$inject = ['$scope', '$location', '$q', '$state', '$stateParams', 'urls', 'HttpRequest', 'CookieService', 'SweetAlert', 'ngAudio'];
 
-function CoursesViewController($scope, $location, $q, $state, $stateParams, urls, HttpRequest, CookieService, SweetAlert) {
+function CoursesViewController($scope, $location, $q, $state, $stateParams, urls, HttpRequest, CookieService, SweetAlert, ngAudio) {
   $scope.requestCertificate = requestCertificate;
   $scope.idCourse = $stateParams.id;
   $scope.changeTab = changeTab;
@@ -10,6 +10,7 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
   $scope.goTo = goTo;
   $scope.filteredGrades = [[]];
   $scope.totals = [0];
+  $scope.interactiveStep = 0;
   var currentVideo, currentModule;
 
   if ($location.$$search.notas) {
@@ -34,6 +35,9 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     $scope.view_exam = response[1].view_exam;
     currentVideo = response[1].video;
     currentModule = response[1].part;
+    $scope.auditions = response[1].auditions;
+
+    $scope.auditionAudio = ngAudio.load($scope.auditions[0].audio);
 
     $scope.currentTopic = currentVideo;
     $scope.vimeoVideo = 'https://player.vimeo.com/video/' + $scope.currentTopic.video_url;
