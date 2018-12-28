@@ -4,6 +4,7 @@ CoursesViewController.$inject = ['$scope', '$location', '$q', '$state', '$stateP
 
 function CoursesViewController($scope, $location, $q, $state, $stateParams, urls, HttpRequest, CookieService, SweetAlert, ngAudio) {
   $scope.requestCertificate = requestCertificate;
+  $scope.clickPlayOrPause = clickPlayOrPause;
   $scope.idCourse = $stateParams.id;
   $scope.changeTab = changeTab;
   $scope.isTab = isTab;
@@ -12,6 +13,17 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
   $scope.totals = [0];
   $scope.interactiveStep = 0;
   var currentVideo, currentModule;
+  var playingAudio = false;
+  var amountForSlider = 100000;
+
+  $scope.slider = {
+    value: 0,
+    options: {
+      showSelectionBar: true,
+      ceil: amountForSlider,
+      onChange: onSliderChange,
+    }
+  };
 
   if ($location.$$search.notas) {
     $scope.currentTab = 1;
@@ -38,6 +50,13 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     $scope.auditions = response[1].auditions;
 
     $scope.auditionAudio = ngAudio.load($scope.auditions[0].audio);
+    console.log('$scope.auditionAudio', $scope.auditionAudio);
+    // $scope.slider = {
+    //   value: $scope.auditionAudio.progress,
+    //   options: {
+    //       showSelectionBar: true
+    //   }
+    // };
 
     $scope.currentTopic = currentVideo;
     $scope.vimeoVideo = 'https://player.vimeo.com/video/' + $scope.currentTopic.video_url;
@@ -51,11 +70,27 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     console.log(error);
   })
 
+  function clickPlayOrPause() {
+    if ($scope.auditionAudio.paused) {
+      $scope.auditionAudio.play();
+      playingAudio = setInterval(() => {
+        $scope.slider.value = $scope.auditionAudio.progress * amountForSlider;
+      }, 1000);
+    } else {
+      $scope.auditionAudio.pause();
+      clearInterval(playingAudio);
+    }
+  }
+
+  function onSliderChange(sliderId, modelValue, highValue, pointerType) {
+    console.log('sliderId, modelValue, highValue, pointerType', sliderId, modelValue, highValue, pointerType);
+    $scope.auditionAudio.progress = modelValue / amountForSlider;
+  }
+
   function enabletopics() {
     var numModule = $scope.enrollment.current_module;
     var numVideo = $scope.enrollment.current_video;
     var i = 0, j = 0, k = 0;
-    console.log($scope.parts);
 
     if (numModule > 1) {
       for (i; i <= numModule-1; i++) {

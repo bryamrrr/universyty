@@ -5,4 +5,5 @@ angular.module("campus-app", [
   'ngMaterial',
   'ngValidate',
   'oitozero.ngSweetAlert',
-  'ngAudio'])
+  'ngAudio',
+  'rzModule'])
