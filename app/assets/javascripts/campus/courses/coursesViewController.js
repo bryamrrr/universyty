@@ -12,6 +12,7 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
   $scope.filteredGrades = [[]];
   $scope.totals = [0];
   $scope.interactiveStep = 0;
+  $scope.avance = '00:00';
   var currentVideo, currentModule;
   var playingAudio = false;
   var amountForSlider = 100000;
@@ -48,9 +49,10 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     currentVideo = response[1].video;
     currentModule = response[1].part;
     $scope.auditions = response[1].auditions;
+    $scope.Math = window.Math;
 
     $scope.auditionAudio = ngAudio.load($scope.auditions[0].audio);
-    console.log('$scope.auditionAudio', $scope.auditionAudio);
+    // console.log('$scope.auditionAudio', $scope.auditionAudio);
     // $scope.slider = {
     //   value: $scope.auditionAudio.progress,
     //   options: {
@@ -75,6 +77,12 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
       $scope.auditionAudio.play();
       playingAudio = setInterval(() => {
         $scope.slider.value = $scope.auditionAudio.progress * amountForSlider;
+        var avance = $scope.auditionAudio.duration - $scope.auditionAudio.remaining;
+        var firstNumAvance = Math.floor(avance / 60).toString();
+        var firstString = firstNumAvance.length === 1 ? '0' + firstNumAvance : firstNumAvance;
+        var secondNumAvance = Math.floor(avance % 60).toString();
+        var secondString = secondNumAvance.length === 1 ? '0' + secondNumAvance : secondNumAvance;
+        $scope.avance = firstString + ':' + secondString;
       }, 1000);
     } else {
       $scope.auditionAudio.pause();

@@ -54,20 +54,88 @@
 
   .interactive-step-0 {
     background-color: white;
-    padding: 2em;
+    padding: 4em 2em;
     color: #7bb7d7;
     text-align: center;
     h3 {
       display: inline-block;
       font-size: 1.5em;
+      font-weight: 700;
       max-width: 300px;
+      margin-bottom: 1em;
     }
 
     .rz-bubble.rz-limit.rz-floor,
     .rz-bubble.rz-model-value,
     .rz-bubble.rz-limit.rz-ceil {
-      // display: none;
+      display: none;
     }
+  }
+}
+
+.interactive-player {
+  background-color: #F1F1F1;
+  padding: 1.5em 2em 1em;
+  max-width: 420px;
+  margin: 0 auto;
+
+  .interactive-slider {
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .init-player, .end-player {
+    position: absolute;
+    bottom: -20px;
+    color: black;
+    font-weight: 800;
+  }
+  .init-player {
+    left: 0;
+  }
+  .end-player {
+    right: 0;
+  }
+
+  .player-button {
+    background-image: image-url("player/circled-play.png");
+    &.paused { background-image: image-url("player/circled-pause.png"); }
+  }
+
+  .play-player {
+    cursor: pointer;
+    height: 45px;
+    &.pause {
+      margin-top: 5px;
+      height: 35px;
+      margin-bottom: 5px;
+    }
+  }
+
+  /* OVERRIDES SLIDER */
+  .rzslider .rz-pointer {
+    background-color: $purple;
+    width: 18px;
+    height: 18px;
+    top: -8px;
+    &.rz-active, &:hover {
+      background-color: $purple;
+      &:after {
+        background-color: $purple;
+      }
+    }
+    &:after {
+      background-color: $purple;
+      top: 5px;
+      left: 5px;
+    }
+  }
+
+  .rzslider .rz-selection {
+    background-color: $purple !important;
+  }
+
+  .rzslider .rz-bar {
+    background-color: #E5E5E5;
   }
 }
 
