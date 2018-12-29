@@ -22,21 +22,21 @@ class Api::V1::TopicsController < Api::V1::BaseController
           topic_id: topic.id
         )
 
-        chats = data[:chats]
-        chats.each do |chat|
-          if !chat[:description].nil?
-            !chat[:url].nil? and
-            !chat[:translate].nil? and
-            !chat[:fonetica].nil?
-            topic.chats.create(
-              description: chat[:description],
-              translate: chat[:translate],
-              fonetica: chat[:fonetica],
-              audio: chat[:url],
-              topic_id: topic.id
-            )
-          end
-        end
+        # chats = data[:chats]
+        # chats.each do |chat|
+        #   if !chat[:description].nil?
+        #     !chat[:url].nil? and
+        #     !chat[:translate].nil? and
+        #     !chat[:fonetica].nil?
+        #     topic.chats.create(
+        #       description: chat[:description],
+        #       translate: chat[:translate],
+        #       fonetica: chat[:fonetica],
+        #       audio: chat[:url],
+        #       topic_id: topic.id
+        #     )
+        #   end
+        # end
 
         memorization = data[:memorization]
         topic.memorizations.create(
@@ -86,7 +86,7 @@ class Api::V1::TopicsController < Api::V1::BaseController
       :duration,
       :part_id,
       :audition,
-      :chats,
+      # :chats,
       :memorization,
       :transcription
     )

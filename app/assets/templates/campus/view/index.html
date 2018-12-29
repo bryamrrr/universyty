@@ -8,32 +8,44 @@
       </div>
       <div class="interactive-wrapper" ng-if="!currentTopic.video_url || currentTopic.video_url === ''">
         <ul class="interactive-tabs">
-          <li class="interactive-tab-active">
+          <li
+            ng-class="{completed: completedTabs >= 1, 'interactive-tab-active': interactiveStep === 1}"
+            ng-click="setStep(1)"
+          >
             <a href="#">
               <input type="radio" />
               <span>Audición</span>
+              <img src="/purple-check.png" />
             </a>
           </li>
-          <li>
+          <!-- <li ng-class="{completed: completedTabs >= 2}">
             <a href="#">
               <input type="radio" />
               <span>Perfeccionamiento</span>
             </a>
-          </li>
-          <li>
+          </li> -->
+          <li
+            ng-class="{completed: completedTabs >= 2, 'interactive-tab-active': interactiveStep === 2}"
+            ng-click="setStep(2)"
+          >
             <a href="#">
               <input type="radio" />
               <span>Memorización</span>
+              <img src="/purple-check.png" />
             </a>
           </li>
-          <li>
+          <li
+            ng-class="{completed: completedTabs >= 3, 'interactive-tab-active': interactiveStep === 3}"
+            ng-click="setStep(3)"
+          >
             <a href="#">
               <input type="radio" />
               <span>Transcripción</span>
+              <img src="/purple-check.png" />
             </a>
           </li>
         </ul>
-        <div ng-if="interactiveStep === 0" class="interactive-step-0">
+        <div ng-if="interactiveStep === 1" class="interactive-step-1">
           <h3>¡Entretenemos oidos,<br /> y pronuncialo sin roche!</h3>
           <div class="interactive-player">
             <div class="interactive-slider">
@@ -45,7 +57,27 @@
             <img ng-if="auditionAudio.paused" class="play-player" src="/player/circled-play.png" ng-click="clickPlayOrPause()" />
             <img ng-if="!auditionAudio.paused" class="play-player pause" src="/player/circled-pause.png" ng-click="clickPlayOrPause()" />
           </div>
+          <button
+            class="button next-lab-button"
+            ng-click="nextStep(2)"
+          >
+            <span>Laboratorio 2</span>
+            <img class="chevron" src="chevron_right.png" />
+          </button>
         </div>
+      </div>
+      <div ng-if="interactiveStep === 2" class="interactive-step-2">
+        Memorización
+        <button
+            class="button next-lab-button"
+            ng-click="nextStep(3)"
+          >
+          <span>Laboratorio 3</span>
+          <img class="chevron" src="chevron_right.png" />
+        </button>
+      </div>
+      <div ng-if="interactiveStep === 3" class="interactive-step-3">
+        Transcripcion
       </div>
     </div>
     <div class="parts-container">

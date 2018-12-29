@@ -34,6 +34,16 @@
         width: 100%;
         position: absolute;
       }
+      img { display: none; }
+      &.completed {
+        img {
+          display: block;
+          position: absolute;
+          left: 6px;
+          width: 18px;
+          top: 3px;
+        }
+      }
 
       a {
         display: flex;
@@ -52,7 +62,7 @@
     }
   }
 
-  .interactive-step-0 {
+  .interactive-step-1 {
     background-color: white;
     padding: 4em 2em;
     color: #7bb7d7;
@@ -69,6 +79,19 @@
     .rz-bubble.rz-model-value,
     .rz-bubble.rz-limit.rz-ceil {
       display: none;
+    }
+  }
+
+  .next-lab-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2em auto;
+    width: 135px;
+    padding: .3em .5em .3em 1em;
+    transform: none;
+    img {
+      height: 24px;
     }
   }
 }

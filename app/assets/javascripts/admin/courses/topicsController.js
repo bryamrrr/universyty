@@ -7,14 +7,14 @@ function TopicsController($scope, $state, $stateParams, urls, HttpRequest, toast
   $scope.create = create;
   $scope.addChat = addChat;
   $scope.topic = {
-    chats: [
-      {
-        description: '',
-        url: '',
-        translate: '',
-        fonetica: '',
-      }
-    ],
+    // chats: [
+    //   {
+    //     description: '',
+    //     url: '',
+    //     translate: '',
+    //     fonetica: '',
+    //   }
+    // ],
     memorization: {},
     transcription: {},
   };

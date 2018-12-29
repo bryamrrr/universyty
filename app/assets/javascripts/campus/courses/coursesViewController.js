@@ -5,13 +5,16 @@ CoursesViewController.$inject = ['$scope', '$location', '$q', '$state', '$stateP
 function CoursesViewController($scope, $location, $q, $state, $stateParams, urls, HttpRequest, CookieService, SweetAlert, ngAudio) {
   $scope.requestCertificate = requestCertificate;
   $scope.clickPlayOrPause = clickPlayOrPause;
+  $scope.nextStep = nextStep;
+  $scope.setStep = setStep;
   $scope.idCourse = $stateParams.id;
   $scope.changeTab = changeTab;
   $scope.isTab = isTab;
   $scope.goTo = goTo;
   $scope.filteredGrades = [[]];
   $scope.totals = [0];
-  $scope.interactiveStep = 0;
+  $scope.interactiveStep = 1;
+  $scope.completedTabs = 0;
   $scope.avance = '00:00';
   var currentVideo, currentModule;
   var playingAudio = false;
@@ -50,6 +53,7 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     currentModule = response[1].part;
     $scope.auditions = response[1].auditions;
     $scope.Math = window.Math;
+    $scope.completedTabs = 0;
 
     $scope.auditionAudio = ngAudio.load($scope.auditions[0].audio);
     // console.log('$scope.auditionAudio', $scope.auditionAudio);
@@ -164,6 +168,19 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
       $state.go('courses.view', { id: params.id, part: params.part.number, topic: params.topic.number });
     } else if (thing === 'quiz' && params.part.enabled) {
       $state.go('courses.quiz', { id: params.id, part: params.part.id, number: params.number });
+    }
+  }
+
+  function nextStep(step) {
+    $scope.interactiveStep += 1;
+    if (step > $scope.completedTabs) {
+      $scope.completedTabs += 1;
+    }
+  }
+
+  function setStep(stepToSet) {
+    if (stepToSet <= $scope.completedTabs + 1) {
+      $scope.interactiveStep = stepToSet;
     }
   }
 
