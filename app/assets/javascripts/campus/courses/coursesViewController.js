@@ -18,8 +18,8 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
   $scope.goTo = goTo;
   $scope.filteredGrades = [[]];
   $scope.totals = [0];
-  $scope.interactiveStep = 3; // Change this
-  $scope.completedTabs = 2; // Change this
+  $scope.interactiveStep = 1;
+  $scope.completedTabs = 0;
   $scope.avance = '00:00';
   var currentVideo, currentModule;
   var playingAudio = false;
@@ -71,45 +71,12 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     $scope.transcriptions = response[1].transcriptions;
     $scope.Math = window.Math;
 
-    $scope.auditionAudio = ngAudio.load($scope.auditions[0].audio);
-    response[1].memorizations.forEach((memorization, index) => {
-      var thisMemoAudioKey = 'sliderMemorization-' + index + '-audio';
-      $scope['sliderMemorization-' + index] = {
-        value: 0,
-        options: {
-          showSelectionBar: true,
-          ceil: amountForSlider,
-          onChange: getSliderChange(thisMemoAudioKey),
-        }
-      };
-      $scope[thisMemoAudioKey] = ngAudio.load(memorization.audio);
-    });
-
-    response[1].transcriptions.forEach((transcription, index) => {
-      var thisMemoAudioKey = 'sliderTranscription-' + index + '-audio';
-      $scope['sliderTranscription-' + index] = {
-        value: 0,
-        options: {
-          showSelectionBar: true,
-          ceil: amountForSlider,
-          onChange: getSliderChange(thisMemoAudioKey),
-        }
-      };
-      $scope[thisMemoAudioKey] = ngAudio.load(transcription.audio);
-    });
-    // console.log('$scope.auditionAudio', $scope.auditionAudio);
-    // $scope.slider = {
-    //   value: $scope.auditionAudio.progress,
-    //   options: {
-    //       showSelectionBar: true
-    //   }
-    // };
-
     $scope.currentTopic = currentVideo;
     $scope.vimeoVideo = 'https://player.vimeo.com/video/' + $scope.currentTopic.video_url;
 
     enabletopics();
     filterGrades();
+    setAudio();
 
     var $contenido = $('#contenido');
     $contenido.addClass("loaded");
@@ -118,12 +85,11 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
   })
 
   function clickPlayOrPause(sliderKey, audioKey) {
-    console.log('audioKey', audioKey);
     if ($scope[audioKey].paused) {
       $scope[audioKey].play();
       playingAudio = setInterval(() => {
         $scope[sliderKey].value = $scope[audioKey].progress * amountForSlider;
-        var avance = $scope[audioKey].duration - $scope.auditionAudio.remaining;
+        var avance = $scope[audioKey].duration - $scope[audioKey].remaining;
         var firstNumAvance = Math.floor(avance / 60).toString();
         var firstString = firstNumAvance.length === 1 ? '0' + firstNumAvance : firstNumAvance;
         var secondNumAvance = Math.floor(avance % 60).toString();
@@ -140,6 +106,36 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     return function onSliderChange(sliderId, modelValue, highValue, pointerType) {
       console.log('audioKey', audioKey);
       $scope[audioKey].progress = modelValue / amountForSlider;
+    }
+  }
+
+  function setAudio() {
+    if ($scope.interactiveStep === 1) {
+      $scope.auditionAudio = ngAudio.load($scope.auditions[0].audio);
+    } else  if ($scope.interactiveStep === 2) {
+      var memorization = $scope.memorizations[$scope.memorizationSlide];
+      var thisMemoAudioKey = 'sliderMemorization-' + $scope.memorizationSlide + '-audio';
+      $scope['sliderMemorization-' + $scope.memorizationSlide] = {
+        value: 0,
+        options: {
+          showSelectionBar: true,
+          ceil: amountForSlider,
+          onChange: getSliderChange(thisMemoAudioKey),
+        }
+      };
+      $scope[thisMemoAudioKey] = ngAudio.load(memorization.audio);
+    } else if ($scope.interactiveStep === 3) {
+      var transcription = $scope.transcriptions[$scope.transcriptionSlide];
+      var thisMemoAudioKey = 'sliderTranscription-' + $scope.transcriptionSlide + '-audio';
+      $scope['sliderTranscription-' + $scope.transcriptionSlide] = {
+        value: 0,
+        options: {
+          showSelectionBar: true,
+          ceil: amountForSlider,
+          onChange: getSliderChange(thisMemoAudioKey),
+        }
+      };
+      $scope[thisMemoAudioKey] = ngAudio.load(transcription.audio);
     }
   }
 
@@ -220,12 +216,14 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     if (step > $scope.completedTabs) {
       $scope.completedTabs += 1;
     }
+    setAudio();
   }
 
   function setStep(stepToSet) {
     if (stepToSet <= $scope.completedTabs + 1) {
       $scope.interactiveStep = stepToSet;
     }
+    setAudio();
   }
 
   function requestCertificate() {
@@ -279,11 +277,13 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     if ($scope[slide] > 0) {
       $scope[slide] -= 1;
     }
+    setAudio();
   }
 
   function nextSlide(collection, slide) {
     if ($scope[slide] < $scope[collection].length - 1) {
       $scope[slide] += 1;
+      setAudio();
     }
   }
 

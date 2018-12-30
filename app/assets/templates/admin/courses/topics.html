@@ -35,7 +35,7 @@
       <h3>2. Memorización</h3>
       <div class="chats-container">
         <fieldset ng-repeat="memorizations in topic.memorizations">
-          <legend>Chat</legend>
+          <legend>Slide</legend>
           <div class="form-input">
             <input class="input" type="text" id="description" name="description" ng-model="memorizations.description" />
             <div class="bar"></div>
@@ -83,17 +83,21 @@
         </div>
       </div> -->
       <h3>3. Transcripción</h3>
-      <div>
-        <div class="form-input">
-          <input class="input" type="text" id="transcriptionUrl" name="transcriptionUrl" ng-model="topic.transcription.url" />
-          <div class="bar"></div>
-          <label class="label basic" for="transcriptionUrl">URL Audio:</label>
-        </div>
-        <div class="form-input">
-          <input class="input" type="text" id="transcriptionAnswer" name="transcriptionAnswer" ng-model="topic.transcription.answer" />
-          <div class="bar"></div>
-          <label class="label basic" for="transcriptionAnswer">Texto respuesta:</label>
-        </div>
+      <div class="chats-container">
+        <fieldset ng-repeat="transcription in topic.transcriptions">
+          <legend>Slide</legend>
+          <div class="form-input">
+            <input class="input" type="text" id="transcriptionUrl" name="transcriptionUrl" ng-model="transcription.url" />
+            <div class="bar"></div>
+            <label class="label basic" for="transcriptionUrl">URL Audio:</label>
+          </div>
+          <div class="form-input">
+            <input class="input" type="text" id="transcriptionAnswer" name="transcriptionAnswer" ng-model="transcription.answer" />
+            <div class="bar"></div>
+            <label class="label basic" for="transcriptionAnswer">Texto respuesta:</label>
+          </div>
+        </fieldset>
+        <a ng-click="addTranscription()">Agregar transcripción</a>
       </div>
       <div class="form-input">
         <button type="submit" ng-disabled="form.$invalid || isLoading">

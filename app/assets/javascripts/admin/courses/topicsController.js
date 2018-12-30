@@ -5,7 +5,8 @@ TopicsController.$inject = ['$scope', '$state', '$stateParams', 'urls', 'HttpReq
 function TopicsController($scope, $state, $stateParams, urls, HttpRequest, toastr, validators, SweetAlert) {
   $scope.topicDelete = topicDelete;
   $scope.create = create;
-  $scope.addChat = addChat;
+  $scope.addMemorization = addMemorization;
+  $scope.addTranscription = addTranscription;
   $scope.topic = {
     memorizations: [
       {
@@ -15,7 +16,12 @@ function TopicsController($scope, $state, $stateParams, urls, HttpRequest, toast
         fonetica: '',
       }
     ],
-    transcription: {},
+    transcriptions: [
+      {
+        url: '',
+        answer: '',
+      }
+    ],
   };
 
   var moduleId = $stateParams.id;
@@ -88,12 +94,19 @@ function TopicsController($scope, $state, $stateParams, urls, HttpRequest, toast
     });
   }
 
-  function addChat() {
-    $scope.topic.chats.push({
+  function addMemorization() {
+    $scope.topic.memorizations.push({
       description: '',
       url: '',
       translate: '',
       fonetica: '',
+    });
+  }
+
+  function addTranscription() {
+    $scope.topic.transcriptions.push({
+      url: '',
+      answer: '',
     });
   }
 

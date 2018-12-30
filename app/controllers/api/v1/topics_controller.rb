@@ -24,35 +24,38 @@ class Api::V1::TopicsController < Api::V1::BaseController
 
         memorizations = data[:memorizations]
         memorizations.each do |chat|
-          if !chat[:description].nil?
+          if !chat[:description].nil? and
             !chat[:url].nil? and
             !chat[:translate].nil? and
             !chat[:fonetica].nil?
             topic.memorizations.create(
-              description: memorization[:description],
-              translate: memorization[:translate],
-              fonetica: memorization[:fonetica],
-              audio: memorization[:url],
+              description: chat[:description],
+              translate: chat[:translate],
+              fonetica: chat[:fonetica],
+              audio: chat[:url],
               topic_id: topic.id
             )
           end
         end
 
-        # memorization = data[:memorization]
-        # topic.memorizations.create(
-        #   description: memorization[:description],
-        #   translate: memorization[:translate],
-        #   fonetica: memorization[:fonetica],
-        #   audio: memorization[:url],
-        #   topic_id: topic.id
-        # )
+        transcriptions = data[:transcriptions]
+        transcriptions.each do |chat|
+          if !chat[:url].nil? and
+            !chat[:answer].nil?
+            topic.transcriptions.create(
+              audio: chat[:url],
+              answers: chat[:answer],
+              topic_id: topic.id,
+            )
+          end
+        end
 
-        transcription = data[:transcription]
-        topic.transcriptions.create(
-          audio: transcription[:url],
-          answers: transcription[:answer],
-          topic_id: topic.id,
-        )
+        # transcription = data[:transcription]
+        # topic.transcriptions.create(
+        #   audio: transcription[:url],
+        #   answers: transcription[:answer],
+        #   topic_id: topic.id,
+        # )
       end
 
       render :json => { :message => "Tema creado" }
