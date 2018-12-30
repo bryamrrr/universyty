@@ -7,25 +7,33 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
   $scope.clickPlayOrPause = clickPlayOrPause;
   $scope.nextStep = nextStep;
   $scope.setStep = setStep;
+  $scope.setTranslateMemorization = setTranslateMemorization;
+  $scope.setFoneticaMemorization = setFoneticaMemorization;
+  $scope.backSlide = backSlide;
+  $scope.nextSlide = nextSlide;
   $scope.idCourse = $stateParams.id;
   $scope.changeTab = changeTab;
   $scope.isTab = isTab;
   $scope.goTo = goTo;
   $scope.filteredGrades = [[]];
   $scope.totals = [0];
-  $scope.interactiveStep = 1;
-  $scope.completedTabs = 0;
+  $scope.interactiveStep = 1; // Change this
+  $scope.completedTabs = 0; // Change this
   $scope.avance = '00:00';
   var currentVideo, currentModule;
   var playingAudio = false;
   var amountForSlider = 100000;
 
-  $scope.slider = {
+  $scope.translateMemorizationSelected = false;
+  $scope.foneticaMemorizationSelected = false;
+  $scope.memorizationSlide = 0;
+
+  $scope.sliderAudition = {
     value: 0,
     options: {
       showSelectionBar: true,
       ceil: amountForSlider,
-      onChange: onSliderChange,
+      onChange: getSliderChange('auditionAudio'),
     }
   };
 
@@ -52,10 +60,23 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     currentVideo = response[1].video;
     currentModule = response[1].part;
     $scope.auditions = response[1].auditions;
+    $scope.memorizations = response[1].memorizations;
     $scope.Math = window.Math;
-    $scope.completedTabs = 0;
 
     $scope.auditionAudio = ngAudio.load($scope.auditions[0].audio);
+    response[1].memorizations.forEach((memorization, index) => {
+      console.log('index', index);
+      var thisMemoAudioKey = 'sliderMemorization-' + index + '-audio';
+      $scope['sliderMemorization-' + index] = {
+        value: 0,
+        options: {
+          showSelectionBar: true,
+          ceil: amountForSlider,
+          onChange: getSliderChange(thisMemoAudioKey),
+        }
+      };
+      $scope[thisMemoAudioKey] = ngAudio.load(memorization.audio);
+    })
     // console.log('$scope.auditionAudio', $scope.auditionAudio);
     // $scope.slider = {
     //   value: $scope.auditionAudio.progress,
@@ -76,12 +97,13 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     console.log(error);
   })
 
-  function clickPlayOrPause() {
-    if ($scope.auditionAudio.paused) {
-      $scope.auditionAudio.play();
+  function clickPlayOrPause(sliderKey, audioKey) {
+    console.log('audioKey', audioKey);
+    if ($scope[audioKey].paused) {
+      $scope[audioKey].play();
       playingAudio = setInterval(() => {
-        $scope.slider.value = $scope.auditionAudio.progress * amountForSlider;
-        var avance = $scope.auditionAudio.duration - $scope.auditionAudio.remaining;
+        $scope[sliderKey].value = $scope[audioKey].progress * amountForSlider;
+        var avance = $scope[audioKey].duration - $scope.auditionAudio.remaining;
         var firstNumAvance = Math.floor(avance / 60).toString();
         var firstString = firstNumAvance.length === 1 ? '0' + firstNumAvance : firstNumAvance;
         var secondNumAvance = Math.floor(avance % 60).toString();
@@ -89,14 +111,16 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
         $scope.avance = firstString + ':' + secondString;
       }, 1000);
     } else {
-      $scope.auditionAudio.pause();
+      $scope[audioKey].pause();
       clearInterval(playingAudio);
     }
   }
 
-  function onSliderChange(sliderId, modelValue, highValue, pointerType) {
-    console.log('sliderId, modelValue, highValue, pointerType', sliderId, modelValue, highValue, pointerType);
-    $scope.auditionAudio.progress = modelValue / amountForSlider;
+  function getSliderChange(audioKey) {
+    return function onSliderChange(sliderId, modelValue, highValue, pointerType) {
+      console.log('audioKey', audioKey);
+      $scope[audioKey].progress = modelValue / amountForSlider;
+    }
   }
 
   function enabletopics() {
@@ -210,6 +234,36 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
           SweetAlert.swal("Cancelado", "Se canceló la solicitud", "error");
         }
       });
+    }
+  }
+
+  function setTranslateMemorization() {
+    if ($scope.translateMemorizationSelected) {
+      $scope.translateMemorizationSelected = false;
+    } else {
+      $scope.translateMemorizationSelected = true;
+      $scope.foneticaMemorizationSelected = false;
+    }
+  }
+
+  function setFoneticaMemorization() {
+    if ($scope.foneticaMemorizationSelected) {
+      $scope.foneticaMemorizationSelected = false;
+    } else {
+      $scope.foneticaMemorizationSelected = true;
+      $scope.translateMemorizationSelected = false;
+    }
+  }
+
+  function backSlide() {
+    if ($scope.memorizationSlide > 0) {
+      $scope.memorizationSlide -= 1;
+    }
+  }
+
+  function nextSlide() {
+    if ($scope.memorizationSlide < $scope.memorizations.length - 1) {
+      $scope.memorizationSlide += 1;
     }
   }
 }

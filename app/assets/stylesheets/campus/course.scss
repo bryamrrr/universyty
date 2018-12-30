@@ -94,6 +94,96 @@
       height: 24px;
     }
   }
+
+  .inner-interactive-tabs {
+    display: flex;
+    justify-content: center;
+    padding-top: 2em;
+  }
+
+  .inner-tab {
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    color: red;
+    font-size: 1.15em;
+    &:first-of-type {
+      margin-right: 5em;
+    }
+    &.selected {
+      color: blue;
+      img:first-of-type {
+        display: none;
+      }
+      img:last-of-type {
+        display: block;
+      }
+    }
+    img {
+      margin-right: .5em;
+      height: 25px;
+      &:first-of-type {
+        display: block;
+      }
+      &:last-of-type {
+        display: none;
+      }
+    }
+  }
+}
+
+.interactive-step-2 {
+  background-color: white;
+  overflow: hidden;
+  text-align: center;
+  .interactive-player {
+    margin-bottom: 2em
+  }
+}
+
+.center-interactive {
+  margin: 6em 2em;
+  text-align: center;
+  .center-line {
+    background-color: lighten(black, 50);
+    height: 1px;
+    margin: 1.5em 0;
+    width: 100%;
+  }
+  p {
+    font-weight: 700;
+    font-size: 1.3em;
+  }
+  .center-response {
+    color: lighten(black, 60);
+  }
+}
+
+.memorization-bottom {
+  position: relative;
+  text-align: center;
+  .memorization-slides {
+    display: inline-flex;
+    align-items: center;
+    line-height: 44px;
+    span {
+      display: inline-block;
+      margin: 0 .2em;
+    }
+    img {
+      cursor: pointer;
+      height: 20px;
+      margin: 0 .25em;
+    }
+  }
+
+  .next-lab-button {
+    position: absolute;
+    right: 0;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    top: 4px;
+  }
 }
 
 .interactive-player {
@@ -151,6 +241,10 @@
       top: 5px;
       left: 5px;
     }
+  }
+
+  .rz-limit.rz-ceil, .rz-limit.rz-floor, .rz-model-value {
+    display: none;
   }
 
   .rzslider .rz-selection {

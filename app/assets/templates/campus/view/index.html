@@ -49,13 +49,13 @@
           <h3>¡Entretenemos oidos,<br /> y pronuncialo sin roche!</h3>
           <div class="interactive-player">
             <div class="interactive-slider">
-              <rzslider rz-slider-model="slider.value"
-              rz-slider-options="slider.options"></rzslider>
+              <rzslider rz-slider-model="sliderAudition.value"
+              rz-slider-options="sliderAudition.options"></rzslider>
               <span class="init-player">{{ avance }}</span>
               <span class="end-player">{{ Math.floor(auditionAudio.duration / 60) }}:{{ Math.floor(auditionAudio.duration % 60) }}</span>
             </div>
-            <img ng-if="auditionAudio.paused" class="play-player" src="/player/circled-play.png" ng-click="clickPlayOrPause()" />
-            <img ng-if="!auditionAudio.paused" class="play-player pause" src="/player/circled-pause.png" ng-click="clickPlayOrPause()" />
+            <img ng-if="auditionAudio.paused" class="play-player" src="/player/circled-play.png" ng-click="clickPlayOrPause('sliderAudition', 'auditionAudio')" />
+            <img ng-if="!auditionAudio.paused" class="play-player pause" src="/player/circled-pause.png" ng-click="clickPlayOrPause('sliderAudition', 'auditionAudio')" />
           </div>
           <button
             class="button next-lab-button"
@@ -67,11 +67,72 @@
         </div>
       </div>
       <div ng-if="interactiveStep === 2" class="interactive-step-2">
-        Memorización
-        <button
-            class="button next-lab-button"
-            ng-click="nextStep(3)"
+        <div class="inner-interactive-tabs">
+          <div
+            class="inner-tab memorization-translate-tab"
+            ng-class="{selected: translateMemorizationSelected}"
+            ng-click="setTranslateMemorization()"
           >
+            <img src="/translate-red.png" />
+            <img src="/translate-blue.png" />
+            <h4>Traducción</h4>
+          </div>
+          <div
+            class="inner-tab memorization-fonetica-tab"
+            ng-class="{selected: foneticaMemorizationSelected}"
+            ng-click="setFoneticaMemorization()"
+          >
+              <img src="/fonetica-red.png" />
+              <img src="/fonetica-blue.png" />
+              <h4>Fonética</h4>
+            </div>
+        </div>
+        <div class='center-interactive'>
+          <p class="center-text">{{ memorizations[memorizationSlide].description }}</p>
+          <div class="center-line"></div>
+          <p
+            class="center-response"
+            ng-if="translateMemorizationSelected"
+          >
+            {{ memorizations[memorizationSlide].translate }}
+          </p>
+          <p
+            class="center-response"
+            ng-if="foneticaMemorizationSelected"
+          >
+            {{ memorizations[memorizationSlide].fonetica }}
+          </p>
+        </div>
+        <div class="interactive-player">
+          <div class="interactive-slider">
+            <rzslider rz-slider-model="this['sliderMemorization-' + memorizationSlide].value"
+            rz-slider-options="this['sliderMemorization-' + memorizationSlide].options"></rzslider>
+            <span class="init-player">{{ avance }}</span>
+            <span class="end-player">{{ Math.floor(auditionAudio.duration / 60) }}:{{ Math.floor(auditionAudio.duration % 60) }}</span>
+          </div>
+          <img ng-if="this['sliderMemorization-' + memorizationSlide + '-audio'].paused" class="play-player" src="/player/circled-play.png" ng-click="clickPlayOrPause('sliderMemorization-' + memorizationSlide, 'sliderMemorization-' + memorizationSlide + '-audio')" />
+          <img ng-if="!this['sliderMemorization-' + memorizationSlide + '-audio'].paused" class="play-player pause" src="/player/circled-pause.png" ng-click="clickPlayOrPause('sliderMemorization-' + memorizationSlide, 'sliderMemorization-' + memorizationSlide + '-audio')" />
+        </div>
+      </div>
+      <div class="memorization-bottom" ng-if="interactiveStep === 2">
+        <div class="memorization-slides">
+          <img
+            class="chevron-left"
+            src="circled-chevron-left-transparent.png"
+            ng-click="backSlide()"
+          />
+          {{ memorizationSlide + 1 }}<span>/</span>{{ memorizations.length }}
+          <img
+            class="chevron-right"
+            src="circled-chevron-right-transparent.png"
+            ng-click="nextSlide()"
+          />
+        </div>
+        <button
+          class="button next-lab-button"
+          ng-click="nextStep(3)"
+          ng-if="memorizationSlide + 1 === memorizations.length"
+        >
           <span>Laboratorio 3</span>
           <img class="chevron" src="chevron_right.png" />
         </button>

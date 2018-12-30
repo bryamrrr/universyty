@@ -32,34 +32,34 @@
         <div class="bar"></div>
         <label class="label basic" for="audition">URL Audio:</label>
       </div>
-      <!-- <h3>2. Perfeccionamiento (Chats)</h3>
+      <h3>2. Memorización</h3>
       <div class="chats-container">
-        <fieldset ng-repeat="chat in topic.chats">
+        <fieldset ng-repeat="memorizations in topic.memorizations">
           <legend>Chat</legend>
           <div class="form-input">
-            <input class="input" type="text" id="description" name="description" ng-model="chat.description" />
+            <input class="input" type="text" id="description" name="description" ng-model="memorizations.description" />
             <div class="bar"></div>
             <label class="label basic" for="description">Texto:</label>
           </div>
           <div class="form-input">
-            <input class="input" type="text" id="url" name="url" ng-model="chat.url" />
+            <input class="input" type="text" id="url" name="url" ng-model="memorizations.url" />
             <div class="bar"></div>
             <label class="label basic" for="url">URL Audio:</label>
           </div>
           <div class="form-input">
-            <input class="input" type="text" id="translate" name="translate" ng-model="chat.translate" />
+            <input class="input" type="text" id="translate" name="translate" ng-model="memorizations.translate" />
             <div class="bar"></div>
             <label class="label basic" for="translate">Traducción:</label>
           </div>
           <div class="form-input">
-            <input class="input" type="text" id="fonetica" name="fonetica" ng-model="chat.fonetica" />
+            <input class="input" type="text" id="fonetica" name="fonetica" ng-model="memorizations.fonetica" />
             <div class="bar"></div>
             <label class="label basic" for="fonetica">Fonética:</label>
           </div>
         </fieldset>
-        <a ng-click="addChat()">Agregar chat</a>
-      </div> -->
-      <h3>2. Memorización</h3>
+        <a ng-click="addMemorization()">Agregar memorización</a>
+      </div>
+      <!-- <h3>2. Memorización</h3>
       <div>
         <div class="form-input">
           <input class="input" type="text" id="memorizationDescription" name="memorizationDescription" ng-model="topic.memorization.description" />
@@ -81,7 +81,7 @@
           <div class="bar"></div>
           <label class="label basic" for="memorizationFonetica">Fonética:</label>
         </div>
-      </div>
+      </div> -->
       <h3>3. Transcripción</h3>
       <div>
         <div class="form-input">

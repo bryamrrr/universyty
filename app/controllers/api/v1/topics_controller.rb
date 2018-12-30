@@ -22,30 +22,30 @@ class Api::V1::TopicsController < Api::V1::BaseController
           topic_id: topic.id
         )
 
-        # chats = data[:chats]
-        # chats.each do |chat|
-        #   if !chat[:description].nil?
-        #     !chat[:url].nil? and
-        #     !chat[:translate].nil? and
-        #     !chat[:fonetica].nil?
-        #     topic.chats.create(
-        #       description: chat[:description],
-        #       translate: chat[:translate],
-        #       fonetica: chat[:fonetica],
-        #       audio: chat[:url],
-        #       topic_id: topic.id
-        #     )
-        #   end
-        # end
+        memorizations = data[:memorizations]
+        memorizations.each do |chat|
+          if !chat[:description].nil?
+            !chat[:url].nil? and
+            !chat[:translate].nil? and
+            !chat[:fonetica].nil?
+            topic.memorizations.create(
+              description: memorization[:description],
+              translate: memorization[:translate],
+              fonetica: memorization[:fonetica],
+              audio: memorization[:url],
+              topic_id: topic.id
+            )
+          end
+        end
 
-        memorization = data[:memorization]
-        topic.memorizations.create(
-          description: memorization[:description],
-          translate: memorization[:translate],
-          fonetica: memorization[:fonetica],
-          audio: memorization[:url],
-          topic_id: topic.id
-        )
+        # memorization = data[:memorization]
+        # topic.memorizations.create(
+        #   description: memorization[:description],
+        #   translate: memorization[:translate],
+        #   fonetica: memorization[:fonetica],
+        #   audio: memorization[:url],
+        #   topic_id: topic.id
+        # )
 
         transcription = data[:transcription]
         topic.transcriptions.create(
@@ -87,7 +87,7 @@ class Api::V1::TopicsController < Api::V1::BaseController
       :part_id,
       :audition,
       # :chats,
-      :memorization,
+      :memorizations,
       :transcription
     )
   end
