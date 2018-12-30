@@ -87,7 +87,7 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
   function clickPlayOrPause(sliderKey, audioKey) {
     if ($scope[audioKey].paused) {
       $scope[audioKey].play();
-      playingAudio = setInterval(() => {
+      playingAudio = setInterval(function () {
         $scope[sliderKey].value = $scope[audioKey].progress * amountForSlider;
         var avance = $scope[audioKey].duration - $scope[audioKey].remaining;
         var firstNumAvance = Math.floor(avance / 60).toString();
@@ -294,7 +294,9 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
       return $scope.transcriptionResults[slide] = 'wrong';
     }
 
-    var found = answers.find(answer => answer.toLowerCase() === input.toLowerCase());
+    var found = answers.find(function (answer) {
+      answer.toLowerCase() === input.toLowerCase();
+    });
     if (found) {
       return $scope.transcriptionResults[slide] = 'success';
     }
