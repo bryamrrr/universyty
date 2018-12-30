@@ -71,7 +71,7 @@ class Api::V1::EnrollmentsController < Api::V1::BaseController
       auditions: auditions,
       chats: chats,
       memorizations: memorizations,
-      trancriptions: transcriptions,
+      transcriptions: transcriptions,
       video: video,
       grades: enrollment.grades,
       view_exam: view_exam

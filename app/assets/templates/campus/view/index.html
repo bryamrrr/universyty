@@ -108,7 +108,7 @@
             <rzslider rz-slider-model="this['sliderMemorization-' + memorizationSlide].value"
             rz-slider-options="this['sliderMemorization-' + memorizationSlide].options"></rzslider>
             <span class="init-player">{{ avance }}</span>
-            <span class="end-player">{{ Math.floor(auditionAudio.duration / 60) }}:{{ Math.floor(auditionAudio.duration % 60) }}</span>
+            <span class="end-player">{{ Math.floor(this['sliderMemorization-' + memorizationSlide + '-audio'].duration / 60) }}:{{ Math.floor(this['sliderMemorization-' + memorizationSlide + '-audio'].duration % 60) }}</span>
           </div>
           <img ng-if="this['sliderMemorization-' + memorizationSlide + '-audio'].paused" class="play-player" src="/player/circled-play.png" ng-click="clickPlayOrPause('sliderMemorization-' + memorizationSlide, 'sliderMemorization-' + memorizationSlide + '-audio')" />
           <img ng-if="!this['sliderMemorization-' + memorizationSlide + '-audio'].paused" class="play-player pause" src="/player/circled-pause.png" ng-click="clickPlayOrPause('sliderMemorization-' + memorizationSlide, 'sliderMemorization-' + memorizationSlide + '-audio')" />
@@ -119,13 +119,13 @@
           <img
             class="chevron-left"
             src="circled-chevron-left-transparent.png"
-            ng-click="backSlide()"
+            ng-click="backSlide('memorizationSlide')"
           />
           {{ memorizationSlide + 1 }}<span>/</span>{{ memorizations.length }}
           <img
             class="chevron-right"
             src="circled-chevron-right-transparent.png"
-            ng-click="nextSlide()"
+            ng-click="nextSlide('memorizations', 'memorizationSlide')"
           />
         </div>
         <button
@@ -138,7 +138,45 @@
         </button>
       </div>
       <div ng-if="interactiveStep === 3" class="interactive-step-3">
-        Transcripcion
+        <h3>¡Escucha y transcribe en inglés!</h3>
+        <div class="interactive-player">
+          <div class="interactive-slider">
+            <rzslider rz-slider-model="this['sliderTranscription-' + transcriptionSlide].value"
+            rz-slider-options="this['sliderTranscription-' + transcriptionSlide].options"></rzslider>
+            <span class="init-player">{{ avance }}</span>
+            <span class="end-player">{{ Math.floor(this['sliderTranscription-' + transcriptionSlide + '-audio'].duration / 60) }}:{{ Math.floor(this['sliderTranscription-' + transcriptionSlide + '-audio'].duration % 60) }}</span>
+          </div>
+          <img ng-if="this['sliderTranscription-' + transcriptionSlide + '-audio'].paused" class="play-player" src="/player/circled-play.png" ng-click="clickPlayOrPause('sliderTranscription-' + transcriptionSlide, 'sliderTranscription-' + transcriptionSlide + '-audio')" />
+          <img ng-if="!this['sliderTranscription-' + transcriptionSlide + '-audio'].paused" class="play-player pause" src="/player/circled-pause.png" ng-click="clickPlayOrPause('sliderTranscription-' + transcriptionSlide, 'sliderTranscription-' + transcriptionSlide + '-audio')" />
+        </div>
+        <div class="answer">
+
+        </div>
+        <div class='center-interactive'>
+          <input placeholder="Escribe aquí" type="text" />
+          <div class="center-line"></div>
+          <p
+            class="center-response"
+          >
+            <span ng-if="transcriptionResult === 'wrong'">{{ transcriptions[transcriptionSlide].answers.split('|')[0] }}</span>
+          </p>
+        </div>
+        <button class="button success">Verificar</button>
+      </div>
+      <div class="memorization-bottom" ng-if="interactiveStep === 3">
+        <div class="memorization-slides">
+          <img
+            class="chevron-left"
+            src="circled-chevron-left-transparent.png"
+            ng-click="backSlide('transcriptionSlide')"
+          />
+          {{ transcriptionSlide + 1 }}<span>/</span>{{ transcriptions.length }}
+          <img
+            class="chevron-right"
+            src="circled-chevron-right-transparent.png"
+            ng-click="nextSlide('transcriptions', 'transcriptionSlide')"
+          />
+        </div>
       </div>
     </div>
     <div class="parts-container">

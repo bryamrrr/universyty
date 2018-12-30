@@ -141,6 +141,44 @@
   }
 }
 
+.interactive-step-3 {
+  background-color: white;
+  overflow: hidden;
+  text-align: center;
+  padding: 4em 2em  3em;
+  color: #7bb7d7;
+  h3 {
+    display: inline-block;
+    font-size: 1.5em;
+    font-weight: 700;
+    max-width: 350px;
+    margin-bottom: 1em;
+  }
+
+  .answer {
+    height: 100px;
+  }
+
+  .center-interactive {
+    margin: 1em 0;
+    .center-line { margin: .5em 0; }
+    input {
+      font-size: 1.5em;
+      border: 0;
+      text-align: center;
+    }
+    .center-response {
+      height: 30px;
+    }
+  }
+
+  .button.success {
+    background-color: green;
+    max-width: 150px;
+    padding: .2em 3em;
+  }
+}
+
 .center-interactive {
   margin: 6em 2em;
   text-align: center;
@@ -155,7 +193,7 @@
     font-size: 1.3em;
   }
   .center-response {
-    color: lighten(black, 60);
+    color: #3c3c3b;
   }
 }
 

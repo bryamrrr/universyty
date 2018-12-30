@@ -17,16 +17,21 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
   $scope.goTo = goTo;
   $scope.filteredGrades = [[]];
   $scope.totals = [0];
-  $scope.interactiveStep = 1; // Change this
-  $scope.completedTabs = 0; // Change this
+  $scope.interactiveStep = 3; // Change this
+  $scope.completedTabs = 2; // Change this
   $scope.avance = '00:00';
   var currentVideo, currentModule;
   var playingAudio = false;
   var amountForSlider = 100000;
 
+  // Memorization
   $scope.translateMemorizationSelected = false;
   $scope.foneticaMemorizationSelected = false;
   $scope.memorizationSlide = 0;
+
+  // Transcription
+  $scope.transcriptionResult;
+  $scope.transcriptionSlide = 0;
 
   $scope.sliderAudition = {
     value: 0,
@@ -61,11 +66,11 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     currentModule = response[1].part;
     $scope.auditions = response[1].auditions;
     $scope.memorizations = response[1].memorizations;
+    $scope.transcriptions = response[1].transcriptions;
     $scope.Math = window.Math;
 
     $scope.auditionAudio = ngAudio.load($scope.auditions[0].audio);
     response[1].memorizations.forEach((memorization, index) => {
-      console.log('index', index);
       var thisMemoAudioKey = 'sliderMemorization-' + index + '-audio';
       $scope['sliderMemorization-' + index] = {
         value: 0,
@@ -76,7 +81,20 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
         }
       };
       $scope[thisMemoAudioKey] = ngAudio.load(memorization.audio);
-    })
+    });
+
+    response[1].transcriptions.forEach((transcription, index) => {
+      var thisMemoAudioKey = 'sliderTranscription-' + index + '-audio';
+      $scope['sliderTranscription-' + index] = {
+        value: 0,
+        options: {
+          showSelectionBar: true,
+          ceil: amountForSlider,
+          onChange: getSliderChange(thisMemoAudioKey),
+        }
+      };
+      $scope[thisMemoAudioKey] = ngAudio.load(transcription.audio);
+    });
     // console.log('$scope.auditionAudio', $scope.auditionAudio);
     // $scope.slider = {
     //   value: $scope.auditionAudio.progress,
@@ -255,15 +273,15 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     }
   }
 
-  function backSlide() {
-    if ($scope.memorizationSlide > 0) {
-      $scope.memorizationSlide -= 1;
+  function backSlide(slide) {
+    if ($scope[slide] > 0) {
+      $scope[slide] -= 1;
     }
   }
 
-  function nextSlide() {
-    if ($scope.memorizationSlide < $scope.memorizations.length - 1) {
-      $scope.memorizationSlide += 1;
+  function nextSlide(collection, slide) {
+    if ($scope[slide] < $scope[collection].length - 1) {
+      $scope[slide] += 1;
     }
   }
 }
