@@ -11,6 +11,7 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
   $scope.setFoneticaMemorization = setFoneticaMemorization;
   $scope.backSlide = backSlide;
   $scope.nextSlide = nextSlide;
+  $scope.verifyAnswer = verifyAnswer;
   $scope.idCourse = $stateParams.id;
   $scope.changeTab = changeTab;
   $scope.isTab = isTab;
@@ -30,8 +31,9 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
   $scope.memorizationSlide = 0;
 
   // Transcription
-  $scope.transcriptionResult;
   $scope.transcriptionSlide = 0;
+  $scope.transcriptionInput = [];
+  $scope.transcriptionResults = [];
 
   $scope.sliderAudition = {
     value: 0,
@@ -283,5 +285,20 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     if ($scope[slide] < $scope[collection].length - 1) {
       $scope[slide] += 1;
     }
+  }
+
+  function verifyAnswer(slide) {
+    var answers = $scope.transcriptions[slide].answers.split('|');
+    var input = $scope.transcriptionInput[slide];
+    if (!input || input === '') {
+      return $scope.transcriptionResults[slide] = 'wrong';
+    }
+
+    var found = answers.find(answer => answer.toLowerCase() === input.toLowerCase());
+    if (found) {
+      return $scope.transcriptionResults[slide] = 'success';
+    }
+
+    return $scope.transcriptionResults[slide] = 'wrong';
   }
 }

@@ -156,7 +156,11 @@
   }
 
   .answer {
-    height: 100px;
+    height: 80px;
+    img {
+      height: 50px;
+      margin-top: 40px;
+    }
   }
 
   .center-interactive {
@@ -166,6 +170,7 @@
       font-size: 1.5em;
       border: 0;
       text-align: center;
+      width: 100%;
     }
     .center-response {
       height: 30px;
@@ -176,6 +181,9 @@
     background-color: green;
     max-width: 150px;
     padding: .2em 3em;
+    &[disabled] {
+      background-color: #e4e4e4;
+    }
   }
 }
 
@@ -193,7 +201,7 @@
     font-size: 1.3em;
   }
   .center-response {
-    color: #3c3c3b;
+    color: #b2b2b2;
   }
 }
 
