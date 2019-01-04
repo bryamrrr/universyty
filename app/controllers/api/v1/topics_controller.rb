@@ -2,7 +2,18 @@ class Api::V1::TopicsController < Api::V1::BaseController
 
   def show
     topic = Topic.find(params[:id])
-    render :json => topic.to_json()
+    auditions = topic.auditions
+    chats = topic.chats
+    memorizations = topic.memorizations
+    transcriptions = topic.transcriptions
+
+    render :json => {
+      topic: topic,
+      auditions: auditions,
+      chats: chats,
+      memorizations: memorizations,
+      transcriptions: transcriptions,
+    }
   end
 
   def create
@@ -66,8 +77,53 @@ class Api::V1::TopicsController < Api::V1::BaseController
 
   def update
     topic = Topic.find(params[:id])
+    data = params[:data]
 
-    if topic.update(topic_params)
+    if topic.update(
+      title: data[:title],
+      video_url: data[:video_url],
+      number: data[:number],
+      duration: data[:duration]
+    )
+      topic.auditions.destroy_all
+      topic.memorizations.destroy_all
+      topic.transcriptions.destroy_all
+
+      if data[:video_url].nil? or data[:video_url] == ""
+        topic.auditions.create(
+          audio: data[:audition],
+          topic_id: topic.id
+        )
+
+        memorizations = data[:memorizations]
+        memorizations.each do |chat|
+          if !chat[:description].nil? and
+            !chat[:url].nil? and
+            !chat[:translate].nil? and
+            !chat[:fonetica].nil?
+            topic.memorizations.create(
+              description: chat[:description],
+              translate: chat[:translate],
+              fonetica: chat[:fonetica],
+              audio: chat[:url],
+              topic_id: topic.id
+            )
+          end
+        end
+
+        transcriptions = data[:transcriptions]
+        transcriptions.each do |chat|
+          if !chat[:url].nil? and
+            !chat[:answer].nil?
+            topic.transcriptions.create(
+              audio: chat[:url],
+              answers: chat[:answer],
+              topic_id: topic.id,
+            )
+          end
+        end
+      end
+
       render :json => { :message => "Tema actualizado" }
     else
       render :json => { :message => "No se pudo actualizar el tema" }, status: :bad_request
