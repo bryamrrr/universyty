@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181226152654) do
+ActiveRecord::Schema.define(version: 20190126190201) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer  "question_id"

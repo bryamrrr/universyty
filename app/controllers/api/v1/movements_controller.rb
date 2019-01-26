@@ -447,7 +447,7 @@ class Api::V1::MovementsController < Api::V1::BaseController
         father = User.where(nickname: user[:sponsor]).first
       end
 
-      if father && father[:ambassador]
+      if father && father[:ambassador] && level <= 10
         if level == 1
           team = father.teams.where(sponsored: user[:nickname], level: 1).first
           team.update_attribute(:type_team, 'Embajador')

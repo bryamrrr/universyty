@@ -13,16 +13,20 @@ function TopicEditController($scope, $state, $stateParams, toastr, urls, HttpReq
   promise.then(function (response) {
     $scope.topic = Object.assign({}, response.topic, {
       audition: response.auditions[0] && response.auditions[0].audio,
-      memorizations: response.memorizations.map(memo => ({
-        description: memo.description,
-        url: memo.audio,
-        translate: memo.translate,
-        fonetica: memo.fonetica,
-      })),
-      transcriptions: response.transcriptions.map(memo => ({
-        url: memo.audio,
-        answer: memo.answers,
-      })),
+      memorizations: response.memorizations.map(function (memo) {
+        return {
+          description: memo.description,
+          url: memo.audio,
+          translate: memo.translate,
+          fonetica: memo.fonetica,
+        };
+      }),
+      transcriptions: response.transcriptions.map(function (memo) {
+        return {
+          url: memo.audio,
+          answer: memo.answers,
+        };
+      }),
     });
 
     var $contenido = $('#contenido');

@@ -34,12 +34,12 @@ class Api::V1::TeamsController < Api::V1::BaseController
       teams.each do |team|
         my_user = User.find_by(nickname: team[:sponsored])
         level = team[:level] - 1
-        if my_user[:ambassador_active]
+        if my_user[:ambassador_active] && level <= 9
           data[:total_active][level] += 1
           data[:total][level] += 1
           data[:total_sum] += 1
           data[:total_active_sum] += 1
-        elsif my_user[:ambassador]
+        elsif my_user[:ambassador] && level <= 9
           data[:total][level] += 1
           data[:total_sum] += 1
         end
