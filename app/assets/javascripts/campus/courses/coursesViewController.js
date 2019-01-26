@@ -45,9 +45,9 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
   };
 
   if ($location.$$search.notas) {
-    $scope.currentTab = 1;
+    $scope.currentTab = 1; // If access directly
   } else {
-    $scope.currentTab = 0;
+    $scope.currentTab = 1; // Changed because tab 0 is hidden
   }
 
   var url = urls.BASE_API + '/courses/' + $scope.idCourse;

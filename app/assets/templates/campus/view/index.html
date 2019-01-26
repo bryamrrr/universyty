@@ -218,11 +218,11 @@
   </section>
   <section class="course-tabs">
     <ul>
-      <li ng-click="changeTab(0)" ng-class="{ 'current-tab': isTab(0) }">Información</li><!--
+      <!-- <li ng-click="changeTab(0)" ng-class="{ 'current-tab': isTab(0) }">Información</li>--><!--
       --><li ng-click="changeTab(1)"  ng-class="{ 'current-tab': isTab(1) }">Notas</li><!--
       --><li ng-click="changeTab(2)"  ng-class="{ 'current-tab': isTab(2) }">Certificado</li>
     </ul>
-    <article class="course-information" ng-show="currentTab === 0">
+    <!-- <article class="course-information" ng-show="currentTab === 0">
       <div class="info-course-container">
         <h3>Sobre el curso:</h3>
 
@@ -249,8 +249,8 @@
             <article class="professor-card">
               <figure>
                 <img ng-src="{{professor.image_url}}" alt="">
-              </figure><!--
-              --><div class="professor-info">
+              </figure>-->
+              <!--<div class="professor-info">
                 <h5>{{ professor.name }}</h5>
                 <p>{{ professor.bio }}</p>
               </div>
@@ -258,7 +258,7 @@
           </div>
         </div>
       </div>
-    </article>
+    </article> -->
     <article class="course-grades" ng-show="currentTab === 1">
       <div class="table-container">
       <table class="table td-bg table-grades">
