@@ -426,7 +426,11 @@
   }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (min-width: 300px) and (max-width: 375px) {
+  .wrapper-content .courses.ng-scope {
+    padding-top: 0;
+    margin-top: -.5em;
+  }
   .main-course {
     background-image: none;
     .title {
