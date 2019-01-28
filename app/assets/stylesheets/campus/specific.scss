@@ -43,7 +43,7 @@
 
 .banner {
   margin: 0;
-  height: 280px;
+  max-height: 280px;
   overflow: hidden;
   position: relative;
 
@@ -145,9 +145,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .banner {
-    height: 250px;
-  }
   .video-info-campus {
     position: static;
     transform: none;
@@ -161,9 +158,6 @@
 }
 
 @media screen and (max-width: 480px) {
-  .banner {
-    height: 180px;
-  }
   .shopping-cart .cart-body {
     height: calc(100vh - 235px);
   }
