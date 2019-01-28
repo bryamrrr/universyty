@@ -30,11 +30,6 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
   $scope.foneticaMemorizationSelected = false;
   $scope.memorizationSlide = 0;
 
-  // Transcription
-  $scope.transcriptionSlide = 0;
-  $scope.transcriptionInput = [];
-  $scope.transcriptionResults = [];
-
   $scope.sliderAudition = {
     value: 0,
     options: {
@@ -273,6 +268,19 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     }
   }
 
+  // Transcription
+  $scope.transcriptionSlide = 0;
+  $scope.transcriptionInput = [];
+  $scope.transcriptionResults = [];
+  var resultsArray = [];
+
+
+  $scope.checkinWrongs = false;
+  $scope.checkIndex = -1;
+  $scope.wrongIndexes = [];
+  $scope.verified = false;
+  var thisWrongIndexes = [];
+
   function backSlide(slide) {
     if ($scope[slide] > 0) {
       $scope[slide] -= 1;
@@ -280,27 +288,85 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     setAudio();
   }
 
-  function nextSlide(collection, slide) {
-    if ($scope[slide] < $scope[collection].length - 1) {
-      $scope[slide] += 1;
+  function nextSlide(collection, slideString) { // slideString can be 'memorizationSlide'
+    var slideIndex = $scope[slideString];
+    if (collection === 'transcriptions' && resultsArray.length === $scope[collection].length) {
+      var hasWrongs = false;
+      resultsArray.forEach(function (answer) {
+        if (answer === 'wrong') {
+          hasWrongs = true;
+        }
+      });
+
+      if (!hasWrongs) {
+        return;
+      }
+    }
+
+    if (collection === 'transcriptions' && !$scope.verified) {
+      verifyAnswer(slideIndex);
+    }
+
+    if (collection === 'transcriptions' && $scope.checkinWrongs) {
+      $scope[slideString] = thisWrongIndexes[$scope.checkIndex] || 0;
+      $scope.checkIndex += 1;
+    } else if (slideIndex < $scope[collection].length - 1) {
+      $scope[slideString] += 1;
       setAudio();
+    }
+
+    if (collection === 'transcriptions') {
+      $scope.verified = false;
+      if (!$scope.checkinWrongs || ($scope.checkinWrongs && thisWrongIndexes.length !== 0)) {
+        $scope.transcriptionInput[slideIndex] = '';
+        $scope.transcriptionResults[slideIndex] = undefined;
+      }
     }
   }
 
   function verifyAnswer(slide) {
     var answers = $scope.transcriptions[slide].answers.split('|');
     var input = $scope.transcriptionInput[slide];
+    var result = 'wrong';
+
     if (!input || input === '') {
-      return $scope.transcriptionResults[slide] = 'wrong';
+      result = 'wrong';
+    } else {
+      var found = answers.find(function (answer) {
+        return answer.toLowerCase() === input.toLowerCase();
+      });
+      if (found) {
+        result = 'success';
+      }
     }
 
-    var found = answers.find(function (answer) {
-      answer.toLowerCase() === input.toLowerCase();
+    if (result === 'wrong') {
+      $scope.wrongIndexes.push(slide);
+    }
+
+    $scope.transcriptionResults[slide] = result;
+    resultsArray[slide] = result;
+    $scope.verified = true;
+    if ((slide === $scope['transcriptions'].length - 1)
+      || (slide === thisWrongIndexes[thisWrongIndexes.length - 1])) {
+      verifyAllAnswers();
+    }
+  }
+
+  function verifyAllAnswers() {
+    var hasWrongs = false;
+    resultsArray.forEach(function (answer) {
+      if (answer === 'wrong') {
+        hasWrongs = true;
+      }
     });
-    if (found) {
-      return $scope.transcriptionResults[slide] = 'success';
-    }
 
-    return $scope.transcriptionResults[slide] = 'wrong';
+    $scope.checkinWrongs = hasWrongs;
+    $scope.checkIndex = 0;
+    thisWrongIndexes = [];
+    $scope.wrongIndexes.forEach(function (value) {
+      thisWrongIndexes.push(value);
+    });
+    $scope.wrongIndexes = [];
   }
 }
