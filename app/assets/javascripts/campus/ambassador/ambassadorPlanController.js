@@ -6,6 +6,7 @@ function AmbassadorPlanController($scope, $cookies, $state, CookieService, Sweet
   $scope.pay = pay;
   $scope.culqiFinish = culqiFinish;
   $scope.monthly = $location.search().mensualidad;
+  $scope.course_id = $location.$$search.course_id;
 
   var $contenido = $('#contenido');
   $contenido.addClass("loaded");
@@ -50,7 +51,10 @@ function AmbassadorPlanController($scope, $cookies, $state, CookieService, Sweet
 
   function processPayment(paymentMethod, cart) {
     var url = urls.BASE_API + '/movements/ambassador/' + paymentMethod;
-    var data = { nickname: nickname };
+    var data = {
+      nickname: nickname,
+      course_id: $location.$$search.course_id,
+    };
     var promise = HttpRequest.send("POST", url, data);
     promise.then(function (response) {
       var messageTitle = '¡Buenísimo!';

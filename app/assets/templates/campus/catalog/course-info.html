@@ -8,7 +8,7 @@
     </div><!--
     --><div class="sales">
       <p>Puedes acceder a este curso con Tarjeta (crédito o débito) y Depósito (Agente BCP).</p>
-      <a href='/campus/datos/plan'>
+      <a ng-href='/campus/datos/plan?course_id={{course.id}}'>
         <button><i class="fa fa-shopping-cart"></i> ¡Quiero este curso! <span ng-hide="course.free">S/ {{ course.pricetag | number: 0 }}</span> <span ng-show="course.free">Gratis</span></button>
       </a>
     </div>
@@ -106,7 +106,7 @@
       </div>
     </article>
   </div>
-  <a href='/campus/datos/plan'>
+  <a ng-href='/campus/datos/plan?course_id={{course.id}}'>
     <button><i class="fa fa-shopping-cart"></i> ¡Quiero este curso! <span ng-hide="course.free">S/ {{ course.pricetag | number: 0 }}</span> <span ng-show="course.free">Gratis</span></button>
   </a>
   </div>

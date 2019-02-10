@@ -18,12 +18,13 @@ class Api::V1::MovementsController < Api::V1::BaseController
   def ambassador
     paymethod = params[:paymethod]
     nickname = params[:data][:nickname]
+    course_id = params[:data][:course_id]
     if paymethod == '2' || paymethod == '3'
-      manualAmbassadorPayment(paymethod, nickname)
+      manualAmbassadorPayment(paymethod, nickname, course_id)
     end
   end
 
-  def manualAmbassadorPayment(paymethod, nickname)
+  def manualAmbassadorPayment(paymethod, nickname, course_id)
     user = User.find_by(nickname: nickname)
 
     if paymethod == '2'
@@ -48,6 +49,12 @@ class Api::V1::MovementsController < Api::V1::BaseController
 
 
     if movement && movement.save
+      if course_id
+        movement.products.create(
+          course_id: course_id,
+        )
+      end
+
       if paymethod[:name] == 'Depósito'
         render :json => { :message => "Pedido realizado" }
       elsif paymethod[:name] == 'Puntos' && 29 > @current_user[:balance]
@@ -82,6 +89,15 @@ class Api::V1::MovementsController < Api::V1::BaseController
             description: "Pago de embajador",
             value: -29
           )
+        end
+
+        movement.products.each do |product|
+          enrollment = Enrollment.find_by(user_id: movement[:user_id], course_id: product.course_id)
+
+          if enrollment
+            movement.destroy
+            render :json => { :errors => "Ya te encuentras suscrito a un curso. Por favor quítalo del carrito e intentalo de nuevo." } and return
+          end
         end
 
         @current_user.update_column(:ambassador, true)

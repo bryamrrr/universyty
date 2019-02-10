@@ -170,6 +170,7 @@
   data-email="{{email}}"
   data-token="{{token}}"
   data-cart="{{cart}}"
+  data-course="{{course_id}}"
 ></div>
 <button id="culqi-button"></button>
 <button ng-click="culqiFinish()" id="culqi-finish"></button>
@@ -216,6 +217,7 @@
         email: ele.dataset.email,
         source_id: token,
         title: ele.dataset.title,
+        course_id: ele.dataset.course,
         cart: JSON.parse(ele.dataset.cart)
       };
 
