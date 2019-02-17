@@ -4,12 +4,26 @@ TopicEditController.$inject = ['$scope', '$state', '$stateParams', 'toastr', 'ur
 
 function TopicEditController($scope, $state, $stateParams, toastr, urls, HttpRequest, validators) {
   $scope.update = update;
+  $scope.addMemorization = addMemorization;
+  $scope.addTranscription = addTranscription;
 
   var url = urls.BASE_API + '/topics/' + $stateParams.id;
   var promise = HttpRequest.send("GET", url);
 
   promise.then(function (response) {
-    $scope.topic = response;
+    $scope.topic = Object.assign({}, response.topic, {
+      audition: response.auditions[0] && response.auditions[0].audio,
+      memorizations: response.memorizations.map(memo => ({
+        description: memo.description,
+        url: memo.audio,
+        translate: memo.translate,
+        fonetica: memo.fonetica,
+      })),
+      transcriptions: response.transcriptions.map(memo => ({
+        url: memo.audio,
+        answer: memo.answers,
+      })),
+    });
 
     var $contenido = $('#contenido');
     $contenido.addClass("loaded");
@@ -43,6 +57,22 @@ function TopicEditController($scope, $state, $stateParams, toastr, urls, HttpReq
     });
   }
 
+  function addMemorization() {
+    $scope.topic.memorizations.push({
+      description: '',
+      url: '',
+      translate: '',
+      fonetica: '',
+    });
+  }
+
+  function addTranscription() {
+    $scope.topic.transcriptions.push({
+      url: '',
+      answer: '',
+    });
+  }
+
   /* ----------------------------------- */
   /* FORM VALIDATE */
   /* ----------------------------------- */
@@ -52,12 +82,6 @@ function TopicEditController($scope, $state, $stateParams, toastr, urls, HttpReq
       title: {
         required: true
       },
-      video: {
-        required: true
-      },
-      duration: {
-        required: true
-      },
       number: {
         required: true,
         regex: validators.integer
@@ -65,12 +89,6 @@ function TopicEditController($scope, $state, $stateParams, toastr, urls, HttpReq
     },
     messages: {
       title: {
-        required: 'Dato requerido'
-      },
-      video: {
-        required: 'Dato requerido'
-      },
-      duration: {
         required: 'Dato requerido'
       },
       number: {

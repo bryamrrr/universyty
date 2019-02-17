@@ -143,6 +143,8 @@ class Api::V1::CoursesController < Api::V1::BaseController
       :description,
       :goal,
       :certificate_info,
+      :certified,
+      :language,
       :starred,
       :free,
       :pricetag,

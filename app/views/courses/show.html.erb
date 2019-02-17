@@ -14,7 +14,16 @@
     </div><!--
     --><div class="sales">
       <p>Puedes acceder a este curso con Tarjeta (crédito o débito), Depósito (agente BCP) y Puntos</p>
-      <button>¡Quiero este curso!</button>
+      <%= link_to "/registro" do %>
+        <button>
+          ¡Quiero este curso
+          <% if @course.free %>
+            <span>Gratis</span>
+          <% else %>
+            <span>S/ <%= @course.pricetag.round %>!</span>
+          <% end %>
+        </button>
+      <% end %>
     </div>
   </div>
 
@@ -27,30 +36,37 @@
       <h4>Información</h4>
       <ul>
         <li>
-          <i class="fa fa-play-circle-o"></i>
-          <span><%= @course.classes %> clases</span>
+          <%= image_tag("/icons/language.png") %>
+          <span>Idioma: <%= @course.language %></span>
+        </li>
+        <li>
+          <%= image_tag("/icons/class.png") %>
+          <span>Clases: <%= @course.classes %> clases</span>
         </li>
         <li>
           <i class="fa fa-clock-o"></i>
-          <span><%= @course.duration %></span>
+          <span>Tiempo: <%= @course.duration %></span>
         </li>
         <li>
-          <i class="fa fa-circle"></i>
+          <%= image_tag("/icons/level.png") %>
           <span>Nivel: <%= @course.level %></span>
         </li>
         <li>
-          <i class="fa fa-download"></i>
-          <span>0 archivos adjuntos</span>
-        </li>
-        <li>
-          <span class="tiny-text">Publicado el <%= @course.created_at.to_time.strftime("%m/%d/%Y") %></span>
+          <%= image_tag("/icons/certificate.png") %>
+          <span>Certificado:
+            <% if @course.certified %>
+              Sí
+            <% else %>
+              No
+            <% end %>
+          </span>
         </li>
       </ul>
       <% if @course.professors.first %>
-      <h4>Instructor</h4>
+      <h4>Coach</h4>
       <article class="professor-card">
         <figure>
-          <img src="<%= @course.professors.first.image_url %>" alt="">
+          <img src="<%= @course.professors.first.image_url %>" alt="" class="professor-avatar">
         </figure><!--
         --><div class="professor-info">
           <h5><%= @course.professors.first.name %></h5>
@@ -67,7 +83,7 @@
   <h3>Sobre el curso:</h3>
 
   <div class="info-section">
-    <h5>Descripción del curso</h5>
+    <h5>Descripción del idioma</h5>
     <p><%= @course.description %></p>
   </div>
 
@@ -81,7 +97,7 @@
     <h5>Programa del curso</h5>
 
     <% @course.parts.order(number: :asc).each do |part| %>
-    <h6>MÓDULO <%= part.number %>: <%= part.title %></h6>
+    <h6>NIVEL <%= part.number %>: <%= part.title %></h6>
     <ul>
       <% part.topics.order(number: :asc).each do |topic| %>
       <li>
@@ -101,9 +117,9 @@
 
   <div class="info-section">
     <% if @course.professors.count == 1 %>
-      <h3>Sobre el instructor:</h3>
+      <h3>Sobre el coach:</h3>
     <% else %>
-      <h3>Sobre los instructores:</h3>
+      <h3>Sobre los coaches:</h3>
     <% end %>
     <% @course.professors.each do |professor| %>
     <article class="professor-card">

@@ -1,11 +1,195 @@
 <div class="card-course">
-  <h2>{{ course.title }}</h2>
-  <p class="tagline">Por: {{ course.professors[0].name }}</p>
+  <h2>{{ currentTopic.title }}</h2>
 
   <section class="course-main">
     <div class="video-wrapper-wistia">
-      <div class="video-wrapper">
+      <div class="video-wrapper" ng-if="currentTopic.video_url && currentTopic.video_url !== ''">
         <iframe ng-src="{{ vimeoVideo | trusted }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      </div>
+      <div class="interactive-wrapper" ng-if="!currentTopic.video_url || currentTopic.video_url === ''">
+        <ul class="interactive-tabs">
+          <li
+            ng-class="{completed: completedTabs >= 1, 'interactive-tab-active': interactiveStep === 1}"
+            ng-click="setStep(1)"
+          >
+            <a href="#">
+              <input type="radio" />
+              <span>Audición</span>
+              <img src="/purple-check.png" />
+            </a>
+          </li>
+          <!-- <li ng-class="{completed: completedTabs >= 2}">
+            <a href="#">
+              <input type="radio" />
+              <span>Perfeccionamiento</span>
+            </a>
+          </li> -->
+          <li
+            ng-class="{completed: completedTabs >= 2, 'interactive-tab-active': interactiveStep === 2}"
+            ng-click="setStep(2)"
+          >
+            <a href="#">
+              <input type="radio" />
+              <span>Memorización</span>
+              <img src="/purple-check.png" />
+            </a>
+          </li>
+          <li
+            ng-class="{completed: completedTabs >= 3, 'interactive-tab-active': interactiveStep === 3}"
+            ng-click="setStep(3)"
+          >
+            <a href="#">
+              <input type="radio" />
+              <span>Transcripción</span>
+              <img src="/purple-check.png" />
+            </a>
+          </li>
+        </ul>
+        <div ng-if="interactiveStep === 1" class="interactive-step-1">
+          <h3>¡Entretenemos oidos,<br /> y pronuncialo sin roche!</h3>
+          <div class="interactive-player">
+            <div class="interactive-slider">
+              <rzslider rz-slider-model="sliderAudition.value"
+              rz-slider-options="sliderAudition.options"></rzslider>
+              <span class="init-player">{{ avance }}</span>
+              <span class="end-player">{{ Math.floor(auditionAudio.duration / 60) }}:{{ Math.floor(auditionAudio.duration % 60) }}</span>
+            </div>
+            <img ng-if="auditionAudio.paused" class="play-player" src="/player/circled-play.png" ng-click="clickPlayOrPause('sliderAudition', 'auditionAudio')" />
+            <img ng-if="!auditionAudio.paused" class="play-player pause" src="/player/circled-pause.png" ng-click="clickPlayOrPause('sliderAudition', 'auditionAudio')" />
+          </div>
+          <button
+            class="button next-lab-button"
+            ng-click="nextStep(2)"
+          >
+            <span>Laboratorio 2</span>
+            <img class="chevron" src="chevron_right.png" />
+          </button>
+        </div>
+      </div>
+      <div ng-if="interactiveStep === 2" class="interactive-step-2">
+        <div class="inner-interactive-tabs">
+          <div
+            class="inner-tab memorization-translate-tab"
+            ng-class="{selected: translateMemorizationSelected}"
+            ng-click="setTranslateMemorization()"
+          >
+            <img src="/translate-red.png" />
+            <img src="/translate-blue.png" />
+            <h4>Traducción</h4>
+          </div>
+          <div
+            class="inner-tab memorization-fonetica-tab"
+            ng-class="{selected: foneticaMemorizationSelected}"
+            ng-click="setFoneticaMemorization()"
+          >
+              <img src="/fonetica-red.png" />
+              <img src="/fonetica-blue.png" />
+              <h4>Fonética</h4>
+            </div>
+        </div>
+        <div class='center-interactive'>
+          <p class="center-text">{{ memorizations[memorizationSlide].description }}</p>
+          <div class="center-line"></div>
+          <p
+            class="center-response"
+            ng-if="translateMemorizationSelected"
+          >
+            {{ memorizations[memorizationSlide].translate }}
+          </p>
+          <p
+            class="center-response"
+            ng-if="foneticaMemorizationSelected"
+          >
+            {{ memorizations[memorizationSlide].fonetica }}
+          </p>
+        </div>
+        <div class="interactive-player">
+          <div class="interactive-slider">
+            <rzslider rz-slider-model="this['sliderMemorization-' + memorizationSlide].value"
+            rz-slider-options="this['sliderMemorization-' + memorizationSlide].options"></rzslider>
+            <span class="init-player">{{ avance }}</span>
+            <span class="end-player">{{ Math.floor(this['sliderMemorization-' + memorizationSlide + '-audio'].duration / 60) }}:{{ Math.floor(this['sliderMemorization-' + memorizationSlide + '-audio'].duration % 60) }}</span>
+          </div>
+          <img ng-if="this['sliderMemorization-' + memorizationSlide + '-audio'].paused" class="play-player" src="/player/circled-play.png" ng-click="clickPlayOrPause('sliderMemorization-' + memorizationSlide, 'sliderMemorization-' + memorizationSlide + '-audio')" />
+          <img ng-if="!this['sliderMemorization-' + memorizationSlide + '-audio'].paused" class="play-player pause" src="/player/circled-pause.png" ng-click="clickPlayOrPause('sliderMemorization-' + memorizationSlide, 'sliderMemorization-' + memorizationSlide + '-audio')" />
+        </div>
+      </div>
+      <div class="memorization-bottom" ng-if="interactiveStep === 2">
+        <div class="memorization-slides">
+          <img
+            class="chevron-left"
+            src="circled-chevron-left-transparent.png"
+            ng-click="backSlide('memorizationSlide')"
+          />
+          {{ memorizationSlide + 1 }}<span>/</span>{{ memorizations.length }}
+          <img
+            class="chevron-right"
+            src="circled-chevron-right-transparent.png"
+            ng-click="nextSlide('memorizations', 'memorizationSlide')"
+          />
+        </div>
+        <button
+          class="button next-lab-button"
+          ng-click="nextStep(3)"
+          ng-if="memorizationSlide + 1 === memorizations.length"
+        >
+          <span>Laboratorio 3</span>
+          <img class="chevron" src="chevron_right.png" />
+        </button>
+      </div>
+      <div ng-if="interactiveStep === 3" class="interactive-step-3">
+        <h3>¡Escucha y transcribe en inglés!</h3>
+        <div class="interactive-player">
+          <div class="interactive-slider">
+            <rzslider rz-slider-model="this['sliderTranscription-' + transcriptionSlide].value"
+            rz-slider-options="this['sliderTranscription-' + transcriptionSlide].options"></rzslider>
+            <span class="init-player">{{ avance }}</span>
+            <span class="end-player">{{ Math.floor(this['sliderTranscription-' + transcriptionSlide + '-audio'].duration / 60) }}:{{ Math.floor(this['sliderTranscription-' + transcriptionSlide + '-audio'].duration % 60) }}</span>
+          </div>
+          <img ng-if="this['sliderTranscription-' + transcriptionSlide + '-audio'].paused" class="play-player" src="/player/circled-play.png" ng-click="clickPlayOrPause('sliderTranscription-' + transcriptionSlide, 'sliderTranscription-' + transcriptionSlide + '-audio')" />
+          <img ng-if="!this['sliderTranscription-' + transcriptionSlide + '-audio'].paused" class="play-player pause" src="/player/circled-pause.png" ng-click="clickPlayOrPause('sliderTranscription-' + transcriptionSlide, 'sliderTranscription-' + transcriptionSlide + '-audio')" />
+        </div>
+        <div class="answer">
+          <img
+            src="/success.png"
+            ng-if="transcriptionResults[transcriptionSlide] === 'success'"
+          />
+          <img
+            src="/wrong.png"
+            ng-if="transcriptionResults[transcriptionSlide] === 'wrong'"
+          />
+        </div>
+        <div class='center-interactive'>
+          <input placeholder="Escribe aquí" type="text" ng-model="transcriptionInput[transcriptionSlide]" />
+          <div class="center-line"></div>
+          <p
+            class="center-response"
+          >
+            <span ng-if="transcriptionResults[transcriptionSlide] === 'wrong'">{{ transcriptions[transcriptionSlide].answers.split('|')[0] }}</span>
+          </p>
+        </div>
+        <button
+          class="button success"
+          ng-click="verifyAnswer(transcriptionSlide)"
+          ng-disabled="transcriptionResults[transcriptionSlide] === 'wrong' || transcriptionResults[transcriptionSlide] === 'success'"
+        >
+          Verificar
+        </button>
+      </div>
+      <div class="memorization-bottom" ng-if="interactiveStep === 3">
+        <div class="memorization-slides">
+          <img
+            class="chevron-left"
+            src="circled-chevron-left-transparent.png"
+            ng-click="backSlide('transcriptionSlide')"
+          />
+          {{ transcriptionSlide + 1 }}<span>/</span>{{ transcriptions.length }}
+          <img
+            class="chevron-right"
+            src="circled-chevron-right-transparent.png"
+            ng-click="nextSlide('transcriptions', 'transcriptionSlide')"
+          />
+        </div>
       </div>
     </div>
     <div class="parts-container">

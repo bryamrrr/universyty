@@ -25,7 +25,12 @@
       <div class="form-input">
         <input class="input" type="text" id="certificate" name="certificate" ng-model="course.certificate_info" required />
         <div class="bar"></div>
-        <label class="label basic" for="certificate">Certificado</label>
+        <label class="label basic" for="certificate">Certificado (Detalle)</label>
+      </div>
+      <div class="form-input">
+        <input class="input" type="text" id="language" name="language" ng-model="course.language" required />
+        <div class="bar"></div>
+        <label class="label basic" for="language">Idioma</label>
       </div>
       <div class="two-cols-form">
         <div class="form-input">
@@ -52,6 +57,13 @@
           <label for="free"></label>
         </div>
         <span>Curso Gratuito</span>
+      </div>
+      <div class="form-input checkbox">
+        <div class="squaredCheck">
+          <input type="checkbox" value="None" id="certified" name="certified" ng-model="course.certified" />
+          <label for="certified"></label>
+        </div>
+        <span>Tiene certificado?</span>
       </div>
       <div class="two-cols-form">
         <div class="form-input">

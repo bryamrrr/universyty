@@ -52,6 +52,19 @@ h6 { font-size: $h6; }
 a {
   font-weight: bold;
   text-decoration: none;
+
+  &.white-color {
+    color: white;
+  }
+
+  &.hover-scale {
+    display: block;
+    &:hover {
+      transition: all .5s;
+      transform: scale(1.2);
+    }
+  }
+
   &:hover {
     cursor: pointer;
   }
@@ -109,12 +122,11 @@ nav {
 
   form { display: inline-block; }
 
-  a { font-weight: bold; }
-
   .link {
     border-right: 1px solid white;
     color: white;
     display: inline-block;
+    font-weight: 400;
     padding-right: .7em;
     line-height: 27px;
     margin-right: .5em;
@@ -124,7 +136,7 @@ nav {
 
   .button {
     background-color: transparent;
-    border: 2px solid white;
+    border: 1px solid white;
     color: white;
     display: inline-block;
     font-size: .95em;
@@ -187,7 +199,8 @@ footer {
 }
 
 .copyright {
-  color: lighten($gray, 20%);
+  background-color: black;
+  color: white;
   font-size: .9em;
   padding: .8em 3em;
   position: relative;
@@ -366,23 +379,21 @@ footer {
 
 @media screen and (min-width: 769px) {
   header.scrolled {
-    background-color: white;
+    background-color: black;
     border-bottom: 1px solid lighten($gray, 70%);
     position: fixed;
     -webkit-box-shadow: 0px 0px 15px 0px rgba(204,204,204,1);
     -moz-box-shadow: 0px 0px 15px 0px rgba(204,204,204,1);
     box-shadow: 0px 0px 15px 0px rgba(204,204,204,1);
-    .logo-white { display: none; }
-    .logo-purple { display: inline-block; }
-    a { color: $purple; }
+    a { color: white; }
 
     .login-box  {
       a {
-        border-color: $purple;
-        color: $purple;
+        border-color: white;
+        color: white;
       }
       .link {
-        color: $purple;
+        color: white;
         &:hover { color: $link-selected; }
       }
     }

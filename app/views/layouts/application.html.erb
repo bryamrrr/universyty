@@ -5,8 +5,11 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/locale/es.js"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
@@ -19,14 +22,6 @@
           <%= image_tag("logo-purple.png", class: "logo-purple") %>
         </a>
       </div>
-      <nav>
-        <ul>
-          <li class="<%= is_active('courses', 'index') %>"><%= link_to "Cursos", "/cursos" %></li>
-          <li class="<%= is_active('public', 'instructor') %>"><%= link_to "Conviértete en Instructor", "/instructores" %></li>
-          <li class="<%= is_active('public', 'money') %>"><%= link_to "¡Gana dinero!", "/embajadores" %></li>
-          <li class="<%= is_active('public', 'certificates') %> hide-in-mobile"><%= link_to "Verificar certificado", "/certificados" %></li>
-        </ul>
-      </nav>
       <div class="login-box">
         <%= link_to "Campus virtual", "/login", class: "link" %>
         <%= link_to "¡Regístrate!", "/registro", class: "button button-alternative"%>
@@ -49,19 +44,18 @@
         <div class="footer-links">
           <h5>Universyty</h5>
           <ul>
-            <li><%= link_to "Cursos", "/cursos" %></li>
-            <li><%= link_to "¡Conviértete en Instructor!", "/instructores" %></li>
-            <li><%= link_to "¡Gana dinero!", "/embajadores" %></li>
+            <li><%= link_to "Campus Virtual", "/login" %></li>
+            <li><%= link_to "Regístrate", "/registro" %></li>
             <li><%= link_to "Verificar certificado", "/certificados" %></li>
           </ul>
         </div>
         <div class="footer-links">
           <h5>Legalidad</h5>
           <ul>
-            <li><%= link_to "Preguntas frecuentes", "https://drive.google.com/file/d/0BxuTJyS9NYwfSTA1Q2pxZG1qbnM/view?usp=sharing", target: "_blank" %></li>
-            <li><%= link_to "Acuerdo con los instructores", "https://drive.google.com/file/d/0BxuTJyS9NYwfaEZ6bEFINHQ4VGM/view?usp=sharing", target: "_blank" %></li>
-            <li><%= link_to "Términos y Condiciones", "https://drive.google.com/file/d/0BxuTJyS9NYwfSkE5ZzBUUDNJd1E/view?usp=sharing", target: "_blank" %></li>
-            <li><%= link_to "Política y privacidad", "https://drive.google.com/file/d/0BxuTJyS9NYwfYV9EM2hrc2JWQjQ/view?usp=sharing", target: "_blank" %></li>
+            <li><%= link_to "Preguntas frecuentes", "https://drive.google.com/file/d/0BxuTJyS9NYwfQjNhaWk2UXBFZVE/view?usp=sharing", target: "_blank" %></li>
+            <li><%= link_to "Acuerdo de puntos", "https://drive.google.com/file/d/0BxuTJyS9NYwfZk8tWjNJSG9rcmM/view?usp=sharing", target: "_blank" %></li>
+            <li><%= link_to "Términos y Condiciones", "https://drive.google.com/file/d/0BxuTJyS9NYwfa0tobEwzdGFUTWc/view?usp=sharing", target: "_blank" %></li>
+            <li><%= link_to "Política de privacidad", "https://drive.google.com/file/d/0BxuTJyS9NYwfal9wc2JJQ0I5Qjg/view?usp=sharing", target: "_blank" %></li>
           </ul>
         </div>
         <div class="footer-links">
@@ -97,7 +91,7 @@
       </div>
     </footer>
     <div class="copyright">
-      Copyright © 2017 Universyty S.A.C.
+      Copyright © 2018 Universyty
     </div>
   </body>
 </html>

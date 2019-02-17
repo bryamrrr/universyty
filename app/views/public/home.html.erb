@@ -2,32 +2,132 @@
 <section class="main-home">
 	<div class="overlay"></div>
   <div class="video-wrapper-home">
-    <%= video_tag "video.mp4", :autoplay => true, :loop => true, :class => 'video-playing autoplay' %>
+    <%= image_tag("home-background.png") %>
   </div>
-  <%= image_tag("home-background.jpg", class: "responsive-background") %>
   <div class="main-title">
     <div class="title">
-      <h2>Cursos Online para...</h2>
+      <h2>El mundo te espera...</h2>
       <div id="typed-strings">
-        <p>Impulsar tu carrera</p>
-        <p>Aprender a tu propio ritmo</p>
-        <p>Ganar más dinero</p>
-        <p>Empoderar tu talento</p>
-        <p>Emprender un negocio</p>
-        <p>Desarrollar una habilidad</p>
+        <p>Domina su idioma</p>
+        <p>Habla 1 idioma en 1 año</p>
+        <p>Impulsa tu carrera</p>
       </div>
       <span id="typed"></span>
     </div>
+    <p>Suscripción: S/ 59.00 al mes</p>
     <%= link_to "/registro" do %>
-      <button class="button-alternative">¡Comienza hoy!</button>
+      <button class="button">¡Empieza hoy!</button>
     <% end %>
+  </div>
+</section>
+
+<section class="tagline-section">
+  <p>"Habla un idioma en 1 año<br /> con 1 hora al día de aprendizaje, desde cualquier lugar y<br />dispositivo con acceso las 24 horas"</p>
+  <a href="javascript:void(0);" class="btn-video-js hover-scale" title="Title" data-idvideo="A2gcVcF4Uq8" data-type="youtube">
+    <%= image_tag("play-white.png") %>
+  </a>
+  <a href="javascript:void(0);" class="btn-video-js white-color" title="Title" data-idvideo="A2gcVcF4Uq8" data-type="youtube">Ver presentación</a>
+</section>
+
+<section class="why">
+  <h3>¿Por qué estudiar en Universyty?</h3>
+
+  <div class="normal-container flex-container">
+    <article class="reason">
+      <%= image_tag("reasons/plataforma.png") %>
+      <h4>Plataforma</h4>
+      <p>Gracias a nuestro software inteligente<br />las clases son 100% online,<br />con acceso las 24 horas del día.</p>
+    </article>
+    <article class="reason">
+      <%= image_tag("reasons/metodologia.png") %>
+      <h4>Metodología</h4>
+      <p>Habla 1 idioma en 1 año,<br />con 1 hora diaria de aprendizaje<br />desde cualquier lugar y dispositivo.</p>
+    </article>
+    <article class="reason">
+      <%= image_tag("reasons/certificado.png") %>
+      <h4>Certificado</h4>
+      <p>Por cada nivel logrado<br />obtendrás un certificado,<br />previa evaluación de un coach.</p>
+    </article>
+    <article class="reason">
+      <%= image_tag("reasons/ahorro.png") %>
+      <h4>Ahorro</h4>
+      <p>¡Ahorra tiempo y dinero! <br />Sin libros, Sin horarios,<br />Sin desplazamientos</p>
+    </article>
+    <article class="reason">
+      <%= image_tag("reasons/coach.png") %>
+      <h4>Coach</h4>
+      <p>Opcionalmente puedes conversar<br />con nuestros expertos<br />quienes reforzarán tu speaking.</p>
+    </article>
+    <article class="reason">
+      <%= image_tag("reasons/viaja.png") %>
+      <h4>Viaja</h4>
+      <p>Acumula puntos<br />invitando a todos tus amigos<br />y viaja por el mundo.</p>
+    </article>
+  </div>
+</section>
+
+<section class="experts">
+  <h3>¡Ellos son tus coaches!</h3>
+  <p>Por un precio adicional podrás conversar con nuestros expertos,<br />quienes te ayudarán a resolver todas tus dudas y preguntas,<br />y mejorar la fluidez de tu nuevo idioma.</p>
+  <div class="normal-container">
+    <div id="owl-demo">
+      <article class="item">
+        <figure>
+          <%= image_tag("professor.jpg") %>
+        </figure>
+        <h5>Nombre del profesor</h5>
+        <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </article>
+      <article class="item">
+        <figure>
+          <%= image_tag("professor.jpg") %>
+        </figure>
+        <h5>Nombre del profesor</h5>
+        <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </article>
+      <article class="item">
+        <figure>
+          <%= image_tag("professor.jpg") %>
+        </figure>
+        <h5>Nombre del profesor</h5>
+        <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </article>
+      <article class="item">
+        <figure>
+          <%= image_tag("professor.jpg") %>
+        </figure>
+        <h5>Nombre del profesor</h5>
+        <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </article>
+      <article class="item">
+        <figure>
+          <%= image_tag("professor.jpg") %>
+        </figure>
+        <h5>Nombre del profesor</h5>
+        <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </article>
+      <article class="item">
+        <figure>
+          <%= image_tag("professor.jpg") %>
+        </figure>
+        <h5>Nombre del profesor</h5>
+        <p class="tagline">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </article>
+    </div>
+
+    <a class="prev">
+      <%= image_tag("arrow-left.png") %>
+    </a>
+    <a class="next">
+      <%= image_tag("arrow-right.png") %>
+    </a>
   </div>
 </section>
 
 <section class="courses">
   <div class="normal-container">
-    <h3>¡Estos cursos son especialmente para ti!</h3>
-    <p class="tagline">Puedes acceder a este curso con Tarjeta (crédito o débito), Depósito (Agente BCP) y Puntos</p>
+    <h3>¡Este idioma es especialmente para ti!</h3>
+    <p class="tagline">Puedes acceder a este curso con Tarjeta (crédito o débito) y Depósito (Agente BCP).</p>
 
     <div class="flex-container">
 
@@ -80,46 +180,12 @@
   <% end %>
 </section>
 
-<section class="mission">
-  <!-- Overlay -->
-  <p>"Somos una plataforma educativa online, cuyo propósito es brindarte <br/>los mejores conocimientos del mundo"</p>
-</section>
-
-<section class="why">
-  <h3>¿Por qué estudiar en Universyty?</h3>
-
-  <div class="normal-container flex-container">
-    <article class="reason">
-      <%= image_tag("reasons/experto.png") %>
-      <h4>Expertos</h4>
-      <p>Aprenderás de los mejores profesionales y especialistas</p>
-    </article>
-    <article class="reason">
-      <%= image_tag("reasons/libertad.png") %>
-      <h4>Libertad</h4>
-      <p>Aprende a tu propio ritmo, <br/>desde cualquier lugar y dispositivo</p>
-    </article>
-    <article class="reason">
-      <%= image_tag("reasons/plataforma.png") %>
-      <h4>Plataforma</h4>
-      <p>Clases 100% online, <br />con acceso las 24 horas del día</p>
-    </article>
-    <article class="reason">
-      <%= image_tag("reasons/ahorro.png") %>
-      <h4>Ahorro</h4>
-      <p>¡Ahorra tiempo y dinero! <br />Sin horarios, ni desplazamientos</p>
-    </article>
-    <article class="reason">
-      <%= image_tag("reasons/certificado.png") %>
-      <h4>Certificado</h4>
-      <p>Por cada curso concluido <br />obtendrás un certificado</p>
-    </article>
-    <article class="reason">
-      <%= image_tag("reasons/ganar.png") %>
-      <h4>Gana</h4>
-      <p>Ganarás dinero en efectivo <br />invitando a tus amigos</p>
-    </article>
-  </div>
+<section class="time">
+  <h3>Si empiezas hoy…</h3>
+  <p>El próximo <em id="one-year-later-js">20 de Febrero del 2019</em> estarás hablando un nuevo idioma.</p>
+  <%= link_to "/registro" do %>
+    <button class="button">¡Empieza hoy!</button>
+  <% end %>
 </section>
 
 <section class="wrapper-info" >
@@ -131,8 +197,21 @@
         </h3>
       </div>
       <div class="tutorial display-inline">
-        <a href="javascript:void(0);"  class="btn-video-js" title="¿Cómo me registro en Universyty?" data-idvideo="49arsY1oDG4" data-type="youtube">
+        <a href="javascript:void(0);"  class="btn-video-js" title="¿Quiénes somos?" data-idvideo="F9vVFt2mZKg" data-type="youtube">
           <%= image_tag('tutos/video_1.png') %>
+          <span class="cover align_center">
+            <span class="helper"></span><!--
+            --><span class="play display-inline">
+              <i class="fa fa-play display-inline"></i><!--
+              --><span class="helper"></span>
+            </span>
+          </span>
+        </a>
+        <h4>¿Quiénes somos?</h4>
+      </div><!--
+      --><div class="tutorial display-inline">
+        <a href="javascript:void(0);" class="btn-video-js" title="¿Cómo me registro a Universyty?" data-idvideo="nl9NuYMfmpI" data-type="youtube">
+          <%= image_tag('tutos/video_2.png') %>
           <span class="cover align_center">
             <span class="helper"></span><!--
             --><span class="play display-inline">
@@ -144,20 +223,7 @@
         <h4>¿Cómo me registro <br> a Universyty?</h4>
       </div><!--
       --><div class="tutorial display-inline">
-        <a href="javascript:void(0);" class="btn-video-js" title="¿Cómo compro un curso en Universyty?" data-idvideo="yZ5CedqXCAM" data-type="youtube">
-          <%= image_tag('tutos/video_2.png') %>
-          <span class="cover align_center">
-            <span class="helper"></span><!--
-            --><span class="play display-inline">
-              <i class="fa fa-play display-inline"></i><!--
-              --><span class="helper"></span>
-            </span>
-          </span>
-        </a>
-        <h4>¿Cómo compro un <br> curso en Universyty?</h4>
-      </div><!--
-      --><div class="tutorial display-inline">
-        <a href="javascript:void(0);" class="btn-video-js" title="¿Cómo ser instructor de Universyty?" data-idvideo="q49mjAyGl-E" data-type="youtube">
+        <a href="javascript:void(0);" class="btn-video-js" title="¿Cómo compro un curso en Universyty?" data-idvideo="A2gcVcF4Uq8" data-type="youtube">
           <%= image_tag('tutos/video_3.png') %>
           <span class="cover align_center">
             <span class="helper"></span><!--
@@ -167,10 +233,10 @@
             </span>
           </span>
         </a>
-        <h4>¿Cómo ser instructor <br> de Universyty?</h4>
+        <h4>¿Cómo compro un curso<br> en Universyty?</h4>
       </div><!--
       --><div class="tutorial display-inline">
-        <a href="javascript:void(0);" class="btn-video-js" title="¿Cómo ganar dinero en Universyty?" data-idvideo="fRn-zX1hBy0" data-type="youtube">
+        <a href="javascript:void(0);" class="btn-video-js" title="¿Cómo ser instructor de Universyty?" data-idvideo="r3iGqJfGuhs" data-type="youtube">
           <%= image_tag('tutos/video_4.png') %>
           <span class="cover align_center">
             <span class="helper"></span><!--
@@ -180,7 +246,7 @@
             </span>
           </span>
         </a>
-        <h4>¿Cómo ganar dinero <br> en Universyty?</h4>
+        <h4>¿Cómo ser instructor <br> en Universyty?</h4>
       </div>
     </div>
   </div>
@@ -189,7 +255,7 @@
 <section class="motivation">
   <p><strong>No dejes</strong> de lado lo más importante Aprende a <strong>tu propio ritmo</strong> <br />Aprende <strong>sin límites</strong></p>
   <%= link_to "/registro" do %>
-    <button>¡Comienza hoy!</button>
+    <button>¡Empieza hoy!</button>
   <% end %>
 </section>
 
@@ -204,7 +270,7 @@
     </path>
     </svg>
     <a href="javascript:void(0)" class="btn-close btn-close-js">
-      <div class="helper"></div><!-- 
+      <div class="helper"></div><!--
       --><i class="fa fa-times"></i>
     </a>
     <div class="popup-video-container">
