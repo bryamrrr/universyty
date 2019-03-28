@@ -1,16 +1,48 @@
 angular.module("campus-app").controller("CoursesViewController", CoursesViewController);
 
-CoursesViewController.$inject = ['$scope', '$location', '$q', '$state', '$stateParams', 'urls', 'HttpRequest', 'CookieService', 'SweetAlert'];
+CoursesViewController.$inject = ['$scope', '$location', '$q', '$state', '$stateParams', 'urls', 'HttpRequest', 'CookieService', 'SweetAlert', 'ngAudio'];
 
-function CoursesViewController($scope, $location, $q, $state, $stateParams, urls, HttpRequest, CookieService, SweetAlert) {
+function CoursesViewController($scope, $location, $q, $state, $stateParams, urls, HttpRequest, CookieService, SweetAlert, ngAudio) {
   $scope.requestCertificate = requestCertificate;
+  $scope.clickPlayOrPause = clickPlayOrPause;
+  $scope.nextStep = nextStep;
+  $scope.setStep = setStep;
+  $scope.setTranslateMemorization = setTranslateMemorization;
+  $scope.setFoneticaMemorization = setFoneticaMemorization;
+  $scope.backSlide = backSlide;
+  $scope.nextSlide = nextSlide;
+  $scope.verifyAnswer = verifyAnswer;
   $scope.idCourse = $stateParams.id;
   $scope.changeTab = changeTab;
   $scope.isTab = isTab;
   $scope.goTo = goTo;
   $scope.filteredGrades = [[]];
   $scope.totals = [0];
+  $scope.interactiveStep = 1;
+  $scope.completedTabs = 0;
+  $scope.avance = '00:00';
   var currentVideo, currentModule;
+  var playingAudio = false;
+  var amountForSlider = 100000;
+
+  // Memorization
+  $scope.translateMemorizationSelected = false;
+  $scope.foneticaMemorizationSelected = false;
+  $scope.memorizationSlide = 0;
+
+  // Transcription
+  $scope.transcriptionSlide = 0;
+  $scope.transcriptionInput = [];
+  $scope.transcriptionResults = [];
+
+  $scope.sliderAudition = {
+    value: 0,
+    options: {
+      showSelectionBar: true,
+      ceil: amountForSlider,
+      onChange: getSliderChange('auditionAudio'),
+    }
+  };
 
   if ($location.$$search.notas) {
     $scope.currentTab = 1;
@@ -34,12 +66,17 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     $scope.view_exam = response[1].view_exam;
     currentVideo = response[1].video;
     currentModule = response[1].part;
+    $scope.auditions = response[1].auditions;
+    $scope.memorizations = response[1].memorizations;
+    $scope.transcriptions = response[1].transcriptions;
+    $scope.Math = window.Math;
 
     $scope.currentTopic = currentVideo;
     $scope.vimeoVideo = 'https://player.vimeo.com/video/' + $scope.currentTopic.video_url;
 
     enabletopics();
     filterGrades();
+    setAudio();
 
     var $contenido = $('#contenido');
     $contenido.addClass("loaded");
@@ -47,11 +84,65 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     console.log(error);
   })
 
+  function clickPlayOrPause(sliderKey, audioKey) {
+    if ($scope[audioKey].paused) {
+      $scope[audioKey].play();
+      playingAudio = setInterval(function () {
+        $scope[sliderKey].value = $scope[audioKey].progress * amountForSlider;
+        var avance = $scope[audioKey].duration - $scope[audioKey].remaining;
+        var firstNumAvance = Math.floor(avance / 60).toString();
+        var firstString = firstNumAvance.length === 1 ? '0' + firstNumAvance : firstNumAvance;
+        var secondNumAvance = Math.floor(avance % 60).toString();
+        var secondString = secondNumAvance.length === 1 ? '0' + secondNumAvance : secondNumAvance;
+        $scope.avance = firstString + ':' + secondString;
+      }, 1000);
+    } else {
+      $scope[audioKey].pause();
+      clearInterval(playingAudio);
+    }
+  }
+
+  function getSliderChange(audioKey) {
+    return function onSliderChange(sliderId, modelValue, highValue, pointerType) {
+      console.log('audioKey', audioKey);
+      $scope[audioKey].progress = modelValue / amountForSlider;
+    }
+  }
+
+  function setAudio() {
+    if ($scope.interactiveStep === 1) {
+      $scope.auditionAudio = ngAudio.load($scope.auditions[0].audio);
+    } else  if ($scope.interactiveStep === 2) {
+      var memorization = $scope.memorizations[$scope.memorizationSlide];
+      var thisMemoAudioKey = 'sliderMemorization-' + $scope.memorizationSlide + '-audio';
+      $scope['sliderMemorization-' + $scope.memorizationSlide] = {
+        value: 0,
+        options: {
+          showSelectionBar: true,
+          ceil: amountForSlider,
+          onChange: getSliderChange(thisMemoAudioKey),
+        }
+      };
+      $scope[thisMemoAudioKey] = ngAudio.load(memorization.audio);
+    } else if ($scope.interactiveStep === 3) {
+      var transcription = $scope.transcriptions[$scope.transcriptionSlide];
+      var thisMemoAudioKey = 'sliderTranscription-' + $scope.transcriptionSlide + '-audio';
+      $scope['sliderTranscription-' + $scope.transcriptionSlide] = {
+        value: 0,
+        options: {
+          showSelectionBar: true,
+          ceil: amountForSlider,
+          onChange: getSliderChange(thisMemoAudioKey),
+        }
+      };
+      $scope[thisMemoAudioKey] = ngAudio.load(transcription.audio);
+    }
+  }
+
   function enabletopics() {
     var numModule = $scope.enrollment.current_module;
     var numVideo = $scope.enrollment.current_video;
     var i = 0, j = 0, k = 0;
-    console.log($scope.parts);
 
     if (numModule > 1) {
       for (i; i <= numModule-1; i++) {
@@ -120,6 +211,21 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
     }
   }
 
+  function nextStep(step) {
+    $scope.interactiveStep += 1;
+    if (step > $scope.completedTabs) {
+      $scope.completedTabs += 1;
+    }
+    setAudio();
+  }
+
+  function setStep(stepToSet) {
+    if (stepToSet <= $scope.completedTabs + 1) {
+      $scope.interactiveStep = stepToSet;
+    }
+    setAudio();
+  }
+
   function requestCertificate() {
     if ($scope.grade_total >= 14) {
       SweetAlert.swal({
@@ -147,5 +253,54 @@ function CoursesViewController($scope, $location, $q, $state, $stateParams, urls
         }
       });
     }
+  }
+
+  function setTranslateMemorization() {
+    if ($scope.translateMemorizationSelected) {
+      $scope.translateMemorizationSelected = false;
+    } else {
+      $scope.translateMemorizationSelected = true;
+      $scope.foneticaMemorizationSelected = false;
+    }
+  }
+
+  function setFoneticaMemorization() {
+    if ($scope.foneticaMemorizationSelected) {
+      $scope.foneticaMemorizationSelected = false;
+    } else {
+      $scope.foneticaMemorizationSelected = true;
+      $scope.translateMemorizationSelected = false;
+    }
+  }
+
+  function backSlide(slide) {
+    if ($scope[slide] > 0) {
+      $scope[slide] -= 1;
+    }
+    setAudio();
+  }
+
+  function nextSlide(collection, slide) {
+    if ($scope[slide] < $scope[collection].length - 1) {
+      $scope[slide] += 1;
+      setAudio();
+    }
+  }
+
+  function verifyAnswer(slide) {
+    var answers = $scope.transcriptions[slide].answers.split('|');
+    var input = $scope.transcriptionInput[slide];
+    if (!input || input === '') {
+      return $scope.transcriptionResults[slide] = 'wrong';
+    }
+
+    var found = answers.find(function (answer) {
+      answer.toLowerCase() === input.toLowerCase();
+    });
+    if (found) {
+      return $scope.transcriptionResults[slide] = 'success';
+    }
+
+    return $scope.transcriptionResults[slide] = 'wrong';
   }
 }

@@ -19,6 +19,7 @@ toastr.options = {
 $(document).on('turbolinks:load', function () {
   videoPopup();
   validateCertificate();
+  calculateOneYearLater();
 
   $('#js-loading-content').hide();
 
@@ -630,6 +631,10 @@ function showCertificate(data, type) {
   });
 }
 
+function calculateOneYearLater() {
+  const oneYearLater = moment().add(1, 'year').format('D [de] MMMM [del] YYYY');
+  $('#one-year-later-js').text(oneYearLater);
+}
 
 
 

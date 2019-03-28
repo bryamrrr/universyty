@@ -1,36 +1,111 @@
 <div class="card">
-  <div class="full-container card card-padding">
-    <h2>Temario - {{module}} - {{course}}</h2>
+  <div class="full-container card card-padding new-topic">
+    <h1>Temario - {{module}} - {{course}}</h1>
     <form name="form" ng-submit="create(form, topic)" ng-validate="validationOptions" novalidate>
       <div class="form-input">
         <input class="input" type="text" id="title" name="title" ng-model="topic.title" required />
         <div class="bar"></div>
         <label class="label basic" for="title">Título:</label>
       </div>
+      <div class="form-input">
+        <input class="input" type="text" id="number" name="number" ng-model="topic.number" required />
+        <div class="bar"></div>
+        <label class="label basic" for="number">Número:</label>
+      </div>
+      <h2>Si es un VIDEO, llena estos datos:</h2>
       <div class="add-element-priority with-duration">
         <div class="form-input">
-          <input class="input" type="text" id="video" name="video" ng-model="topic.video_url" required />
+          <input class="input" type="text" id="video" name="video" ng-model="topic.video_url" />
           <div class="bar"></div>
           <label class="label basic" for="video">Video:</label>
         </div>
         <div class="form-input">
-          <input class="input" type="text" id="number" name="number" ng-model="topic.number" required />
-          <div class="bar"></div>
-          <label class="label basic" for="number">Número:</label>
-        </div>
-        <div class="form-input">
-          <input class="input" type="text" id="duration" name="duration" ng-model="topic.duration" required />
+          <input class="input" type="text" id="duration" name="duration" ng-model="topic.duration" />
           <div class="bar"></div>
           <label class="label basic" for="duration">Duración:</label>
         </div>
+      </div>
+      <h2>Si es un INTERACTIVO, llena estos datos:</h2>
+      <h3>1. Audición</h3>
+      <div class="form-input">
+        <input class="input" type="text" id="audition" name="audition" ng-model="topic.audition" />
+        <div class="bar"></div>
+        <label class="label basic" for="audition">URL Audio:</label>
+      </div>
+      <h3>2. Memorización</h3>
+      <div class="chats-container">
+        <fieldset ng-repeat="memorizations in topic.memorizations">
+          <legend>Slide</legend>
+          <div class="form-input">
+            <input class="input" type="text" id="description" name="description" ng-model="memorizations.description" />
+            <div class="bar"></div>
+            <label class="label basic" for="description">Texto:</label>
+          </div>
+          <div class="form-input">
+            <input class="input" type="text" id="url" name="url" ng-model="memorizations.url" />
+            <div class="bar"></div>
+            <label class="label basic" for="url">URL Audio:</label>
+          </div>
+          <div class="form-input">
+            <input class="input" type="text" id="translate" name="translate" ng-model="memorizations.translate" />
+            <div class="bar"></div>
+            <label class="label basic" for="translate">Traducción:</label>
+          </div>
+          <div class="form-input">
+            <input class="input" type="text" id="fonetica" name="fonetica" ng-model="memorizations.fonetica" />
+            <div class="bar"></div>
+            <label class="label basic" for="fonetica">Fonética:</label>
+          </div>
+        </fieldset>
+        <a ng-click="addMemorization()">Agregar memorización</a>
+      </div>
+      <!-- <h3>2. Memorización</h3>
+      <div>
         <div class="form-input">
-          <button type="submit" ng-disabled="form.$invalid || isLoading">
-            Agregar Tema
-            <div class="loader-wrapper" ng-show="isLoading">
-              <div class="loader-circles" id="loader">Loading...</div>
-            </div>
-          </button>
+          <input class="input" type="text" id="memorizationDescription" name="memorizationDescription" ng-model="topic.memorization.description" />
+          <div class="bar"></div>
+          <label class="label basic" for="memorizationDescription">Texto:</label>
         </div>
+        <div class="form-input">
+          <input class="input" type="text" id="memorizationUrl" name="memorizationUrl" ng-model="topic.memorization.url" />
+          <div class="bar"></div>
+          <label class="label basic" for="memorizationUrl">URL Audio:</label>
+        </div>
+        <div class="form-input">
+          <input class="input" type="text" id="memorizationTranslate" name="memorizationTranslate" ng-model="topic.memorization.translate" />
+          <div class="bar"></div>
+          <label class="label basic" for="memorizationTranslate">Traducción:</label>
+        </div>
+        <div class="form-input">
+          <input class="input" type="text" id="memorizationFonetica" name="memorizationFonetica" ng-model="topic.memorization.fonetica" />
+          <div class="bar"></div>
+          <label class="label basic" for="memorizationFonetica">Fonética:</label>
+        </div>
+      </div> -->
+      <h3>3. Transcripción</h3>
+      <div class="chats-container">
+        <fieldset ng-repeat="transcription in topic.transcriptions">
+          <legend>Slide</legend>
+          <div class="form-input">
+            <input class="input" type="text" id="transcriptionUrl" name="transcriptionUrl" ng-model="transcription.url" />
+            <div class="bar"></div>
+            <label class="label basic" for="transcriptionUrl">URL Audio:</label>
+          </div>
+          <div class="form-input">
+            <input class="input" type="text" id="transcriptionAnswer" name="transcriptionAnswer" ng-model="transcription.answer" />
+            <div class="bar"></div>
+            <label class="label basic" for="transcriptionAnswer">Texto respuesta:</label>
+          </div>
+        </fieldset>
+        <a ng-click="addTranscription()">Agregar transcripción</a>
+      </div>
+      <div class="form-input">
+        <button type="submit" ng-disabled="form.$invalid || isLoading">
+          Agregar Tema
+          <div class="loader-wrapper" ng-show="isLoading">
+            <div class="loader-circles" id="loader">Loading...</div>
+          </div>
+        </button>
       </div>
     </form>
     <table class="table td-bg">

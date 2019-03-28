@@ -22,9 +22,9 @@ class User < ApplicationRecord
   before_create :encrypt_password
   before_save :default_values
 
-  NEW_AMBASSADOR = 10
   MONTHLY_PAY = 1
   COMMEND = 0.2
+  GENERATIONS = 10
 
   def create_reset_digest
     self.reset_token = User.new_token
@@ -79,24 +79,9 @@ class User < ApplicationRecord
     father = User.find_by(nickname: self.sponsor)
     case reason
       when 'NEW_AMBASSADOR'
-        if father && father.is_active_ambassador?
-          father.update_column(:balance, father[:balance] += NEW_AMBASSADOR)
-          father.update_column(:historical_balance, father[:historical_balance] += NEW_AMBASSADOR)
-
-          if father[:instructor]
-            text = 'Bono de Amigo'
-          else
-            text = 'Puntos de Amigo'
-          end
-
-          father.bonos.create(
-            name: text,
-            description: "#{text} (#{self.nickname})",
-            value: NEW_AMBASSADOR
-          )
-        end
+        payFathers(self, 0, true)
       when 'MONTHLY_PAY'
-        payFathers(self)
+        payFathers(self, 0, false)
       when 'COMMEND'
         if father && father.is_active_ambassador?
           value = (course[:pricetag] * COMMEND).round
@@ -176,18 +161,26 @@ class User < ApplicationRecord
       end
     end
 
-    def payFathers(user)
+    def payFathers(user, counter, is_new)
       father = User.find_by(nickname: user[:sponsor])
 
-      if father
+      if father && counter < GENERATIONS
         if father.is_active_ambassador?
           father.update_attribute(:balance, father[:balance] += MONTHLY_PAY)
           father.update_attribute(:historical_balance, father[:historical_balance] += MONTHLY_PAY)
 
           if father[:instructor]
-            text = 'Bono de Equipo'
+            if is_new
+              text = 'Bono de Amigo'
+            else
+              text = 'Bono de Equipo'
+            end
           else
-            text = 'Puntos de Equipo'
+            if is_new
+              text = 'Puntos de Amigo'
+            else
+              text = 'Puntos de Equipo'
+            end
           end
 
           father.bonos.create(
@@ -196,7 +189,7 @@ class User < ApplicationRecord
             value: MONTHLY_PAY
           )
         end
-        payFathers(father)
+        payFathers(father, counter + 1, is_new)
       end
     end
 end

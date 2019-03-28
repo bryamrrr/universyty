@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501174147) do
+ActiveRecord::Schema.define(version: 20181226152654) do
 
   create_table "alternatives", force: :cascade do |t|
     t.integer  "question_id"
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(version: 20170501174147) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["question_id"], name: "index_alternatives_on_question_id"
+  end
+
+  create_table "auditions", force: :cascade do |t|
+    t.string   "title"
+    t.string   "audio"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "topic_id"
+    t.index ["topic_id"], name: "index_auditions_on_topic_id"
   end
 
   create_table "bonos", force: :cascade do |t|
@@ -39,6 +49,17 @@ ActiveRecord::Schema.define(version: 20170501174147) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "slug"
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.string   "translate"
+    t.string   "audio"
+    t.string   "description"
+    t.string   "fonetica"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "topic_id"
+    t.index ["topic_id"], name: "index_chats_on_topic_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -69,6 +90,8 @@ ActiveRecord::Schema.define(version: 20170501174147) do
     t.decimal  "net"
     t.integer  "user_id"
     t.decimal  "bono"
+    t.string   "language"
+    t.boolean  "certified"
     t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["user_id"], name: "index_courses_on_user_id"
   end
@@ -103,6 +126,7 @@ ActiveRecord::Schema.define(version: 20170501174147) do
     t.datetime "updated_at",                            null: false
     t.boolean  "finished",              default: false
     t.string   "code"
+    t.integer  "type"
     t.index ["course_id"], name: "index_enrollments_on_course_id"
     t.index ["user_id"], name: "index_enrollments_on_user_id"
   end
@@ -137,6 +161,17 @@ ActiveRecord::Schema.define(version: 20170501174147) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "value"
+  end
+
+  create_table "memorizations", force: :cascade do |t|
+    t.string   "translate"
+    t.string   "audio"
+    t.string   "description"
+    t.string   "fonetica"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "topic_id"
+    t.index ["topic_id"], name: "index_memorizations_on_topic_id"
   end
 
   create_table "movements", force: :cascade do |t|
@@ -267,7 +302,18 @@ ActiveRecord::Schema.define(version: 20170501174147) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "duration"
+    t.string   "type"
+    t.integer  "order"
     t.index ["part_id"], name: "index_topics_on_part_id"
+  end
+
+  create_table "transcriptions", force: :cascade do |t|
+    t.string   "audio"
+    t.string   "answers"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "topic_id"
+    t.index ["topic_id"], name: "index_transcriptions_on_topic_id"
   end
 
   create_table "types", force: :cascade do |t|

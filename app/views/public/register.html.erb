@@ -2,8 +2,8 @@
   <div class="form-container">
     <h2>¡Tu vida cambiará<br /> a partir de este momento!</h2>
     <%= form_for(:user, :html => { :id => "register-form" }) do |f| %>
-      <div class="form-input radios">
-        <%= f.hidden_field :role_id, value: 2 %>
+      <%= f.hidden_field :role_id, value: 2 %>
+      <!--<div class="form-input radios">
         <div class="radio-container">
           <%= f.radio_button :instructor, false, :checked => true, :id => 'js-alumno' %>
           <%= f.label :instructor, "Alumno", :value => "false" %>
@@ -12,7 +12,7 @@
           <%= f.radio_button :instructor, true, :id => 'js-instructor' %>
           <%= f.label :instructor, "Instructor", :value => "true"  %>
         </div>
-      </div>
+      </div>-->
       <div class="form-input">
         <figure><%= image_tag("inputs/name.png") %></figure><!--
         --><%= f.text_field :fullname, placeholder: 'Nombres y Apellidos' %>
@@ -33,12 +33,12 @@
         <figure><%= image_tag("inputs/district.png") %></figure><!--
         --><%= f.text_field(:city, placeholder: 'Ciudad / Pais') %>
       </div>
-      <div class="form-input" id="js-sponsor" style="display:none">
+      <div class="form-input" id="js-sponsor">
         <figure><%= image_tag("inputs/referral.png") %></figure><!--
         --><%= f.text_field(:sponsor, placeholder: 'Invitado por', :value => @data) %>
       </div>
       <%= f.submit '¡REGISTRARME!' %>
     <% end %>
-    <p class="conditions">Al darle clic estas de acuerdo con todos los <br /><a href="https://drive.google.com/file/d/0BxuTJyS9NYwfa0tobEwzdGFUTWc/view?usp=sharing" target="_blank">Términos y Condiciones</a></p>
+    <p class="conditions">Al darle clic estás de acuerdo con todos los <br /><a href="https://drive.google.com/file/d/0BxuTJyS9NYwfa0tobEwzdGFUTWc/view?usp=sharing" target="_blank">Términos y Condiciones</a></p>
   </div>
 </section>

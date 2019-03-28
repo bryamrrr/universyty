@@ -19,7 +19,7 @@
           <td class="text-left">{{ payment.user.nickname }}</td>
           <td class="text-left">
             <a href="#" ng-click="openDetails(payment)" ng-if="!payment.ambassador && payment.type.id != 1">Ver</a>
-            <span ng-if="payment.ambassador && !payment.monthly">Plan Embajador</span>
+            <span ng-if="payment.ambassador && !payment.monthly">Suscripción</span>
             <span ng-if="payment.monthly">Mensualidad</span>
             <span ng-if="payment.type.id == 1">Retiro de S/ {{ payment.total | number: 0 }}</span>
           </td>

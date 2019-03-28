@@ -37,10 +37,10 @@
           <img src="/deposit.png" alt="" />
           <h5>Depósito Bancario</h5>
         </label>
-        <!-- <label for="balance" ng-class="{ selected: paymentMethod === '3' }">
+        <label for="balance" ng-class="{ selected: paymentMethod === '3' }">
           <img src="/balance.png" alt="" />
           <h5>Puntos</h5>
-        </label> -->
+        </label>
       </div>
       <div class="info-deposit" ng-show="paymentMethod === '2'">
         <h3>DÉPOSITO EN AGENTE BCP</h3>
@@ -67,7 +67,8 @@
         </ol>
       </div>
     </article>
-    <button ng-click="pay(paymentMethod, cart)" ng-disabled="isLoading || ambassador === 'true' && !monthly" ng-if="!$state.includes('sale.billing')">
+    <!-- isLoading || ambassador === 'true' && !monthly -->
+    <button ng-click="pay(paymentMethod, cart)" ng-disabled="isLoading" ng-if="!$state.includes('sale.billing')">
       Confirmar pedido por S/ 29
       <div class="loader-wrapper" ng-show="isLoading">
         <div class="loader-circles" id="loader">Loading...</div>

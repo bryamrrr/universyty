@@ -72,7 +72,7 @@ function AmbassadorPlanController($scope, $cookies, $state, CookieService, Sweet
         closeOnConfirm: true
       }, function(isConfirm){
         if (isConfirm) {
-          $state.go('ambassador.billing');
+          $state.go('user.billing');
         }
       });
     }, function (error) {

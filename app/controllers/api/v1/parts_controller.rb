@@ -2,8 +2,15 @@ class Api::V1::PartsController < Api::V1::BaseController
   def show
     part = Part.find(params[:id])
     render :json => part.to_json(:include => {
-      :topics => {}
-      })
+      :topics => {
+        :include => {
+          :auditions => {},
+          :chats => {},
+          :memorizations => {},
+          :transcriptions => {}
+        }
+      }
+    })
   end
 
   def create

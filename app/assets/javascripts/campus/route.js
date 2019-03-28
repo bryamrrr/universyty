@@ -86,7 +86,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('courses.list', {
       url: '/lista',
       data: {
-        title: 'Mis Cursos'
+        title: 'Mis Idiomas'
       },
       views: {
         'content@courses': {
@@ -182,6 +182,30 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
+    .state('user.plan', {
+      url: '/plan',
+      data: {
+        title: 'Suscripción'
+      },
+      views: {
+        'content@user': {
+          templateUrl: 'campus/ambassador/plan.html',
+          controller: 'AmbassadorPlanController'
+        }
+      }
+    })
+    .state('user.billing', {
+      url: '/facturacion',
+      data: {
+        title: 'Facturación'
+      },
+      views: {
+        'content@user': {
+          templateUrl: 'campus/ambassador/billing.html',
+          controller: 'AmbassadorBillingController'
+        }
+      }
+    })
     .state('user.password', {
       url: '/cambiar-contrasena',
       data: {
@@ -213,7 +237,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
       abstract: true,
       data: {
         'needAuth': true,
-        'title': 'Embajador'
+        'title': 'Equipo'
       },
       views: {
         dashboard: {
@@ -221,22 +245,10 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
-    .state('ambassador.plan', {
-      url: '/plan',
-      data: {
-        title: 'Plan Embajador'
-      },
-      views: {
-        'content@ambassador': {
-          templateUrl: 'campus/ambassador/plan.html',
-          controller: 'AmbassadorPlanController'
-        }
-      }
-    })
     .state('ambassador.list', {
       url: '/lista',
       data: {
-        title: 'Embajadores'
+        title: 'Mi equipo'
       },
       views: {
         'content@ambassador': {
@@ -260,7 +272,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('ambassador.preferencial', {
       url: '/preferenciales',
       data: {
-        title: 'Alumnos'
+        title: 'Invitados'
       },
       views: {
         'content@ambassador': {
@@ -278,18 +290,6 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider) {
         'content@ambassador': {
           templateUrl: 'campus/ambassador/financial.html',
           controller: 'AmbassadorFinancialController'
-        }
-      }
-    })
-    .state('ambassador.billing', {
-      url: '/facturacion',
-      data: {
-        title: 'Facturación'
-      },
-      views: {
-        'content@ambassador': {
-          templateUrl: 'campus/ambassador/billing.html',
-          controller: 'AmbassadorBillingController'
         }
       }
     })

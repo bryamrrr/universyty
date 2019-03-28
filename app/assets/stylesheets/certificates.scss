@@ -1,5 +1,5 @@
 .main-certificates {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), image-url("certificates-background.jpg") center top;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), image-url("graduates.jpg") center top;
   background-size: cover;
   padding: 15em 3em 16em;
   text-align: center;
@@ -90,7 +90,7 @@
 
 @media screen and (max-width: 480px) {
   .main-certificates {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), image-url("certificates-responsive-background.jpg") center center;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), image-url("graduates.jpg") center center;
     background-size: cover;
     button {
       margin-top: 1em;

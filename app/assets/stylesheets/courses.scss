@@ -65,7 +65,7 @@
 }
 
 .main-course {
-  background-image: image-url("course-background.jpg");
+  background-image: image-url("city.png");
   background-size: cover;
   background-repeat: no-repeat;
   padding: 6em 0 0;
@@ -99,8 +99,12 @@
   .title {
     color: $gray;
     width: 65%;
-    h1 { margin-bottom: .2em; }
+    h1 {
+      color: white;
+      margin-bottom: .2em;
+    }
     p {
+      color: white;
       font-weight: bold;
       margin-top: 0;
     }
@@ -156,6 +160,11 @@
       padding-bottom: .2em;
     }
 
+    img {
+      width: 12px;
+      &.professor-avatar { width: 100%; }
+    }
+
     .professor-info { padding-left: .5em; }
 
     p { font-size: .9em; }
@@ -206,8 +215,7 @@
 }
 
 .experts {
-  display: none;
-  background-color: $light-blue;
+  background-color: $purple;
   color: white;
   padding: 5em;
   position: relative;
@@ -226,9 +234,11 @@
     margin-top: .5em;
   }
   h3 {
+    color: $yellow;
     margin-top: 0;
-    margin-bottom: 1.5em;
+    margin-bottom: .5em;
   }
+  > p { margin-bottom: 2em; }
   .item {
     padding: 1em;
     transition: all .4s ease;

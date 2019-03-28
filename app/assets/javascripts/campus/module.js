@@ -4,4 +4,6 @@ angular.module("campus-app", [
   'ui.router',
   'ngMaterial',
   'ngValidate',
-  'oitozero.ngSweetAlert'])
+  'oitozero.ngSweetAlert',
+  'ngAudio',
+  'rzModule'])

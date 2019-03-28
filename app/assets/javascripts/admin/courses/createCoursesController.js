@@ -89,6 +89,9 @@ function CreateCourseController($scope, $state, urls, HttpRequest, toastr, valid
       certificate: {
         required: true
       },
+      language: {
+        required: true
+      },
       level: {
         required: true
       },
@@ -133,6 +136,9 @@ function CreateCourseController($scope, $state, urls, HttpRequest, toastr, valid
         required: 'Dato requerido'
       },
       certificate: {
+        required: 'Dato requerido'
+      },
+      language: {
         required: 'Dato requerido'
       },
       level: {
